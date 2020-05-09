@@ -7,14 +7,14 @@
       <versions from="4.0.0" to="4.99.99" />
     </include>
   </compatibility>
-	<name>wsa_bootstrap</name>
-	<version>1.4.4</version>
-	<creationDate>21-03-2019</creationDate>
+	<name>wsa_onepage</name>
+	<version>1.0.0</version>
+	<creationDate>9-5-2020</creationDate>
 	<author>AHC Waasdorp</author>
 	<authorEmail>info@waasdorpsoekhan.nl</authorEmail>
 	<authorUrl>http://www.waasdorpsoekhan.nl</authorUrl>
 	<copyright>AHC Waasdorp, Amsterdam 2015 - 2019</copyright>
-	<description>TPL_WSA_BOOTSTRAP_DESCRIPTION</description>
+	<description>TPL_WSA_ONEPAGE_DESCRIPTION</description>
 	<files>
 		<filename>component.php</filename>
 		<filename>favicon_as_2015.ico</filename>
@@ -386,7 +386,7 @@
 		</fields>
 	</config>
     <updateservers>
-	<server type="extension" priority="1" name="Bootstrap 3 Template"><![CDATA[https://www.waasdorpsoekhan.nl/update/wsabootstrap/wsabootstrap.xml]]></server>
+	<server type="extension" priority="1" name="One page scrolling Template"><![CDATA[https://www.waasdorpsoekhan.nl/update/wsaonepage/wsaonepage.xml]]></server>
     </updateservers>
 
 </extension>

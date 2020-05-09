@@ -1,39 +1,12 @@
 <?php defined('_JEXEC') or die;
 /*
- * @copyright  Copyright (C) 2015 - 2018 AHC Waasdorp. All rights reserved.
+ * @copyright  Copyright (C) 2020 - 2020 AHC Waasdorp. All rights reserved.
  * @license    GNU/GPL, see LICENSE
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
- * 20160121 variabele style niet meer inline, maar via template.min.<styleid>.css
- * 3-4-2016 squeezebox verwijderd ten gunste van magnific popup
- * 24-4-2016 ook begin en eind van navbar naar module-override gehaald (uit module position-1), zodat deze overal in index.php geplaatst kan worden
-* 22-5-2016 brandImage toegevoegd
-* 28-12-2016 alle achtergrond images in html en met srcset, dus geen uitvraging op Bg.size = 'html' meer,
-* wel extra images voor grotere breedte met toevoeging _lg 
-* 2-1-2017 breakpoint for sizes srcset
-* 7-1-2017 naast -lg nu ook _sm
-* 4-2-2017 ook defer bij caption.js
-* 27-4-2017 naam CSS variabel
-* 22/9/2017 http in https veranderd bij googleapis
-* 01/01/2018 6/1 voorbereidingen voor J4 door deleen van cassiopeia te kopieren en misschien aan te passen in die richting.
-// $app = JFactory::getApplication();  // using from cassiopeia
-// $doc = JFactory::getDocument();   // using J38+ Api
-//$doc = Factory::getDocument();
-// use Joomla\CMS\Document\Document;  // o.a. metadata stylesheet en script komt kennelijk overeen met $this dus overal $doc vervangen door $this
-// addStylesheet and addScript Deprecated  in 4.0 The (url, mime, defer, async) method signature is deprecated, use (url, options, attributes) instead.
-10-1-2018
-// 24-12-2018 1.4.1 december 2018 leading / deleted in images directory for use in subdomain
-25-12-2018 1.4.2 optioneel invoegen twbs js en css
-19-1-2019 timestamp als versie voor template.css
-20-1-2019 icons verplaatst
-25-1-2019 nieuwe versie BS 4
-7-2-2019 1.4.4 en minder achtergondafbeeldingen
-11-2-2019 icons weer naar onder menu
-17-2-2019 nieuwe versie bs4 (4.3.1)
-27-2-2019 enkele sidebar span4 ipv 3
-3-3-2019 door classes aangeven welke modules actief zijn in header-inner en content
+ 
 */
 
 // copied from cassiopeia
