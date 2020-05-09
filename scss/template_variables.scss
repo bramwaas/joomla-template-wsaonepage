@@ -1,0 +1,122 @@
+/* template_variables.scss */
+// standard variables for this template.
+// -------------------------20190202
+// colors
+// -------------------------
+$black:                 #000;
+$grayDarker:            #222;
+$grayDark:              #333;
+$gray:                  #555;
+$grayLight:             #999;
+$grayLighter:           #F5F5F5;
+$white:                 #fff;
+
+$graynavbarbg: 		#e5e5e5;
+$graynavbarfg: 		#555;
+$graynavbarlighter: 	#777;
+$graynavbardarker: 	#333;
+$activenavbarbg: 	#999;
+$activenavbarfg: 	#fff;
+$specialgreygradientstart: #ffffff;
+$specialgreygradientend: #e6e6e6;
+
+
+
+// Typography
+// -------------------------
+$sansFontFamily:        "Helvetica Neue", Helvetica, Arial, sans-serif;
+$serifFontFamily:       Georgia, "Times New Roman", Times, serif;
+$monoFontFamily:        Menlo, Monaco, Consolas, "Courier New", monospace;
+
+$asBaseFontSize:          12px;
+$asBiggerFontSize:        $asBaseFontSize * 1.25;
+$asBigFontSize:        	  $asBiggerFontSize * 1.5;
+$asH1FontSize:		  $asBaseFontSize * 2;
+$asBaseFontFamily:        $sansFontFamily;
+$asBaseLineHeight:        $asBaseFontSize * 1.3;
+$asBiggerLineHeight:      $asBiggerFontSize * 1.3;
+$asBigLineHeight:	  28.5px;
+
+$altFontFamily:           $monoFontFamily;
+
+$headingsFontFamily:    'Telex', sans-serif; // empty to use BS default, $asBaseFontFamily
+$headingsFontWeight:    bold;    // instead of browser default, bold
+$headingsColor:         #317EAC; // empty to use BS default, $textColor
+
+// Dimensions and position
+// ----------------------------
+$iconsMobileLeft:         0%;
+$iconsMobileWidth:         100%;
+$asMarginStd:		  auto;
+$asMarginHalf:		  auto;
+$marginArea:                1%;
+
+$wsaNavbarRightWidth: auto;
+$wsaVideoHeight:           80%;  // iets hoger dan 4x3 100 * 3 / 4% ;  100 * 9 / 16%; // 56.25%
+$wsaVideoHeightExtra:      25px;
+$wsaVideoItemWidth:        100%;
+$wsaVideoAutoItemWidth:   $container-lg;
+
+$asModLangFloat:          right;
+$bg0Z-index:		  auto;
+$bg1Z-index:		  auto;
+$bg2Z-index:		  auto;
+/* uit asha-s */
+
+
+
+
+// $asBlogLeadingWidth:      75%;
+// $asBlogItemWidth:         23.5%;
+$tagListItemWidth:        75%;
+$tagItemTitleDisplay:     none;
+$tagItemSearchDisplay:    none;
+$asMinWidthItem:          256px;
+$asFullWidth:             720px;
+$asHalfWidth:		  $asFullWidth / 2;
+$as2ColFullWidth:   	  512px;
+$as2ColHalfWidth:	  $as2ColFullWidth / 2;
+$as3ColFullWidth:         360px;
+$as3ColHalfWidth:	  $as3ColFullWidth / 2;
+
+
+
+
+//$asBlogItemWidth:           12.5%;
+
+$tagListItemWidth:          30.0%;
+$wrapperBorderRadius:         10px;
+
+// variabelen voor .blog_inline       
+$wsaInnerMargin : $marginArea / 2;
+// aantal margins is aantal kolommen plus 1 van 100% aftrekken :> ruimte voor inhoud, deze delen door aantal kolommen.
+$wsa02Col : (100% - (3 * $wsaInnerMargin)) / 2 ;
+$span6 : $wsa02Col;
+$wsa03Col : (100% - (4 * $wsaInnerMargin)) / 3 ;
+$span4 : $wsa03Col;
+$wsa04Col : (100% - (5 * $wsaInnerMargin)) / 4 ;
+$span3 : $wsa04Col;
+$wsa05Col : (100% - (6 * $wsaInnerMargin)) / 5 ;
+$wsa06Col : (100% - (7 * $wsaInnerMargin)) / 6 ; 
+$span2 : $wsa06Col;
+$wsa07Col : (100% - (8 * $wsaInnerMargin)) / 7 ; 
+$wsa08Col : (100% - (9 * $wsaInnerMargin)) / 8 ;
+$wsa09Col : (100% - (10 * $wsaInnerMargin)) / 9 ; 
+$wsa10Col : (100% - (11 * $wsaInnerMargin)) / 10 ;
+$wsa11Col : (100% - (12 * $wsaInnerMargin)) / 11 ;
+$wsa12Col : (100% - (13 * $wsaInnerMargin)) / 12 ; 
+$span1 : $wsa12Col;
+
+
+// Large screen / wide desktop   tijdelijk bs3 type vaste breakpoints
+$screen-xl-min:              1200px;
+$screen-xxl-min:             1440px;
+$screen-xxxl-min:            1600px;
+
+//** Deprecated `$screen-lg-desktop` as of v3.0.1
+$screen-lg-desktop:          $screen-lg-min;
+
+// So media queries don't overlap when required, provide a maximum
+$screen-lg-max:              ($screen-xl-min - 1);
+$screen-xl-max:              ($screen-xxl-min - 1);
+$screen-xxl-max:             ($screen-xxxl-min - 1);

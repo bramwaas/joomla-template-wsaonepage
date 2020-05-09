@@ -1,0 +1,111 @@
+; Author A.H.C. Waasdorp
+; Copyright (C) 2015 -2017 A.H.C. Waasdorp. All rights reserved.
+; license GNU General Public License version 2 or later; see LICENSE.txt, see LICENSE.php
+; Note : All ini files need to be saved as UTF-8
+; 1-2-2019
+COM_TEMPLATES_BACKGROUND_FIELDSET_LABEL="Achtergrond"
+COM_TEMPLATES_DEVELOPER_FIELDSET_LABEL="Ontwikkelaar"
+COM_TEMPLATES_NAVBAR_FIELDSET_LABEL="Navbar"
+COM_TEMPLATES_DOCUMENTATION_FIELDSET_LABEL="Documentatie"
+COMPRESS_CSS_LABEL="Comprimeer Css"
+COMPRESS_CSS_DESCRIPTION="Comprimeer Css"
+TPL_WSA_BOOTSTRAP_DESCRIPTION="Basis Template met bootstrap 3 Joomla 3"
+EXPLANATION0="Onderste laag achtergrond (browserachtergrond)."
+EXPLANATION1="Tweede laag achtergrond (container achtergrond)"
+EXPLANATION2="Derde laag achtergrond (bv. logo)"
+COMPILE_LABEL="Compileer SCSS files:" 
+COMPILE_DESCRIPTION="Creeer en compileer SCSS files."
+BRANDIMAGE_LABEL="Brand image:" 
+BRANDIMAGE_DESCRIPTION="Selecteer een afbeelding"
+BRANDSIZE_LABEL="Grootte / eenheid afbeelding"
+BRANDSIZE_DESCRIPTION="Grootte of maateenheid afbeelding."
+BRANDWIDTH_LABEL="Breedte afbeelding"
+BGIMAGE_LABEL="Achtergrond afbeelding:"
+BGIMAGE_DESCRIPTION="Selecteer een afbeelding."
+BGIMAGEW_LABEL="Breedte afbeelding:"
+BGIMAGEW_DESCRIPTION="Breedte afbeelding in px"
+BGIMAGEH_LABEL="Hoogte afbeelding:"
+BGIMAGEH_DESCRIPTION="Hoogte afbeelding in px"
+BGIMAGE_LABEL_LG="Afbeelding gr:"
+BGIMAGE_DESCRIPTION_LARGE="Selecteer een afbeelding voor groot scherm"
+BGIMAGELGW_LABEL="Breedte afbeelding gr:"
+BGIMAGELGW_DESCRIPTION="Breedte afbeelding voor groot scherm in px"
+BGBREAKPOINT_LABEL-LG="Grens groot px"
+BGBREAKPOINT_DESCRIPTION-LG="Grenswaarde voor grote afbeelding in px (bv 768), of leeg"
+BGBREAKPOINT_LABEL-SM="Grens klein px"
+BGBREAKPOINT_DESCRIPTION-SM="Grenswaarde voor kleine afbeelding in px (bv 400), of lee"
+BGIMAGE_LABEL_SM="Afbeelding klein:"
+BGIMAGE_DESCRIPTION_SMALL="Selecteer een afbeelding voor klein scherm"
+BGIMAGESMW_LABEL="Breedte afbeelding klein:"
+BGIMAGESMW_DESCRIPTION="Breedte afbeelding voor klein scherm in px"
+WSA_DISPLAYSITENAME_LABEL="Toon sitenaam:"
+WSA_DISPLAYSITENAME_DESCRIPTION="Toon sitenaam in menubalk."
+
+WSA_BREAKPOINTXS_LABEL="Breakpoint xs:"
+WSA_BREAKPOINTXS_DESCRIPTION="Extra Breakpoint en Container xs kleiner dan sm (576px)"
+WSA_BREAKPOINTXS_HINT="320"
+WSA_BREAKPOINTXXL_LABEL="Breakpoint xxl:"
+WSA_BREAKPOINTXXL_DESCRIPTION="Extra Breakpoint xxl groter dan xl (1200px)"
+WSA_BREAKPOINTXXL_HINT="1440"
+WSA_BREAKPOINTXXXL_LABEL="Breakpoint xxxl:"
+WSA_BREAKPOINTXXXL_DESCRIPTION="Extra Breakpoint xxxl groter dan xxl"
+WSA_BREAKPOINTXXXL_HINT="1600"
+WSA_CONTAINERXXL_LABEL="Container xxl:"
+WSA_CONTAINERXXL_DESCRIPTION"Maxwidth Container xxl groter dan xl (1140px)"
+WSA_CONTAINERXXL_HINT="1368"
+WSA_CONTAINERXXXL_LABEL="Container xxl:"
+WSA_CONTAINERXXXL_DESCRIPTION"Maxwidth Container xxxl groter dan xxl"
+WSA_CONTAINERXXXL_HINT="1520"
+
+WSA_NAVBAREXPAND_LABEL="Navbar expand:"	
+WSA_NAVBAREXPAND_DESCRIPTION="Navigatie balk openen vanaf breedte"	
+WSA_NAVBAREXPAND_SM="Small"
+WSA_NAVBAREXPAND_MD="Medium"
+WSA_NAVBAREXPAND_LG="Large"
+WSA_NAVBAREXPAND_XL="Extra large"
+WSA_NAVBAREXPAND_XXL="X Extra large"
+WSA_NAVBAREXPAND_XXXL="XX Extra large"
+
+
+WSA_NAVTEXT_LABEL="Navtext(rechts):"
+WSA_NAVTEXT_DESCRIPTION="Tekst of Html rechts in navbar"
+WSA_NAVTEXT_HINT="bv: <span class='navbar-text'>Navbar text with an inline element</span>"
+WSA_NAVBARRIGHT_LABEL="Breedte NavbarRight:"
+WSA_NAVBARRIGHT_DESCRIPTION="Breedte NavbarRight module in pixels "
+
+
+TPL_WSABOOTSTRAP_INCLUDE_TWBS_CSS="WsaTWBS css invoegen"
+TPL_WSABOOTSTRAP_INCLUDE_TWBS_CSS_DESC="Twitter bootstrap css invoegen."
+TPL_WSABOOTSTRAP_INCLUDE_TWBS_JS="WsaTWBS js invoegen"
+TPL_WSABOOTSTRAP_INCLUDE_TWBS_JS_DESC="Twitter bootstrap javascript expliciet invoegen."
+TPL_WSABOOTSTRAP_TWBS_VERSION="Gebruik TWBS versie 3 of 4"
+TPL_WSABOOTSTRAP_TWBS_VERSION_DESC="Gebruik twitter bootstrap versie 3 of 4"
+TPL_WSABOOTSTRAP_INCLUDE_MP="Magnific popup invoegen"
+TPL_WSABOOTSTRAP_INCLUDE_MP_DESC="Magnific popup javascript en css invoegen."
+
+BGPOSITION_LABEL="Eenheid achtergrond:"
+BGPOSITION_DESCRIPTION="Eenheid getoonde afbeelding."
+BGWIDTH_LABEL="Achtergrond breedte:"
+BGTOP_LABEL="Marge boven getoonde afbeelding:"
+BGLEFT_LABEL="Marge links van getoonde afbeelding:"
+BGPERCENTAGE="Percentage van achtergrond"
+BGPIXELS="Pixels"
+BGCOLOR_LABEL="afbeelding kleur:"
+WSA-DOCUMENTATION="Wijzigingen worden pas effectief na opslaan template style met Ontwikkelaar / Compileer LESS files: JA.<br><br>
+   CSS classe voor inline blog en getagde items lay-out<br>
+   (hoofd artikelen in 1,2, or 3 kolommen andere artickelen 1 ... 6, 8 (allen blog), 12 kolommen):<br>
+   algemeen: blog tab Paginaweergave paginaclass:  (blog standaard).<br>
+   algemeen: getagde items tab Paginaweergave paginaclass:  blog.<br>
+   hoofdartikelen > 1 kolom: (alleen) blog tab Paginaweergave paginaclass: (extra) lead-cols-2 or lead-cols-3. <br>
+   andere artikelen: blog tab Blogweergave # Kolommen: 1...6 of 8 of 12.<br>
+   andere artikelen: getagde items tab Paginaweergave paginaclass: cols-2...6.<br>
+   "
+WSA_CUSTOMCSS_LABEL="Custom css:"
+WSA_CUSTOMCSS_DESCRIPTION="Voeg custom css toe via custom less bestand in dir images/scss" 
+WSA_CSS_FILENAME_LABEL="CSS bestandnaam:"
+WSA_CSS_FILENAME_DESCRIPTION="CSS bestandnaam indien ingevuld"
+WSA_PREPARE_CONTENT_LABEL="Bereid voor op inhoud:"
+WSA_PREPARE_CONTENT_DESCRIPTION="Bereidt voor op inhoud van ander module"
+
+WSA_TIME_LABEL="Css-versie"
+WSA_TIME_DESCRIPTION="CSS versie dmv timestamp"

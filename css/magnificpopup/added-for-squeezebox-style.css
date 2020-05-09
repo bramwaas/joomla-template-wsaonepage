@@ -1,0 +1,40 @@
+/* added bram waasdorp 2060403 */
+.mfp-bg {
+  background: black; 
+  opacity: 0.65;
+}
+.mfp-iframe-holder button.mfp-close,
+.mfp-image-holder button.mfp-close,
+.mfp-container button.mfp-close
+{ 
+background: url(../../images/magnificpopup/closebox.png) no-repeat right;
+height: 32px;
+width: 32px;
+line-height: 10px;
+top:21px; /* must be the same as margin top of image - 15 */
+right: 5px; /* must be the same as margin right of figure - 15 */
+padding-right: 5px;
+}
+.mfp-iframe-holder figure,
+.mfp-image-holder figure 
+{
+margin: 0 20px;
+}
+div.mfp-figure:after {
+  display: none;  
+}
+.mfp-iframe-holder img.mfp-img,
+.mfp-image-holder img.mfp-img 
+{
+margin: 36px auto;
+padding:10px 10px;
+background: white;
+border-radius: 3px;
+box-shadow: 2px 2px 3px 4px #000 ; /* not in squeezebox */
+}
+.mfp-title {
+   padding-left: 20px;
+}
+.mfp-bottom-bar { /* must be the same as margin bottom of image (36px title max 2 lines then slider can come in) */
+    margin-top: -36px;
+    }

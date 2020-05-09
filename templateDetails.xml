@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE install PUBLIC "-//Joomla! 2.5//DTD template 1.0//EN" "https://www.joomla.org/xml/dtd/2.5/template-install.dtd">
+<extension version="3.8" type="template" client="site" method="upgrade">
+  <compatibility>
+    <include>
+      <versions from="3.8.0" to="3.99.99" />
+      <versions from="4.0.0" to="4.99.99" />
+    </include>
+  </compatibility>
+	<name>wsa_bootstrap</name>
+	<version>1.4.4</version>
+	<creationDate>21-03-2019</creationDate>
+	<author>AHC Waasdorp</author>
+	<authorEmail>info@waasdorpsoekhan.nl</authorEmail>
+	<authorUrl>http://www.waasdorpsoekhan.nl</authorUrl>
+	<copyright>AHC Waasdorp, Amsterdam 2015 - 2019</copyright>
+	<description>TPL_WSA_BOOTSTRAP_DESCRIPTION</description>
+	<files>
+		<filename>component.php</filename>
+		<filename>favicon_as_2015.ico</filename>
+		<filename>favicon_ws.ico</filename>
+		<filename>index.php</filename>
+		<filename>templateDetails.xml</filename>
+		<filename>template_preview.png</filename>
+		<filename>template_thumbnail.png</filename>
+		<filename>LICENSE</filename>
+		<folder>css</folder>
+		<folder>fields</folder>
+		<folder>html</folder>
+		<folder>img</folder>
+		<folder>images</folder>
+		<folder>js</folder>
+		<folder>language</folder>
+		<folder>rules</folder>
+		<folder>scss</folder>
+	</files>
+
+	<positions>
+		<position>logo</position>
+       	<position>breadcrumb</position>
+    	<position>headerleft</position>
+    	<position>icons</position>
+		<position>left</position>
+		<position>navbar-brand</position>
+		<position>navbar-right</position>
+		<position>right</position>
+		<position>top</position>
+		<position>topright</position>
+		<position>position-0</position>
+		<position>position-1</position>
+		<position>position-2</position>
+		<position>position-3</position>
+		<position>position-4</position>
+		<position>position-5</position>
+		<position>position-7</position>
+		<position>position-8</position>
+		<position>position-9</position>
+		<position>posleftnav</position>
+		<position>messageIE</position>	
+		<position>debug</position>
+	</positions>
+
+	<languages folder="language">
+        	<language tag="en-GB">en-GB/en-GB.tpl_wsa_bootstrap.ini</language>
+        	<language tag="en-GB">en-GB/en-GB.tpl_wsa_bootstrap.sys.ini</language>
+         	<language tag="nl-NL">nl-NL/nl-NL.tpl_wsa_bootstrap.ini</language>
+        	<language tag="nl-NL">nl-NL/nl-NL.tpl_wsa_bootstrap.sys.ini</language>
+ 	</languages>
+	<config>
+		<fields name="params" addfieldpath="/templates/wsa_bootstrap/fields" addrulepath="/templates/wsa_bootstrap/rules">
+			<fieldset name="Background">
+				<field name="explanation0"  type="spacer" hr="false"
+					 />
+				<field name="bg0Color"  type="color" default=""
+					label="BGCOLOR_LABEL"
+					description="Background color name or #RGB, #000000 = black, #FF0000 = red, #00FF00 = green, #0000FF = blue, #FFFFFF = white, default #080810  "
+					 />
+				<field name="explanation1"  type="spacer" hr="false"
+					 />
+				<field name="bg1Image" type="media" default="" 
+                                       	label="BGIMAGE_LABEL" description="BGIMAGE_DESCRIPTION" />
+				<field name="bg1ImageW"  class="validate-numeric" type="text" default=""
+					label="BGIMAGEW_LABEL"
+					description="BGIMAGEW_DESCRIPTION"
+					 />	
+				<field name="bg1ImageH"  class="validate-numeric" type="text" default=""
+					label="BGIMAGEH_LABEL"
+					description="BGIMAGEH_DESCRIPTION"
+					 />	
+				<field name="bg1Image_lg" type="media" default="" 
+                                       	label="BGIMAGE_LABEL_LG" description="BGIMAGE_DESCRIPTION_LARGE" />
+				<field name="bg1Image_lgW"  class="validate-numeric" type="text" default=""
+					label="BGIMAGELGW_LABEL"
+					description="BGIMAGELGW_DESCRIPTION"
+					 />	
+				<field name="bg1Breakpoint_lg"  class="validate-numeric" type="text" default=""
+					label="BGBREAKPOINT_LABEL-LG"
+					description="BGBREAKPOINT_DESCRIPTION-LG"
+					 />	
+				<field name="bg1Image_sm" type="media" default="" 
+                                       	label="BGIMAGE_LABEL_SM" description="BGIMAGE_DESCRIPTION_SMALL" />
+				<field name="bg1Image_smW"  class="validate-numeric" type="text" default=""
+					label="BGIMAGESMW_LABEL"
+					description="BGIMAGESMW_DESCRIPTION"
+					 />	
+				<field name="bg1Breakpoint_sm"  class="validate-numeric" type="text" default=""
+					label="BGBREAKPOINT_LABEL-SM"
+					description="BGBREAKPOINT_DESCRIPTION-SM"
+					 />	
+				<field name="bg1Width"   class="validate-numeric" type="text" default="80.0"
+					label="BGWIDTH_LABEL"
+					description="Width background image if Size = percentage or pixels"
+					 />
+				<field name="bg1Pos" type="list" default="%"
+					label="BGPOSITION_LABEL"	
+ 				    description="BGPOSITION_DESCRIPTION"
+				>
+					<option value="%">BGPERCENTAGE</option>
+					<option value="px">BGPIXELS</option>
+				</field>
+				<field name="bg1Top"  class="validate-numeric" type="text" default=""
+					label="BGTOP_LABEL"
+					description="Background image margin top"
+					 />	
+				<field name="bg1Left"  class="validate-numeric" type="text" default=""
+					label="BGLEFT_LABEL"
+					description="Background image margin left"
+					 />					 
+				<field name="bg1Color"  type="color" default=""
+					label="BGCOLOR_LABEL"
+					description="Background color name or #RGB, #000000 = black, #FF0000 = red, #00FF00 = green, #0000FF = blue, #FFFFFF = white, default #080810  "
+					 />
+			</fieldset>
+			<fieldset name="Advanced">
+				<field name="explanation3"  type="spacer" hr="false"
+					label="Other lay-out variables. &lt;br /&gt;"
+					 />
+				<field name="wsaBreakpointes"  class="validate-numeric" type="text" default=""
+					label="WSA_BREAKPOINTES_LABEL"
+					description="WSA_BREAKPOINTES_DESCRIPTION"
+					hint="WSA_BREAKPOINTES_HINT"
+					 />
+				<field name="wsaContainerxxl"  class="validate-numeric" type="text" default=""
+					label="WSA_CONTAINERXXL_LABEL"
+					description="WSA_CONTAINERXXL_DESCRIPTION"
+					hint="WSA_CONTAINERXXL_HINT"
+					 />
+				<field name="wsaBreakpointxxl"  class="validate-numeric" type="text" default=""
+					label="WSA_BREAKPOINTXXL_LABEL"
+					description="WSA_BREAKPOINTXXL_DESCRIPTION"
+					hint="WSA_BREAKPOINTXXL_HINT"
+					 />
+				<field name="wsaContainerxxxl"  class="validate-numeric" type="text" default=""
+					label="WSA_CONTAINERXXXL_LABEL"
+					description="WSA_CONTAINERXXXL_DESCRIPTION"
+					hint="WSA_CONTAINERXXXL_HINT"
+					 />
+				<field name="wsaBreakpointxxxl"  class="validate-numeric" type="text" default=""
+					label="WSA_BREAKPOINTXXXL_LABEL"
+					description="WSA_BREAKPOINTXXXL_DESCRIPTION"
+					hint="WSA_BREAKPOINTXXXL_HINT"
+					 />
+				<field name="wsaNavbarExpand" type="list" default="navbar-expand-md"
+					label="WSA_NAVBAREXPAND_LABEL"	
+ 				    description="WSA_NAVBAREXPAND_DESCRIPTION"
+				>
+					<option value="navbar-expand-sm">WSA_NAVBAREXPAND_SM</option>
+					<option value="navbar-expand-md">WSA_NAVBAREXPAND_MD</option>
+					<option value="navbar-expand-lg">WSA_NAVBAREXPAND_LG</option>
+					<option value="navbar-expand-xl">WSA_NAVBAREXPAND_XL</option>
+					<option value="navbar-expand-xxl">WSA_NAVBAREXPAND_XXL</option>
+					<option value="navbar-expand-xxxl">WSA_NAVBAREXPAND_XXXL</option>
+				</field>
+					 
+				<field name="fgColor"  type="color" default=""
+					label="Foreground color:"
+					description="If not empty overwrite color of most texts .  Color name or #RGB, #000000 = black, #FF0000 = red, #00FF00 = green, #0000FF = blue, #FFFFFF = white, default empty"
+					 />
+				<field name="marginLeftRight"  class="validate-numeric" type="text" default="2.0"
+					label="Margins left and right:"
+					description="Margins left and right as percentage"
+					 />
+				<field name="hlMarginTop"  class="validate-numeric" type="text" default="1.0"
+					label="Margin top headerleft block:"
+					description="Margin top headerleft block as percentage"
+					 />
+				<field name="hlMarginLeft"  class="validate-numeric" type="text" default="0.0"
+					label="Margin left headerleft block:"
+					description="Margin left headerleft block as percentage"
+					 />
+				<field name="hlWidth"  class="validate-numeric" type="text" default="25"
+					label="Width headerleft block:"
+					description="Width headerleft block as percentage, 100 = full screen"
+					 />
+				<field name="hlHeight"  class="validate-numeric" type="text" default="25"
+					label="Heigh headerleft block:"
+					description="Height headerleft block as percentage, 100 = full screen"
+					 />
+				<field name="hlMarginBottom"  class="validate-numeric" type="text" default="0.0"
+					label="Margin bottom headerleft block:"
+					description="Margin bottom headerleft block as percentage"
+					 />
+				<field name="iconsWidth"  class="validate-numeric" type="text" default="24.5"
+					label="Width icons:"
+					description="Width icons social media as percentage of pagewidth"
+					 />
+				<field name="wsaIconsFlex" type="radio" class="switcher btn-group" default="row" label="WSA_ICONSFLEX" >
+					<option value="row">WSA_LTR</option>
+					<option value="row-reverse">WSA_RTL</option>
+				</field>
+				<field name="iconsPosTop"  class="validate-numeric" type="text" default="0.0"
+					label="Top margin icons:"
+					description="Position top icons as percentage of height, 0 = top, 100 = (under) bottom"
+					 />
+				<field name="itemPageWidth"  class="validate-numeric" type="text" default=""
+					label="Width single article:"
+					description="Width single article as percentage"
+					 />
+				<field name="itemVideoHeight"  class="validate-numeric" type="text" default="56.25"
+					label="Height % Video:"
+					description="Height / Width percentage iframe (of video)."
+					/>
+				<field name="expl-blog-lead"  type="spacer" hr="false"
+					label="Dimensions blog leading articles."
+					 />
+				<field name="itemLeadHeight"  class="validate-numeric" type="text" default=""
+					label="Row height leading:"
+					description="Row height leading articles."
+					/>
+				<field name="itemLeadWidth"  class="validate-numeric" type="text" default=""
+					label="Article width leading:"
+					description="Width leading article."
+					/>
+				<field name="itemLeadMargin"  class="validate-numeric" type="text" default=""
+					label="Margin leading:"
+					description="Margin leading articles."
+					/>
+				<field name="expl-blog-articles"  type="spacer" hr="false"
+					label="Dimensions blog other articles."
+					 />
+				<field name="itemHeight"  class="validate-numeric" type="text" default=""
+					label="Row height:"
+					description="Row height articles."
+					/>
+				<field name="itemWidth"  class="validate-numeric" type="text" default=""
+					label="Article width:"
+					description="Width article."
+					/>
+				<field name="itemMargin"  class="validate-numeric" type="text" default=""
+					label="Margin:"
+					description="Margin between articles."
+					/>
+			</fieldset>
+			<fieldset name="Navbar">
+				<field name="brandImage" type="media" default="" 
+                                       	label="BRANDIMAGE_LABEL" description="BRANDIMAGE_DESCRIPTION" />
+				<field name="brandSize" type="list" default=""
+					label="BRANDSIZE_LABEL"	
+ 				    description="BRANDSIZE_DESCRIPTION"
+				>
+					<option value="auto">Size of image</option>
+					<option value="%">Width percentage of background</option>
+					<option value="px">Width in pixels</option>
+				</field>
+				<field name="brandWidth"   class="validate-numeric" type="text" default=""
+					label="BRANDWIDTH_LABEL"
+					description="Width brand image"
+					 />
+				<field name="menuFontSize"   type="text" default=""
+					label="Menu text size:"
+					description="Menu text font size (pixels)."
+					 />
+				<field name="menuDisplay" type="list" default=""
+					label="Horizontal menu"	
+ 				    description="Underline menu text."
+				>
+					<option value="">Default</option>
+					<option value="inline">Horizontal</option>
+					<option value="inline-block center">Horizontal centered</option>
+					<option value="inline-block left">Horizontal left</option>
+					<option value="inline-block right">Horizontal right</option>
+					<option value="block">Vertical (down)</option>
+				</field>
+				<field name="menuType" type="list" default=""
+					label="Type menu"	
+ 				    description="Type backround inverse etc. of menu"
+				>
+					<option value="navbar-light bg-light">Default</option>
+					<option value="navbar-light bg-transparent">Transparent</option>
+					<option value="navbar-dark bg-dark">Inverse</option>
+					<option value="navbar-dark bg-transparent">Inverse Transparent</option>
+  					<option value="navbar-light bg-light navbar-fixed-top">Default fixed top</option>
+  					<option value="navbar-light bg-light navbar-fixed-bottom">Default fixed bottom</option>
+  					<option value="navbar-light bg-light navbar-static-top">Default static top</option>
+  					<option value="navbar-dark bg-dark navbar-fixed-top">Inverse fixed top</option>
+  					<option value="navbar-dark bg-dark navbar-fixed-bottom">Inverse fixed bottom</option>
+  					<option value="navbar-dark bg-dark navbar-static-top">Inverse static top</option>
+                
+				</field>
+				<field name="displaySitename" type="list" default="1" label="WSA_DISPLAYSITENAME_LABEL" description="WSA_DISPLAYSITENAME_DESCRIPTION">
+					<option value="1">JYES</option>
+					<option value="2">JNO</option>
+				</field>
+				<field name="menuColor"  type="color" default=""
+					label="Menutext color:"
+					description="If not empty overwrite color of menu text. Default empty  "
+					 />
+				<field name="menuActiveColor"  type="color" default=""
+					label="Menuactive color:"
+					description="If not empty overwrite color of active menu text. Default empty  "
+					 />
+				<field name="menuDisabledColor"  type="color" default=""
+					label="Menudisabled color:"
+					description="If not empty overwrite color of disabled menu text. Default empty  "
+					 />
+				<field name="menuBgColor"  type="color" default=""
+					label="Menubackground color:"
+					description="If not empty overwrite color of menu background. Default empty  "
+					 />
+				<field name="wsaNavbarRightWidth"  class="validate-numeric" type="text" default="340"
+					label="WSA_NAVBARRIGHT_LABEL"
+					description="WSA_NAVBARRIGHT_DESCRIPTION"
+					 />
+					 
+				<field
+					name="wsaNavtext"
+					type="textarea"
+					label="WSA_NAVTEXT_LABEL"
+					description="WSA_NAVTEXT_DESCRIPTION"
+					hint="WSA_NAVTEXT_HINT"
+					rows="10"
+					cols="12"
+					filter="raw"
+				/>
+				<field name="menuActiveBgColor"  type="color" default=""
+					label="Menuactivebg color:"
+					description="If not empty overwrite color of active menu background. Default empty  "
+					 />
+			</fieldset>
+			<fieldset name="Developer" addfieldpath="/templates/wsa_bootstrap/fields" addrulepath="/templates/wsa_bootstrap/rules">
+				<field name="compile" type="radio"
+					class="btn-group btn-group-yesno"
+ 					label="COMPILE_LABEL" default="1"
+					description="COMPILE_DESCRIPTION" validate="wsa.compiler">
+  					<option value="1">JYES</option>
+  					<option value="0">JNO</option>
+				</field>
+				<field name="compress" type="radio"
+					class="btn-group btn-group-yesno"
+ 					label="COMPRESS_CSS_LABEL" default="1"
+					description="COMPRESS_CSS_DESCRIPTION" >
+  					<option value="1">JYES</option>
+  					<option value="0">JNO</option>
+				</field>
+			 	<field name="wsaCustomSCSS" type="filelist" directory="images/scss" hide_default="true"
+                   	label="WSA_CUSTOMCSS_LABEL" 
+                   	description="WSA_CUSTOMCSS_DESCRIPTION"
+                   	/>
+				<field name="wsaCssFilename"  type="text" default=""
+					label="WSA_CSS_FILENAME_LABEL"
+					description="WSA_CSS_FILENAME_DESCRIPTION"
+                   	/>
+				<field name="include_twbs_css" type="radio" class="switcher btn-group" default="1" label="TPL_WSABOOTSTRAP_INCLUDE_TWBS_CSS" description="TPL_WSABOOTSTRAP_INCLUDE_TWBS_CSS_DESC" >
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="include_twbs_js" type="radio" class="switcher btn-group" default="1" label="TPL_WSABOOTSTRAP_INCLUDE_TWBS_JS" description="TPL_WSABOOTSTRAP_INCLUDE_TWBS_JS_DESC" >
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="twbs_version" type="radio" class="switcher btn-group" default="3" label="TPL_WSABOOTSTRAP_TWBS_VERSION" description="TPL_WSABOOTSTRAP_TWBS_VERSION_DESC" >
+					<option value="3">3.3.7</option>
+					<option value="4">4.3.1</option>
+				</field>
+				<field name="wsaTime" type="calendar" default="NOW" label="WSA_TIME_LABEL" description="WSA_TIME_DESCRIPTION"
+	class="input-medium" required="true" filter="user_utc" format="%Y-%m-%d %H:%M:%S"
+	singleheader="true" showtime="true" timeformat="24" todaybutton="true" weeknumbers="true"
+	filltable="true" readonly="false" />
+	
+			</fieldset>
+			<fieldset name="Documentation" >
+				<field name="explanation4"  type="spacer" hr="false"
+					label="WSA-DOCUMENTATION"
+ 					 />
+			</fieldset>
+		</fields>
+	</config>
+    <updateservers>
+	<server type="extension" priority="1" name="Bootstrap 3 Template"><![CDATA[https://www.waasdorpsoekhan.nl/update/wsabootstrap/wsabootstrap.xml]]></server>
+    </updateservers>
+
+</extension>

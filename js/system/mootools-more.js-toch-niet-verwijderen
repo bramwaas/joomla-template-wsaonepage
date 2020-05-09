@@ -1,0 +1,1 @@
+/* override van /media/system/js/mootools-more.js vanwege conflict met bootstrap 3 dropdown (toevoegen display: none;) */
