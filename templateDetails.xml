@@ -3,7 +3,7 @@
 <extension version="3.8" type="template" client="site" method="upgrade">
   <compatibility>
     <include>
-      <versions from="3.8.0" to="3.99.99" />
+      <versions from="3.9.18" to="3.99.99" />
       <versions from="4.0.0" to="4.99.99" />
     </include>
   </compatibility>
@@ -13,7 +13,7 @@
 	<author>AHC Waasdorp</author>
 	<authorEmail>info@waasdorpsoekhan.nl</authorEmail>
 	<authorUrl>http://www.waasdorpsoekhan.nl</authorUrl>
-	<copyright>AHC Waasdorp, Amsterdam 2015 - 2019</copyright>
+	<copyright>AHC Waasdorp, Amsterdam 2020 - 2020</copyright>
 	<description>TPL_WSA_ONEPAGE_DESCRIPTION</description>
 	<files>
 		<filename>component.php</filename>
@@ -33,6 +33,7 @@
 		<folder>language</folder>
 		<folder>rules</folder>
 		<folder>scss</folder>
+		<folder>vendor</folder>
 	</files>
 
 	<positions>
@@ -61,13 +62,13 @@
 	</positions>
 
 	<languages folder="language">
-        	<language tag="en-GB">en-GB/en-GB.tpl_wsa_bootstrap.ini</language>
-        	<language tag="en-GB">en-GB/en-GB.tpl_wsa_bootstrap.sys.ini</language>
-         	<language tag="nl-NL">nl-NL/nl-NL.tpl_wsa_bootstrap.ini</language>
-        	<language tag="nl-NL">nl-NL/nl-NL.tpl_wsa_bootstrap.sys.ini</language>
+        	<language tag="en-GB">en-GB/en-GB.tpl_wsa_onepage.ini</language>
+        	<language tag="en-GB">en-GB/en-GB.tpl_wsa_onepage.sys.ini</language>
+         	<language tag="nl-NL">nl-NL/nl-NL.tpl_wsa_onepage.ini</language>
+        	<language tag="nl-NL">nl-NL/nl-NL.tpl_wsa_onepage.sys.ini</language>
  	</languages>
 	<config>
-		<fields name="params" addfieldpath="/templates/wsa_bootstrap/fields" addrulepath="/templates/wsa_bootstrap/rules">
+		<fields name="params" addfieldpath="/templates/wsa_onepage/fields" addrulepath="/templates/wsa_onepage/rules">
 			<fieldset name="Background">
 				<field name="explanation0"  type="spacer" hr="false"
 					 />

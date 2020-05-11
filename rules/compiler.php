@@ -8,34 +8,7 @@
  */
 /* regel voor validatie type compiler, bedoeld om samenstellen en compileren Less bestanden uit te voeren vlak voor
    de save  
-v 23-2-2016
-v 20-3-2016 bootstrap 3
-V 6-4-2016 magnific popup
-V 24-4-2016 dropdown menu in apart .less bestand
-V 16-5-2016 kleuren dropdownmenu variabel gemaakt.
-V 18-5-2016 compiler uit template.php gebruikt, deze werkt beter met mixins en functies
-V 19-5-2016 kleine aanpassing instellingen compiler
-V 22-5-2016 brandImage toegevoegd
-V 27-5-2016 kleuren navbar toggle button
-V 29-5-2016 breakpointmobile verwijderd.
-V juni 2016 overgang naar SASS (scss)
-v 12-6-2016 fout in bg1Pos (weer) opgelost
-v 15-7-2016 grid.scss toegevoegd
-v 28-12-2016 alle backgroundimages via html niet meer css, wel twee groottes
-v 2-1-2017 breakpoint voor sizes
-v 5-1-2017 ook breakpoint small
-v 27-4-2017 andere naam css mogelijk ook templatestyleid overal doorgevoerd.
-v 7-1-2018 J3.8 j4 namespace
-v 19-1-2019 custom scss
-v 20-1-2019 wsaNavbarRightWidth
-v 25-1-2019 bootstrap 4 .scss files toegevoegd ter voorbereiding op uitbreiding breakpoints
-v 30-1-2019 uitbreiding breakpoints voorwasardelijk in style<...>.scss schrijven ipv in apart .scss file.
-V 2-2-2019 nieuwe versie van Leafo\ScssPhp\Compiler 0.7.6
-V 6-2-2019 navbar kleuren default bs4 ipv 3
-v 7-2 2019 nog maar 1 set achtergondafbeeldingen en 2 kleuren.
-v 10-2-2019 naam veranderd en enkele aanpassingen voor v4 naam van het bestand moet compiler.php blijven, omdat deze gemoemd wordt in validat cluasule van compiler veld
-v 11-2-2019 params as an object
-v 20-3-2019 border en active link colors nav-bar
+
 	*/
  
 defined('_JEXEC') or die('caught by _JEXEC');
