@@ -88,20 +88,12 @@ $this->setMetaData( 'viewport', 'width=device-width, initial-scale=1.0, shrink-t
 $this->addStyleSheet('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:700' , array('version'=>'auto'), array('id'=>'googleapis-fonts.css'));
 // bootstrap stylesheets van cdn
 
-if ($twbs_version == "3") {
-   if ($include_twbs_css == "1") {
-	$attribs = array('id'=>'bootstrap.min.css', 'integrity' => 'sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u', 'crossorigin' => 'anonymous');
-	$this->addStyleSheet('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', array('version'=>'3.3.7'),  $attribs);
-	$attribs = array('id'=>'bootstrap-theme.min.css', 'integrity' => 'sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp', 'crossorigin' => 'anonymous');
-	$this->addStyleSheet('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css' , array('version'=>'3.3.7'), $attribs);
-   }
-}
-else {
-	if ($include_twbs_css == "1") {
+// alleen nog twbs 4
+if ($include_twbs_css == "1") {
 	$attribs = array('id'=>'bootstrap.min.css', 'integrity' => 'sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T', 'crossorigin' => 'anonymous');
 	$this->addStyleSheet('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css', array('version'=>'4.3.1'),  $attribs);
 	}
-}	
+	
 
 // template stijl
 $attribs = array('id'=>'template.css');
@@ -112,17 +104,27 @@ $this->addStyleSheet('templates/' . $this->template . '/css/' . 'scrolling-nav.c
 
 //HTMLHelper::_('jquery.framework');  // to be sure that jquery is loaded before dependent javascripts
 
+// alleen nog twbs 4
 if ($include_twbs_js == "1") {
 	    $this->addScript('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js', array('version'=>'1.14.7'),
 	        array('id'=>'popper.js', 'integrity' => 'sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1',   'crossorigin' => 'anonymous'));
 	    $this->addScript('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js', array('version'=>'4.3.1'),
 	        array('id'=>'bootstrap.min.js', 'integrity' => 'sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM',   'crossorigin' => 'anonymous'));
- 
+}
 
 $this->addScript($this->baseurl . '/templates/' . $this->template . '/js/magnificpopup/MagnificPopupV1-1-0.js', array('version'=>'1-1-0'), array('id'=>'MagnificPopupV1-1-0.js', 'defer'=>'defer'));
+$this->addScript($this->baseurl  . '/media/system/js/caption.js' , array('version'=>'auto'), array('id'=>'caption.js', 'defer'=>'defer')); // defer caption.js. 
+
+// van startbootstrap: <!-- Bootstrap core JavaScript -->
+$this->addScript($this->baseurl . '/templates/' . $this->template . '/vendor/jquery/jquery.min.js', array('version'=>'xxx'), array('id'=>'jquery.min.js', 'defer'=>'defer'));
+$this->addScript($this->baseurl . '/templates/' . $this->template . '/vendor/bootstrap/js/bootstrap.bundle.min.js', array('version'=>'4.3.1'), array('id'=>'bootstrap.bundle.min.js', 'defer'=>'defer'));
+// <!-- Plugin JavaScript -->
+$this->addScript($this->baseurl . '/templates/' . $this->template . '/vendor/jquery-easing/jquery.easing.min.js', array('version'=>'xxx'), array('id'=>'jquery.easing.min.js', 'defer'=>'defer'));
+// van template, samengevoegd met scrolling nav van startbootstrap	
+$this->addScript($this->baseurl . '/templates/' . $this->template . '/js/scrolling-nav.js', array('version'=>'auto'), array('id'=>'scrolling-nav.js', 'defer'=>'defer'));
 $this->addScript($this->baseurl . '/templates/' . $this->template . '/js/template.js', array('version'=>'auto'), array('id'=>'template.js', 'defer'=>'defer'));
-$this->addScript($this->baseurl  . '/media/system/js/caption.js' , array('version'=>'auto'), array('id'=>'caption.js', 'defer'=>'defer')); // defer caption.js.  	
-	
+
+
 $this->addScriptDeclaration('jQuery(document).ready(function() {
   jQuery(\'a[rel*="lightbox"], a[data-wsmodal]\').magnificPopup({
 type: \'image\'
@@ -376,15 +378,6 @@ class="site-grid site <?php echo $option
 	<?php endif; ?>
 	<jdoc:include type="modules" name="debug" style="none" />
 	
-	  <!-- Bootstrap core JavaScript -->
-  <!--  script src="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/vendor/jquery/jquery.min.js"></script>
-  <script src="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script -->
-
-  <!-- Plugin JavaScript -->
-  <script src="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom JavaScript for this theme -->
-  <script src="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/js/scrolling-nav.js"></script>
 	
 	
 </body>
