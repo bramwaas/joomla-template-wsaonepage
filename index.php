@@ -90,37 +90,44 @@ $this->addStyleSheet('https://fonts.googleapis.com/css?family=Open+Sans+Condense
 
 // alleen nog twbs 4
 if ($include_twbs_css == "1") {
-	$attribs = array('id'=>'bootstrap.min.css', 'integrity' => 'sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T', 'crossorigin' => 'anonymous');
-	$this->addStyleSheet('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css', array('version'=>'4.3.1'),  $attribs);
+    
+	$this->addStyleSheet('https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css', array('version'=>'4.5.0'), 
+	    array('id'=>'bootstrap.min.css', 'integrity' => 'sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk', 'crossorigin' => 'anonymous'));
 	}
 	
 
-// template stijl
-$attribs = array('id'=>'template.css');
-$this->addStyleSheet('templates/' . $this->template . '/css/' . $wsaCssFilename , array('version'=>$wsaTime), $attribs);
-
-$this->addStyleSheet('templates/' . $this->template . '/css/' . 'scrolling-nav.css' , array('version'=>$wsaTime), $attribs);
+// template stijl en scrolling nav van startbootstrap
+$this->addStyleSheet('templates/' . $this->template . '/css/' . $wsaCssFilename , array('version'=>$wsaTime), array('id'=>'template.css'));
+$this->addStyleSheet('templates/' . $this->template . '/css/' . 'scrolling-nav.css' , array('version'=>$wsaTime), array('id'=>'scrolling-nav.css'));
 // Add JavaScript 
 
 //HTMLHelper::_('jquery.framework');  // to be sure that jquery is loaded before dependent javascripts
 
 // alleen nog twbs 4
 if ($include_twbs_js == "1") {
-	    $this->addScript('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js', array('version'=>'1.14.7'),
-	        array('id'=>'popper.js', 'integrity' => 'sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1',   'crossorigin' => 'anonymous'));
-	    $this->addScript('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js', array('version'=>'4.3.1'),
-	        array('id'=>'bootstrap.min.js', 'integrity' => 'sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM',   'crossorigin' => 'anonymous'));
+//    $this->addScript('https://code.jquery.com/jquery-3.5.1.slim.min.js', array('version'=>'3.5.1'),
+//        array('id'=>'jquery.js', 'integrity' => 'sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj', 'crossorigin' => 'anonymous'));
+    $this->addScript('https://code.jquery.com/jquery-3.5.1.min.js', array('version'=>'3.5.1'),
+        array('id'=>'jquery.js', 'integrity' => 'sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=', 'crossorigin' => 'anonymous'));
+    $this->addScript('https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js', array('version'=>'1.16.0'),
+        array('id'=>'popper.js', 'integrity' => 'sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo', 'crossorigin' => 'anonymous'));
+    $this->addScript('https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js', array('version'=>'4.5.0'),
+        array('id'=>'bootstrap.min.js', 'integrity' => 'sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI', 'crossorigin' => 'anonymous'));
 }
 
 $this->addScript($this->baseurl . '/templates/' . $this->template . '/js/magnificpopup/MagnificPopupV1-1-0.js', array('version'=>'1-1-0'), array('id'=>'MagnificPopupV1-1-0.js', 'defer'=>'defer'));
 $this->addScript($this->baseurl  . '/media/system/js/caption.js' , array('version'=>'auto'), array('id'=>'caption.js', 'defer'=>'defer')); // defer caption.js. 
 
 // van startbootstrap: <!-- Bootstrap core JavaScript -->
-$this->addScript($this->baseurl . '/templates/' . $this->template . '/vendor/jquery/jquery.min.js', array('version'=>'xxx'), array('id'=>'jquery.min.js', 'defer'=>'defer'));
-$this->addScript($this->baseurl . '/templates/' . $this->template . '/vendor/bootstrap/js/bootstrap.bundle.min.js', array('version'=>'4.3.1'), array('id'=>'bootstrap.bundle.min.js', 'defer'=>'defer'));
+//$this->addScript($this->baseurl . '/templates/' . $this->template . '/vendor/jquery/jquery.min.js', array('version'=>'xxx'), array('id'=>'jquery.min.js', 'defer'=>'defer'));
+//$this->addScript($this->baseurl . '/templates/' . $this->template . '/vendor/bootstrap/js/bootstrap.bundle.min.js', array('version'=>'4.3.1'), array('id'=>'bootstrap.bundle.min.js', 'defer'=>'defer'));
 // <!-- Plugin JavaScript -->
 $this->addScript($this->baseurl . '/templates/' . $this->template . '/vendor/jquery-easing/jquery.easing.min.js', array('version'=>'xxx'), array('id'=>'jquery.easing.min.js', 'defer'=>'defer'));
 // van template, samengevoegd met scrolling nav van startbootstrap	
+// evt ipv ease ui
+// <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"     integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="     crossorigin="anonymous"></script>
+
+
 $this->addScript($this->baseurl . '/templates/' . $this->template . '/js/scrolling-nav.js', array('version'=>'auto'), array('id'=>'scrolling-nav.js', 'defer'=>'defer'));
 $this->addScript($this->baseurl . '/templates/' . $this->template . '/js/template.js', array('version'=>'auto'), array('id'=>'template.js', 'defer'=>'defer'));
 
@@ -186,7 +193,7 @@ class="site-grid site <?php echo $option
 ?>"
 
 >
-<body id="page-top">
+
 <!-- Begin Container-->
 	<div id="wrapper" class="container">
 <?php if ($bg1Image > " " )
@@ -265,27 +272,27 @@ class="site-grid site <?php echo $option
 
 
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+  <div class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav"  role="navigation">
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <a class="navbar-brand brand js-scroll-trigger" href="#wrapper"><span>Start Bootstrap</span></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-pos1" aria-controls="navbar-pos1" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
+      <div class="collapse navbar-collapse" id="navbar-pos1">
+        <ul id="main_menu_1" class="mod-menu nav navbar-nav ml-auto"><!-- geen mr-auto menu nav-tabs -->
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#about">About</a>
+            <a id="dropdownMenuLink-about" class="nav-link js-scroll-trigger" href="#about"><span>About</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+            <a id="dropdownMenuLink-services" class="nav-link js-scroll-trigger" href="#services"><span>Services</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+            <a id="dropdownMenuLink-103" class="nav-link js-scroll-trigger" href="#contact"><span>Contact</span></a>
           </li>
         </ul>
       </div>
     </div>
-  </nav>
+  </div>
 		
 		
 <!--  einde tijdelijk hard coded nav -->
