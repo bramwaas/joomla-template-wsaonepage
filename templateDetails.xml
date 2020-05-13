@@ -9,7 +9,7 @@
   </compatibility>
 	<name>wsa_onepage</name>
 	<version>1.0.0</version>
-	<creationDate>9-5-2020</creationDate>
+	<creationDate>13-5-2020</creationDate>
 	<author>AHC Waasdorp</author>
 	<authorEmail>info@waasdorpsoekhan.nl</authorEmail>
 	<authorUrl>http://www.waasdorpsoekhan.nl</authorUrl>
@@ -338,7 +338,7 @@
 					description="If not empty overwrite color of active menu background. Default empty  "
 					 />
 			</fieldset>
-			<fieldset name="Developer" addfieldpath="/templates/wsa_bootstrap/fields" addrulepath="/templates/wsa_bootstrap/rules">
+			<fieldset name="Developer" addfieldpath="/templates/wsa_onepage/fields" addrulepath="/templates/wsa_onepage/rules">
 				<field name="compile" type="radio"
 					class="btn-group btn-group-yesno"
  					label="COMPILE_LABEL" default="1"
@@ -361,17 +361,17 @@
 					label="WSA_CSS_FILENAME_LABEL"
 					description="WSA_CSS_FILENAME_DESCRIPTION"
                    	/>
-				<field name="include_twbs_css" type="radio" class="switcher btn-group" default="1" label="TPL_WSABOOTSTRAP_INCLUDE_TWBS_CSS" description="TPL_WSABOOTSTRAP_INCLUDE_TWBS_CSS_DESC" >
+				<field name="include_twbs_css" type="radio" class="switcher btn-group" default="1" label="TPL_WSAONEPAGE_INCLUDE_TWBS_CSS" description="TPL_WSAONEPAGE_INCLUDE_TWBS_CSS_DESC" >
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
-				<field name="include_twbs_js" type="radio" class="switcher btn-group" default="1" label="TPL_WSABOOTSTRAP_INCLUDE_TWBS_JS" description="TPL_WSABOOTSTRAP_INCLUDE_TWBS_JS_DESC" >
+				<field name="include_twbs_js" type="radio" class="switcher btn-group" default="1" label="TPL_WSAONEPAGE_INCLUDE_TWBS_JS" description="TPL_WSAONEPAGE_INCLUDE_TWBS_JS_DESC" >
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
-				<field name="twbs_version" type="radio" class="switcher btn-group" default="3" label="TPL_WSABOOTSTRAP_TWBS_VERSION" description="TPL_WSABOOTSTRAP_TWBS_VERSION_DESC" >
+				<field name="twbs_version" type="radio" class="switcher btn-group" default="3" label="TPL_WSAONEPAGE_TWBS_VERSION" description="TPL_WSAONEPAGE_TWBS_VERSION_DESC" >
 					<option value="3">3.3.7</option>
-					<option value="4">4.3.1</option>
+					<option value="4">4.5.0</option>
 				</field>
 				<field name="wsaTime" type="calendar" default="NOW" label="WSA_TIME_LABEL" description="WSA_TIME_DESCRIPTION"
 	class="input-medium" required="true" filter="user_utc" format="%Y-%m-%d %H:%M:%S"

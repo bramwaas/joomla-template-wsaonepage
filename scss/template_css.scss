@@ -18,6 +18,7 @@
 // 20190303 header inner navbar padding 0.
 //  iconssm geen absolute positie meer als margin-top 0 is, om overlap met menu te voorkomen. 
 // 20190306 display flex voor headerleft.
+// 20200513 voor template wsa-onepage scrolling-nav.css ingevoegd.
 / * ===========================
 	alle schermbreedtes
 	Write your general styles eerst voor alle schermbreedtes, 
@@ -477,7 +478,19 @@ h6 {
 [class*="special"] .module-content ul.unstyled {
 	margin: 0 0 10px 0;
 }
+/*!
+ * Start Bootstrap - Scrolling Nav (https://startbootstrap.com/template-overviews/scrolling-nav)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-scrolling-nav/blob/master/LICENSE)
+ */
+header {
+  padding: 156px 0 100px;
+}
 
+section {
+  padding: 150px 0;
+}
+/* einde Start Bootstrap - Scrolling Nav
 
 
 /* ===========================

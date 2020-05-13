@@ -367,7 +367,7 @@ fwrite($st_file, '@import "mixins/reset-filter.scss";' . "\n");
 fwrite($st_file, '@import "mixins/vendor-prefixes.scss";' . "\n"); 
 fwrite($st_file, '@import "mixins/gradients.scss";' . "\n");  
 fwrite($st_file, '@import "mixins/grid.scss";' . "\n");  
-} else { /* verion 4 */
+} else { /* twbs version 4 */
 fwrite($st_file, '@import "variables.scss";' . " // nog even uit 3\n");  // nog even uit 3
 fwrite($st_file, '@import "mixins/reset-filter.scss";' . " // nog even uit 3\n"); // nog even uit 3
 fwrite($st_file, '@import "mixins/gradients.scss";' . " // nog even uit 3\n");    // nog even uit 3
@@ -454,7 +454,8 @@ fwrite($st_file,
 //fwrite($st_file, '@import "node_modules/bootstrap/scss/code";' . "\n");
 fwrite($st_file, '@import "node_modules/bootstrap/scss/grid";' . "\n");
 }
-}
+} /* einde twbs version 4 */
+
 // standaard bootstrap variables mixins etc. einde
 //fwrite($st_file, '@import "system.scss";' . "\n");
 //fwrite($st_file, '@import "general.scss";' . "\n");
