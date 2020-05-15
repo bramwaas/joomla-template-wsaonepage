@@ -316,7 +316,7 @@ class="site-grid site <?php echo $option
   </section>
   
 		<!-- Begin Container content-->
-<section id="services" class="bg-light">
+<section id="services" class="xxxbg-light">
 
 		<div class="container-content<?php echo $cnt_mods; ?>">
 		    	<?php if ($this->countModules('position-1')): ?>
