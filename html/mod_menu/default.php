@@ -12,6 +12,7 @@
  * 20-1-2019 navtext toegevoegd
  * 26-1-2019  aanpassingen verschillen BS4 en BS3 mbv twbs_version
  * 6-2-2019
+ * 16-5-2020 twbs 3 verwijzingen verwijderd gebruik deze niet meer.
  */
 
 defined('_JEXEC') or die;
@@ -38,9 +39,7 @@ $displaySitename = htmlspecialchars($app->getTemplate(true)->params->get('displa
 $brandImage = htmlspecialchars($app->getTemplate(true)->params->get('brandImage'));
 $menuType = htmlspecialchars($app->getTemplate(true)->params->get('menuType'));
 $twbs_version = htmlspecialchars($app->getTemplate(true)->params->get('twbs_version', '4')); // bootstrap version 3 of (default) 4 
-if ($twbs_version == 3) {
-	$menuType = str_replace(array("light", "dark", "bg-"), array("default", "inverse", ""), $menuType);	
-}
+
 $wsaNavbarExpand = htmlspecialchars($app->getTemplate(true)->params->get('wsaNavbarExpand', 'navbar-expand-md'));
 $wsaNavtext = ($app->getTemplate(true)->params->get('wsaNavtext'));
 
@@ -98,23 +97,10 @@ $wsaNavtext = ($app->getTemplate(true)->params->get('wsaNavtext'));
 					<a class="navbar-brand brand" href="#"><?php echo $sitename ?></a>
 					<?php endif; ?>
 					<?php echo '<!-- $twbs_version=' . $twbs_version . ". -->\n"; ?>
-					<?php if ($twbs_version == '3') : ?>
-					<div class="navbar-header">
-					  <button type="button"  class="navbar-toggle" data-toggle="collapse" data-target="#navbar-pos1" aria-controls="navbar-pos1" aria-expanded="false">
-						<span class="sr-only">Toggle navigation</span>
- 						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					  </button> 
-					<?php else: // $twbs_version == '4' ?>
 				    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-pos1" aria-controls="#navbar-pos1" aria-expanded="false" aria-label="Toggle navigation">
 					  <span class="navbar-toggler-icon"></span>
 				    </button>
 					<!-- navbar-header -->
-					<?php endif; ?>
-					<?php if ($twbs_version == '3') : ?>
-					</div> <!-- navbar-header -->
-					<?php endif; ?>
 				   <div id="navbar-pos1" class="collapse navbar-collapse">
 
 <!-- oude module -->
