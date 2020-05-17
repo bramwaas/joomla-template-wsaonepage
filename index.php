@@ -217,11 +217,6 @@ class="site-grid site <?php echo $option
 
 <div id="wrapper1">
 
-<?php 
-/*  gegenereerde header tijdelijk uitschakelen
-
-
-
 		<!-- Begin Header  -->
 		<div class="header">
 			<div class="header-inner container-content<?php echo $hi_mods; ?>">
@@ -265,8 +260,7 @@ class="site-grid site <?php echo $option
 				<div class="clearfix"></div>
 			</div><!--End Header-Inner-->
 		</div><!--End Header-->
-		
-*/ ?>		
+
 
 <!--  tijdelijk hard coded nav -->
 
