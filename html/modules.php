@@ -22,6 +22,7 @@ defined('_JEXEC') or die;
  *
  * NOTICE: All chrome wrapping methods should be named: modChrome_{STYLE} and take the same
  * two arguments.
+ * print_r ( mixed $expression [, bool $return = FALSE ] )
  */
 
 /*
@@ -35,7 +36,22 @@ function modChrome_no($module, &$params, &$attribs)
         echo $module->content;
     }
 }
-
+function modChrome_none($module, &$params, &$attribs)
+{
+    echo '<!-- style = "none" --> ';
+    echo "<-- $module: \n";
+    print_r($module);
+    echo "--- $params: \n";
+    print_r($param);
+    echo "--- $attribs: \n";
+    print_r($attribs);
+    echo "\n -->";
+    
+    if ($module->content)
+    {
+        echo $module->content;
+    }
+}
 function modChrome_default($module, &$params, &$attribs)
 {
     echo '<!-- style = "default" --> ';
