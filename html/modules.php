@@ -38,12 +38,12 @@ function modChrome_no($module, &$params, &$attribs)
 }
 function modChrome_wsaOnepage($module, &$params, &$attribs)
 {
-    echo '<!-- style = "none" --> ';
-    echo "<-- $module: \n";
+    echo '<!-- style = "wsaOnepage" --> ';
+    echo "<-- module: \n";
     print_r($module);
-    echo "--- $params: \n";
+    echo "--- params: \n";
     print_r($params);
-    echo "--- $attribs: \n";
+    echo "--- attribs: \n";
     print_r($attribs);
     echo "\n -->";
     
