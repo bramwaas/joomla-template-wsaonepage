@@ -42,7 +42,7 @@ function modChrome_none($module, &$params, &$attribs)
     echo "<-- $module: \n";
     print_r($module);
     echo "--- $params: \n";
-    print_r($param);
+    print_r($params);
     echo "--- $attribs: \n";
     print_r($attribs);
     echo "\n -->";
