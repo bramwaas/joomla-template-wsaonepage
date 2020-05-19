@@ -36,7 +36,7 @@ function modChrome_no($module, &$params, &$attribs)
         echo $module->content;
     }
 }
-function modChrome_none($module, &$params, &$attribs)
+function modChrome_wsaOnepage($module, &$params, &$attribs)
 {
     echo '<!-- style = "none" --> ';
     echo "<-- $module: \n";

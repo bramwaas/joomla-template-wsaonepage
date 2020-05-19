@@ -222,7 +222,7 @@ class="site-grid site <?php echo $option
 			<div class="header-inner container-content<?php echo $hi_mods; ?>">
 				<?php if ($this->countModules('position-0')): ?>
 				<div class="pos0 row">
-					<jdoc:include type="modules" name="position-0" style="none" />
+					<jdoc:include type="modules" name="position-0" style="wsaOnepage" />
 					<div class="clearfix"></div>
 				</div><!--End Pos0-->
 				<?php endif; ?>
