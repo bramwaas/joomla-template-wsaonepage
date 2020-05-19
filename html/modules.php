@@ -40,9 +40,10 @@ function modChrome_wsaOnepage($module, &$params, &$attribs)
 {
     echo '<!-- style = "wsaOnepage" --> ';
     echo "<-- module: \n";
-    print_r($module);
-    echo "--- params: \n";
-    print_r($params);
+    echo 'module->module :' . $module->module . "\n";
+    echo 'module->module :' . $module->name . "\n";
+    echo 'module->module :' . $module->title . "\n";
+    echo 'params->get(menutype) :' . $params->get('menutype') . "\n";
     echo "--- attribs: \n";
     print_r($attribs);
     echo "\n -->";
