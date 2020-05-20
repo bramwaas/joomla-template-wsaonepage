@@ -38,24 +38,25 @@ function modChrome_no($module, &$params, &$attribs)
 }
 function modChrome_wsaOnepage($module, &$params, &$attribs)
 {
-    echo '<!-- style = "wsaOnepage" --> ';
-    echo "<-- module: \n";
-    echo 'module->module :' . $module->module . "\n";
-    echo 'module->name :' . $module->name . "\n";
-    echo 'module->title :' . $module->title . "\n";
-    echo 'params->get(menutype) :' . $params->get('menutype') . "\n";
-    echo "--- attribs: \n";
-    print_r($attribs);
-    echo "\n -->";
-    
+    echo '<!-- style = ' . $attribs["style"] . ", module->module : $module->module, module->name : $module->name, module->title : $module->title, params->get('menutype') :" . $params->get('menutype') . " -->\n";
     if ($module->content)
     {
         echo $module->content;
     }
 }
+
+function modChrome_wsaBootstrapNav($module, &$params, &$attribs)
+{
+    echo '<!-- style = ' . $attribs["style"] . ", module->module : $module->module, module->name : $module->name, module->title : $module->title, params->get('menutype') :" . $params->get('menutype') . " -->\n";
+    if ($module->content)
+    {
+        echo $module->content;
+    }
+}
+
 function modChrome_default($module, &$params, &$attribs)
 {
-    echo '<!-- style = "default" --> ';
+    echo '<!-- style = ' . $attribs["style"] . " -->\n";
     $modulePos	   = $module->position;
     $moduleTag     = $params->get('module_tag', 'div');
     $headerTag     = htmlspecialchars($params->get('header_tag', 'h4'));
@@ -81,7 +82,7 @@ function modChrome_default($module, &$params, &$attribs)
 
 function modChrome_cardGrey($module, &$params, &$attribs)
 {
-    echo '<!-- style = "cardGrey" --> ';
+    echo '<!-- style = ' . $attribs["style"] . " -->\n";
     $modulePos	   = $module->position;
     $moduleTag     = $params->get('module_tag', 'div');
     $headerTag     = htmlspecialchars($params->get('header_tag', 'h4'));
@@ -108,7 +109,7 @@ function modChrome_cardGrey($module, &$params, &$attribs)
 
 function modChrome_well($module, &$params, &$attribs)
 {
-    echo '<!-- style = "well" --> ';
+    echo '<!-- style = ' . $attribs["style"] . " -->\n";
     if ($module->content)
 	{
 		echo "<div class=\"well " . htmlspecialchars($params->get('moduleclass_sfx')) . "\">";
@@ -121,64 +122,19 @@ function modChrome_well($module, &$params, &$attribs)
 	}
 }
 
-function modChrome_specialgrey($module, &$params, &$attribs)
+function modChrome_test($module, &$params, &$attribs)
 {
-    echo '<!-- style = "specialgrey" --> ';
+    echo '<!-- style = ' . $attribs["style"] . ", module->module : $module->module, module->name : $module->name, module->title : $module->title, params->get('menutype') :" . $params->get('menutype') . " -->\n";    echo "--- module: \n";
+    print_r($module);
+    echo "--- params: \n";
+    print_r($params);
+    echo "--- attribs: \n";
+    print_r($attribs);
+    echo "\n -->";
+    
     if ($module->content)
-	{
-		echo "<div class=\"specialgrey " . htmlspecialchars($params->get('moduleclass_sfx')) . "\">";
-		if ($module->showtitle)
-		{
-			echo "<h3 class=\"page-header\">" . $module->title . "</h3>";
-		}
-		echo "<div class=\"module-content\">" . $module->content . "</div>";
-		echo "</div>";
-	}
+    {
+        echo $module->content;
+    }
 }
-
-function modChrome_specialblue($module, &$params, &$attribs)
-{
-    echo '<!-- style = "specialblue" --> ';
-    if ($module->content)
-	{
-		echo "<div class=\"specialblue " . htmlspecialchars($params->get('moduleclass_sfx')) . "\">";
-		if ($module->showtitle)
-		{
-			echo "<h3 class=\"page-header\">" . $module->title . "</h3>";
-		}
-		echo "<div class=\"module-content\">" . $module->content . "</div>";
-		echo "</div>";
-	}
-}
-
-function modChrome_specialred($module, &$params, &$attribs)
-{
-    echo '<!-- style = "specialred" --> ';
-    if ($module->content)
-	{
-		echo "<div class=\"specialred " . htmlspecialchars($params->get('moduleclass_sfx')) . "\">";
-		if ($module->showtitle)
-		{
-			echo "<h3 class=\"page-header\">" . $module->title . "</h3>";
-		}
-		echo "<div class=\"module-content\">" . $module->content . "</div>";
-		echo "</div>";
-	}
-}
-
-function modChrome_specialgold($module, &$params, &$attribs)
-{
-    echo '<!-- style = "specialgold" --> ';
-    if ($module->content)
-	{
-		echo "<div class=\"specialgold " . htmlspecialchars($params->get('moduleclass_sfx')) . "\">";
-		if ($module->showtitle)
-		{
-			echo "<h3 class=\"page-header\">" . $module->title . "</h3>";
-		}
-		echo "<div class=\"module-content\">" . $module->content . "</div>";
-		echo "</div>";
-	}
-}
-
 ?>
