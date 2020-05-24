@@ -28,21 +28,8 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;   // this is the same as use Joomla\CMS\Factory as Factory
 use Joomla\CMS\Helper\ModuleHelper;
 
-$id = '';
-
-if ($tagId = $params->get('tag_id', ''))
-{
-    $id = ' id="' . $tagId . '"';
-}
 
 // Note. It is important to remove spaces between elements.
-$app = Factory::getApplication();
-$document = Factory::getDocument();
-$sitename = $app->get('sitename');
-$tDisplaySitename = htmlspecialchars($app->getTemplate(true)->params->get('displaySitename')); // 1 yes 2 no
-$tBrandImage = htmlspecialchars($app->getTemplate(true)->params->get('brandImage'));
-$tMenuType = htmlspecialchars($app->getTemplate(true)->params->get('menuType'));
-$twbs_version = htmlspecialchars($app->getTemplate(true)->params->get('twbs_version', '4')); // bootstrap version 3 of (default) 4
 
 
 $wsaNavbarExpand = htmlspecialchars($app->getTemplate(true)->params->get('wsaNavbarExpand', 'navbar-expand-md'));
@@ -58,7 +45,7 @@ $wsaNavtext = ($app->getTemplate(true)->params->get('wsaNavtext'));
  *
  * copied from plugins\content\loadmodule
  */
-function wsa_load($position, $style = 'none')
+function wsaload($position, $style = 'none')
 {
     $document = Factory::getDocument();
     $renderer = $document->loadRenderer('module');
@@ -91,6 +78,15 @@ function modChrome_wsaOnepage($module, &$params, &$attribs)
     $moduleTag     = $params->get('module_tag', 'div');
     $headerTag     = htmlspecialchars($params->get('header_tag', 'h4'));
     $headerClass   = htmlspecialchars($params->get('header_class', ''));
+    
+    $app = Factory::getApplication();
+    $document = Factory::getDocument();
+    $sitename = $app->get('sitename');
+    $tDisplaySitename = htmlspecialchars($app->getTemplate(true)->params->get('displaySitename')); // 1 yes 2 no
+    $tBrandImage = htmlspecialchars($app->getTemplate(true)->params->get('brandImage'));
+    $tMenuType = htmlspecialchars($app->getTemplate(true)->params->get('menuType'));
+    $twbs_version = htmlspecialchars($app->getTemplate(true)->params->get('twbs_version', '4')); // bootstrap version 3 of (default) 4
+    
     echo '<!-- style = ' . $attribs["style"] . ", module->module : $module->module, module->name : $module->name, module->title : $module->title, params->get('menutype') :" . $params->get('menutype') . " -->\n";
     if ($module->content)
     {
@@ -104,7 +100,7 @@ function modChrome_wsaOnepage($module, &$params, &$attribs)
 		}
 		if(  $document->countModules('navbar-brand')){
 			echo '<span id="navbar-brand-mod" class="navbar-text navbar-brand" >';
-			wsa_load('navbar-brand'); 
+			wsaload('navbar-brand'); 
 			echo '</span> <!-- end navbar-brand -->';
 		}
 		if ($displaySitename == "1") {
@@ -125,12 +121,13 @@ function modChrome_wsaOnepage($module, &$params, &$attribs)
 		}
 		if (  $document->countModules('navbar-right')) {
 			echo '<span id="navbar-right-mod" class="navbar-text navbar-right" >';
-			wsa_load('navbar-right');
+			wsaload('navbar-right');
 			echo '</span> <!-- end navbar-right -->';
 		}
         echo '</div></div><!-- /div--> <!-- end navbar-inner --></' . $moduleTag . '><!--End navbar-->';
    
 	} // end $module->name == "menu"
+/*
 else
     {
         echo '<' . $moduleTag . ' class="' . $modulePos . ' card ' . htmlspecialchars($params->get('moduleclass_sfx')) . '">';
@@ -147,7 +144,7 @@ else
         echo '</div>';
         echo '</' . $moduleTag . '>';
     } // end $module->name == "menu" else
-
+*/
 
     } // end module->content
 }
