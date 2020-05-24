@@ -72,7 +72,7 @@ function wsa_load($position, $style = 'none')
     
     return $modules[$position];
 }
-?>
+
 
 /*
  * Module chrome for rendering the module in a submenu
@@ -100,7 +100,7 @@ function modChrome_wsaOnepage($module, &$params, &$attribs)
 		echo '<!-- Begin Navbar--><' . $moduleTag . ' class="' . $modulePos . ' navbar ' . $wsaNavbarExpand .  ' ' . $tMenuType . ' ' . htmlspecialchars($params->get('moduleclass_sfx')) . '" role="navigation">';
         echo '<!-- div class="navbar-inner" --><div class="container-fluid"><!-- Brand and toggle get grouped for better mobile display --><!-- navbar-header -->';
 		if ($tBrandImage > " ") {
-	    	echo '<a class="navbar-brand brand" href="#"><img id="img_brandImage" src="' . $tBrandImage; .'" alt="Brand image ' . $sitename . '" /></a>';
+	    	echo '<a class="navbar-brand brand" href="#"><img id="img_brandImage" src="' . $tBrandImage .'" alt="Brand image ' . $sitename . '" /></a>';
 		}
 		if(  $document->countModules('navbar-brand')){
 			echo '<span id="navbar-brand-mod" class="navbar-text navbar-brand" >';
@@ -121,7 +121,7 @@ function modChrome_wsaOnepage($module, &$params, &$attribs)
         echo $module->content;
 
      	if ($wsaNavtext > " "){
-			echo $wsaNavtext;  ?>
+			echo $wsaNavtext;  
 		}
 		if (  $document->countModules('navbar-right')) {
 			echo '<span id="navbar-right-mod" class="navbar-text navbar-right" >';
