@@ -76,32 +76,6 @@ $wsaNavtext = ($app->getTemplate(true)->params->get('wsaNavtext'));
 ?>
 
 
-<!-- Begin Navbar-->
-<?php // div in plaats van nav gebruikt oa IE8 nav nog niet kent ?>
-		    	<div class="navbar <?php echo  $wsaNavbarExpand .  ' ' . $menuType; ?> " role="navigation">
-		         <!-- div class="navbar-inner" -->
-		          <div class="container-fluid">
-					<!-- Brand and toggle get grouped for better mobile display -->
-					<!-- navbar-header -->
-					<?php if ($brandImage > " ") : ?>
-	         	   	<a class="navbar-brand brand" href="#">
-					  <img id="img_brandImage" src="<?php echo $brandImage; ?>" alt="Brand image <?php echo $sitename ?>" />
-					</a>
-					<?php endif; ?>
-					<?php if(  $document->countModules('navbar-brand'))    : ?>
-					<span id="navbar-brand-mod" class="navbar-text navbar-brand" >
-					<?php wsa_load('navbar-brand'); ?>
-					</span> <!-- end navbar-brand -->
-					<?php endif; ?>
-					<?php if ($displaySitename == "1") : ?>
-					<a class="navbar-brand brand" href="#"><?php echo $sitename ?></a>
-					<?php endif; ?>
-					<?php echo '<!-- $twbs_version=' . $twbs_version . ". -->\n"; ?>
-				    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-pos1" aria-controls="#navbar-pos1" aria-expanded="false" aria-label="Toggle navigation">
-					  <span class="navbar-toggler-icon"></span>
-				    </button>
-					<!-- navbar-header -->
-				   <div id="navbar-pos1" class="collapse navbar-collapse">
 
 <!-- oude module -->
 
@@ -191,16 +165,3 @@ $wsaNavtext = ($app->getTemplate(true)->params->get('wsaNavtext'));
 }
 ?></ul>
 <!-- einde oude module -->
-<?php if ($wsaNavtext > " ") : ?>
-						<?php echo $wsaNavtext;  ?>
-<?php endif; ?>
-				<?php if(  $document->countModules('navbar-right'))    : ?>
-					<span id="navbar-right-mod" class="navbar-text navbar-right" >
-					<?php wsa_load('navbar-right'); ?>
-					</span> <!-- end navbar-right -->
-				<?php endif; ?>
-	          	   </div>
-		          </div>
-		      	 <!-- /div--> <!-- end navbar-inner -->
-		    	</div>
-<!--End navbar-->
