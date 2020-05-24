@@ -32,8 +32,6 @@ use Joomla\CMS\Helper\ModuleHelper;
 // Note. It is important to remove spaces between elements.
 
 
-$wsaNavbarExpand = htmlspecialchars($app->getTemplate(true)->params->get('wsaNavbarExpand', 'navbar-expand-md'));
-$wsaNavtext = ($app->getTemplate(true)->params->get('wsaNavtext'));
 
 /**
  * Loads and renders the module
@@ -86,6 +84,8 @@ function modChrome_wsaOnepage($module, &$params, &$attribs)
     $tBrandImage = htmlspecialchars($app->getTemplate(true)->params->get('brandImage'));
     $tMenuType = htmlspecialchars($app->getTemplate(true)->params->get('menuType'));
     $twbs_version = htmlspecialchars($app->getTemplate(true)->params->get('twbs_version', '4')); // bootstrap version 3 of (default) 4
+    $wsaNavbarExpand = htmlspecialchars($app->getTemplate(true)->params->get('wsaNavbarExpand', 'navbar-expand-md'));
+    $wsaNavtext = ($app->getTemplate(true)->params->get('wsaNavtext', ''));
     
     echo '<!-- style = ' . $attribs["style"] . ", module->module : $module->module, module->name : $module->name, module->title : $module->title, params->get('menutype') :" . $params->get('menutype') . " -->\n";
     if ($module->content)
