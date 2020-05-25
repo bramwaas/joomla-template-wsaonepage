@@ -35,9 +35,9 @@ if ($tagId = $params->get('tag_id', ''))
 $app = Factory::getApplication();
 $document = Factory::getDocument();
 $sitename = $app->get('sitename');
-$displaySitename = htmlspecialchars($app->getTemplate(true)->params->get('displaySitename')); // 1 yes 2 no
-$brandImage = htmlspecialchars($app->getTemplate(true)->params->get('brandImage'));
-$menuType = htmlspecialchars($app->getTemplate(true)->params->get('menuType'));
+$tDisplaySitename = htmlspecialchars($app->getTemplate(true)->params->get('displaySitename')); // 1 yes 2 no
+$tBrandImage = htmlspecialchars($app->getTemplate(true)->params->get('brandImage'));
+$tMenuType = htmlspecialchars($app->getTemplate(true)->params->get('menuType'));
 $twbs_version = htmlspecialchars($app->getTemplate(true)->params->get('twbs_version', '4')); // bootstrap version 3 of (default) 4 
 
 $wsaNavbarExpand = htmlspecialchars($app->getTemplate(true)->params->get('wsaNavbarExpand', 'navbar-expand-md'));
@@ -75,9 +75,45 @@ $wsaNavtext = ($app->getTemplate(true)->params->get('wsaNavtext'));
 	}
 ?>
 
+<?php 
+// div met role = "navigation" in plaats van nav gebruikt oa IE8 nav nog niet kent, maar kan via moduleTag aangepast worden
+echo '<!-- Begin Navbar--><' . $moduleTag . ' class="' . $modulePos . ' navbar ' . $wsaNavbarExpand .  ' ' . $tMenuType . '" role="navigation">';
+echo '<!-- div class="navbar-inner" --><div class="container-fluid"><!-- Brand and toggle get grouped for better mobile display --><!-- navbar-header -->';
+if ($tBrandImage > " ") {
+    echo '<a class="navbar-brand brand" href="#"><img id="img_brandImage" src="' . $tBrandImage .'" alt="Brand image ' . $sitename . '" /></a>';
+}
+if(  $document->countModules('navbar-brand')){
+    echo '<span id="navbar-brand-mod" class="navbar-text navbar-brand" >';
+    wsaload('navbar-brand');
+    echo '</span> <!-- end navbar-brand -->';
+}
+if ($displaySitename == "1") {
+    echo '<a class="navbar-brand brand" href="#">' . $sitename . '</a>';
+}
+echo '<!-- $twbs_version=' . $twbs_version . ". -->\n";
+echo '		    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-pos1" aria-controls="#navbar-pos1" aria-expanded="false" aria-label="Toggle navigation">
+					  <span class="navbar-toggler-icon"></span>
+				    </button>
+					<!-- navbar-header -->
+				   <div id="navbar-pos1" class="collapse navbar-collapse">' . "\n";
 
+
+
+?>
 
 <!-- oude module -->
+<?php 
+if ($wsaNavtext > " "){
+    echo $wsaNavtext;
+}
+if (  $document->countModules('navbar-right')) {
+    echo '<span id="navbar-right-mod" class="navbar-text navbar-right" >';
+    wsaload('navbar-right');
+    echo '</span> <!-- end navbar-right -->';
+}
+echo '</div></div><!-- /div--> <!-- end navbar-inner --></' . $moduleTag . '><!--End navbar-->';
+
+?>
 
 <ul <?php echo $id; ?> class="mod-menu nav navbar-nav mr-auto menu<?php echo $class_sfx;?>">
 <?php foreach ($list as $i => &$item) 
