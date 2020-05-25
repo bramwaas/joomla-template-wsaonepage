@@ -2,7 +2,7 @@
 /**
  * @package     	Joomla.Site
  * @subpackage  	mod_menu override
- * @copyright   	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @copyright   	Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
  * @license     	GNU General Public License version 2 or later; see LICENSE.txt
  * Modifications	Joomla CSS
  * 24-4-2016 ook begin en eind van navbar naar deze module-override gehaald (uit module position-1), zodat deze overal in index.php geplaatst kan worden
@@ -13,6 +13,7 @@
  * 26-1-2019  aanpassingen verschillen BS4 en BS3 mbv twbs_version
  * 6-2-2019
  * 16-5-2020 twbs 3 verwijzingen verwijderd gebruik deze niet meer.
+ * 20-5-2020 Item->id gekwalificeerd met $moduleIdPos . om hem zo uniek te maken
  */
 
 defined('_JEXEC') or die;
@@ -182,7 +183,7 @@ echo '		    <button class="navbar-toggler" type="button" data-toggle="collapse" 
 	// The next item is deeper.
 	// TODO controleren of hier ID ook uniek gemaakt kan worden
 	if ($item->deeper){
-		echo '<ul id=data-item-' . $item->id . ' class="nav-child unstyled mod-menu__sub list-unstyled small dropdown-menu" . aria-labelledby="dropdownMenuLink-' . $item->id . '">';
+	    echo '<ul id=data-item-' . $moduleIdPos . $item->id . ' class="nav-child unstyled mod-menu__sub list-unstyled small dropdown-menu" . aria-labelledby="dropdownMenuLink-' . $moduleIdPos . $item->id . '">';
 	}
 	// The next item is shallower.
 	elseif ($item->shallower)
