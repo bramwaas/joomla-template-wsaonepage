@@ -103,18 +103,7 @@ echo '		    <button class="navbar-toggler" type="button" data-toggle="collapse" 
 ?>
 
 <!-- oude module -->
-<?php 
-if ($wsaNavtext > " "){
-    echo $wsaNavtext;
-}
-if (  $document->countModules('navbar-right')) {
-    echo '<span id="navbar-right-mod" class="navbar-text navbar-right" >';
-    wsa_Load('navbar-right');
-    echo '</span> <!-- end navbar-right -->';
-}
-echo '</div></div><!-- /div--> <!-- end navbar-inner --></' . $moduleTag . '><!--End navbar-->';
 
-?>
 
 <ul <?php echo $id; ?> class="mod-menu nav navbar-nav mr-auto menu<?php echo $class_sfx;?>">
 <?php foreach ($list as $i => &$item) 
@@ -202,3 +191,15 @@ echo '</div></div><!-- /div--> <!-- end navbar-inner --></' . $moduleTag . '><!-
 }
 ?></ul>
 <!-- einde oude module -->
+<?php 
+if ($wsaNavtext > " "){
+    echo $wsaNavtext;
+}
+if (  $document->countModules('navbar-right')) {
+    echo '<span id="navbar-right-mod" class="navbar-text navbar-right" >';
+    wsa_Load('navbar-right');
+    echo '</span> <!-- end navbar-right -->';
+}
+echo '</div></div><!-- /div--> <!-- end navbar-inner --></' . $moduleTag . '><!--End navbar-->';
+
+?>
