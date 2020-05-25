@@ -84,12 +84,13 @@ if ($tBrandImage > " ") {
 }
 if(  $document->countModules('navbar-brand')){
     echo '<span id="navbar-brand-mod" class="navbar-text navbar-brand" >';
-    wsaload('navbar-brand');
+    wsa_Load('navbar-brand');
     echo '</span> <!-- end navbar-brand -->';
 }
 if ($displaySitename == "1") {
     echo '<a class="navbar-brand brand" href="#">' . $sitename . '</a>';
 }
+// TODO pos1 veranderen in position en of module id
 echo '<!-- $twbs_version=' . $twbs_version . ". -->\n";
 echo '		    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-pos1" aria-controls="#navbar-pos1" aria-expanded="false" aria-label="Toggle navigation">
 					  <span class="navbar-toggler-icon"></span>
@@ -108,7 +109,7 @@ if ($wsaNavtext > " "){
 }
 if (  $document->countModules('navbar-right')) {
     echo '<span id="navbar-right-mod" class="navbar-text navbar-right" >';
-    wsaload('navbar-right');
+    wsa_Load('navbar-right');
     echo '</span> <!-- end navbar-right -->';
 }
 echo '</div></div><!-- /div--> <!-- end navbar-inner --></' . $moduleTag . '><!--End navbar-->';
