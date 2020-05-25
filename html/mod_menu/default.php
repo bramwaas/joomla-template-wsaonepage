@@ -43,6 +43,12 @@ $twbs_version = htmlspecialchars($app->getTemplate(true)->params->get('twbs_vers
 $wsaNavbarExpand = htmlspecialchars($app->getTemplate(true)->params->get('wsaNavbarExpand', 'navbar-expand-md'));
 $wsaNavtext = ($app->getTemplate(true)->params->get('wsaNavtext'));
 
+$modulePos	   = $module->position;
+$moduleTag     = $params->get('module_tag', 'div');
+$headerTag     = htmlspecialchars($params->get('header_tag', 'h4'));
+$headerClass   = htmlspecialchars($params->get('header_class', ''));
+
+
 	/**
 	 * Loads and renders the module
 	 *
