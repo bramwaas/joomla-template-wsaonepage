@@ -85,7 +85,8 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 
 <?php 
 // div met role = "navigation" in plaats van nav gebruikt oa IE8 nav nog niet kent, maar kan via moduleTag aangepast worden
-echo '<!-- Begin Navbar--><' . $moduleTag . ' class="' . $module->position . ' navbar ' . $wsaNavbarExpand .  ' ' . $tMenuType . '" role="navigation">';
+echo '<!-- Begin Navbar--><' . $moduleTag . ' class="' . $module->position . ' navbar ' . $wsaNavbarExpand .  ' ' . $tMenuType . '" role="navigation">'. PHP_EOL;
+echo '<div class="container-fluid">' . PHP_EOL;
 if ($tBrandImage > " ") {
     echo '<a class="navbar-brand brand" href="#"><img id="img_brandImage' . $moduleIdPos . '" src="' . $tBrandImage .'" alt="Brand image ' . $sitename . '" /></a>'. PHP_EOL;
 }
