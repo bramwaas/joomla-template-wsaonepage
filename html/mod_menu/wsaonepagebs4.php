@@ -15,6 +15,7 @@
  * 16-5-2020 twbs 3 verwijzingen verwijderd gebruik deze niet meer.
  * 20-5-2020 Item->id gekwalificeerd met $moduleIdPos . om hem zo uniek te maken
  * 26-5-2020 minder commentaar in html, maar wel vaker line feeds PHP_EOL
+ * 28-5-2020 deze en aangeroepen programma's hernoemd naar wsaonepagebs4... om deze alleen te laten werken bij een men waain expliciet voor die layout gekozen is.
  */
 
 defined('_JEXEC') or die;
@@ -86,25 +87,25 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 <?php 
 // div met role = "navigation" in plaats van nav gebruikt oa IE8 nav nog niet kent, maar kan via moduleTag aangepast worden
 echo '<!-- Begin Navbar--><' . $moduleTag . ' class="' . $module->position . ' navbar ' . $wsaNavbarExpand .  ' ' . $tMenuType . '" role="navigation">'. PHP_EOL;
-echo '<div class="container-fluid">' . PHP_EOL;
+// echo '<div class="container-fluid">' . PHP_EOL;
 if ($tBrandImage > " ") {
-    echo '<a class="navbar-brand brand" href="#"><img id="img_brandImage' . $moduleIdPos . '" src="' . $tBrandImage .'" alt="Brand image ' . $sitename . '" /></a>'. PHP_EOL;
+    echo '<a class="navbar-brand" href="#"><img src="' . $tBrandImage .'" alt="Brand image ' . $sitename . '" /></a>'. PHP_EOL;
 }
 if(  $document->countModules('navbar-brand')){
-    echo '<span id="navbar-brand-mod' . $moduleIdPos . '" class="navbar-text navbar-brand" >'. PHP_EOL;
+    echo '<span class="navbar-text navbar-brand" >'. PHP_EOL;
     wsa_Load('navbar-brand');
     echo PHP_EOL . '</span>' . PHP_EOL;
 }
 if ($tDisplaySitename == "1") {
-    echo '<a class="navbar-brand brand" href="#">' . $sitename . '</a>'. PHP_EOL;
+    echo '<a class="navbar-brand" href="#">' . $sitename . '</a>'. PHP_EOL;
 }
-echo '<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-' . $moduleIdPos . '" aria-controls="#navbar-' . $moduleIdPos . '" aria-expanded="false" aria-label="Toggle navigation">' . PHP_EOL
+echo '<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-' . $moduleIdPos . '" aria-controls="navbar-' . $moduleIdPos . '" aria-expanded="false" aria-label="Toggle navigation">' . PHP_EOL
 . '<span class="navbar-toggler-icon"></span>' . PHP_EOL
 . '</button>' . PHP_EOL
 . '<div id="navbar-' . $moduleIdPos . '" class="collapse navbar-collapse">' . PHP_EOL;
 ?>
-<!-- oude module -->
-<ul <?php echo $id; ?> class="mod-menu nav navbar-nav mr-auto menu<?php echo $class_sfx;?>">
+<!-- oude module aangevuld met bS4 attributen -->
+<ul <?php echo $id; ?> class="navbar-nav mr-auto mod-menu nav menu<?php echo $class_sfx;?>">
 <?php foreach ($list as $i => &$item) 
 {
 	$class = 'nav-item item-'.$item->id;
@@ -200,6 +201,6 @@ if (  $document->countModules('navbar-right')) {
     wsa_Load('navbar-right');
     echo PHP_EOL . '</span>' . PHP_EOL;
 }
-echo '</div></div></' . $moduleTag . '><!--End navbar-->'. PHP_EOL;
+echo '</div><!--/div container-fluid --></' . $moduleTag . '><!--End navbar-->'. PHP_EOL;
 
 ?>
