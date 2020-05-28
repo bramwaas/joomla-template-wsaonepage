@@ -166,11 +166,11 @@ echo '<button class="navbar-toggler" type="button" data-toggle="collapse" data-t
 		case 'component':
 		case 'heading':
 		case 'url':
-		    require ModuleHelper::getLayoutPath('mod_menu', 'default_'.$item->type);
+		    require ModuleHelper::getLayoutPath('mod_menu', 'wsaonepagebs4_'.$item->type);
 			break;
 
 		default:
-		    require ModuleHelper::getLayoutPath('mod_menu', 'default_url');
+		    require ModuleHelper::getLayoutPath('mod_menu', 'wsaonepagebs4_url');
 			break;
 	endswitch;
 
