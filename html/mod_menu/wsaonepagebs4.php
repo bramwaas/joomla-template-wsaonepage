@@ -212,9 +212,10 @@ echo '<!-- onepage sections uit menu -->'. PHP_EOL;
 foreach ($list as $i => &$item) {
     echo '<!-- item->type=' , $item->type , ' item->level=' , $item->level ,  ' $item->title=' , $item->title , ' $item->flink=' , $item->flink,  ' -->', PHP_EOL;  
     if ($item->type=='component' && $item->level==1) {
-        echo '<section id="' , $item->flink , '" class="container" >', PHP_EOL;
+        echo '<section id="' , $moduleIdPos  . $item->id  , '" class="container" >', PHP_EOL;
         echo '<div class="container"><div class="row"><div class="col-lg-8 mx-auto">', PHP_EOL;
         echo '<p>' , $item->title , '</p>' , PHP_EOL;
+        echo '<p>' , ' $item->flink=' , $item->flink , '</p>' , PHP_EOL;
         echo '</div></div></div>' , PHP_EOL;
         echo '</section>', PHP_EOL;
         
