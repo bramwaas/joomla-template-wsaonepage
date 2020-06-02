@@ -218,7 +218,11 @@ foreach ($list as $i => &$item) {
         echo ' -->', PHP_EOL;
         echo '<div class="container"><div class="row"><div class="col-lg-8 mx-auto">', PHP_EOL;
         echo '<p>' , $item->title , '</p>' , PHP_EOL;
-        echo '<p>' , ' $item->flink=' , $item->flink , ' $item->link=' , $item->link , ' $item->query[0]=' , $item->query[0] , '</p>' , PHP_EOL;
+        echo '<p>' , ' $item->flink=' , $item->flink , ' $item->link=' , $item->link , ' $item->query[0]=' ,' $item->query=' ;
+        foreach ( $item->query as $key => $value) {
+            echo " {$key} => {$value} ";
+        }
+        echo '</p>' , PHP_EOL;
         echo '</div></div></div>' , PHP_EOL;
         echo '</section>', PHP_EOL;
         
