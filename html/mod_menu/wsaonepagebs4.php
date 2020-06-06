@@ -247,8 +247,6 @@ foreach ($list as $i => &$item) {
                 //  Featured switch
                         $model->setState('filter.featured', 'only');
                 }
-                
-            }
             $model->setState('filter.published', 1);
             $wsaModel->setState('load_tags', true); // not available for Article model
             $wsaModel->setState('show_associations', true);
@@ -262,7 +260,7 @@ foreach ($list as $i => &$item) {
             echo '<h3>', $wsaArticle->title, '</h3>' , PHP_EOL ;
             echo '<div>', $wsaArticle->introtext, '</div>' , PHP_EOL ;
             echo '<div>', $wsaArticle->fulltext, '</div>' , PHP_EOL ;
-            
+       
             
         }
         /*
