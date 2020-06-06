@@ -253,6 +253,7 @@ foreach ($list as $i => &$item) {
             
             
         }
+        /*
         if ($item->query[view] == 'contact') {
             // voorbeeld modules / mod_articles_latest en https://stackoverflow.com/questions/19765160/loading-an-article-into-a-components-template-in-joomla
             // kijk ook naar components/com_content/models/articles
@@ -279,6 +280,7 @@ foreach ($list as $i => &$item) {
             
             
         }
+        */
         echo '</p>' , PHP_EOL;
         echo '</div></div></div>' , PHP_EOL;
         echo '</section>', PHP_EOL;
