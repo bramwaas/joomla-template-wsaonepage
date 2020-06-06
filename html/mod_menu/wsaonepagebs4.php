@@ -239,7 +239,8 @@ foreach ($list as $i => &$item) {
             $wsaModel->setState('filter.article_id', (int) $item->query['id'] ); // or use array of ints for multiple articles
             $wsaModel->setState('load_tags', true); // not available for Article model
             $wsaModel->setState('show_associations', true);
-//            $wsaArticle=$wsaModel->getItem($item->query['id']); // Indien één Artikel gekozen met Article ipv Articles
+            $wsaArticles=$wsaModel->getItems(); 
+            //            $wsaArticle=$wsaModel->getItem($item->query['id']); // Indien één Artikel gekozen met Article ipv Articles
             $wsaArticle=$wsaArticles[0];
 //            foreach ($wsaArticles as &$wsaArticle)            {}; // als er meer artikelen zijn
                 echo '<!-- ';
