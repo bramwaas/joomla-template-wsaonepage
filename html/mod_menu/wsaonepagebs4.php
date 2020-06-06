@@ -253,6 +253,32 @@ foreach ($list as $i => &$item) {
             
             
         }
+        if ($item->query[view] == 'contact') {
+            // voorbeeld modules / mod_articles_latest en https://stackoverflow.com/questions/19765160/loading-an-article-into-a-components-template-in-joomla
+            // kijk ook naar components/com_content/models/articles
+            $wsaModel=JModelLegacy::getInstance('Contact', 'ContentModel', array('ignore_request'=>true));
+            //            $wsaModel=JModelLegacy::getInstance('Article', 'ContentModel', array('ignore_request'=>true));  // één artikel
+            // Set application parameters in model
+            //            $app       = JFactory::getApplication();
+            $wsaappParams = $app->getParams();
+            $wsaModel->setState('params', $wsaappParams);
+            $wsaModel->setState('filter.article_id', (int) $item->query['id'] ); // or use array of ints for multiple articles
+            $wsaModel->setState('load_tags', true); // not available for Article model
+            $wsaModel->setState('show_associations', true);
+//            $wsaArticles=$wsaModel->getItems();
+            $wsaArticle=$wsaModel->getItem($item->query['id']); // Indien één Artikel gekozen met Article ipv Articles
+            $wsaArticle=$wsaArticles[0];
+            //            foreach ($wsaArticles as &$wsaArticle)            {}; // als er meer artikelen zijn
+            echo '<!-- ';
+            //                   print_r($article);
+            echo ' -->', PHP_EOL;
+            echo '<h3>', $wsaArticle->title, '</h3>' , PHP_EOL ;
+            echo '<div>', $wsaArticle->name, '</div>' , PHP_EOL ;
+            echo '<div>', $wsaArticle->email, '</div>' , PHP_EOL ;
+            echo '<div>', $wsaArticle->alias, '</div>' , PHP_EOL ;
+            
+            
+        }
         echo '</p>' , PHP_EOL;
         echo '</div></div></div>' , PHP_EOL;
         echo '</section>', PHP_EOL;
