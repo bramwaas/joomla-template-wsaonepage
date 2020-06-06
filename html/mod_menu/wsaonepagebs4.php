@@ -228,7 +228,7 @@ foreach ($list as $i => &$item) {
         echo '<p>' , ' $item->flink=' , $item->flink , ' $item->link=' , $item->link ,  PHP_EOL
         , ' $item->query[option]=' , $item->query['option'] , ' $item->query[view]=' , $item->query['view'] , ' $item->query[id]=' , $item->query['id'] , PHP_EOL ; 
 //        foreach ( $item->query as $key => $value) {             echo " {$key} => {$value} " , PHP_EOL;         }
-        if ($item->query[view] == 'article') { 
+        if ($item->query[view] == 'article' || $item->query[view] == 'featured') { 
             // voorbeeld modules / mod_articles_latest en https://stackoverflow.com/questions/19765160/loading-an-article-into-a-components-template-in-joomla
             // kijk ook naar components/com_content/models/articles
             $wsaModel=JModelLegacy::getInstance('Articles', 'ContentModel', array('ignore_request'=>true));
@@ -237,7 +237,19 @@ foreach ($list as $i => &$item) {
 //            $app       = JFactory::getApplication();
             $wsaappParams = $app->getParams();
             $wsaModel->setState('params', $wsaappParams);
+            if ($item->query['id'] > '0') {
             $wsaModel->setState('filter.article_id', (int) $item->query['id'] ); // or use array of ints for multiple articles
+            }
+            else // featured
+            {
+                $model->setState('list.start', 0);
+                $model->setState('list.limit', 5);
+                //  Featured switch
+                        $model->setState('filter.featured', 'only');
+                }
+                
+            }
+            $model->setState('filter.published', 1);
             $wsaModel->setState('load_tags', true); // not available for Article model
             $wsaModel->setState('show_associations', true);
             $wsaArticles=$wsaModel->getItems(); 
