@@ -246,8 +246,8 @@ foreach ($list as $i => &$item) {
                 $wsaModel->setState('list.limit', 5);
                 //  Featured switch
                 $wsaModel->setState('filter.featured', 'only');
-                }
-                $wsaModel->setState('filter.published', 1);
+            }
+            $wsaModel->setState('filter.published', 1);
             $wsaModel->setState('load_tags', true); // not available for Article model
             $wsaModel->setState('show_associations', true);
             $wsaArticles=$wsaModel->getItems(); 
