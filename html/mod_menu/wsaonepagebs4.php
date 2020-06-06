@@ -16,16 +16,22 @@
  * 20-5-2020 Item->id gekwalificeerd met $moduleIdPos . om hem zo uniek te maken
  * 26-5-2020 minder commentaar in html, maar wel vaker line feeds PHP_EOL
  * 28-5-2020 deze en aangeroepen programma's hernoemd naar wsaonepagebs4... om deze alleen te laten werken bij een men waain expliciet voor die layout gekozen is.
+ * 6-6-2020 eerste geslaagde poging om content artikelen op te halen.
  */
 
 defined('_JEXEC') or die;
 use Joomla\CMS\Factory;   // this is the same as use Joomla\CMS\Factory as Factory
 use Joomla\CMS\Helper\ModuleHelper;
+use Joomla\Registry\Registry; // for new Registry
 
 //use Joomla\CMS\HTML\HTMLHelper;
 //use Joomla\CMS\Plugin\PluginHelper;
 //use Joomla\CMS\Document\HtmlDocument;
 //use Joomla\CMS\Document\Renderer\Html\ModulesRenderer;
+
+
+//JModelLegacy::addIncludePath(JPATH_SITE . '/components/com_content/models', 'ContentModel'); // Is waarschijnlijk overbodig om com_content op te kunnen halen 
+
 
 $id = '';
 
@@ -218,9 +224,32 @@ foreach ($list as $i => &$item) {
         echo ' -->', PHP_EOL;
         echo '<div class="container"><div class="row"><div class="col-lg-8 mx-auto">', PHP_EOL;
         echo '<p>' , $item->title , '</p>' , PHP_EOL;
-        echo '<p>' , ' $item->flink=' , $item->flink , ' $item->link=' , $item->link , ' $item->query[0]=' ,' $item->query=' ;
-        foreach ( $item->query as $key => $value) {
-            echo " {$key} => {$value} ";
+        echo '<p>' , ' $item->flink=' , $item->flink , ' $item->link=' , $item->link ,  PHP_EOL
+        , ' $item->query[option]=' , $item->query['option'] , ' $item->query[view]=' , $item->query['view'] , ' $item->query[id]=' , $item->query['id'] , PHP_EOL ; 
+//        foreach ( $item->query as $key => $value) {             echo " {$key} => {$value} " , PHP_EOL;         }
+        if ($item->query[view] == 'article') { 
+            // voorbeeld modules / mod_articles_latest en https://stackoverflow.com/questions/19765160/loading-an-article-into-a-components-template-in-joomla
+            // kijk ook naar components/com_content/models/articles
+            $wsaModel=JModelLegacy::getInstance('Articles', 'ContentModel', array('ignore_request'=>true));
+//            $wsaModel=JModelLegacy::getInstance('Article', 'ContentModel', array('ignore_request'=>true));  // één artikel
+            // Set application parameters in model
+//            $app       = JFactory::getApplication();
+            $wsaappParams = $app->getParams();
+            $wsaModel->setState('params', $wsaappParams);
+            $wsaModel->setState('filter.article_id', (int) $item->query['id'] ); // or use array of ints for multiple articles
+            $wsaModel->setState('load_tags', true); // not available for Article model
+            $wsaModel->setState('show_associations', true);
+//            $wsaArticle=$wsaModel->getItem($item->query['id']); // Indien één Artikel gekozen met Article ipv Articles
+            $wsaArticle=$wsaArticles[0];
+//            foreach ($wsaArticles as &$wsaArticle)            {}; // als er meer artikelen zijn
+                echo '<!-- ';
+//                   print_r($article);
+            echo ' -->', PHP_EOL;
+            echo '<h3>', $wsaArticle->title, '</h3>' , PHP_EOL ;
+            echo '<div>', $wsaArticle->introtext, '</div>' , PHP_EOL ;
+            echo '<div>', $wsaArticle->fulltext, '</div>' , PHP_EOL ;
+            
+            
         }
         echo '</p>' , PHP_EOL;
         echo '</div></div></div>' , PHP_EOL;

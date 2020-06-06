@@ -261,7 +261,7 @@ class="site-grid site <?php echo $option
 			</div><!--End Header-Inner-->
 		</div><!--End Header-->
 
-
+<?php  /*
 <!--  tijdelijk hard coded nav -->
 
 
@@ -290,6 +290,8 @@ class="site-grid site <?php echo $option
 		
 		
 <!--  einde tijdelijk hard coded nav -->
+
+*/ ?>
 
 <!--  main content menusturing door DIVs met ID -->
 	<section id="about">
