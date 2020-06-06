@@ -242,12 +242,12 @@ foreach ($list as $i => &$item) {
             }
             else // featured
             {
-                $model->setState('list.start', 0);
-                $model->setState('list.limit', 5);
+                $wsaModel->setState('list.start', 0);
+                $wsaModel->setState('list.limit', 5);
                 //  Featured switch
-                        $model->setState('filter.featured', 'only');
+                $wsaModel->setState('filter.featured', 'only');
                 }
-            $model->setState('filter.published', 1);
+                $wsaModel->setState('filter.published', 1);
             $wsaModel->setState('load_tags', true); // not available for Article model
             $wsaModel->setState('show_associations', true);
             $wsaArticles=$wsaModel->getItems(); 
