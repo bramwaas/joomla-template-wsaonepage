@@ -219,7 +219,7 @@ echo '<!-- onepage sections uit menu -->'. PHP_EOL;
 foreach ($list as $i => &$item) {
     echo '<!-- item->type=' , $item->type , ' item->level=' , $item->level ,  ' $item->title=' , $item->title , ' $item->flink=' , $item->flink,  ' -->', PHP_EOL;  
     if ($item->type=='component' && $item->level==1) {
-        echo '<section id="' , $moduleIdPos  . $item->id  , '" class="container" >', PHP_EOL;
+        echo '<section id="' , $item->bookmark  , '" class="container" >', PHP_EOL;
         echo '<!-- ';
  //       print_r($item);
         echo ' -->', PHP_EOL;
