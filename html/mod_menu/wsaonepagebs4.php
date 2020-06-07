@@ -217,7 +217,7 @@ echo '</div><!--/div container-fluid --></' . $moduleTag . '><!--End navbar-->'.
 // voorlopig extra acties voor onepage sections
 echo '<!-- onepage sections uit menu -->'. PHP_EOL;
 foreach ($list as $i => &$item) {
-    echo '<!-- item->type=' , $item->type , ' item->level=' , $item->level ,  ' $item->title=' , $item->title , ' $item->flink=' , $item->flink,  ' -->', PHP_EOL;  
+    echo '<!-- item->type=' , $item->type , ' item->level=' , $item->level ,  ' $item->title=' , $item->title , ' $item->flink=' , $item->flink,   ' $item->bookmark=' , $item->bookmark,' -->', PHP_EOL;  
     if ($item->type=='component' && $item->level==1) {
         echo '<section id="' , $item->bookmark  , '" class="container" >', PHP_EOL;
         echo '<!-- ';
@@ -228,7 +228,11 @@ foreach ($list as $i => &$item) {
         echo '<p>' , ' $item->flink=' , $item->flink , ' $item->link=' , $item->link ,  PHP_EOL
         , ' $item->query[option]=' , $item->query['option'] , ' $item->query[view]=' , $item->query['view'] , ' $item->query[id]=' , $item->query['id'] , PHP_EOL ; 
 //        foreach ( $item->query as $key => $value) {             echo " {$key} => {$value} " , PHP_EOL;         }
-        if ($item->query[view] == 'article' || $item->query[view] == 'featured') { 
+            switch ($item->query[view])
+            {
+                case 'article' :
+                case 'featured' :    
+        { 
             // voorbeeld modules / mod_articles_latest en https://stackoverflow.com/questions/19765160/loading-an-article-into-a-components-template-in-joomla
             // kijk ook naar components/com_content/models/articles
             $wsaModel=JModelLegacy::getInstance('Articles', 'ContentModel', array('ignore_request'=>true));
@@ -237,6 +241,9 @@ foreach ($list as $i => &$item) {
 //            $app       = JFactory::getApplication();
             $wsaappParams = $app->getParams();
             $wsaModel->setState('params', $wsaappParams);
+            $wsaModel->setState('list.ordering', 'a.publish_up');
+            $wsaModel->setState('list.direction', 'DESC');
+            
             if ($item->query['id'] > '0') {
             $wsaModel->setState('filter.article_id', (int) $item->query['id'] ); // or use array of ints for multiple articles
             }
@@ -250,21 +257,23 @@ foreach ($list as $i => &$item) {
             $wsaModel->setState('filter.published', 1);
             $wsaModel->setState('load_tags', true); // not available for Article model
             $wsaModel->setState('show_associations', true);
-            $wsaArticles=$wsaModel->getItems(); 
-            //            $wsaArticle=$wsaModel->getItem($item->query['id']); // Indien één Artikel gekozen met Article ipv Articles
-            $wsaArticle=$wsaArticles[0];
-//            foreach ($wsaArticles as &$wsaArticle)            {}; // als er meer artikelen zijn
+            $wsaContentItems=$wsaModel->getItems(); 
+            //            $wsaContentItem=$wsaModel->getItem($item->query['id']); // Indien één Artikel gekozen met Article ipv Articles
+            $wsaContentItem=$wsaContentItems[0];
+//            foreach ($wsaContentItems as &$wsaContentItem)            {}; // als er meer artikelen zijn
                 echo '<!-- ';
 //                   print_r($article);
             echo ' -->', PHP_EOL;
-            echo '<h3>', $wsaArticle->title, '</h3>' , PHP_EOL ;
-            echo '<div>', $wsaArticle->introtext, '</div>' , PHP_EOL ;
-            echo '<div>', $wsaArticle->fulltext, '</div>' , PHP_EOL ;
+            echo '<h3>', $wsaContentItem->title, '</h3>' , PHP_EOL ;
+            echo '<div>', $wsaContentItem->introtext, '</div>' , PHP_EOL ;
+            echo '<div>', $wsaContentItem->fulltext, '</div>' , PHP_EOL ;
        
             
         }
-        /*
-        if ($item->query[view] == 'contact') {
+        break;
+                case 'contact':
+       
+ { 
             // voorbeeld modules / mod_articles_latest en https://stackoverflow.com/questions/19765160/loading-an-article-into-a-components-template-in-joomla
             // kijk ook naar components/com_content/models/articles
             $wsaModel=JModelLegacy::getInstance('Contact', 'ContentModel', array('ignore_request'=>true));
@@ -273,24 +282,31 @@ foreach ($list as $i => &$item) {
             //            $app       = JFactory::getApplication();
             $wsaappParams = $app->getParams();
             $wsaModel->setState('params', $wsaappParams);
-            $wsaModel->setState('filter.article_id', (int) $item->query['id'] ); // or use array of ints for multiple articles
+            $wsaModel->setState('contact.id', (int) $item->query['id'] ); 
             $wsaModel->setState('load_tags', true); // not available for Article model
             $wsaModel->setState('show_associations', true);
-//            $wsaArticles=$wsaModel->getItems();
-            $wsaArticle=$wsaModel->getItem($item->query['id']); // Indien één Artikel gekozen met Article ipv Articles
-            $wsaArticle=$wsaArticles[0];
-            //            foreach ($wsaArticles as &$wsaArticle)            {}; // als er meer artikelen zijn
+//            $wsaContentItems=$wsaModel->getItems();
+            $wsaContentItem=$wsaModel->getItem($item->query['id']); // Indien één Artikel gekozen met Article ipv Articles
+//            $wsaContentItem=$wsaContentItems[0];
+            //            foreach ($wsaContentItems as &$wsaContentItem)            {}; // als er meer artikelen zijn
             echo '<!-- ';
             //                   print_r($article);
             echo ' -->', PHP_EOL;
-            echo '<h3>', $wsaArticle->title, '</h3>' , PHP_EOL ;
-            echo '<div>', $wsaArticle->name, '</div>' , PHP_EOL ;
-            echo '<div>', $wsaArticle->email, '</div>' , PHP_EOL ;
-            echo '<div>', $wsaArticle->alias, '</div>' , PHP_EOL ;
+            echo '<h3>', $wsaContentItem->title, '</h3>' , PHP_EOL ;
+            echo '<div>', $wsaContentItem->name, '</div>' , PHP_EOL ;
+            echo '<div>', $wsaContentItem->email, '</div>' , PHP_EOL ;
+            echo '<div>', $wsaContentItem->alias, '</div>' , PHP_EOL ;
             
-            
+         
         }
-        */
+        break;
+                default:
+                    {  
+                        echo '<h3>',  $item->title, '</h3>' , PHP_EOL ;
+                        echo '<div>', ' $item->bookmark=' , $item->bookmark, ' $item->query[option]=' , $item->query['option'] ,' nog onbekend option type, component inhoud niet verwerkt.</div>' , PHP_EOL ;
+                    }
+       
+            } // end switch
         echo '</p>' , PHP_EOL;
         echo '</div></div></div>' , PHP_EOL;
         echo '</section>', PHP_EOL;
