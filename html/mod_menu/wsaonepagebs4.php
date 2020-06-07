@@ -23,6 +23,8 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;   // this is the same as use Joomla\CMS\Factory as Factory
 use Joomla\CMS\Helper\ModuleHelper;
 use Joomla\Registry\Registry; // for new Registry
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;  // JModelLegacy
+use Joomla\CMS\MVC\Model\FormModel;  // JModelForm
 
 //use Joomla\CMS\HTML\HTMLHelper;
 //use Joomla\CMS\Plugin\PluginHelper;
@@ -276,7 +278,7 @@ foreach ($list as $i => &$item) {
  { 
             // voorbeeld modules / mod_articles_latest en https://stackoverflow.com/questions/19765160/loading-an-article-into-a-components-template-in-joomla
             // kijk ook naar components/com_content/models/articles
-            $wsaModel=JModelLegacy::getInstance('Contact', 'ContactModel', array('ignore_request'=>true));
+            $wsaModel=JModelForm::getInstance('Contact', 'ContactModel', array('ignore_request'=>true));
             //            $wsaModel=JModelLegacy::getInstance('Article', 'ContentModel', array('ignore_request'=>true));  // één artikel
             // Set application parameters in model
             //            $app       = JFactory::getApplication();
