@@ -282,6 +282,7 @@ foreach ($list as $i => &$item) {
             //            $wsaModel=JModelLegacy::getInstance('Article', 'ContentModel', array('ignore_request'=>true));  // één artikel
             // Set application parameters in model
             //            $app       = JFactory::getApplication();
+            if ($wsaModel) {
             $wsaappParams = $app->getParams();
             $wsaModel->setState('params', $wsaappParams);
             $wsaModel->setState('contact.id', (int) $item->query['id'] ); 
@@ -298,6 +299,8 @@ foreach ($list as $i => &$item) {
             echo '<div>', $wsaContentItem->name, '</div>' , PHP_EOL ;
             echo '<div>', $wsaContentItem->email, '</div>' , PHP_EOL ;
             echo '<div>', $wsaContentItem->alias, '</div>' , PHP_EOL ;
+            }
+            else echo '<div>', 'Model voor Contact niet gevonden', '</div>' , PHP_EOL ;
             
          
         }
