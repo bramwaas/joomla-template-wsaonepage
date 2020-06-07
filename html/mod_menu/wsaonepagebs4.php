@@ -276,7 +276,7 @@ foreach ($list as $i => &$item) {
  { 
             // voorbeeld modules / mod_articles_latest en https://stackoverflow.com/questions/19765160/loading-an-article-into-a-components-template-in-joomla
             // kijk ook naar components/com_content/models/articles
-            $wsaModel=JModelLegacy::getInstance('Contact', 'ContentModel', array('ignore_request'=>true));
+            $wsaModel=JModelLegacy::getInstance('Contact', 'ContactModel', array('ignore_request'=>true));
             //            $wsaModel=JModelLegacy::getInstance('Article', 'ContentModel', array('ignore_request'=>true));  // één artikel
             // Set application parameters in model
             //            $app       = JFactory::getApplication();
