@@ -139,7 +139,8 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	        define('JPATH_COMPONENT_ADMINISTRATOR', JPATH_ADMINISTRATOR . '/components/' . $option);
 	    }
 	    
-	    $path = JPATH_COMPONENT . '/' . $file . '.php';
+	    // $path = JPATH_COMPONENT . '/' . $file . '.php';
+	    $path = JPATH_BASE . '/components/' . $option . $file . '.php';
 	    $contents = $path;
 	    /*
 	    // If component is disabled throw error
