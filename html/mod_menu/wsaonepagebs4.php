@@ -92,6 +92,82 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 		return $modules[$position];
 		
 	}
+	
+	 function wsaRenderComponent($option, $params = array())
+	 { // tijdelijke kopie van ComponentHelper::renderComponent($item->query['option']);
+	    $app = \JFactory::getApplication();
+	    
+	    // Load template language files.
+	    $template = $app->getTemplate(true)->template;
+	    $lang = \JFactory::getLanguage();
+	    $lang->load('tpl_' . $template, JPATH_BASE, null, false, true)
+	    || $lang->load('tpl_' . $template, JPATH_THEMES . "/$template", null, false, true);
+	    
+	    if (empty($option))
+	    {
+	        throw new MissingComponentException(\JText::_('JLIB_APPLICATION_ERROR_COMPONENT_NOT_FOUND'), 404);
+	    }
+	    
+	    if (JDEBUG)
+	    {
+	        \JProfiler::getInstance('Application')->mark('beforeRenderComponent ' . $option);
+	    }
+	    
+	    // Record the scope
+	    $scope = $app->scope;
+	    
+	    // Set scope to component name
+	    $app->scope = $option;
+	    
+	    // Build the component path.
+	    $option = preg_replace('/[^A-Z0-9_\.-]/i', '', $option);
+	    $file = substr($option, 4);
+	    
+	    // Define component path.
+	    if (!defined('JPATH_COMPONENT'))
+	    {
+	        define('JPATH_COMPONENT', JPATH_BASE . '/components/' . $option);
+	    }
+	    
+	    if (!defined('JPATH_COMPONENT_SITE'))
+	    {
+	        define('JPATH_COMPONENT_SITE', JPATH_SITE . '/components/' . $option);
+	    }
+	    
+	    if (!defined('JPATH_COMPONENT_ADMINISTRATOR'))
+	    {
+	        define('JPATH_COMPONENT_ADMINISTRATOR', JPATH_ADMINISTRATOR . '/components/' . $option);
+	    }
+	    
+	    $path = JPATH_COMPONENT . '/' . $file . '.php';
+	    $contents = $path;
+	    /*
+	    // If component is disabled throw error
+	    if (!static::isEnabled($option) || !file_exists($path))
+	    {
+	        throw new MissingComponentException(\JText::_('JLIB_APPLICATION_ERROR_COMPONENT_NOT_FOUND'), 404);
+	    }
+	    
+	    // Load common and local language files.
+	    $lang->load($option, JPATH_BASE, null, false, true) || $lang->load($option, JPATH_COMPONENT, null, false, true);
+	    
+	    // Handle template preview outlining.
+	    $contents = null;
+	    
+	    // Execute the component.
+	    $contents = static::executeComponent($path);
+	    */
+	    // Revert the scope
+	    $app->scope = $scope;
+	    
+	    if (JDEBUG)
+	    {
+	        \JProfiler::getInstance('Application')->mark('afterRenderComponent ' . $option);
+	    }
+	    
+	    return $contents;
+	}
+	
 ?>
 
 <?php 
@@ -313,7 +389,8 @@ foreach ($list as $i => &$item) {
                     {
                         echo '<h3>',  $item->title, '</h3>' , PHP_EOL ;
                         echo '<div>', ' $item->bookmark=' , $item->bookmark, ' $item->query[option]=' , $item->query['option'] ,' newsfeed option type, component inhoud niet verwerkt.</div>' , PHP_EOL ;
-                        $wsaComponent = ComponentHelper::renderComponent($item->query['option']);
+                        // $wsaComponent = ComponentHelper::renderComponent($item->query['option']);
+                        $wsaComponent = wsaRenderComponent ($item->query['option']);
                         echo '<!-- ';
                                            print_r($wsaComponent);
                         echo ' -->', PHP_EOL;
