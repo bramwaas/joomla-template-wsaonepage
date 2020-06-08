@@ -140,14 +140,16 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	    }
 	    
 	    // $path = JPATH_COMPONENT . '/' . $file . '.php';
-	    $path = JPATH_BASE . '/components/' . $option . $file . '.php';
+	    $path = JPATH_BASE . '/components/' . $option . '/'  . $file . '.php';
 	    $contents = $path;
-	    /*
+	    
 	    // If component is disabled throw error
+	    /*
 	    if (!static::isEnabled($option) || !file_exists($path))
 	    {
 	        throw new MissingComponentException(\JText::_('JLIB_APPLICATION_ERROR_COMPONENT_NOT_FOUND'), 404);
 	    }
+	    */
 	    
 	    // Load common and local language files.
 	    $lang->load($option, JPATH_BASE, null, false, true) || $lang->load($option, JPATH_COMPONENT, null, false, true);
@@ -156,8 +158,8 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	    $contents = null;
 	    
 	    // Execute the component.
-	    $contents = static::executeComponent($path);
-	    */
+	    $contents = ComponentHelper::executeComponent($path);
+	    
 	    // Revert the scope
 	    $app->scope = $scope;
 	    
