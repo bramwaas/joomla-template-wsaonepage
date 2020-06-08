@@ -26,6 +26,8 @@ use Joomla\Registry\Registry; // for new Registry
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;  // JModelLegacy
 use Joomla\CMS\MVC\Model\FormModel;  // JModelForm
 
+use Joomla\CMS\Component\ComponentHelper;  //tbv algemene renderComponent
+
 //use Joomla\CMS\HTML\HTMLHelper;
 //use Joomla\CMS\Plugin\PluginHelper;
 //use Joomla\CMS\Document\HtmlDocument;
@@ -295,7 +297,7 @@ foreach ($list as $i => &$item) {
 //            $wsaContentItem=$wsaContentItems[0];
             //            foreach ($wsaContentItems as &$wsaContentItem)            {}; // als er meer artikelen zijn
             echo '<!-- ';
-            //                   print_r($article);
+            //                   print_r($wsaContentItem);
             echo ' -->', PHP_EOL;
             echo '<h3>', $wsaContentItem->title, '</h3>' , PHP_EOL ;
             echo '<div>', $wsaContentItem->name, '</div>' , PHP_EOL ;
@@ -307,6 +309,19 @@ foreach ($list as $i => &$item) {
          
         }
         break;
+                case 'newsfeed':
+                    {
+                        echo '<h3>',  $item->title, '</h3>' , PHP_EOL ;
+                        echo '<div>', ' $item->bookmark=' , $item->bookmark, ' $item->query[option]=' , $item->query['option'] ,' newsfeed option type, component inhoud niet verwerkt.</div>' , PHP_EOL ;
+                        $wsaComponent = ComponentHelper::renderComponent($item->query['option']);
+                        echo '<!-- ';
+                                           print_r($wsaComponent);
+                        echo ' -->', PHP_EOL;
+                        
+                        
+                        
+                    }
+                    
                 default:
                     {  
                         echo '<h3>',  $item->title, '</h3>' , PHP_EOL ;
