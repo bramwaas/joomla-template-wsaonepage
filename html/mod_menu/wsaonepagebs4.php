@@ -407,17 +407,18 @@ foreach ($list as $i => &$item) {
                 case 'newsfeed':
                     {
                         echo '<h3>',  $item->title, '</h3>' , PHP_EOL ;
-                        echo '<div>', ' $item->bookmark=' , $item->bookmark, ' $item->query[option]=' , $item->query['option'] ,' newsfeed option type, component inhoud niet verwerkt.</div>' , PHP_EOL ;
+                        echo '<div>', ' $item->bookmark=' , $item->bookmark, ' $item->query[option]=' , $item->query['option'] ,' newsfeed zo veel mogelijk standaard.</div>' , PHP_EOL ;
                        // $wsaComponent = ComponentHelper::renderComponent($item->query['option']);
-                        $wsaComponent = wsaRenderComponent ($item->query['option']);
                         echo '<!-- ';
-                                           print_r($wsaComponent);
+                        //                                   print_r($wsaComponent);
                         echo ' -->', PHP_EOL;
+                        $wsaComponent = wsaRenderComponent ($item->query['option']);
+                        echo $wsaComponent;
                         
-                        
+                 
                         
                     }
-                    
+       break;             
                 default:
                     {  
                         echo '<h3>',  $item->title, '</h3>' , PHP_EOL ;
