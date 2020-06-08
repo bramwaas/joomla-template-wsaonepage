@@ -158,7 +158,7 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	    $contents = null;
 	    
 	    // Execute the component.
-	    $contents = ComponentHelper::executeComponent($path);
+	    $contents = wsaExecuteComponent($path);
 	    
 	    // Revert the scope
 	    $app->scope = $scope;
@@ -169,6 +169,22 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	    }
 	    
 	    return $contents;
+	}
+	/**
+	 * Execute the component.
+	 *
+	 * @param   string  $path  The component path.
+	 *
+	 * @return  string  The component output
+	 *
+	 * @since   1.7
+	 */
+	function wsaExecuteComponent($path)
+	{
+	    ob_start();
+	    require_once $path;
+	    
+	    return ob_get_clean();
 	}
 	
 ?>
@@ -392,7 +408,7 @@ foreach ($list as $i => &$item) {
                     {
                         echo '<h3>',  $item->title, '</h3>' , PHP_EOL ;
                         echo '<div>', ' $item->bookmark=' , $item->bookmark, ' $item->query[option]=' , $item->query['option'] ,' newsfeed option type, component inhoud niet verwerkt.</div>' , PHP_EOL ;
-                        // $wsaComponent = ComponentHelper::renderComponent($item->query['option']);
+                       // $wsaComponent = ComponentHelper::renderComponent($item->query['option']);
                         $wsaComponent = wsaRenderComponent ($item->query['option']);
                         echo '<!-- ';
                                            print_r($wsaComponent);
