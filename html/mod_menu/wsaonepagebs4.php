@@ -408,14 +408,16 @@ foreach ($list as $i => &$item) {
                     {
                         echo '<h3>',  $item->title, '</h3>' , PHP_EOL ;
                         echo '<div>', ' $item->bookmark=' , $item->bookmark, ' $item->query[option]=' , $item->query['option'] ,' newsfeed zo veel mogelijk standaard.</div>' , PHP_EOL ;
-                       // $wsaComponent = ComponentHelper::renderComponent($item->query['option']);
+                        echo '<!-- ';
+                        
+                        print_r($app->input);
+                        echo ' -->', PHP_EOL;
+                        // $wsaComponent = ComponentHelper::renderComponent($item->query['option']);
                         echo '<!-- ';
                         //                                   print_r($wsaComponent);
                         echo ' -->', PHP_EOL;
                         $wsaComponent = wsaRenderComponent ($item->query['option']);
                         echo $wsaComponent;
-                        
-                 
                         
                     }
        break;             
