@@ -49,6 +49,7 @@ if ($tagId = $params->get('tag_id', ''))
 $app = Factory::getApplication();
 $document = Factory::getDocument();
 $sitename = $app->get('sitename');
+$itemid   = $app->input->getCmd('Itemid', '');
 $input = $app->input;
 $wsaOrgInputArray = $input->getArray(array());
 $menu     = $app->getMenu()->getActive();
@@ -414,12 +415,19 @@ foreach ($list as $i => &$item) {
                         echo '<h3>',  $item->title, '</h3>' , PHP_EOL ;
                         echo '<div>', ' $item->bookmark=' , $item->bookmark, ' $item->query[option]=' , $item->query['option'] ,' newsfeed zo veel mogelijk standaard.</div>' , PHP_EOL ;
                         echo '<!-- ';
+                        // tijdelijk aanpassen $app->input
+                        foreach ($wsaOrgMenuQueryArray as $tmpKey => $tmpVal) {
+                            $app->input->set($tmpKey,NULL);
+                        }
+                        foreach ($item->query as $tmpKey => $tmpVal) {
+                            $app->input->set($tmpKey,$tmpVal);
+                        }
                         echo '$app->input:' . PHP_EOL;
                         print_r($app->input);
-                        echo '$wsaOrgInputArray:' . PHP_EOL;
-                        print_r($wsaOrgInputArray);
-                        echo '$wsaOrgMenuQueryArray:' . PHP_EOL;
-                        print_r($wsaOrgMenuQueryArray );
+ //                       echo '$wsaOrgInputArray:' . PHP_EOL;
+ //                       print_r($wsaOrgInputArray);
+ //                       echo '$wsaOrgMenuQueryArray:' . PHP_EOL;
+ //                       print_r($wsaOrgMenuQueryArray );
                         
                         echo ' -->', PHP_EOL;
                         // $wsaComponent = ComponentHelper::renderComponent($item->query['option']);
@@ -428,6 +436,14 @@ foreach ($list as $i => &$item) {
                         echo ' -->', PHP_EOL;
                         $wsaComponent = wsaRenderComponent ($item->query['option']);
                         echo $wsaComponent;
+                        // tijdelijke aanpassing $app->input herstellen
+                         foreach ($item->query  as $tmpKey => $tmpVal) {
+                            $app->input->set($tmpKey,NULL);
+                        }
+                        $app->input->set ('Itemid', $Itemid); // waarschijnlijk overbodig
+                        foreach ($wsaOrgMenuQueryArray as $tmpKey => $tmpVal) {
+                            $app->input->set($tmpKey,$tmpVal);
+                        }
                         
                     }
        break;             
