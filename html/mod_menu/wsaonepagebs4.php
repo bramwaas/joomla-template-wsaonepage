@@ -414,7 +414,7 @@ foreach ($list as $i => &$item) {
                         echo '<!-- ';
                         
                         print_r($app->input);
-                        print-r($wsaOrgInputArray);
+                        print_r($wsaOrgInputArray);
                         echo ' -->', PHP_EOL;
                         // $wsaComponent = ComponentHelper::renderComponent($item->query['option']);
                         echo '<!-- ';
