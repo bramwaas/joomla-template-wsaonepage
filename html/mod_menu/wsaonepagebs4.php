@@ -51,6 +51,8 @@ $document = Factory::getDocument();
 $sitename = $app->get('sitename');
 $input = $app->input;
 $wsaOrgInputArray = $input->getArray(array());
+$menu     = $app->getMenu()->getActive();
+$wsaOrgMenuQueryArray = $menu->query;
 $tDisplaySitename = htmlspecialchars($app->getTemplate(true)->params->get('displaySitename')); // 1 yes 2 no
 $tBrandImage = htmlspecialchars($app->getTemplate(true)->params->get('brandImage'));
 $tMenuType = htmlspecialchars($app->getTemplate(true)->params->get('menuType'));
@@ -412,9 +414,13 @@ foreach ($list as $i => &$item) {
                         echo '<h3>',  $item->title, '</h3>' , PHP_EOL ;
                         echo '<div>', ' $item->bookmark=' , $item->bookmark, ' $item->query[option]=' , $item->query['option'] ,' newsfeed zo veel mogelijk standaard.</div>' , PHP_EOL ;
                         echo '<!-- ';
-                        
+                        echo '$app->input:' . PHP_EOL;
                         print_r($app->input);
+                        echo '$wsaOrgInputArray:' . PHP_EOL;
                         print_r($wsaOrgInputArray);
+                        echo '$wsaOrgMenuQueryArray:' . PHP_EOL;
+                        print_r($wsaOrgMenuQueryArray );
+                        
                         echo ' -->', PHP_EOL;
                         // $wsaComponent = ComponentHelper::renderComponent($item->query['option']);
                         echo '<!-- ';
