@@ -17,6 +17,7 @@
  * 26-5-2020 minder commentaar in html, maar wel vaker line feeds PHP_EOL
  * 28-5-2020 deze en aangeroepen programma's hernoemd naar wsaonepagebs4... om deze alleen te laten werken bij een men waain expliciet voor die layout gekozen is.
  * 6-6-2020 eerste geslaagde poging om content artikelen op te halen.
+ * 9-6-2020 newsfeeds op algemene manier trachten op te halen.
  */
 
 defined('_JEXEC') or die;
@@ -48,6 +49,8 @@ if ($tagId = $params->get('tag_id', ''))
 $app = Factory::getApplication();
 $document = Factory::getDocument();
 $sitename = $app->get('sitename');
+$input = $app->input;
+$wsaOrgInputArray = $input->getArray(array());
 $tDisplaySitename = htmlspecialchars($app->getTemplate(true)->params->get('displaySitename')); // 1 yes 2 no
 $tBrandImage = htmlspecialchars($app->getTemplate(true)->params->get('brandImage'));
 $tMenuType = htmlspecialchars($app->getTemplate(true)->params->get('menuType'));
@@ -411,6 +414,7 @@ foreach ($list as $i => &$item) {
                         echo '<!-- ';
                         
                         print_r($app->input);
+                        print-r($wsaOrgInputArray);
                         echo ' -->', PHP_EOL;
                         // $wsaComponent = ComponentHelper::renderComponent($item->query['option']);
                         echo '<!-- ';
