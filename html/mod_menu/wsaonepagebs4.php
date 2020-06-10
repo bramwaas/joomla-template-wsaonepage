@@ -421,6 +421,8 @@ foreach ($list as $i => &$item) {
                         $controller = BaseController::getInstance('Newsfeeds');
                         echo '$controller->get(name): ' , $controller->get('name') , PHP_EOL ;
                         unset($controller);
+                        $controller = BaseController::getInstance('Newsfeeds');
+                        echo '$controller->get(name): ' , $controller->get('name') , PHP_EOL ;
                         // tijdelijk aanpassen $app->input
                         foreach ($wsaOrgMenuQueryArray as $tmpKey => $tmpVal) {
                             $app->input->set($tmpKey,NULL);
