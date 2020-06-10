@@ -419,18 +419,21 @@ foreach ($list as $i => &$item) {
                         echo '<!-- ';
                         // verwijderen verkeerde controller
                         $controller = BaseController::getInstance('Newsfeeds');
-                        echo '$controller->get(name): ' , $controller->get('name') , PHP_EOL ;
-                        unset($controller);
-                        $controller = BaseController::getInstance('Newsfeeds');
+                        $tmpVars = $controller::getProperties(FALSE);
+                        echo 'controller::getProperties(FALSE):' . PHP_EOL;
+                        print_r($tmpVars);
                         echo '$controller->get(name): ' , $controller->get('name') , PHP_EOL ;
                         // tijdelijk aanpassen $app->input
+                        /*
                         foreach ($wsaOrgMenuQueryArray as $tmpKey => $tmpVal) {
                             $app->input->set($tmpKey,NULL);
                         }
                         foreach ($item->query as $tmpKey => $tmpVal) {
                             $app->input->set($tmpKey,$tmpVal);
                         }
+                        */
                         echo '$app->input:' . PHP_EOL;
+                        
                         print_r($app->input);
  //                       echo '$wsaOrgInputArray:' . PHP_EOL;
  //                       print_r($wsaOrgInputArray);
