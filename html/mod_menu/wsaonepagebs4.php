@@ -28,6 +28,7 @@ use Joomla\CMS\MVC\Model\BaseDatabaseModel;  // JModelLegacy
 use Joomla\CMS\MVC\Model\FormModel;  // JModelForm
 
 use Joomla\CMS\Component\ComponentHelper;  //tbv algemene renderComponent
+use Joomla\CMS\MVC\Controller\BaseController; 
 
 //use Joomla\CMS\HTML\HTMLHelper;
 //use Joomla\CMS\Plugin\PluginHelper;
@@ -412,9 +413,14 @@ foreach ($list as $i => &$item) {
         break;
                 case 'newsfeed':
                     {
+                        
                         echo '<h3>',  $item->title, '</h3>' , PHP_EOL ;
                         echo '<div>', ' $item->bookmark=' , $item->bookmark, ' $item->query[option]=' , $item->query['option'] ,' newsfeed zo veel mogelijk standaard.</div>' , PHP_EOL ;
                         echo '<!-- ';
+                        // verwijderen verkeerde controller
+                        $controller = BaseController::getInstance('Newsfeeds');
+                        echo '$controller->get(name): ' , $controller->get('name') , PHP_EOL ;
+                        unset($controller);
                         // tijdelijk aanpassen $app->input
                         foreach ($wsaOrgMenuQueryArray as $tmpKey => $tmpVal) {
                             $app->input->set($tmpKey,NULL);
