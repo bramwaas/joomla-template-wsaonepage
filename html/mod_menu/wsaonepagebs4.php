@@ -325,13 +325,14 @@ echo '<!-- onepage sections uit menu -->'. PHP_EOL;
 echo '<!-- ';
 // vastleggen variabelen huidige controller in verband met verwijderen verkeerde controller
 echo 'controller: '. substr(5,$wsaOrgMenuQueryArray['option']) .PHP_EOL;
-if ($controller = BaseController::getInstance(substr(5,$wsaOrgMenuQueryArray['option'])) ) {
+if ($controller = BaseController::getInstance(substr(5,$wsaOrgMenuQueryArray['option'])) ) 
+{
 $tmpOrgControllerVars = $controller->getProperties(FALSE);
 echo 'controller->getProperties(FALSE):' . PHP_EOL;
 print_r($tmpOrgControllerVars);
 echo '$controller->get(name): ' , $controller->get('name') , PHP_EOL ;
 echo ' -->', PHP_EOL;
-
+}
 
 foreach ($list as $i => &$item) {
     echo '<!-- item->type=' , $item->type , ' item->level=' , $item->level ,  ' $item->title=' , $item->title , ' $item->flink=' , $item->flink,   ' $item->bookmark=' , $item->bookmark,' -->', PHP_EOL;  
