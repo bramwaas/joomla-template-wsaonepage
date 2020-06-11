@@ -440,14 +440,14 @@ foreach ($list as $i => &$item) {
                         print_r($controller->getProperties(FALSE));
                         
                          // tijdelijk aanpassen $app->input
-                        /*
+                        
                         foreach ($wsaOrgMenuQueryArray as $tmpKey => $tmpVal) {
                             $app->input->set($tmpKey,NULL);
                         }
                         foreach ($item->query as $tmpKey => $tmpVal) {
                             $app->input->set($tmpKey,$tmpVal);
                         }
-                        */
+                        
                         echo '$app->input:' . PHP_EOL;
                         
                         print_r($app->input);
