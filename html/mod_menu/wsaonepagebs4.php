@@ -322,6 +322,17 @@ echo '</div><!--/div container-fluid --></' . $moduleTag . '><!--End navbar-->'.
 <?php 
 // voorlopig extra acties voor onepage sections
 echo '<!-- onepage sections uit menu -->'. PHP_EOL;
+echo '<!-- ';
+// vastleggen variabelen huidige controller in verband met verwijderen verkeerde controller
+echo 'controller: '. substr(5,$wsaOrgMenuQueryArray['option']) .PHP_EOL;
+if ($controller = BaseController::getInstance(substr(5,$wsaOrgMenuQueryArray['option'])) ) {
+$tmpOrgControllerVars = $controller->getProperties(FALSE);
+echo 'controller->getProperties(FALSE):' . PHP_EOL;
+print_r($tmpOrgControllerVars);
+echo '$controller->get(name): ' , $controller->get('name') , PHP_EOL ;
+echo ' -->', PHP_EOL;
+
+
 foreach ($list as $i => &$item) {
     echo '<!-- item->type=' , $item->type , ' item->level=' , $item->level ,  ' $item->title=' , $item->title , ' $item->flink=' , $item->flink,   ' $item->bookmark=' , $item->bookmark,' -->', PHP_EOL;  
     if ($item->type=='component' && $item->level==1) {
@@ -419,11 +430,15 @@ foreach ($list as $i => &$item) {
                         echo '<!-- ';
                         // verwijderen verkeerde controller
                         $controller = BaseController::getInstance('Newsfeeds');
-                        $tmpVars = $controller->getProperties(FALSE);
-                        echo 'controller->getProperties(FALSE):' . PHP_EOL;
-                        print_r($tmpVars);
-                        echo '$controller->get(name): ' , $controller->get('name') , PHP_EOL ;
-                        // tijdelijk aanpassen $app->input
+                        $controller->set('basePath',  '/home/deb120151/domains/waasdorpsoekhan.nl/public_html/components/com_newsfeeds');
+                        $controller->set('default_view',  'newsfeed');
+                        $controller->set('name',  'newsfeeds');
+                        $controller->set('model_prefix',  'NewsfeedsModel');
+                        $controller->set('paths',  array('view' => '/home/deb120151/domains/waasdorpsoekhan.nl/public_html/components/com_newsfeeds/views/' ));
+                        echo 'Newsfeeds $controller->getProperties(FALSE); :' . PHP_EOL; 
+                        print_r($controller->getProperties(FALSE));
+                        
+                         // tijdelijk aanpassen $app->input
                         /*
                         foreach ($wsaOrgMenuQueryArray as $tmpKey => $tmpVal) {
                             $app->input->set($tmpKey,NULL);
