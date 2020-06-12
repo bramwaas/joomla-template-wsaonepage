@@ -328,6 +328,7 @@ echo 'controller: '. substr(5,$wsaOrgMenuQueryArray['option']) .PHP_EOL;
 if ($controller = BaseController::getInstance(substr(5,$wsaOrgMenuQueryArray['option'])) ) 
 {
 $tmpOrgControllerVars = $controller->getProperties(FALSE);
+$controller->__destruct();
 echo 'controller->getProperties(FALSE):' . PHP_EOL;
 print_r($tmpOrgControllerVars);
 echo '$controller->get(name): ' , $controller->get('name') , PHP_EOL ;
