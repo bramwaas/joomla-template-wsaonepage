@@ -55,7 +55,7 @@ $input = $app->input;
 $wsaOrgInputArray = $input->getArray(array());
 $wsaOrgActiveMenuIdmenu     = $app->getMenu()->getActive();
 $wsaOrgMenuQueryArray = $wsaOrgActiveMenuIdmenu->query;
-$wsaOrgDocumentViewType = $document->getType();
+//$wsaOrgDocumentViewType = $document->getType();  = html is altijd goed, dus niets mee doen
 $tDisplaySitename = htmlspecialchars($app->getTemplate(true)->params->get('displaySitename')); // 1 yes 2 no
 $tBrandImage = htmlspecialchars($app->getTemplate(true)->params->get('brandImage'));
 $tMenuType = htmlspecialchars($app->getTemplate(true)->params->get('menuType'));
@@ -429,65 +429,36 @@ foreach ($list as $i => &$item) {
                     {
                         
                         echo '<h3>',  $item->title, '</h3>' , PHP_EOL ;
-                        echo '<div>', ' $item->bookmark=' , $item->bookmark, ' $item->query[option]=' , $item->query['option'] ,' newsfeed zo veel mogelijk standaard.</div>' , PHP_EOL ;
-                        echo '<!-- ';
+                        echo '<div>', ' $item->bookmark=' , $item->bookmark, ' $item->query[option]=' , $item->query['option'] ,' .</div>' , PHP_EOL ;
+                        echo '<!-- Newsfeed:', PHP_EOL ;
+                        echo '-->', PHP_EOL ;
+                        // voorbeeld modules / mod_articles_latest en https://stackoverflow.com/questions/19765160/loading-an-article-into-a-components-template-in-joomla
+                        // kijk ook naar components/com_content/models/articles
+                        JModelLegacy::addIncludePath(JPATH_SITE . '/components/com_newsfeeds/models', 'NewsfeedsModel'); // Is waarschijnlijk overbodig om com_content op te kunnen halen
                         
-                        // verwijderen verkeerde controller
-                        $controller = BaseController::getInstance('Newsfeeds');
-
-                        // welke view ?
-                        $document = Factory::getDocument();
-                        $viewType = $document->getType();
-                        $viewName = $controller->get('input')->get('view', $controller->get('default_view'));
-                        $viewLayout = $controller->get('input')->get('layout', 'default', 'string');
-                        
-                        echo ' voor aanpassingeen $viewType=' , $viewType , ' $viewName' , $viewName , ' $viewLayout' , $viewLayout , PHP_EOL;
-                        
-                        
-                        $controller->set('basePath',  '/home/deb120151/domains/waasdorpsoekhan.nl/public_html/components/com_newsfeeds');
-                        $controller->set('default_view',  'newsfeed');
-                        $controller->set('name',  'newsfeeds');
-                        $controller->set('model_prefix',  'NewsfeedsModel');
-                        $controller->set('paths',  array('view' => '/home/deb120151/domains/waasdorpsoekhan.nl/public_html/components/com_newsfeeds/views/' ));
-                        echo 'Newsfeeds $controller->getProperties(FALSE); :' . PHP_EOL; 
-                        print_r($controller->getProperties(FALSE));
-                        echo PHP_EOL;
-                         // tijdelijk aanpassen $app->input
-                        
-                        foreach ($wsaOrgMenuQueryArray as $tmpKey => $tmpVal) {
-                            $app->input->set($tmpKey,NULL);
+                        $wsaModel=BaseDatabaseModel::getInstance('Newsfeed', 'NewsfeedsModel', array('ignore_request'=>true));
+                        //            $wsaModel=JModelLegacy::getInstance('Article', 'ContentModel', array('ignore_request'=>true));  // één artikel
+                        // Set application parameters in model
+                        //            $app       = JFactory::getApplication();
+                        if ($wsaModel) {
+                            $wsaappParams = $app->getParams();
+                            $wsaModel->setState('params', $wsaappParams);
+                            $wsaModel->setState('newsfeed.id', (int) $item->query['id'] );
+                            $wsaModel->setState('load_tags', true); // not available for Article model
+                            $wsaModel->setState('show_associations', true);
+                            //            $wsaContentItems=$wsaModel->getItems();
+                            $wsaContentItem=$wsaModel->getItem($item->query['id']); // Indien één Artikel gekozen met Article ipv Articles
+                            //            $wsaContentItem=$wsaContentItems[0];
+                            //            foreach ($wsaContentItems as &$wsaContentItem)            {}; // als er meer artikelen zijn
+                            echo '<!-- ';
+                                        print_r($wsaContentItem);
+                            echo ' -->', PHP_EOL;
+                            echo '<h3>', $wsaContentItem->title, '</h3>' , PHP_EOL ;
+                            echo '<div>', $wsaContentItem->name, '</div>' , PHP_EOL ;
+ //                           echo '<div>', $wsaContentItem->email, '</div>' , PHP_EOL ;
+ //                           echo '<div>', $wsaContentItem->alias, '</div>' , PHP_EOL ;
                         }
-                        foreach ($item->query as $tmpKey => $tmpVal) {
-                            $app->input->set($tmpKey,$tmpVal);
-                        }
-                        
-                        echo '$app->input:' . PHP_EOL;
-                        
-                        print_r($app->input);
- //                       echo '$wsaOrgInputArray:' . PHP_EOL;
- //                       print_r($wsaOrgInputArray);
- //                       echo '$wsaOrgMenuQueryArray:' . PHP_EOL;
- //                       print_r($wsaOrgMenuQueryArray );
- //
-                        $viewName = $controller->get('input')->get('view', $controller->get('default_view'));
-                        $viewLayout = $controller->get('input')->get('layout', 'default', 'string');
-                        echo ' Na aanpassingeen $viewType=' , $viewType , ' $viewName=' , $viewName , ' $viewLayout=' , $viewLayout , PHP_EOL;
-                        
-                        echo ' -->', PHP_EOL;
-                         // $wsaComponent = ComponentHelper::renderComponent($item->query['option']);
-                        echo '<!-- ';
-                        //                                   print_r($wsaComponent);
-                        echo ' -->', PHP_EOL;
-                        $wsaComponent = wsaRenderComponent ($item->query['option']);
-                        echo $wsaComponent;
-                        // tijdelijke aanpassing $app->input herstellen
-                         foreach ($item->query  as $tmpKey => $tmpVal) {
-                            $app->input->set($tmpKey,NULL);
-                        }
-                        $app->input->set ('Itemid', $Itemid); // waarschijnlijk overbodig
-                        foreach ($wsaOrgMenuQueryArray as $tmpKey => $tmpVal) {
-                            $app->input->set($tmpKey,$tmpVal);
-                        }
+                        else echo '<div>', 'Model voor Newsfeed niet gevonden', '</div>' , PHP_EOL ;
                         
                     }
        break;             
