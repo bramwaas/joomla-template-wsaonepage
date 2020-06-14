@@ -53,8 +53,9 @@ $sitename = $app->get('sitename');
 $itemid   = $app->input->getCmd('Itemid', '');
 $input = $app->input;
 $wsaOrgInputArray = $input->getArray(array());
-$menu     = $app->getMenu()->getActive();
-$wsaOrgMenuQueryArray = $menu->query;
+$wsaOrgActiveMenuIdmenu     = $app->getMenu()->getActive();
+$wsaOrgMenuQueryArray = $wsaOrgActiveMenuIdmenu->query;
+$wsaOrgDocumentViewType = $document->getType();
 $tDisplaySitename = htmlspecialchars($app->getTemplate(true)->params->get('displaySitename')); // 1 yes 2 no
 $tBrandImage = htmlspecialchars($app->getTemplate(true)->params->get('brandImage'));
 $tMenuType = htmlspecialchars($app->getTemplate(true)->params->get('menuType'));
@@ -435,10 +436,10 @@ foreach ($list as $i => &$item) {
                         $controller = BaseController::getInstance('Newsfeeds');
 
                         // welke view ?
-                        $document = \JFactory::getDocument();
+                        $document = Factory::getDocument();
                         $viewType = $document->getType();
-                        $viewName = $this->input->get('view', $this->default_view);
-                        $viewLayout = $this->input->get('layout', 'default', 'string');
+                        $viewName = $controller->input->get('view', $controller->default_view);
+                        $viewLayout = $controller->input->get('layout', 'default', 'string');
                         
                         echo ' voor aanpassingeen $viewType=' , $viewType , ' $viewName' , $viewName , ' $viewLayout' , $viewLayout , PHP_EOL;
                         
