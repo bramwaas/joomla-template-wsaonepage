@@ -328,7 +328,7 @@ echo 'controller: '. substr(5,$wsaOrgMenuQueryArray['option']) .PHP_EOL;
 if ($controller = BaseController::getInstance(substr(5,$wsaOrgMenuQueryArray['option'])) ) 
 {
 $tmpOrgControllerVars = $controller->getProperties(FALSE);
-$controller->__destruct();
+//$controller->__destruct();  // functie bestaat niet
 echo 'controller->getProperties(FALSE):' . PHP_EOL;
 print_r($tmpOrgControllerVars);
 echo '$controller->get(name): ' , $controller->get('name') , PHP_EOL ;
@@ -430,8 +430,19 @@ foreach ($list as $i => &$item) {
                         echo '<h3>',  $item->title, '</h3>' , PHP_EOL ;
                         echo '<div>', ' $item->bookmark=' , $item->bookmark, ' $item->query[option]=' , $item->query['option'] ,' newsfeed zo veel mogelijk standaard.</div>' , PHP_EOL ;
                         echo '<!-- ';
+                        
                         // verwijderen verkeerde controller
                         $controller = BaseController::getInstance('Newsfeeds');
+
+                        // welke view ?
+                        $document = \JFactory::getDocument();
+                        $viewType = $document->getType();
+                        $viewName = $this->input->get('view', $this->default_view);
+                        $viewLayout = $this->input->get('layout', 'default', 'string');
+                        
+                        echo ' voor aanpassingeen $viewType=' , $viewType , ' $viewName' , $viewName , ' $viewLayout' , $viewLayout , PHP_EOL;
+                        
+                        
                         $controller->set('basePath',  '/home/deb120151/domains/waasdorpsoekhan.nl/public_html/components/com_newsfeeds');
                         $controller->set('default_view',  'newsfeed');
                         $controller->set('name',  'newsfeeds');
@@ -439,8 +450,9 @@ foreach ($list as $i => &$item) {
                         $controller->set('paths',  array('view' => '/home/deb120151/domains/waasdorpsoekhan.nl/public_html/components/com_newsfeeds/views/' ));
                         echo 'Newsfeeds $controller->getProperties(FALSE); :' . PHP_EOL; 
                         print_r($controller->getProperties(FALSE));
-                        
+                        echo PHP_EOL;
                          // tijdelijk aanpassen $app->input
+                        echo ' Na aanpassingeen $viewType=' , $viewType , ' $viewName' , $viewName , ' $viewLayout' , $viewLayout , PHP_EOL;
                         
                         foreach ($wsaOrgMenuQueryArray as $tmpKey => $tmpVal) {
                             $app->input->set($tmpKey,NULL);
