@@ -468,10 +468,13 @@ foreach ($list as $i => &$item) {
  //                       print_r($wsaOrgInputArray);
  //                       echo '$wsaOrgMenuQueryArray:' . PHP_EOL;
  //                       print_r($wsaOrgMenuQueryArray );
+ //
+                        $viewName = $controller->get('input')->get('view', $controller->get('default_view'));
+                        $viewLayout = $controller->get('input')->get('layout', 'default', 'string');
+                        echo ' Na aanpassingeen $viewType=' , $viewType , ' $viewName=' , $viewName , ' $viewLayout=' , $viewLayout , PHP_EOL;
                         
                         echo ' -->', PHP_EOL;
-                        echo ' Na aanpassingeen $viewType=' , $viewType , ' $viewName=' , $viewName , ' $viewLayout=' , $viewLayout , PHP_EOL;
-                        // $wsaComponent = ComponentHelper::renderComponent($item->query['option']);
+                         // $wsaComponent = ComponentHelper::renderComponent($item->query['option']);
                         echo '<!-- ';
                         //                                   print_r($wsaComponent);
                         echo ' -->', PHP_EOL;
