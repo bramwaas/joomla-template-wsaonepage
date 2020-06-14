@@ -438,8 +438,8 @@ foreach ($list as $i => &$item) {
                         // welke view ?
                         $document = Factory::getDocument();
                         $viewType = $document->getType();
-                        $viewName = $controller->input->get('view', $controller->default_view);
-                        $viewLayout = $controller->input->get('layout', 'default', 'string');
+                        $viewName = $controller->get('input')->get('view', $controller->default_view);
+                        $viewLayout = $controller->get('input')->get('layout', 'default', 'string');
                         
                         echo ' voor aanpassingeen $viewType=' , $viewType , ' $viewName' , $viewName , ' $viewLayout' , $viewLayout , PHP_EOL;
                         
