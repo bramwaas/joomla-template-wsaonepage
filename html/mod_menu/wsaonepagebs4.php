@@ -453,7 +453,6 @@ foreach ($list as $i => &$item) {
                         print_r($controller->getProperties(FALSE));
                         echo PHP_EOL;
                          // tijdelijk aanpassen $app->input
-                        echo ' Na aanpassingeen $viewType=' , $viewType , ' $viewName' , $viewName , ' $viewLayout' , $viewLayout , PHP_EOL;
                         
                         foreach ($wsaOrgMenuQueryArray as $tmpKey => $tmpVal) {
                             $app->input->set($tmpKey,NULL);
@@ -471,6 +470,7 @@ foreach ($list as $i => &$item) {
  //                       print_r($wsaOrgMenuQueryArray );
                         
                         echo ' -->', PHP_EOL;
+                        echo ' Na aanpassingeen $viewType=' , $viewType , ' $viewName' , $viewName , ' $viewLayout' , $viewLayout , PHP_EOL;
                         // $wsaComponent = ComponentHelper::renderComponent($item->query['option']);
                         echo '<!-- ';
                         //                                   print_r($wsaComponent);
