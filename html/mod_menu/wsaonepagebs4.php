@@ -434,6 +434,15 @@ foreach ($list as $i => &$item) {
                         echo '-->', PHP_EOL ;
                         // voorbeeld modules / mod_articles_latest en https://stackoverflow.com/questions/19765160/loading-an-article-into-a-components-template-in-joomla
                         // kijk ook naar components/com_content/models/articles
+ //                       Uit newsfeeds.php
+/*                         JLoader::register('NewsfeedsHelperRoute', JPATH_COMPONENT . '/helpers/route.php');
+                        JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR . '/tables');
+                        
+                        $controller = JControllerLegacy::getInstance('Newsfeeds');
+                        $controller->execute(JFactory::getApplication()->input->get('task'));
+                        $controller->redirect(); */
+//                      einde uit newsfeeds.php 
+                        
                         BaseDatabaseModel::addIncludePath(JPATH_SITE . '/components/com_newsfeeds/models', 'NewsfeedsModel'); // Is waarschijnlijk overbodig om com_content op te kunnen halen
                         // controller beschikbaar maken, is waarschijnlijk die van de hoofdcomponent, omdat hij maar een keer wordt geinstancieerd, maar basisfuncties zijn zo beschikbaar.
                         $controller = BaseController::getInstance('Newsfeeds');
