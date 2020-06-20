@@ -485,11 +485,7 @@ foreach ($list as $i => &$item) {
                             -                            $app->input->set($tmpKey,NULL);
                         
  */ 
-//                        $wsaModel=BaseDatabaseModel::getInstance($wsaOption, $wsaComponent . 'Model', array('ignore_request'=>true));  // optie om State niet te vullen weglaten , array('ignore_request'=>true));
-                        echo '<!-- ', PHP_EOL;
-                        echo '$wsaOption:' , $wsaOption, ' $wsaComponent:', $wsaComponent;
-                        echo ' -->', PHP_EOL;
-                        $wsaModel=BaseDatabaseModel::getInstance('Newsfeed', 'Newsfeeds' . 'Model', array('ignore_request'=>true));  // optie om State niet te vullen weglaten , array('ignore_request'=>true));
+                        $wsaModel=BaseDatabaseModel::getInstance(ucfirst($item->query[view]), $wsaComponent . 'Model', array('ignore_request'=>true));  // optie om State niet te vullen weglaten , array('ignore_request'=>true));
                         //            $wsaModel=JModelLegacy::getInstance('Article', 'ContentModel', array('ignore_request'=>true));  // één artikel
                         // Set application parameters in model
                         //            $app       = JFactory::getApplication();
