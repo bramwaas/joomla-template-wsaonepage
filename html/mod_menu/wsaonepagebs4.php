@@ -433,9 +433,12 @@ foreach ($list as $i => &$item) {
                         echo '<!-- Newsfeed:', PHP_EOL ;
                         echo '-->', PHP_EOL ;
                         // aangepaste versie van componentpath ed in variabelen in plaats van constantes.
-                            $wsaJPATH_COMPONENT = JPATH_BASE . '/components/' . $item->query['option'];
-                            $wsaJPATH_COMPONENT_SITE = JPATH_SITE . '/components/' . $item->query['option'];
-                            $wsaJPATH_COMPONENT_ADMINISTRATOR = JPATH_ADMINISTRATOR . '/components/' . $item->query['option'];
+                        $wsaOption = preg_replace('/[^A-Z0-9_\.-]/i', '', $item->query['option']);
+                        $wsaFile = substr($wsaOption, 4);
+                        
+                        $wsaJPATH_COMPONENT = JPATH_BASE . '/components/' . $wsaOption;
+                        $wsaJPATH_COMPONENT_SITE = JPATH_SITE . '/components/' . $wsaOption;
+                        $wsaJPATH_COMPONENT_ADMINISTRATOR = JPATH_ADMINISTRATOR . '/components/' . $wsaOption;
                       
                         // voorbeeld modules / mod_articles_latest en https://stackoverflow.com/questions/19765160/loading-an-article-into-a-components-template-in-joomla
                         // kijk ook naar components/com_content/models/articles
@@ -448,9 +451,9 @@ foreach ($list as $i => &$item) {
                         $controller->redirect(); */
 //                      einde uit newsfeeds.php 
                         
-                            BaseDatabaseModel::addIncludePath($wsaJPATH_COMPONENT . '/models', 'NewsfeedsModel'); // Is waarschijnlijk overbodig om com_content op te kunnen halen
+                        BaseDatabaseModel::addIncludePath($wsaJPATH_COMPONENT . '/models', ucfirst($wsaFile) . 'Model'); // Is waarschijnlijk overbodig om com_content op te kunnen halen
                         // controller beschikbaar maken, is waarschijnlijk die van de hoofdcomponent, omdat hij maar een keer wordt geinstancieerd, maar basisfuncties zijn zo beschikbaar.
-                        $controller = BaseController::getInstance('Newsfeeds');
+                        $controller = BaseController::getInstance(ucfirst($wsaFile));
 
 /*                         -                        // verwijderen verkeerde controller
                         -                        $controller = BaseController::getInstance('Newsfeeds');
