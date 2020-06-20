@@ -434,7 +434,8 @@ foreach ($list as $i => &$item) {
                         echo '-->', PHP_EOL ;
                         // aangepaste versie van componentpath ed in variabelen in plaats van constantes.
                         $wsaOption = preg_replace('/[^A-Z0-9_\.-]/i', '', $item->query['option']);
-                        $wsaFile = substr($wsaOption, 4);
+//                        $wsaFile = substr($wsaOption, 4);
+                        $wsaComponent = ucfirst(substr($wsaOption, 4));
                         
                         $wsaJPATH_COMPONENT = JPATH_BASE . '/components/' . $wsaOption;
                         $wsaJPATH_COMPONENT_SITE = JPATH_SITE . '/components/' . $wsaOption;
@@ -442,19 +443,22 @@ foreach ($list as $i => &$item) {
                       
                         // voorbeeld modules / mod_articles_latest en https://stackoverflow.com/questions/19765160/loading-an-article-into-a-components-template-in-joomla
                         // kijk ook naar components/com_content/models/articles
- //                       Uit newsfeeds.php
-/*                         JLoader::register('NewsfeedsHelperRoute', JPATH_COMPONENT . '/helpers/route.php');
+                        //                       Uit components/com_newsfeeds/newsfeeds.php
+/*                      JLoader::register('NewsfeedsHelperRoute', JPATH_COMPONENT . '/helpers/route.php');
                         JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR . '/tables');
-                        
                         $controller = JControllerLegacy::getInstance('Newsfeeds');
                         $controller->execute(JFactory::getApplication()->input->get('task'));
                         $controller->redirect(); */
 //                      einde uit newsfeeds.php 
-                        
-                        BaseDatabaseModel::addIncludePath($wsaJPATH_COMPONENT . '/models', ucfirst($wsaFile) . 'Model'); // Is waarschijnlijk overbodig om com_content op te kunnen halen
+                        JLoader::register($wsaComponent . 'HelperRoute', $wsaJPATH_COMPONENT_ADMINISTRATOR . '/helpers/route.php');
+                        JTable::addIncludePath($wsaJPATH_COMPONENT_ADMINISTRATOR . '/tables');
+                        BaseDatabaseModel::addIncludePath($wsaJPATH_COMPONENT . '/models', $wsaComponent . 'Model'); // Is waarschijnlijk overbodig om com_content op te kunnen halen
                         // controller beschikbaar maken, is waarschijnlijk die van de hoofdcomponent, omdat hij maar een keer wordt geinstancieerd, maar basisfuncties zijn zo beschikbaar.
-                        $controller = BaseController::getInstance(ucfirst($wsaFile));
-
+                        $controller = BaseController::getInstance($wsaComponent);
+                        echo '<!-- $controller direct na get instance kijk naar waarde Input:', PHP_EOL;
+                        print_r($controller);
+                        echo ' -->', PHP_EOL;
+                        
 /*                         -                        // verwijderen verkeerde controller
                         -                        $controller = BaseController::getInstance('Newsfeeds');
                         -
@@ -481,10 +485,13 @@ foreach ($list as $i => &$item) {
                             -                            $app->input->set($tmpKey,NULL);
                         
  */ 
-                        $wsaModel=BaseDatabaseModel::getInstance('Newsfeed', 'NewsfeedsModel', array('ignore_request'=>true));
+                        $wsaModel=BaseDatabaseModel::getInstance($wsaOption, $wsaComponent . 'Model'); // optie om State niet te vullen weglaten , array('ignore_request'=>true));
                         //            $wsaModel=JModelLegacy::getInstance('Article', 'ContentModel', array('ignore_request'=>true));  // één artikel
                         // Set application parameters in model
                         //            $app       = JFactory::getApplication();
+                        echo '<!-- $wsaModel direct na get instance kijk naar waarde State en Item:', PHP_EOL;
+                        print_r($wsaModel);
+                        echo ' -->', PHP_EOL;
                         if ($wsaModel) {
                             $wsaappParams = $app->getParams();
                             $wsaModel->setState('params', $wsaappParams);
