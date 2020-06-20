@@ -331,7 +331,7 @@ if ($controller = BaseController::getInstance(substr(5,$wsaOrgMenuQueryArray['op
 $tmpOrgControllerVars = $controller->getProperties(FALSE);
 //$controller->__destruct();  // functie bestaat niet
 echo 'controller->getProperties(FALSE):' . PHP_EOL;
-print_r($tmpOrgControllerVars);
+// print_r($tmpOrgControllerVars);
 echo '$controller->get(name): ' , $controller->get('name') , PHP_EOL ;
 echo ' -->', PHP_EOL;
 }
@@ -341,7 +341,7 @@ foreach ($list as $i => &$item) {
     if ($item->type=='component' && $item->level==1) {
         echo '<section id="' , $item->bookmark  , '" class="container" >', PHP_EOL;
         echo '<!-- ';
- //       print_r($item);
+ //       // print_r($item);
         echo ' -->', PHP_EOL;
         echo '<div class="container"><div class="row"><div class="col-lg-8 mx-auto">', PHP_EOL;
         echo '<p>' , $item->title , '</p>' , PHP_EOL;
@@ -382,7 +382,7 @@ foreach ($list as $i => &$item) {
             $wsaContentItem=$wsaContentItems[0];
 //            foreach ($wsaContentItems as &$wsaContentItem)            {}; // als er meer artikelen zijn
                 echo '<!-- ';
-//                   print_r($article);
+//                   // print_r($article);
             echo ' -->', PHP_EOL;
             echo '<h3>', $wsaContentItem->title, '</h3>' , PHP_EOL ;
             echo '<div>', $wsaContentItem->introtext, '</div>' , PHP_EOL ;
@@ -413,7 +413,7 @@ foreach ($list as $i => &$item) {
 //            $wsaContentItem=$wsaContentItems[0];
             //            foreach ($wsaContentItems as &$wsaContentItem)            {}; // als er meer artikelen zijn
             echo '<!-- ';
-            //                   print_r($wsaContentItem);
+            //                   // print_r($wsaContentItem);
             echo ' -->', PHP_EOL;
             echo '<h3>', $wsaContentItem->title, '</h3>' , PHP_EOL ;
             echo '<div>', $wsaContentItem->name, '</div>' , PHP_EOL ;
@@ -456,7 +456,7 @@ foreach ($list as $i => &$item) {
                         // controller beschikbaar maken, is waarschijnlijk die van de hoofdcomponent, omdat hij maar een keer wordt geinstancieerd, maar basisfuncties zijn zo beschikbaar.
                         $controller = BaseController::getInstance($wsaComponent);
                         echo '<!-- $controller direct na get instance kijk naar waarde Input:', PHP_EOL;
-                        print_r($controller);
+                        // print_r($controller);
                         echo ' -->', PHP_EOL;
                         
 /*                         -                        // verwijderen verkeerde controller
@@ -477,7 +477,7 @@ foreach ($list as $i => &$item) {
                         -                        $controller->set('model_prefix',  'NewsfeedsModel');
                         -                        $controller->set('paths',  array('view' => '/home/deb120151/domains/waasdorpsoekhan.nl/public_html/components/com_newsfeeds/views/' ));
                         -                        echo 'Newsfeeds $controller->getProperties(FALSE); :' . PHP_EOL;
-                        -                        print_r($controller->getProperties(FALSE));
+                        -                        // print_r($controller->getProperties(FALSE));
                         -               echo PHP_EOL;
                         -                         // tijdelijk aanpassen $app->input
                         -
@@ -490,7 +490,7 @@ foreach ($list as $i => &$item) {
                         // Set application parameters in model
                         //            $app       = JFactory::getApplication();
                         echo '<!-- $wsaModel direct na get instance kijk naar waarde State en Item:', PHP_EOL;
-                        print_r($wsaModel);
+                        // print_r($wsaModel);
                         echo ' -->', PHP_EOL;
                         if ($wsaModel) {
                             $wsaappParams = $app->getParams();
@@ -503,7 +503,7 @@ foreach ($list as $i => &$item) {
                             //            $wsaContentItem=$wsaContentItems[0];
                             //            foreach ($wsaContentItems as &$wsaContentItem)            {}; // als er meer artikelen zijn
                             echo '<!-- $wsaContentItem ', PHP_EOL;
-                                        print_r($wsaContentItem);
+                                        // print_r($wsaContentItem);
                             echo ' -->', PHP_EOL;
                             echo '<h3>', $wsaContentItem->title, '</h3>' , PHP_EOL ;
                             echo '<div>', $wsaContentItem->name, '</div>' , PHP_EOL ;
@@ -516,11 +516,11 @@ foreach ($list as $i => &$item) {
                                 -
                                 -                        echo '$app->input:' . PHP_EOL;
                                 -
-                                -                        print_r($app->input);
+                                -                        // print_r($app->input);
                                 - //                       echo '$wsaOrgInputArray:' . PHP_EOL;
-                                - //                       print_r($wsaOrgInputArray);
+                                - //                       // print_r($wsaOrgInputArray);
                                 - //                       echo '$wsaOrgMenuQueryArray:' . PHP_EOL;
-                                - //                       print_r($wsaOrgMenuQueryArray );
+                                - //                       // print_r($wsaOrgMenuQueryArray );
                                 - //
                                 -                        $viewName = $controller->get('input')->get('view', $controller->get('default_view'));
                                 -                        $viewLayout = $controller->get('input')->get('layout', 'default', 'string');
@@ -529,7 +529,7 @@ foreach ($list as $i => &$item) {
                                 -                        echo ' -->', PHP_EOL;
                                 -                         // $wsaComponent = ComponentHelper::renderComponent($item->query['option']);
                                 -                        echo '<!-- ';
-                                -                        //                                   print_r($wsaComponent);
+                                -                        //                                   // print_r($wsaComponent);
                                 -                        echo ' -->', PHP_EOL;
                                 -                        $wsaComponent = wsaRenderComponent ($item->query['option']);
                                 -                        echo $wsaComponent;
