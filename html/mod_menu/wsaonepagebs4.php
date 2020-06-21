@@ -195,6 +195,87 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	    return ob_get_clean();
 	}
 	
+	
+	//  Uitgaande van Display method BaseController.php (in plaats van $this $controller gebruikens en in plaats van gegevens uit input de gegevens uit de menu link
+	/**
+	 * Typical view method for MVC based architecture
+	 *
+	 * This function is provide as a default implementation, in most cases
+	 * you will need to override it in your own controllers.
+	 *
+	 * @param   boolean  $cachable   If true, the view output will be cached
+	 * @param   array    $urlparams  An array of safe URL parameters and their variable types, for valid values see {@link \JFilterInput::clean()}.
+	 *
+	 * @return  \JControllerLegacy  A \JControllerLegacy object to support chaining.
+	 *
+	 * @since   3.0
+	 */
+	 function wsaDisplay($cachable = false, $urlparams = array())
+	{
+	    $document = \JFactory::getDocument();
+	    $viewType = $document->getType();
+	    $viewName = $this->input->get('view', $this->default_view);
+	    $viewLayout = $this->input->get('layout', 'default', 'string');
+	    
+	    $view = $this->getView($viewName, $viewType, '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
+	    
+	    // Get/Create the model
+	    if ($model = $this->getModel($viewName))
+	    {
+	        // Push the model into the view (as default)
+	        $view->setModel($model, true);
+	    }
+	    
+	    $view->document = $document;
+	    
+	    // Display the view
+	    if ($cachable && $viewType !== 'feed' && \JFactory::getConfig()->get('caching') >= 1)
+	    {
+	        $option = $this->input->get('option');
+	        
+	        if (is_array($urlparams))
+	        {
+	            $app = \JFactory::getApplication();
+	            
+	            if (!empty($app->registeredurlparams))
+	            {
+	                $registeredurlparams = $app->registeredurlparams;
+	            }
+	            else
+	            {
+	                $registeredurlparams = new \stdClass;
+	            }
+	            
+	            foreach ($urlparams as $key => $value)
+	            {
+	                // Add your safe URL parameters with variable type as value {@see \JFilterInput::clean()}.
+	                $registeredurlparams->$key = $value;
+	            }
+	            
+	            $app->registeredurlparams = $registeredurlparams;
+	        }
+	        
+	        try
+	        {
+	            /** @var \JCacheControllerView $cache */
+	            $cache = \JFactory::getCache($option, 'view');
+	            $cache->get($view, 'display');
+	        }
+	        catch (\JCacheException $exception)
+	        {
+	            $view->display();
+	        }
+	    }
+	    else
+	    {
+	        $view->display();
+	    }
+	    
+	    return $this;
+	}
+	//  Uitgaande van Display method BaseController.php
+	
+	
 ?>
 
 <?php 
