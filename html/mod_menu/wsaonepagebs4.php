@@ -210,12 +210,12 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	 *
 	 * @since   3.0
 	 */
-	function wsaDisplay($cachable = false, $urlparams = array(), $viewName = null, $viewtype = null, $viewLayout = null)
+	function wsaDisplay($cachable = false, $urlparams = array(), $controller, $viewName = null, $viewtype = null, $viewLayout = null)
 	{
 	    $document = \JFactory::getDocument();
 	    if (!isset($viewtype))    $viewType = $document->getType();  // normaal html
-	    if (!isset($viewName)) $viewName = $this->input->get('view', $this->default_view); // naam van de view bijv featured, article, newsfeed
-	    if (!isset($viewLayout)) $viewLayout = $this->input->get('layout', 'default', 'string'); // naam van layout bv default vewijzend naar layoutbestand.
+	    if (!isset($viewName)) $viewName = $controller->input->get('view', $controller->default_view); // naam van de view bijv featured, article, newsfeed
+	    if (!isset($viewLayout)) $viewLayout = $controller->input->get('layout', 'default', 'string'); // naam van layout bv default vewijzend naar layoutbestand.
 	    echo '<!-- wsaDisplay overgeomen van BaseController.php en aangepast in wsaonepagebs4.php:' , PHP_EOL;
 	    echo '$urlparams:', PHP_EOL;
 	    print_r($urlparams);
@@ -227,10 +227,10 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	    print_r($viewLayout);
 	    echo '-->', PHP_EOL;
 	    
-	    $view = $this->getView($viewName, $viewType, '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
+	    $view = $controller->getView($viewName, $viewType, '', array('base_path' => $controller->basePath, 'layout' => $viewLayout));
 	    
 	    // Get/Create the model
-	    if ($model = $this->getModel($viewName))
+	    if ($model = $controller->getModel($viewName))
 	    {
 	        // Push the model into the view (as default)
 	        $view->setModel($model, true);
@@ -241,7 +241,7 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	    // Display the view
 	    if ($cachable && $viewType !== 'feed' && \JFactory::getConfig()->get('caching') >= 1)
 	    {
-	        $option = $this->input->get('option');
+	        $option = $controller->input->get('option');
 	        
 	        if (is_array($urlparams))
 	        {
@@ -281,7 +281,7 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	        $view->display();
 	    }
 	    
-	    return $this;
+	    return $controller;
 	}
 	//  Uitgaande van Display method BaseController.php
 	
@@ -635,7 +635,7 @@ foreach ($list as $i => &$item) {
  */                        
                         
                         
-                            wsaDisplay( false,  array(), $item->query[view],  null,  null);
+                            wsaDisplay( false,  array(), $controller, $item->query[view],  null,  null);
                         }
                         else echo '<div>', 'Model voor Newsfeed niet gevonden', '</div>' , PHP_EOL ;
                         
