@@ -210,7 +210,7 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	 *
 	 * @since   3.0
 	 */
-	function wsaDisplay($cachable = false, $urlparams = array(), $controller, $viewName = '', $prefix = null, $viewtype = 'html', $viewLayout = 'default')
+	function wsaDisplay($cachable = false, $urlparams = array(), $controller, $viewName = '', $prefix = null, $basePath, $viewtype = 'html', $viewLayout = 'default')
 	{
 	    $document = \JFactory::getDocument();
 //	    if (!isset($viewtype))    $viewType = $document->getType();  // normaal html
@@ -227,7 +227,7 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	    print_r($viewLayout);
 	    echo '-->', PHP_EOL;
 	    
-	    $view = $controller->getView($viewName, $viewType, $prefix, array('base_path' => $controller->get('basePath'), 'layout' => $viewLayout));
+	    $view = $controller->getView($viewName, $viewType, $prefix, array('base_path' => $basePath, 'layout' => $viewLayout));
 	    
 	    // Get/Create the model
 	    if ($model = $controller->getModel($viewName))
@@ -635,7 +635,7 @@ foreach ($list as $i => &$item) {
  */                        
                         
                         
-                            wsaDisplay( false,  array(), $controller, $item->query[view],  $wsaComponent . 'View', null,  null);
+                            wsaDisplay( false,  array(), $controller, $item->query[view],  $wsaComponent . 'View', $wsaJPATH_COMPONENT, null,  null);
                         }
                         else echo '<div>', 'Model voor Newsfeed niet gevonden', '</div>' , PHP_EOL ;
                         
