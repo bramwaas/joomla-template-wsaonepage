@@ -210,12 +210,12 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	 *
 	 * @since   3.0
 	 */
-	function wsaDisplay($cachable = false, $urlparams = array(), $controller, $viewName = null, $viewtype = null, $viewLayout = null)
+	function wsaDisplay($cachable = false, $urlparams = array(), $controller, $viewName = null, $viewtype = 'html', $viewLayout = 'default')
 	{
 	    $document = \JFactory::getDocument();
-	    if (!isset($viewtype))    $viewType = $document->getType();  // normaal html
-	    if (!isset($viewName)) $viewName = $controller->input->get('view', $controller->default_view); // naam van de view bijv featured, article, newsfeed
-	    if (!isset($viewLayout)) $viewLayout = $controller->input->get('layout', 'default', 'string'); // naam van layout bv default vewijzend naar layoutbestand.
+//	    if (!isset($viewtype))    $viewType = $document->getType();  // normaal html
+//	    if (!isset($viewName)) $viewName = $controller->get('input')->get('view', $controller->get('default_view')); // naam van de view bijv featured, article, newsfeed
+//	    if (!isset($viewLayout)) $viewLayout = $controller->get('input')->get('layout', 'default', 'string'); // naam van layout bv default vewijzend naar layoutbestand.
 	    echo '<!-- wsaDisplay overgeomen van BaseController.php en aangepast in wsaonepagebs4.php:' , PHP_EOL;
 	    echo '$urlparams:', PHP_EOL;
 	    print_r($urlparams);
