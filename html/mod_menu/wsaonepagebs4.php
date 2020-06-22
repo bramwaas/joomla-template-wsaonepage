@@ -210,7 +210,7 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	 *
 	 * @since   3.0
 	 */
-	function wsaDisplay($cachable = false, $urlparams = array(), $controller, $viewName = '', $prefix = null, $basePath, $viewtype = null, $viewLayout = null)
+	function wsaDisplay($cachable = false, $urlparams = array(), $controller, $viewName = '', $prefix = null, $basePath, $viewType = null, $viewLayout = null)
 	{
 	    $document = \JFactory::getDocument();
 //	    if (!isset($viewtype))    $viewType = $document->getType();  // normaal html
@@ -227,8 +227,6 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	    print_r($viewLayout);
 	    echo '-->', PHP_EOL;
 	    // extra om foute instellingen te overschrijven.
-	     $viewtype = 'html';
-	     $viewLayout = 'default';
 	    $prefix = 'newsfeedsView';
 	    $basePath = '/home/deb120151/domains/waasdorpsoekhan.nl/public_html/components/com_newsfeeds';
 	    $controller->set('paths',  array('view' => $basePath . '/views/' ));
@@ -647,7 +645,7 @@ foreach ($list as $i => &$item) {
  */                        
                         
                         
-                            wsaDisplay( false,  array(), $controller, $item->query[view],  $wsaComponent . 'View', $wsaJPATH_COMPONENT, null,  null);
+                            wsaDisplay( false,  array(), $controller, $item->query[view],  $wsaComponent . 'View', $wsaJPATH_COMPONENT, 'html',  'default');
                         }
                         else echo '<div>', 'Model voor Newsfeed niet gevonden', '</div>' , PHP_EOL ;
                         
