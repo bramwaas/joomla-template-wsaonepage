@@ -210,12 +210,22 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	 *
 	 * @since   3.0
 	 */
-	 function wsaDisplay($cachable = false, $urlparams = array())
+	function wsaDisplay($cachable = false, $urlparams = array(), $viewName = null $viewtype = null, $viewLayout = null)
 	{
 	    $document = \JFactory::getDocument();
-	    $viewType = $document->getType();
-	    $viewName = $this->input->get('view', $this->default_view);
-	    $viewLayout = $this->input->get('layout', 'default', 'string');
+	    if (!isset($viewtype))    $viewType = $document->getType();  // normaal html
+	    if (!isset($viewName)) $viewName = $this->input->get('view', $this->default_view); // naam van de view bijv featured, article, newsfeed
+	    if (!isset($viewLayout)) $viewLayout = $this->input->get('layout', 'default', 'string'); // naam van layout bv default vewijzend naar layoutbestand.
+	    echo '<!-- wsaDisplay overgeomen van BaseController.php en aangepast in wsaonepagebs4.php:' , PHP_EOL;
+	    echo '$urlparams:', PHP_EOL;
+	    print_r($urlparams);
+	    echo PHP_EOL, '$viewType:', PHP_EOL;
+	    print_r($viewType);
+	    echo PHP_EOL, '$viewName:', PHP_EOL;
+	    print_r($viewName);
+	    echo PHP_EOL, '$viewLayout:', PHP_EOL;
+	    print_r($viewLayout);
+	    echo '-->', PHP_EOL;
 	    
 	    $view = $this->getView($viewName, $viewType, '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
 	    
