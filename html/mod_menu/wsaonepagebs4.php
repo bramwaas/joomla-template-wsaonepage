@@ -210,7 +210,7 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	 *
 	 * @since   3.0
 	 */
-	function wsaDisplay($cachable = false, $urlparams = array(), $controller, $viewName = null, $viewtype = 'html', $viewLayout = 'default')
+	function wsaDisplay($cachable = false, $urlparams = array(), $controller, $viewName = null, $prefix = null, $viewtype = 'html', $viewLayout = 'default')
 	{
 	    $document = \JFactory::getDocument();
 //	    if (!isset($viewtype))    $viewType = $document->getType();  // normaal html
@@ -635,7 +635,7 @@ foreach ($list as $i => &$item) {
  */                        
                         
                         
-                            wsaDisplay( false,  array(), $controller, $item->query[view],  null,  null);
+                            wsaDisplay( false,  array(), $controller, $item->query[view],  $wsaComponent . 'View', null,  null);
                         }
                         else echo '<div>', 'Model voor Newsfeed niet gevonden', '</div>' , PHP_EOL ;
                         
