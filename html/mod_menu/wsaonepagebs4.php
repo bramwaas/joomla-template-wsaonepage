@@ -210,7 +210,7 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	 *
 	 * @since   3.0
 	 */
-	function wsaDisplay($cachable = false, $urlparams = array(), $controller, $viewName = '', $prefix = null, $basePath, $viewtype = 'html', $viewLayout = 'default')
+	function wsaDisplay($cachable = false, $urlparams = array(), $controller, $viewName = '', $prefix = null, $basePath, $viewtype = null, $viewLayout = null)
 	{
 	    $document = \JFactory::getDocument();
 //	    if (!isset($viewtype))    $viewType = $document->getType();  // normaal html
@@ -227,6 +227,8 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	    print_r($viewLayout);
 	    echo '-->', PHP_EOL;
 	    // extra om foute instellingen te overschrijven.
+	    if (!isset($viewtype)) $viewtype = 'html';
+	    if (!isset($viewLayout)) $viewLayout = 'default';
 	    $prefix = 'newsfeedsView';
 	    $basePath = '/home/deb120151/domains/waasdorpsoekhan.nl/public_html/components/com_newsfeeds';
 	    $controller->set('paths',  array('view' => $basePath . '/views/' ));
