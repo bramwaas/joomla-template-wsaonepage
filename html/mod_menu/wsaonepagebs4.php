@@ -227,8 +227,8 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	    print_r($viewLayout);
 	    echo '-->', PHP_EOL;
 	    // extra om foute instellingen te overschrijven.
-	    if (!isset($viewtype)) $viewtype = 'html';
-	    if (!isset($viewLayout)) $viewLayout = 'default';
+	     $viewtype = 'html';
+	     $viewLayout = 'default';
 	    $prefix = 'newsfeedsView';
 	    $basePath = '/home/deb120151/domains/waasdorpsoekhan.nl/public_html/components/com_newsfeeds';
 	    $controller->set('paths',  array('view' => $basePath . '/views/' ));
