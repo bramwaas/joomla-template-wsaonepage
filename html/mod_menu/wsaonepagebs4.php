@@ -210,7 +210,7 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	 *
 	 * @since   3.0
 	 */
-	function wsaDisplay($cachable = false, $urlparams = array(), $controller, $viewName = null, $prefix = null, $viewtype = 'html', $viewLayout = 'default')
+	function wsaDisplay($cachable = false, $urlparams = array(), $controller, $viewName = '', $prefix = null, $viewtype = 'html', $viewLayout = 'default')
 	{
 	    $document = \JFactory::getDocument();
 //	    if (!isset($viewtype))    $viewType = $document->getType();  // normaal html
@@ -227,7 +227,7 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	    print_r($viewLayout);
 	    echo '-->', PHP_EOL;
 	    
-	    $view = $controller->getView($viewName, $viewType, '', array('base_path' => $controller->get('basePath'), 'layout' => $viewLayout));
+	    $view = $controller->getView($viewName, $viewType, $prefix, array('base_path' => $controller->get('basePath'), 'layout' => $viewLayout));
 	    
 	    // Get/Create the model
 	    if ($model = $controller->getModel($viewName))
