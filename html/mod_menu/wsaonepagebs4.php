@@ -226,8 +226,8 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	    echo PHP_EOL, '$viewLayout:', PHP_EOL;
 	    print_r($viewLayout);
 	    echo '-->', PHP_EOL;
-	    
-	    $view = $controller->getView($viewName, $viewType, $prefix, array('base_path' => $basePath), 'layout' => $viewLayout));
+	    $controller->set('paths',  array('view' => $basePath . '/views/' ));
+	    $view = $controller->getView($viewName, $viewType, $prefix, array('base_path' => $basePath, 'layout' => $viewLayout));
 	    
 	    // Get/Create the model
 	    if ($model = $controller->getModel($viewName))
