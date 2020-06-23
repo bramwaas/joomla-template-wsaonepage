@@ -205,12 +205,20 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	 *
 	 * @param   boolean  $cachable   If true, the view output will be cached
 	 * @param   array    $urlparams  An array of safe URL parameters and their variable types, for valid values see {@link \JFilterInput::clean()}.
-	 *
+     * extra params, in stead of using values from input object, or other objects
+	 * @param   object   $controller Instance of BaseController object
+	 * @param   string   $viewName   Name of the view to create to display the component data
+	 * @param   string   $prefix     Prefix of the name of the view to create to display the component data
+	 * @param   string   $basePath   Path to the component used as basepath for the view
+	 * @param   string   $viewType   Type of view, default 'html' 
+	 * @param   string   $viewLayout Layout of the output, name of the layout file, default 'default'
+	 * 
+	 * 	 *
 	 * @return  \JControllerLegacy  A \JControllerLegacy object to support chaining.
 	 *
 	 * @since   3.0
 	 */
-	function wsaDisplay($cachable = false, $urlparams = array(), $controller, $viewName = '', $prefix = null, $basePath, $viewType = null, $viewLayout = null)
+	function wsaDisplay($cachable = false, $urlparams = array(), $controller, $viewName , $prefix = '', $basePath, $viewType = 'html', $viewLayout = 'default', $model = null)
 	{
 	    $document = \JFactory::getDocument();
 //	    if (!isset($viewtype))    $viewType = $document->getType();  // normaal html
@@ -232,8 +240,14 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	    // einde extra
 	    $view = $controller->getView($viewName, $viewType, $prefix, array('base_path' => $basePath, 'layout' => $viewLayout));
 	    
+	    // tijdelijk extra $model via parameters
+	    if (isset($model)) {
+	        // Push the model into the view (as default)
+	        $view->setModel($model, true);
+	    }
+	    // einde extra
 	    // Get/Create the model
-	    if ($model = $controller->getModel($viewName))
+	    else if ($model = $controller->getModel($viewName))
 	    {
 	        // Push the model into the view (as default)
 	        $view->setModel($model, true);
@@ -638,7 +652,7 @@ foreach ($list as $i => &$item) {
  */                        
                         
                         
-                            wsaDisplay( false,  array(), $controller, $item->query[view],  $wsaComponent . 'View', $wsaJPATH_COMPONENT, 'html',  'default');
+                            wsaDisplay( false,  array(), $controller, $item->query[view],  $wsaComponent . 'View', $wsaJPATH_COMPONENT, 'html',  'default', $wsaModel);
                         }
                         else echo '<div>', 'Model voor Newsfeed niet gevonden', '</div>' , PHP_EOL ;
                         
