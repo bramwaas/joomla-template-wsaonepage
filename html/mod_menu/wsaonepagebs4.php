@@ -227,14 +227,7 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	    print_r($viewLayout);
 	    echo '-->', PHP_EOL;
 	    // extra om foute instellingen te overschrijven.
-	    $prefix = 'newsfeedsView';
-	    $basePath = '/home/deb120151/domains/waasdorpsoekhan.nl/public_html/components/com_newsfeeds';
 	    $controller->set('paths',  array('view' => $basePath . '/views/' ));
-	    $controller->set('basePath',  '/home/deb120151/domains/waasdorpsoekhan.nl/public_html/components/com_newsfeeds');
-	                           $controller->set('default_view',  'newsfeed');
-	                          $controller->set('name',  'newsfeeds');
-	                           $controller->set('model_prefix',  'NewsfeedsModel');
-	                           $controller->set('paths',  array('view' => '/home/deb120151/domains/waasdorpsoekhan.nl/public_html/components/com_newsfeeds/views/' ));
 	                          
 	    // einde extra
 	    $view = $controller->getView($viewName, $viewType, $prefix, array('base_path' => $basePath, 'layout' => $viewLayout));
