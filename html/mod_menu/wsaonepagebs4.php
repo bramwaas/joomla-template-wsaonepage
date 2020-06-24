@@ -456,7 +456,7 @@ foreach ($list as $i => &$item) {
         echo '<p>' , ' $item->flink=' , $item->flink , ' $item->link=' , $item->link ,  PHP_EOL
         , ' $item->query[option]=' , $item->query['option'] , ' $item->query[view]=' , $item->query['view'] , ' $item->query[id]=' , $item->query['id'] , PHP_EOL ; 
 //        foreach ( $item->query as $key => $value) {             echo " {$key} => {$value} " , PHP_EOL;         }
-            switch ($item->query[view])
+            switch ($item->query['view'])
             {
                 case 'article' :
                 case 'featured' :    
@@ -537,7 +537,7 @@ foreach ($list as $i => &$item) {
                     {
                         
                         echo '<h3>',  $item->title, '</h3>' , PHP_EOL ;
-                        echo '<div>', ' $item->bookmark=' , $item->bookmark, ' $item->query[option]=' , $item->query['option'] ,' .</div>' , PHP_EOL ;
+                        echo '<div>', ' $item->bookmark=' , $item->bookmark, ' $item->query[option]=' , $item->query['option'] , ' $item->query[view]=', $item->query['view'],' .</div>' , PHP_EOL ;
                         echo '<!-- Newsfeed:', PHP_EOL ;
                         echo '-->', PHP_EOL ;
                         // aangepaste versie van componentpath ed in variabelen in plaats van constantes.
@@ -593,32 +593,37 @@ foreach ($list as $i => &$item) {
                             -                            $app->input->set($tmpKey,NULL);
                         
  */ 
-                        // ignore_request'=>true optie om State niet te vullen door populateState (in newsfeed.php) die input id gebruikt.
-                        // TODO alternatief is input tijdelijk overschrijven
-                        // en wellicht ook de menuoptie tijdelijk actief te maken
-                        $wsaModel=BaseDatabaseModel::getInstance(ucfirst($item->query[view]), $wsaComponent . 'Model', array('ignore_request'=>true));  
+                        // TODO ignore_request'=>true optie om State niet te vullen door populateState (in newsfeed.php) die input id gebruikt. weer verwijderd.
+                        // TODO goede beschrijving van dit soort aanpassingen.
+                         $wsaModel=BaseDatabaseModel::getInstance(ucfirst($item->query['view']), $wsaComponent . 'Model'); // , array('ignore_request'=>true));  
                         //            $wsaModel=JModelLegacy::getInstance('Article', 'ContentModel', array('ignore_request'=>true));  // één artikel
                         // Set application parameters in model
                         //            $app       = JFactory::getApplication();
-                        echo '<!-- $wsaModel direct na get instance kijk naar waarde State en Item:', PHP_EOL;
+                        echo '<!-- $wsaModel direct na get instance :', PHP_EOL;
                         // print_r($wsaModel);
                         echo ' -->', PHP_EOL;
                         if ($wsaModel) {
-                            $wsaappParams = $app->getParams();
-                            $wsaModel->setState('params', $wsaappParams);
-                            $wsaModel->setState('newsfeed.id', (int) $item->query['id'] );
-                            $wsaModel->setState('load_tags', true); // not available for Article model
-                            $wsaModel->setState('show_associations', true);
-                            $wsaModel->set('Item', $item);
+                            // TODO loze aanroep getState om state initieel te vullen met populateState echter deze gebruikt id uit input, daarom deze nog overschrijven met Id uit menuoptie
+                            // TODO verder wordt het actieve menu gebruikt in de display functie, dus mischien zou tijdelijk het actuele menuitem actief gemaakt moeten worden
+                            $state = $wsaModel->get('State');
+                            $wsaModel->setState($item->query['view'] . '.id', (int) $item->query['id'] ); // haal id uit $item in plaats van uit $input.
+                            echo '<!-- $state ', PHP_EOL;
+                             print_r($state);
+                            echo ' -->', PHP_EOL;
+                            
+                            //$wsaappParams = $app->getParams();
+                            //$wsaModel->setState('params', $wsaappParams);
+                            //$wsaModel->setState('load_tags', true); // not available for Article model
+                            //$wsaModel->setState('show_associations', true);
                             //            $wsaContentItems=$wsaModel->getItems();
-                            $wsaContentItem=$wsaModel->getItem($item->query['id']); // Indien één Artikel gekozen met Article ipv Articles // TODO overbodig dit gebeurt al in dispaly functie in newsfeed.php
+                            //$wsaContentItem=$wsaModel->getItem($item->query['id']); // Indien één Artikel gekozen met Article ipv Articles // TODO overbodig dit gebeurt al in dispaly functie in newsfeed.php
                             //            $wsaContentItem=$wsaContentItems[0];
                             //            foreach ($wsaContentItems as &$wsaContentItem)            {}; // als er meer artikelen zijn
-                            echo '<!-- $wsaContentItem ', PHP_EOL;
+                            //echo '<!-- $wsaContentItem ', PHP_EOL;
                                         // print_r($wsaContentItem);
-                            echo ' -->', PHP_EOL;
-                            echo '<h3>', $wsaContentItem->title, '</h3>' , PHP_EOL ;
-                            echo '<div>', $wsaContentItem->name, '</div>' , PHP_EOL ;
+                            //echo ' -->', PHP_EOL;
+                            //echo '<h3>', $wsaContentItem->title, '</h3>' , PHP_EOL ;
+                            //echo '<div>', $wsaContentItem->name, '</div>' , PHP_EOL ;
  //                           echo '<div>', $wsaContentItem->email, '</div>' , PHP_EOL ;
  //                           echo '<div>', $wsaContentItem->alias, '</div>' , PHP_EOL ;
 
@@ -656,7 +661,7 @@ foreach ($list as $i => &$item) {
  */                        
                         
                         
-                            wsaDisplay( false,  array(), $controller, $item->query[view],  $wsaComponent . 'View', $wsaJPATH_COMPONENT, 'html',  'default', $wsaModel);
+                            wsaDisplay( false,  array(), $controller, $item->query['view'],  $wsaComponent . 'View', $wsaJPATH_COMPONENT, 'html',  'default', $wsaModel);
                         }
                         else echo '<div>', 'Model voor Newsfeed niet gevonden', '</div>' , PHP_EOL ;
                         
