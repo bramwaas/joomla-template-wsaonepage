@@ -558,7 +558,7 @@ foreach ($list as $i => &$item) {
                         $controller->execute(JFactory::getApplication()->input->get('task'));
                         $controller->redirect(); */
 //                      einde uit newsfeeds.php 
-                        JLoader::register($wsaComponent . 'HelperRoute', $wsaJPATH_COMPONENT_ADMINISTRATOR . '/helpers/route.php');
+                        JLoader::register($wsaComponent . 'HelperRoute', $wsaJPATH_COMPONENT . '/helpers/route.php');
                         JTable::addIncludePath($wsaJPATH_COMPONENT_ADMINISTRATOR . '/tables');
                         BaseDatabaseModel::addIncludePath($wsaJPATH_COMPONENT . '/models', $wsaComponent . 'Model'); // Is waarschijnlijk overbodig om com_content op te kunnen halen
                         // controller beschikbaar maken, is waarschijnlijk die van de hoofdcomponent, omdat hij maar een keer wordt geinstancieerd, maar basisfuncties zijn zo beschikbaar.
