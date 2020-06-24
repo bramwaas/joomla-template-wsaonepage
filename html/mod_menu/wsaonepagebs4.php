@@ -595,7 +595,8 @@ foreach ($list as $i => &$item) {
  */ 
                         // TODO ignore_request'=>true optie om State niet te vullen door populateState (in newsfeed.php) die input id gebruikt. weer verwijderd.
                         // TODO goede beschrijving van dit soort aanpassingen.
-                         $wsaModel=BaseDatabaseModel::getInstance(ucfirst($item->query['view']), $wsaComponent . 'Model'); // , array('ignore_request'=>true));  
+                        //                         $wsaModel=BaseDatabaseModel::getInstance(ucfirst($item->query['view']), $wsaComponent . 'Model'); // , array('ignore_request'=>true));
+                        $wsaModel=BaseDatabaseModel::getInstance(ucfirst($item->query['view']), $wsaComponent . 'Model' , array('ignore_request'=>true));
                         //            $wsaModel=JModelLegacy::getInstance('Article', 'ContentModel', array('ignore_request'=>true));  // één artikel
                         // Set application parameters in model
                         //            $app       = JFactory::getApplication();
@@ -611,8 +612,8 @@ foreach ($list as $i => &$item) {
                              print_r($state);
                             echo ' -->', PHP_EOL;
                             
-                            //$wsaappParams = $app->getParams();
-                            //$wsaModel->setState('params', $wsaappParams);
+                            $wsaappParams = $app->getParams();
+                            $wsaModel->setState('params', $wsaappParams);
                             //$wsaModel->setState('load_tags', true); // not available for Article model
                             //$wsaModel->setState('show_associations', true);
                             //            $wsaContentItems=$wsaModel->getItems();
