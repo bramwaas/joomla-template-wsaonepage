@@ -593,7 +593,10 @@ foreach ($list as $i => &$item) {
                             -                            $app->input->set($tmpKey,NULL);
                         
  */ 
-                        $wsaModel=BaseDatabaseModel::getInstance(ucfirst($item->query[view]), $wsaComponent . 'Model');  // optie om State niet te vullen weglaten , array('ignore_request'=>true));
+                        // ignore_request'=>true optie om State niet te vullen door populateState (in newsfeed.php) die input id gebruikt.
+                        // TODO alternatief is input tijdelijk overschrijven
+                        // en wellicht ook de menuoptie tijdelijk actief te maken
+                        $wsaModel=BaseDatabaseModel::getInstance(ucfirst($item->query[view]), $wsaComponent . 'Model', array('ignore_request'=>true));  
                         //            $wsaModel=JModelLegacy::getInstance('Article', 'ContentModel', array('ignore_request'=>true));  // één artikel
                         // Set application parameters in model
                         //            $app       = JFactory::getApplication();
@@ -606,8 +609,9 @@ foreach ($list as $i => &$item) {
                             $wsaModel->setState('newsfeed.id', (int) $item->query['id'] );
                             $wsaModel->setState('load_tags', true); // not available for Article model
                             $wsaModel->setState('show_associations', true);
+                            $wsaModel->set('Item', $item);
                             //            $wsaContentItems=$wsaModel->getItems();
-                            $wsaContentItem=$wsaModel->getItem($item->query['id']); // Indien één Artikel gekozen met Article ipv Articles
+                            $wsaContentItem=$wsaModel->getItem($item->query['id']); // Indien één Artikel gekozen met Article ipv Articles // TODO overbodig dit gebeurt al in dispaly functie in newsfeed.php
                             //            $wsaContentItem=$wsaContentItems[0];
                             //            foreach ($wsaContentItems as &$wsaContentItem)            {}; // als er meer artikelen zijn
                             echo '<!-- $wsaContentItem ', PHP_EOL;
