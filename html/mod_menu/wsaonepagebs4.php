@@ -18,6 +18,7 @@
  * 28-5-2020 deze en aangeroepen programma's hernoemd naar wsaonepagebs4... om deze alleen te laten werken bij een men waain expliciet voor die layout gekozen is.
  * 6-6-2020 eerste geslaagde poging om content artikelen op te halen.
  * 9-6-2020 newsfeeds op algemene manier trachten op te halen.
+ * 24-6-2020 newsfeed werkt, maar populateState niet goed gebruikt.
  */
 
 defined('_JEXEC') or die;
