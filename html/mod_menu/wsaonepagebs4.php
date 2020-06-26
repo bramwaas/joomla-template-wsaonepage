@@ -19,6 +19,7 @@
  * 6-6-2020 eerste geslaagde poging om content artikelen op te halen.
  * 9-6-2020 newsfeeds op algemene manier trachten op te halen.
  * 24-6-2020 newsfeed werkt, maar populateState niet goed gebruikt.
+ * 25-6-2020 populateState laten werken door juiste instelling input, hij lijkt later in actie te komen dan ik verwacht had
  */
 
 defined('_JEXEC') or die;
@@ -540,6 +541,10 @@ foreach ($list as $i => &$item) {
                         echo '<h3>',  $item->title, '</h3>' , PHP_EOL ;
                         echo '<div>', ' $item->bookmark=' , $item->bookmark, ' $item->query[option]=' , $item->query['option'] , ' $item->query[view]=', $item->query['view'],' .</div>' , PHP_EOL ;
                         echo '<!-- Newsfeed:', PHP_EOL ;
+                        echo 'waarschijnlijk zijn deze altijd hetzelfde: $wsaOrgActiveMenuIdmenu =' , $wsaOrgActiveMenuIdmenu , ' $Itemid=', $Itemid, PHP_EOL;
+                        echo 'huidige menuid $item->id=' , $item->id, PHP_EOL;
+                        
+                        
                         echo '-->', PHP_EOL ;
                         // aangepaste versie van componentpath ed in variabelen in plaats van constantes.
                         $wsaOption = preg_replace('/[^A-Z0-9_\.-]/i', '', $item->query['option']);
@@ -549,7 +554,12 @@ foreach ($list as $i => &$item) {
                         $wsaJPATH_COMPONENT = JPATH_BASE . '/components/' . $wsaOption;
                         $wsaJPATH_COMPONENT_SITE = JPATH_SITE . '/components/' . $wsaOption;
                         $wsaJPATH_COMPONENT_ADMINISTRATOR = JPATH_ADMINISTRATOR . '/components/' . $wsaOption;
-                      
+                        foreach ($item->query as $tmpKey => $tmpVal) { // tijdelijk input vervangen door item[query]
+                            $app->input->set($tmpKey,$tmpVal);
+                        $app->input->set ('Itemid', $item->id); // set de Itemid op de Id van het huidige menu alternatief is misschien ook het alternatief met setActive
+                        $app->getMenu()->setActive($item->id);
+                            
+                            
                         // voorbeeld modules / mod_articles_latest en https://stackoverflow.com/questions/19765160/loading-an-article-into-a-components-template-in-joomla
                         // kijk ook naar components/com_content/models/articles
                         //                       Uit components/com_newsfeeds/newsfeeds.php
@@ -596,8 +606,8 @@ foreach ($list as $i => &$item) {
  */ 
                         // TODO ignore_request'=>true optie om State niet te vullen door populateState (in newsfeed.php) die input id gebruikt. weer verwijderd.
                         // TODO goede beschrijving van dit soort aanpassingen.
-                        //                         $wsaModel=BaseDatabaseModel::getInstance(ucfirst($item->query['view']), $wsaComponent . 'Model'); // , array('ignore_request'=>true));
-                        $wsaModel=BaseDatabaseModel::getInstance(ucfirst($item->query['view']), $wsaComponent . 'Model' , array('ignore_request'=>true));
+                        $wsaModel=BaseDatabaseModel::getInstance(ucfirst($item->query['view']), $wsaComponent . 'Model'); // , array('ignore_request'=>true));
+                        // $wsaModel=BaseDatabaseModel::getInstance(ucfirst($item->query['view']), $wsaComponent . 'Model' , array('ignore_request'=>true));
                         //            $wsaModel=JModelLegacy::getInstance('Article', 'ContentModel', array('ignore_request'=>true));  // één artikel
                         // Set application parameters in model
                         //            $app       = JFactory::getApplication();
@@ -608,13 +618,13 @@ foreach ($list as $i => &$item) {
                             // TODO loze aanroep getState om state initieel te vullen met populateState echter deze gebruikt id uit input, daarom deze nog overschrijven met Id uit menuoptie
                             // TODO verder wordt het actieve menu gebruikt in de display functie, dus mischien zou tijdelijk het actuele menuitem actief gemaakt moeten worden
                             $state = $wsaModel->get('State');
-                            $wsaModel->setState($item->query['view'] . '.id', (int) $item->query['id'] ); // haal id uit $item in plaats van uit $input.
+                            // $wsaModel->setState($item->query['view'] . '.id', (int) $item->query['id'] ); // haal id uit $item in plaats van uit $input.
                             echo '<!-- $state ', PHP_EOL;
                              print_r($state);
                             echo ' -->', PHP_EOL;
                             
-                            $wsaappParams = $app->getParams();
-                            $wsaModel->setState('params', $wsaappParams);
+                            //$wsaappParams = $app->getParams();
+                            //$wsaModel->setState('params', $wsaappParams);
                             //$wsaModel->setState('load_tags', true); // not available for Article model
                             //$wsaModel->setState('show_associations', true);
                             //            $wsaContentItems=$wsaModel->getItems();
@@ -668,6 +678,17 @@ foreach ($list as $i => &$item) {
                         else echo '<div>', 'Model voor Newsfeed niet gevonden', '</div>' , PHP_EOL ;
                         
                     }
+                    // tijdelijke aanpassing $app->input herstellen eerst op NULL, omdat er misschien meer tijdelijke aanpassingen zijn dan oorspronklijke.
+                    foreach ($item->query  as $tmpKey => $tmpVal) {
+                        $app->input->set($tmpKey,NULL);
+                    }
+                    $app->input->set ('Itemid', $Itemid); // herstel actieve menu optie via input, of alternatief via setActive
+                    $app->getMenu()->setActive($wsaOrgActiveMenuIdmenu);
+                    
+                    foreach ($wsaOrgMenuQueryArray as $tmpKey => $tmpVal) {
+                        $app->input->set($tmpKey,$tmpVal);
+                    }
+                    
        break;             
                 default:
                     {  
