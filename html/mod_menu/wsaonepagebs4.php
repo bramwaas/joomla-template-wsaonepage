@@ -555,7 +555,7 @@ foreach ($list as $i => &$item) {
                         $wsaJPATH_COMPONENT_SITE = JPATH_SITE . '/components/' . $wsaOption;
                         $wsaJPATH_COMPONENT_ADMINISTRATOR = JPATH_ADMINISTRATOR . '/components/' . $wsaOption;
                         foreach ($item->query as $tmpKey => $tmpVal) { // tijdelijk input vervangen door item[query]
-                            $app->input->set($tmpKey,$tmpVal);
+                            $app->input->set($tmpKey,$tmpVal);}
                         $app->input->set ('Itemid', $item->id); // set de Itemid op de Id van het huidige menu alternatief is misschien ook het alternatief met setActive
                         $app->getMenu()->setActive($item->id);
                             
@@ -677,7 +677,7 @@ foreach ($list as $i => &$item) {
                         }
                         else echo '<div>', 'Model voor Newsfeed niet gevonden', '</div>' , PHP_EOL ;
                         
-                    }
+                        }
                     // tijdelijke aanpassing $app->input herstellen eerst op NULL, omdat er misschien meer tijdelijke aanpassingen zijn dan oorspronklijke.
                     foreach ($item->query  as $tmpKey => $tmpVal) {
                         $app->input->set($tmpKey,NULL);
