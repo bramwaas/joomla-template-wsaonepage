@@ -541,7 +541,8 @@ foreach ($list as $i => &$item) {
                         echo '<h3>',  $item->title, '</h3>' , PHP_EOL ;
                         echo '<div>', ' $item->bookmark=' , $item->bookmark, ' $item->query[option]=' , $item->query['option'] , ' $item->query[view]=', $item->query['view'],' .</div>' , PHP_EOL ;
                         echo '<!-- Newsfeed:', PHP_EOL ;
-                        echo 'waarschijnlijk zijn deze altijd hetzelfde: $wsaOrgActiveMenuIdmenu =' , $wsaOrgActiveMenuIdmenu , ' $Itemid=', $Itemid, PHP_EOL;
+//                        echo 'waarschijnlijk zijn deze altijd hetzelfde: $wsaOrgActiveMenuIdmenu =' , $wsaOrgActiveMenuIdmenu , ' $Itemid=', $Itemid, PHP_EOL;
+                        echo '$Itemid=', $Itemid, PHP_EOL;
                         echo 'huidige menuid $item->id=' , $item->id, PHP_EOL;
                         
                         
@@ -557,7 +558,7 @@ foreach ($list as $i => &$item) {
                         foreach ($item->query as $tmpKey => $tmpVal) { // tijdelijk input vervangen door item[query]
                             $app->input->set($tmpKey,$tmpVal);}
                         $app->input->set ('Itemid', $item->id); // set de Itemid op de Id van het huidige menu alternatief is misschien ook het alternatief met setActive
-                        $app->getMenu()->setActive($item->id);
+//                        $app->getMenu()->setActive($item->id);
                             
                             
                         // voorbeeld modules / mod_articles_latest en https://stackoverflow.com/questions/19765160/loading-an-article-into-a-components-template-in-joomla
@@ -683,7 +684,7 @@ foreach ($list as $i => &$item) {
                         $app->input->set($tmpKey,NULL);
                     }
                     $app->input->set ('Itemid', $Itemid); // herstel actieve menu optie via input, of alternatief via setActive
-                    $app->getMenu()->setActive($wsaOrgActiveMenuIdmenu);
+ //                   $app->getMenu()->setActive($wsaOrgActiveMenuIdmenu);
                     
                     foreach ($wsaOrgMenuQueryArray as $tmpKey => $tmpVal) {
                         $app->input->set($tmpKey,$tmpVal);
