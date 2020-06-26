@@ -618,14 +618,15 @@ foreach ($list as $i => &$item) {
                         if ($wsaModel) {
                             // TODO loze aanroep getState om state initieel te vullen met populateState echter deze gebruikt id uit input, daarom deze nog overschrijven met Id uit menuoptie
                             // TODO verder wordt het actieve menu gebruikt in de display functie, dus mischien zou tijdelijk het actuele menuitem actief gemaakt moeten worden
-                            $state = $wsaModel->get('State');
-                            // $wsaModel->setState($item->query['view'] . '.id', (int) $item->query['id'] ); // haal id uit $item in plaats van uit $input.
+                            //$state = $wsaModel->get('State');
+                            $state = $wsaModel->getState();
+                            $wsaModel->setState($item->query['view'] . '.id', (int) $item->query['id'] ); // haal id uit $item in plaats van uit $input.
                             echo '<!-- $state ', PHP_EOL;
                              print_r($state);
                             echo ' -->', PHP_EOL;
                             
-                            //$wsaappParams = $app->getParams();
-                            //$wsaModel->setState('params', $wsaappParams);
+                            $wsaappParams = $app->getParams();
+                            $wsaModel->setState('params', $wsaappParams);
                             //$wsaModel->setState('load_tags', true); // not available for Article model
                             //$wsaModel->setState('show_associations', true);
                             //            $wsaContentItems=$wsaModel->getItems();
