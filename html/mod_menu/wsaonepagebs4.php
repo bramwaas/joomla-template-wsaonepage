@@ -484,8 +484,8 @@ foreach ($list as $i => &$item) {
         $app->input->set($tmpKey,$tmpVal);}
     $app->input->set ('Itemid', $item->id); // set de Itemid op de Id van het huidige menu alternatief is misschien ook het alternatief met setActive
     $wsaComponentParams = $app->getParams($item->query['option']);
-    $wsaMenuParams = $params = new Jregistry($item->params);
-    $wsaMenuParams->set('page_title', $app->getParams()->get('page_title') );
+    $wsaMenuParams = $params = new Registry($item->params);
+//    $wsaMenuParams->set('page_title', $app->getParams()->get('page_title') ); // heeft geen effect op eitelijke titel dus ergens anders aanpassen.
     $wsaComponentParams->merge($wsaMenuParams);
         
 //    echo '<!-- item->type=' , $item->type , ' item->level=' , $item->level ,  ' $item->title=' , $item->title , ' $item->flink=' , $item->flink,   ' $item->bookmark=' , $item->bookmark,' -->', PHP_EOL;  
@@ -647,9 +647,20 @@ foreach ($list as $i => &$item) {
                             // TODO verder wordt het actieve menu gebruikt in de display functie, dus mischien zou tijdelijk het actuele menuitem actief gemaakt moeten worden
                             //$state = $wsaModel->get('State');
                             $state = $wsaModel->getState();
-                            $wsaModel->setState($item->query['view'] . '.id', (int) $item->query['id'] ); // haal id uit $item in plaats van uit $input.
                             $wsaModel->setState('parameters.menu', $wsaMenuParams);
+                            $wsaModel->setState($item->query['view'] . '.id', (int) $item->query['id'] ); // haal id uit $item in plaats van uit $input.
+                                                      
                             $wsaModel->setState('params', $wsaComponentParams);
+                            // uit populateState van newsfeed.php
+                            $offset = $app->input->get('limitstart', 0, 'uint');
+                            $wsaModel->setState('list.offset', $offset);
+                            $user = Factory::getUser();
+                            if ((!$user->authorise('core.edit.state', $item->query['option'])) && (!$user->authorise('core.edit', $item->query['option'])))
+                            {
+                                $wsaModel->setState('filter.published', 1);
+                                $wsaModel->setState('filter.archived', 2);
+                            }
+                            // einde uit populateState van newsfeed.php
                             //$wsaModel->setState('load_tags', true); // not available for Article model
                             //$wsaModel->setState('show_associations', true);
                             //            $wsaContentItems=$wsaModel->getItems();
