@@ -54,10 +54,6 @@ $document = Factory::getDocument();
 $sitename = $app->get('sitename');
 $itemid   = $app->input->getCmd('Itemid', '');
 $input = $app->input;
-$wsaOrgInputArray = $input->getArray(array());
-$wsaOrgActiveMenuIdmenu     = $app->getMenu()->getActive();
-$wsaOrgMenuQueryArray = $wsaOrgActiveMenuIdmenu->query;
-$wsaOrgDocumentViewType = $document->getType();  //= html is altijd goed, dus niets mee doen
 $tDisplaySitename = htmlspecialchars($app->getTemplate(true)->params->get('displaySitename')); // 1 yes 2 no
 $tBrandImage = htmlspecialchars($app->getTemplate(true)->params->get('brandImage'));
 $tMenuType = htmlspecialchars($app->getTemplate(true)->params->get('menuType'));
@@ -431,33 +427,70 @@ echo '</div><!--/div container-fluid --></' . $moduleTag . '><!--End navbar-->'.
 
 
 <?php 
-// voorlopig extra acties voor onepage sections
-echo '<!-- onepage sections uit menu -->'. PHP_EOL;
-echo '<!-- ';
-// vastleggen variabelen huidige controller in verband met verwijderen verkeerde controller
-echo 'controller: '. substr(5,$wsaOrgMenuQueryArray['option']) .PHP_EOL;
-if ($controller = BaseController::getInstance(substr(5,$wsaOrgMenuQueryArray['option'])) ) 
-{
-$tmpOrgControllerVars = $controller->getProperties(FALSE);
-//$controller->__destruct();  // functie bestaat niet
-echo 'controller->getProperties(FALSE):' . PHP_EOL;
-// print_r($tmpOrgControllerVars);
-echo '$controller->get(name): ' , $controller->get('name') , PHP_EOL ;
-echo ' -->', PHP_EOL;
+/* 
+ * List of sections with a component for each menu-item on this page.
+ * 
+ * By default, joomla only has one component per page, so a component often stores and uses general variables.
+ * We sometimes have to override those in the list of menu components, 
+ * so first secure the variables of the component page and restore them after processing the component list.
+  */
+/* 
+ * secure variables of page and page component
+ */
+$wsaOrgInputArray = $input->getArray(array());
+$wsaOrgActiveMenuIdmenu     = $app->getMenu()->getActive();
+$wsaOrgMenuQueryArray = $wsaOrgActiveMenuIdmenu->query;
+$wsaOrgDocumentViewType = $document->getType();  //= html is always ok
+echo '<!-- onepage Component Sections from menu -->'. PHP_EOL;
+try {
+    echo '<!-- input object:' . PHP_EOL;
+    print_r($input);
+    echo 'controller input option: '. substr(5,$wsaOrgInputArray['option']) .PHP_EOL;
+    echo 'controller menu option: '. substr(5,$wsaOrgMenuQueryArray['option']) .PHP_EOL;
+    echo ' -->', PHP_EOL;
+    if ($controller = BaseController::getInstance(substr(5,$wsaOrgMenuQueryArray['option'])) ) 
+    {
+        $wsaOrgControllerVars = $controller->getProperties(FALSE);
+        echo '<!-- $controller->get(name):' , $controller->get(name), ' -->';
+    }
+} catch (Exception $e) {
+    echo '<!-- '. PHP_EOL;
+    echo 'Caught exception: ',  $e->getMessage(), PHP_EOL;
+    echo ' -->', PHP_EOL;
 }
+echo '<!-- Option:', $item->query['option'] , ' view:', $item->query['view'],  PHP_EOL ;
 
+echo '$Itemid=', $Itemid, PHP_EOL;
+echo 'huidige menuid $item->id=' , $item->id, PHP_EOL;
+echo '-->', PHP_EOL ;
+// aangepaste versie van componentpath ed in variabelen in plaats van constantes.
+$wsaOption = preg_replace('/[^A-Z0-9_\.-]/i', '', $item->query['option']);
+$wsaComponent = ucfirst(substr($wsaOption, 4));
+$wsaJPATH_COMPONENT = JPATH_BASE . '/components/' . $wsaOption;
+$wsaJPATH_COMPONENT_SITE = JPATH_SITE . '/components/' . $wsaOption;
+$wsaJPATH_COMPONENT_ADMINISTRATOR = JPATH_ADMINISTRATOR . '/components/' . $wsaOption;
+foreach ($item->query as $tmpKey => $tmpVal) { // tijdelijk input vervangen door item[query]
+    $app->input->set($tmpKey,$tmpVal);}
+    $app->input->set ('Itemid', $item->id); // set de Itemid op de Id van het huidige menu alternatief is misschien ook het alternatief met setActive
+    
 foreach ($list as $i => &$item) {
-    echo '<!-- item->type=' , $item->type , ' item->level=' , $item->level ,  ' $item->title=' , $item->title , ' $item->flink=' , $item->flink,   ' $item->bookmark=' , $item->bookmark,' -->', PHP_EOL;  
+    /*
+     * actions for all kind of components (option) / views (view)
+     */
+//    echo '<!-- item->type=' , $item->type , ' item->level=' , $item->level ,  ' $item->title=' , $item->title , ' $item->flink=' , $item->flink,   ' $item->bookmark=' , $item->bookmark,' -->', PHP_EOL;  
+// TODO juiste selectie voor menuitems
     if ($item->type=='component' && $item->level==1) {
-        echo '<section id="' , $item->bookmark  , '" class="container" >', PHP_EOL;
-        echo '<!-- ';
+        echo '<!-- start with $item';
  //       // print_r($item);
         echo ' -->', PHP_EOL;
+//
         echo '<div class="container"><div class="row"><div class="col-lg-8 mx-auto">', PHP_EOL;
         echo '<p>' , $item->title , '</p>' , PHP_EOL;
         echo '<p>' , ' $item->flink=' , $item->flink , ' $item->link=' , $item->link ,  PHP_EOL
         , ' $item->query[option]=' , $item->query['option'] , ' $item->query[view]=' , $item->query['view'] , ' $item->query[id]=' , $item->query['id'] , PHP_EOL ; 
 //        foreach ( $item->query as $key => $value) {             echo " {$key} => {$value} " , PHP_EOL;         }
+
+            
             switch ($item->query['view'])
             {
                 case 'article' :
@@ -540,25 +573,6 @@ foreach ($list as $i => &$item) {
                         
                         echo '<h3>',  $item->title, '</h3>' , PHP_EOL ;
                         echo '<div>', ' $item->bookmark=' , $item->bookmark, ' $item->query[option]=' , $item->query['option'] , ' $item->query[view]=', $item->query['view'],' .</div>' , PHP_EOL ;
-                        echo '<!-- Newsfeed:', PHP_EOL ;
-//                        echo 'waarschijnlijk zijn deze altijd hetzelfde: $wsaOrgActiveMenuIdmenu =' , $wsaOrgActiveMenuIdmenu , ' $Itemid=', $Itemid, PHP_EOL;
-                        echo '$Itemid=', $Itemid, PHP_EOL;
-                        echo 'huidige menuid $item->id=' , $item->id, PHP_EOL;
-                        
-                        
-                        echo '-->', PHP_EOL ;
-                        // aangepaste versie van componentpath ed in variabelen in plaats van constantes.
-                        $wsaOption = preg_replace('/[^A-Z0-9_\.-]/i', '', $item->query['option']);
-//                        $wsaFile = substr($wsaOption, 4);
-                        $wsaComponent = ucfirst(substr($wsaOption, 4));
-                        
-                        $wsaJPATH_COMPONENT = JPATH_BASE . '/components/' . $wsaOption;
-                        $wsaJPATH_COMPONENT_SITE = JPATH_SITE . '/components/' . $wsaOption;
-                        $wsaJPATH_COMPONENT_ADMINISTRATOR = JPATH_ADMINISTRATOR . '/components/' . $wsaOption;
-                        foreach ($item->query as $tmpKey => $tmpVal) { // tijdelijk input vervangen door item[query]
-                            $app->input->set($tmpKey,$tmpVal);}
-                        $app->input->set ('Itemid', $item->id); // set de Itemid op de Id van het huidige menu alternatief is misschien ook het alternatief met setActive
-//                        $app->getMenu()->setActive($item->id);
                             
                             
                         // voorbeeld modules / mod_articles_latest en https://stackoverflow.com/questions/19765160/loading-an-article-into-a-components-template-in-joomla
@@ -707,6 +721,9 @@ foreach ($list as $i => &$item) {
     
     
 }
+/*
+ *  end list of sections.
+ */
 
 /*
  * 	<section id="about">
