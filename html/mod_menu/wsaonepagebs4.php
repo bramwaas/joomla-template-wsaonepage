@@ -26,13 +26,12 @@
 defined('_JEXEC') or die;
 use Joomla\CMS\Factory;   // this is the same as use Joomla\CMS\Factory as Factory
 use Joomla\CMS\Helper\ModuleHelper;
-use Joomla\Registry\Registry; // for new Registry
+use Joomla\Registry\Registry; // for new Registry en params object
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;  // JModelLegacy
 use Joomla\CMS\MVC\Model\FormModel;  // JModelForm
 
 use Joomla\CMS\Component\ComponentHelper;  //tbv algemene renderComponent
 use Joomla\CMS\MVC\Controller\BaseController; 
-use Joomla\Registry\Registry;
 
 //use Joomla\CMS\HTML\HTMLHelper;
 //use Joomla\CMS\Plugin\PluginHelper;
@@ -485,7 +484,7 @@ foreach ($list as $i => &$item) {
         $app->input->set($tmpKey,$tmpVal);}
     $app->input->set ('Itemid', $item->id); // set de Itemid op de Id van het huidige menu alternatief is misschien ook het alternatief met setActive
     $wsaComponentParams = $app->getParams($item->query['option']);
-    $wsaMenuParams = $params = new Registry($item->params);
+    $wsaMenuParams = $params = new Jregistry($item->params);
     $wsaMenuParams->set('page_title', $app->getParams()->get('page_title') );
     $wsaComponentParams->merge($wsaMenuParams);
         
@@ -649,9 +648,6 @@ foreach ($list as $i => &$item) {
                             //$state = $wsaModel->get('State');
                             $state = $wsaModel->getState();
                             $wsaModel->setState($item->query['view'] . '.id', (int) $item->query['id'] ); // haal id uit $item in plaats van uit $input.
-                            echo '<!-- $state ', PHP_EOL;
-                             print_r($state);
-                            echo ' -->', PHP_EOL;
                             $wsaModel->setState('parameters.menu', $wsaMenuParams);
                             $wsaModel->setState('params', $wsaComponentParams);
                             //$wsaModel->setState('load_tags', true); // not available for Article model
