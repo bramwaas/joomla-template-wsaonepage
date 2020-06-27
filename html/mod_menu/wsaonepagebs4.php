@@ -458,7 +458,13 @@ try {
     echo 'Caught exception: ',  $e->getMessage(), PHP_EOL;
     echo ' -->', PHP_EOL;
 }
-echo '<!-- Option:', $item->query['option'] , ' view:', $item->query['view'],  PHP_EOL ;
+// [Itemid] => 299
+// [option] => com_content
+// [view] => article
+// [id] => 143
+
+echo '<!-- org input  Itemid', $input->get('Itemid'),  ' option:', $input->get('option') , ' view:', $input->get('view'), ' id', $input->get('id'), PHP_EOL ;
+foreach ($wsaOrgInputArray as $tmpKey => $tmpVal) {echo $tmpKey, '=>', $tmpVal , PHP_EOL;}
 
 echo '$Itemid=', $Itemid, PHP_EOL;
 echo 'huidige menuid $item->id=' , $item->id, PHP_EOL;
