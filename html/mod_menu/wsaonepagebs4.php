@@ -20,6 +20,7 @@
  * 9-6-2020 newsfeeds op algemene manier trachten op te halen.
  * 24-6-2020 newsfeed werkt, maar populateState niet goed gebruikt.
  * 25-6-2020 populateState laten werken door juiste instelling input, hij lijkt later in actie te komen dan ik verwacht had
+ * 27-6-2020
  */
 
 defined('_JEXEC') or die;
@@ -489,7 +490,6 @@ foreach ($list as $i => &$item) {
         echo '<!-- start with $item';
         echo '$itemid=', $itemid, PHP_EOL;
         echo 'huidige menuid $item->id=' , $item->id, PHP_EOL;
-        echo '-->', PHP_EOL ;
         //       // print_r($item);
         echo ' -->', PHP_EOL;
 //
