@@ -437,6 +437,7 @@ echo '</div><!--/div container-fluid --></' . $moduleTag . '><!--End navbar-->'.
 /* 
  * secure variables of page and page component
  */
+$wsaOrgInput = clone $input;
 $wsaOrgInputArray = $input->getArray(array());
 $wsaOrgActiveMenuIdmenu     = $app->getMenu()->getActive();
 $wsaOrgMenuQueryArray = $wsaOrgActiveMenuIdmenu->query;
@@ -463,12 +464,10 @@ try {
 // [view] => article
 // [id] => 143
 
-echo '<!-- org input  Itemid', $input->get('Itemid'),  ' option:', $input->get('option') , ' view:', $input->get('view'), ' id', $input->get('id'), PHP_EOL ;
+echo '<!-- org input              Itemid:', $input->get('Itemid'),  ' option:', $input->get('option') , ' view:', $input->get('view'), ' id:', $input->get('id'), PHP_EOL ;
+echo '<!-- org $wsaOrgInputArray  Itemid:', $wsaOrgInputArray['Itemid'],  ' option:', $wsaOrgInputArray['option'] , ' view:', $wsaOrgInputArray['view'], ' id:', $wsaOrgInputArrayt['id'], PHP_EOL ;
 foreach ($wsaOrgInputArray as $tmpKey => $tmpVal) {echo $tmpKey, '=>', $tmpVal , PHP_EOL;}
 
-echo '$Itemid=', $Itemid, PHP_EOL;
-echo 'huidige menuid $item->id=' , $item->id, PHP_EOL;
-echo '-->', PHP_EOL ;
     
 foreach ($list as $i => &$item) {
     /*
@@ -488,7 +487,10 @@ foreach ($list as $i => &$item) {
 // TODO juiste selectie voor menuitems
     if ($item->type=='component' && $item->level==1) {
         echo '<!-- start with $item';
- //       // print_r($item);
+        echo '$itemid=', $itemid, PHP_EOL;
+        echo 'huidige menuid $item->id=' , $item->id, PHP_EOL;
+        echo '-->', PHP_EOL ;
+        //       // print_r($item);
         echo ' -->', PHP_EOL;
 //
         echo '<div class="container"><div class="row"><div class="col-lg-8 mx-auto">', PHP_EOL;
