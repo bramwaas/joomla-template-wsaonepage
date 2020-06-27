@@ -463,20 +463,21 @@ echo '<!-- Option:', $item->query['option'] , ' view:', $item->query['view'],  P
 echo '$Itemid=', $Itemid, PHP_EOL;
 echo 'huidige menuid $item->id=' , $item->id, PHP_EOL;
 echo '-->', PHP_EOL ;
-// aangepaste versie van componentpath ed in variabelen in plaats van constantes.
-$wsaOption = preg_replace('/[^A-Z0-9_\.-]/i', '', $item->query['option']);
-$wsaComponent = ucfirst(substr($wsaOption, 4));
-$wsaJPATH_COMPONENT = JPATH_BASE . '/components/' . $wsaOption;
-$wsaJPATH_COMPONENT_SITE = JPATH_SITE . '/components/' . $wsaOption;
-$wsaJPATH_COMPONENT_ADMINISTRATOR = JPATH_ADMINISTRATOR . '/components/' . $wsaOption;
-foreach ($item->query as $tmpKey => $tmpVal) { // tijdelijk input vervangen door item[query]
-    $app->input->set($tmpKey,$tmpVal);}
-    $app->input->set ('Itemid', $item->id); // set de Itemid op de Id van het huidige menu alternatief is misschien ook het alternatief met setActive
     
 foreach ($list as $i => &$item) {
     /*
      * actions for all kind of components (option) / views (view)
      */
+    // aangepaste versie van componentpath ed in variabelen in plaats van constantes.
+    $wsaOption = preg_replace('/[^A-Z0-9_\.-]/i', '', $item->query['option']);
+    $wsaComponent = ucfirst(substr($wsaOption, 4));
+    $wsaJPATH_COMPONENT = JPATH_BASE . '/components/' . $wsaOption;
+    $wsaJPATH_COMPONENT_SITE = JPATH_SITE . '/components/' . $wsaOption;
+    $wsaJPATH_COMPONENT_ADMINISTRATOR = JPATH_ADMINISTRATOR . '/components/' . $wsaOption;
+    foreach ($item->query as $tmpKey => $tmpVal) { // tijdelijk input vervangen door item[query]
+        $app->input->set($tmpKey,$tmpVal);}
+        $app->input->set ('Itemid', $item->id); // set de Itemid op de Id van het huidige menu alternatief is misschien ook het alternatief met setActive
+        
 //    echo '<!-- item->type=' , $item->type , ' item->level=' , $item->level ,  ' $item->title=' , $item->title , ' $item->flink=' , $item->flink,   ' $item->bookmark=' , $item->bookmark,' -->', PHP_EOL;  
 // TODO juiste selectie voor menuitems
     if ($item->type=='component' && $item->level==1) {
