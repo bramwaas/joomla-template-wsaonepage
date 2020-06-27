@@ -445,11 +445,14 @@ $wsaOrgDocumentViewType = $document->getType();  //= html is always ok
 echo '<!-- onepage Component Sections from menu -->'. PHP_EOL;
 try {
     echo '<!-- input object:' . PHP_EOL;
-    print_r($input);
-    echo 'controller input option: '. substr(5,$wsaOrgInputArray['option']) .PHP_EOL;
-    echo 'controller menu option: '. substr(5,$wsaOrgMenuQueryArray['option']) .PHP_EOL;
+//    print_r($input);
+    echo '<!-- org input              Itemid:', $input->get('Itemid'),  ' option:', $input->get('option') , ' view:', $input->get('view'), ' id:', $input->get('id'), PHP_EOL ;
+    echo '<!-- org $wsaOrgInputArray  Itemid:', $wsaOrgInputArray['Itemid'],  ' option:', $wsaOrgInputArray['option'] , ' view:', $wsaOrgInputArray['view'], ' id:', $wsaOrgInputArray['id'], PHP_EOL ;
+    
+    echo 'controller input option: '. substr($wsaOrgInputArray['option'],4) .PHP_EOL;
+    echo 'controller menu option: '. substr($wsaOrgMenuQueryArray['option'],4) .PHP_EOL;
     echo ' -->', PHP_EOL;
-    if ($controller = BaseController::getInstance(substr(5,$wsaOrgMenuQueryArray['option'])) ) 
+    if ($controller = BaseController::getInstance(substr($wsaOrgMenuQueryArray['option'],4)) ) 
     {
         $wsaOrgControllerVars = $controller->getProperties(FALSE);
         echo '<!-- $controller->get(name):' , $controller->get(name), ' -->';
@@ -464,9 +467,6 @@ try {
 // [view] => article
 // [id] => 143
 
-echo '<!-- org input              Itemid:', $input->get('Itemid'),  ' option:', $input->get('option') , ' view:', $input->get('view'), ' id:', $input->get('id'), PHP_EOL ;
-echo '<!-- org $wsaOrgInputArray  Itemid:', $wsaOrgInputArray['Itemid'],  ' option:', $wsaOrgInputArray['option'] , ' view:', $wsaOrgInputArray['view'], ' id:', $wsaOrgInputArrayt['id'], PHP_EOL ;
-foreach ($wsaOrgInputArray as $tmpKey => $tmpVal) {echo $tmpKey, '=>', $tmpVal , PHP_EOL;}
 
     
 foreach ($list as $i => &$item) {
@@ -704,16 +704,7 @@ foreach ($list as $i => &$item) {
                         
                         }
                     // tijdelijke aanpassing $app->input herstellen eerst op NULL, omdat er misschien meer tijdelijke aanpassingen zijn dan oorspronklijke.
-                    foreach ($item->query  as $tmpKey => $tmpVal) {
-                        $app->input->set($tmpKey,NULL);
-                    }
-                    $app->input->set ('Itemid', $Itemid); // herstel actieve menu optie via input, of alternatief via setActive
- //                   $app->getMenu()->setActive($wsaOrgActiveMenuIdmenu);
-                    
-                    foreach ($wsaOrgMenuQueryArray as $tmpKey => $tmpVal) {
-                        $app->input->set($tmpKey,$tmpVal);
-                    }
-                    
+                        $input    = clone  $wsaOrgInput;
        break;             
                 default:
                     {  
@@ -726,14 +717,14 @@ foreach ($list as $i => &$item) {
         echo '</div></div></div>' , PHP_EOL;
         echo '</section>', PHP_EOL;
         
-    }
+    } // end if
     
     
-}
+}  // end foreach
 /*
  *  end list of sections.
  */
-
+$input    = clone  $wsaOrgInput;
 /*
  * 	<section id="about">
     <div class="container">
