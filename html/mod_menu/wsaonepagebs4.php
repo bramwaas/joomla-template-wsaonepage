@@ -32,6 +32,7 @@ use Joomla\CMS\MVC\Model\FormModel;  // JModelForm
 
 use Joomla\CMS\Component\ComponentHelper;  //tbv algemene renderComponent
 use Joomla\CMS\MVC\Controller\BaseController; 
+use Joomla\Registry\Registry;
 
 //use Joomla\CMS\HTML\HTMLHelper;
 //use Joomla\CMS\Plugin\PluginHelper;
@@ -482,7 +483,11 @@ foreach ($list as $i => &$item) {
     $wsaJPATH_COMPONENT_ADMINISTRATOR = JPATH_ADMINISTRATOR . '/components/' . $wsaOption;
     foreach ($item->query as $tmpKey => $tmpVal) { // tijdelijk input vervangen door item[query]
         $app->input->set($tmpKey,$tmpVal);}
-        $app->input->set ('Itemid', $item->id); // set de Itemid op de Id van het huidige menu alternatief is misschien ook het alternatief met setActive
+    $app->input->set ('Itemid', $item->id); // set de Itemid op de Id van het huidige menu alternatief is misschien ook het alternatief met setActive
+    $wsaComponentParams = $app->getParams($item->query['option']);
+    $wsaMenuParams = $params = new Registry($item->params);
+    $wsaMenuParams->set('page_title', $app->getParams()->get('page_title') );
+    $wsaComponentParams->merge($wsaMenuParams);
         
 //    echo '<!-- item->type=' , $item->type , ' item->level=' , $item->level ,  ' $item->title=' , $item->title , ' $item->flink=' , $item->flink,   ' $item->bookmark=' , $item->bookmark,' -->', PHP_EOL;  
 // TODO juiste selectie voor menuitems
@@ -647,9 +652,8 @@ foreach ($list as $i => &$item) {
                             echo '<!-- $state ', PHP_EOL;
                              print_r($state);
                             echo ' -->', PHP_EOL;
-                            
-                            $wsaMenuParams = $params = new JRegistry($item->params); 
-                            $wsaModel->setState('params', $wsaMenuParams);
+                            $wsaModel->setState('parameters.menu', $wsaMenuParams);
+                            $wsaModel->setState('params', $wsaComponentParams);
                             //$wsaModel->setState('load_tags', true); // not available for Article model
                             //$wsaModel->setState('show_associations', true);
                             //            $wsaContentItems=$wsaModel->getItems();
