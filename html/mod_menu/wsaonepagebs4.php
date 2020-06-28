@@ -468,38 +468,46 @@ foreach ($list as $i => &$item) {
     try {
         
     
-    /*
-     * actions for all kind of components (option) / views (view)
-     */
-    // aangepaste versie van componentpath ed in variabelen in plaats van constantes.
-    $wsaOption = preg_replace('/[^A-Z0-9_\.-]/i', '', $item->query['option']);
-    $wsaComponent = ucfirst(substr($wsaOption, 4));
-    $wsaJPATH_COMPONENT = JPATH_BASE . '/components/' . $wsaOption;
-    $wsaJPATH_COMPONENT_SITE = JPATH_SITE . '/components/' . $wsaOption;
-    $wsaJPATH_COMPONENT_ADMINISTRATOR = JPATH_ADMINISTRATOR . '/components/' . $wsaOption;
-    foreach ($wsaOrgActiveMenuItem->query as $tmpKey => $tmpVal) {
-        $app->input->set($tmpKey,NULL);}
-    foreach ($item->query as $tmpKey => $tmpVal) { 
-        $app->input->set($tmpKey,$tmpVal);}
-    $app->input->set ('Itemid', $item->id); // set de Itemid op de Id van het huidige menu alternatief is misschien ook het alternatief met setActive
-    $wsaComponentParams = $app->getParams($item->query['option']);
-    $wsaMenuParams = $params = new Registry($item->params);
-//    $wsaMenuParams->set('page_title', $app->getParams()->get('page_title') ); // heeft geen effect op feitelijke titel dus ergens anders aanpassen.
-    $wsaComponentParams->merge($wsaMenuParams);
         
 //    echo '<!-- item->type=' , $item->type , ' item->level=' , $item->level ,  ' $item->title=' , $item->title , ' $item->flink=' , $item->flink,   ' $item->bookmark=' , $item->bookmark,' -->', PHP_EOL;  
 // TODO juiste selectie voor menuitems
     if ($item->type=='component' && $item->level==1) {
+        /*
+         * actions for all kind of components (option) / views (view)
+         */
+        // aangepaste versie van componentpath ed in variabelen in plaats van constantes.
+        $wsaOption = preg_replace('/[^A-Z0-9_\.-]/i', '', $item->query['option']);
+        $wsaComponent = ucfirst(substr($wsaOption, 4));
+        $wsaJPATH_COMPONENT = JPATH_BASE . '/components/' . $wsaOption;
+        $wsaJPATH_COMPONENT_SITE = JPATH_SITE . '/components/' . $wsaOption;
+        $wsaJPATH_COMPONENT_ADMINISTRATOR = JPATH_ADMINISTRATOR . '/components/' . $wsaOption;
+        foreach ($wsaOrgActiveMenuItem->query as $tmpKey => $tmpVal) {
+            $app->input->set($tmpKey,NULL);}
+            foreach ($item->query as $tmpKey => $tmpVal) {
+                $app->input->set($tmpKey,$tmpVal);}
+                $app->input->set ('Itemid', $item->id); // set de Itemid op de Id van het huidige menu alternatief is misschien ook het alternatief met setActive
+                $wsaComponentParams = $app->getParams($item->query['option']);
+                $wsaMenuParams = $params = new Registry($item->params);
+                //    $wsaMenuParams->set('page_title', $app->getParams()->get('page_title') ); // heeft geen effect op feitelijke titel dus ergens anders aanpassen.
+                $wsaComponentParams->merge($wsaMenuParams);
+                
+        
+        
         echo '<!-- start with $item';
         echo '$itemid=', $itemid, PHP_EOL;
         echo 'huidige menuid $item->id=' , $item->id, PHP_EOL;
         //       // print_r($item);
         echo ' -->', PHP_EOL;
 //
+/*
+ *  section header html for each item
+ */
+        echo '<section id="' , $item->bookmark  , '" class="container" >', PHP_EOL;
         echo '<div class="container"><div class="row"><div class="col-lg-8 mx-auto">', PHP_EOL;
         echo '<p>' , $item->title , '</p>' , PHP_EOL;
         echo '<p>' , ' $item->flink=' , $item->flink , ' $item->link=' , $item->link ,  PHP_EOL
-        , ' $item->query[option]=' , $item->query['option'] , ' $item->query[view]=' , $item->query['view'] , ' $item->query[id]=' , $item->query['id'] , PHP_EOL ; 
+        , ' $item->query[option]=' , $item->query['option'] , ' $item->query[view]=' , $item->query['view'] , ' $item->query[id]=' , $item->query['id'] , PHP_EOL ;
+// end section heade html        
 //        foreach ( $item->query as $key => $value) {             echo " {$key} => {$value} " , PHP_EOL;         }
 
             
