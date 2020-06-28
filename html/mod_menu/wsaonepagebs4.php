@@ -234,7 +234,7 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	    print_r($viewLayout);
 	    echo '-->', PHP_EOL;
 	    // extra om foute instellingen te overschrijven.
-	    $controller->set('paths',  array('view' => $basePath . '/views/' ));
+	    $controller->set('paths',  array('view' => $basePath . '/views/' )); // TODO controleren of nodig en dan ook terugdraaien
 	                          
 	    // einde extra
 	    $view = $controller->getView($viewName, $viewType, $prefix, array('base_path' => $basePath, 'layout' => $viewLayout));
@@ -439,20 +439,14 @@ echo '</div><!--/div container-fluid --></' . $moduleTag . '><!--End navbar-->'.
  * secure variables of page and page component
  */
 $wsaOrgInput = clone $input;
-$wsaOrgInputArray = $input->getArray(array());
-$wsaOrgActiveMenuIdmenu     = $app->getMenu()->getActive();
-$wsaOrgMenuQueryArray = $wsaOrgActiveMenuIdmenu->query;
+$wsaOrgActiveMenuItem     = $app->getMenu()->getActive();
 $wsaOrgDocumentViewType = $document->getType();  //= html is always ok
 echo '<!-- onepage Component Sections from menu -->'. PHP_EOL;
 try {
     echo '<!-- input object:' . PHP_EOL;
 //    print_r($input);
-    echo '<!-- org input              Itemid:', $input->get('Itemid'),  ' option:', $input->get('option') , ' view:', $input->get('view'), ' id:', $input->get('id'), PHP_EOL ;
-    echo '<!-- org $wsaOrgInputArray  Itemid:', $wsaOrgInputArray['Itemid'],  ' option:', $wsaOrgInputArray['option'] , ' view:', $wsaOrgInputArray['view'], ' id:', $wsaOrgInputArray['id'], PHP_EOL ;
     
-    echo 'controller input option: '. substr($wsaOrgInputArray['option'],4) .PHP_EOL;
-    echo 'controller menu option: '. substr($wsaOrgMenuQueryArray['option'],4) .PHP_EOL;
-    echo ' -->', PHP_EOL;
+     echo ' -->', PHP_EOL;
     if ($controller = BaseController::getInstance(substr($wsaOrgMenuQueryArray['option'],4)) ) 
     {
         $wsaOrgControllerVars = $controller->getProperties(FALSE);
@@ -471,6 +465,9 @@ try {
 
     
 foreach ($list as $i => &$item) {
+    try {
+        
+    
     /*
      * actions for all kind of components (option) / views (view)
      */
@@ -480,12 +477,14 @@ foreach ($list as $i => &$item) {
     $wsaJPATH_COMPONENT = JPATH_BASE . '/components/' . $wsaOption;
     $wsaJPATH_COMPONENT_SITE = JPATH_SITE . '/components/' . $wsaOption;
     $wsaJPATH_COMPONENT_ADMINISTRATOR = JPATH_ADMINISTRATOR . '/components/' . $wsaOption;
-    foreach ($item->query as $tmpKey => $tmpVal) { // tijdelijk input vervangen door item[query]
+    foreach ($wsaOrgActiveMenuItem->query as $tmpKey => $tmpVal) {
+        $app->input->set($tmpKey,NULL);}
+    foreach ($item->query as $tmpKey => $tmpVal) { 
         $app->input->set($tmpKey,$tmpVal);}
     $app->input->set ('Itemid', $item->id); // set de Itemid op de Id van het huidige menu alternatief is misschien ook het alternatief met setActive
     $wsaComponentParams = $app->getParams($item->query['option']);
     $wsaMenuParams = $params = new Registry($item->params);
-//    $wsaMenuParams->set('page_title', $app->getParams()->get('page_title') ); // heeft geen effect op eitelijke titel dus ergens anders aanpassen.
+//    $wsaMenuParams->set('page_title', $app->getParams()->get('page_title') ); // heeft geen effect op feitelijke titel dus ergens anders aanpassen.
     $wsaComponentParams->merge($wsaMenuParams);
         
 //    echo '<!-- item->type=' , $item->type , ' item->level=' , $item->level ,  ' $item->title=' , $item->title , ' $item->flink=' , $item->flink,   ' $item->bookmark=' , $item->bookmark,' -->', PHP_EOL;  
@@ -504,10 +503,10 @@ foreach ($list as $i => &$item) {
 //        foreach ( $item->query as $key => $value) {             echo " {$key} => {$value} " , PHP_EOL;         }
 
             
-            switch ($item->query['view'])
+            switch ($item->query['option'])
             {
-                case 'article' :
-                case 'featured' :    
+                case 'com_content' :
+                case 'com_tags' :    
         { 
             // voorbeeld modules / mod_articles_latest en https://stackoverflow.com/questions/19765160/loading-an-article-into-a-components-template-in-joomla
             // kijk ook naar components/com_content/models/articles
@@ -547,7 +546,7 @@ foreach ($list as $i => &$item) {
             
         }
         break;
-                case 'contact':
+                case 'com_contact':
        
  { 
             // voorbeeld modules / mod_articles_latest en https://stackoverflow.com/questions/19765160/loading-an-article-into-a-components-template-in-joomla
@@ -581,7 +580,7 @@ foreach ($list as $i => &$item) {
          
         }
         break;
-                case 'newsfeed':
+                case 'com_newsfeeds':
                     {
                         
                         echo '<h3>',  $item->title, '</h3>' , PHP_EOL ;
@@ -711,54 +710,37 @@ foreach ($list as $i => &$item) {
                         
                             wsaDisplay( false,  array(), $controller, $item->query['view'],  $wsaComponent . 'View', $wsaJPATH_COMPONENT, 'html',  'default', $wsaModel);
                         }
-                        else echo '<div>', 'Model voor Newsfeed niet gevonden', '</div>' , PHP_EOL ;
+                        else echo '<!-- Model for component: ' , $item->query['option'] , ' not found! -->', PHP_EOL , '<div>', 'Model voor ' , $item->query['option'] ,' niet gevonden', '</div>' , PHP_EOL ;
                         
                         }
-                    // tijdelijke aanpassing $app->input herstellen eerst op NULL, omdat er misschien meer tijdelijke aanpassingen zijn dan oorspronklijke.
-                        $input    = clone  $wsaOrgInput;
        break;             
                 default:
                     {  
                         echo '<h3>',  $item->title, '</h3>' , PHP_EOL ;
                         echo '<div>', ' $item->bookmark=' , $item->bookmark, ' $item->query[option]=' , $item->query['option'] ,' nog onbekend option type, component inhoud niet verwerkt.</div>' , PHP_EOL ;
+                        echo '<!-- Unknown component: ' , $item->query['option'] , ' content not processed! -->', PHP_EOL;
                     }
        
             } // end switch
         echo '</p>' , PHP_EOL;
         echo '</div></div></div>' , PHP_EOL;
         echo '</section>', PHP_EOL;
+        // tijdelijke aanpassing $app->input herstellen eerst op NULL, omdat er misschien meer tijdelijke aanpassingen zijn dan oorspronklijke.
+        $input    = clone  $wsaOrgInput;
         
     } // end if
     
-    
+} catch (Exception $e) {
+        echo '<!-- '. PHP_EOL;
+        echo 'Caught exception: ',  $e->getMessage(), PHP_EOL;
+        echo ' -->', PHP_EOL;
+        
+}
 }  // end foreach
 /*
  *  end list of sections.
  */
 $input    = clone  $wsaOrgInput;
-/*
- * 	<section id="about">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 mx-auto">
-          <h2>About this page</h2>
-          <p class="lead">This is a great place to talk about your webpage. This template is purposefully unstyled so you can use it as a boilerplate or starting point for you own landing page designs! This template features:</p>
-          <ul>
-            <li>Clickable nav links that smooth scroll to page sections</li>
-            <li>Responsive behavior when clicking nav links perfect for a one page website</li>
-            <li>Bootstrap's scrollspy feature which highlights which section of the page you're on in the navbar</li>
-            <li>Minimal custom CSS so you are free to explore your own unique design options</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-
- * 
- * 
- * 
- */
 
 echo '<!-- einde onepage sections uit menu -->'. PHP_EOL;
 
