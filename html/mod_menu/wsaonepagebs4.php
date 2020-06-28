@@ -29,7 +29,7 @@ use Joomla\CMS\Helper\ModuleHelper;
 use Joomla\Registry\Registry; // for new Registry en params object
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;  // JModelLegacy
 use Joomla\CMS\MVC\Model\FormModel;  // JModelForm
-use Joomla\CMS\Language\Text
+use Joomla\CMS\Language\Text;
 
 use Joomla\CMS\Component\ComponentHelper;  //tbv algemene renderComponent
 use Joomla\CMS\MVC\Controller\BaseController; 
