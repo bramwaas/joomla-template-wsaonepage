@@ -29,6 +29,7 @@ use Joomla\CMS\Helper\ModuleHelper;
 use Joomla\Registry\Registry; // for new Registry en params object
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;  // JModelLegacy
 use Joomla\CMS\MVC\Model\FormModel;  // JModelForm
+use Joomla\CMS\Language\Text
 
 use Joomla\CMS\Component\ComponentHelper;  //tbv algemene renderComponent
 use Joomla\CMS\MVC\Controller\BaseController; 
@@ -112,7 +113,7 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	    
 	    if (empty($option))
 	    {
-	        throw new MissingComponentException(\JText::_('JLIB_APPLICATION_ERROR_COMPONENT_NOT_FOUND'), 404);
+	        throw new MissingComponentException(\Text::_('JLIB_APPLICATION_ERROR_COMPONENT_NOT_FOUND'), 404);
 	    }
 	    
 	    if (JDEBUG)
@@ -154,7 +155,7 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 	    /*
 	    if (!static::isEnabled($option) || !file_exists($path))
 	    {
-	        throw new MissingComponentException(\JText::_('JLIB_APPLICATION_ERROR_COMPONENT_NOT_FOUND'), 404);
+	        throw new MissingComponentException(\Text::_('JLIB_APPLICATION_ERROR_COMPONENT_NOT_FOUND'), 404);
 	    }
 	    */
 	    
@@ -595,7 +596,11 @@ foreach ($list as $i => &$item) {
 //                      overgenomen uit newsfeeds.php 
                         JLoader::register($wsaComponent . 'HelperRoute', $wsaJPATH_COMPONENT . '/helpers/route.php');
                         JTable::addIncludePath($wsaJPATH_COMPONENT_ADMINISTRATOR . '/tables');
-//                      einde overgenomen uit newsfeeds.php  
+//                      einde overgenomen uit newsfeeds.php 
+//                      uit content.php
+                        JLoader::register($wsaComponent . 'HelperQuery', $wsaJPATH_COMPONENT . '/helpers/query.php');
+                        JLoader::register($wsaComponent . 'HelperAssociation', $wsaJPATH_COMPONENT . '/helpers/association.php');
+//                      einde overgenomen uit content.php 
                         BaseDatabaseModel::addIncludePath($wsaJPATH_COMPONENT . '/models', $wsaComponent . 'Model'); // Is waarschijnlijk overbodig om com_content op te kunnen halen
                         // controller beschikbaar maken, is waarschijnlijk die van de hoofdcomponent, omdat hij maar een keer wordt geinstancieerd, maar basisfuncties zijn zo beschikbaar.
                         $controller = BaseController::getInstance($wsaComponent);
@@ -650,6 +655,7 @@ foreach ($list as $i => &$item) {
                         echo '<h3>',  $item->title, '</h3>' , PHP_EOL ;
                         echo '<div>', ' $item->bookmark=' , $item->bookmark, ' $item->query[option]=' , $item->query['option'] ,' nog onbekend option type, component inhoud niet verwerkt.</div>' , PHP_EOL ;
                         echo '<!-- Unknown component: ' , $item->query['option'] , ' content not processed! -->', PHP_EOL;
+                        Factory::getApplication()->enqueueMessage(Text::_('Unknown component: ' . $item->query['option'] . ' content not processed!'), 'warning');
                     }
        
             } // end switch
@@ -665,6 +671,9 @@ foreach ($list as $i => &$item) {
         echo '<!-- '. PHP_EOL;
         echo 'Caught exception: ',  $e->getMessage(), PHP_EOL;
         echo ' -->', PHP_EOL;
+        Factory::getApplication()->enqueueMessage(Text::_('Caught exception: ' .  $e->getMessage()), 'warning');
+        
+        
         
 }
 }  // end foreach
