@@ -513,6 +513,7 @@ foreach ($list as $i => &$item) {
             
             switch ($item->query['option'])
             {
+                case 'com_content' :
                 case 'com_tags' :    
         { 
             // voorbeeld modules / mod_articles_latest en https://stackoverflow.com/questions/19765160/loading-an-article-into-a-components-template-in-joomla
