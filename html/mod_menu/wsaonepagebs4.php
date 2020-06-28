@@ -591,61 +591,20 @@ foreach ($list as $i => &$item) {
                 case 'com_newsfeeds':
                     {
                         
-                        echo '<h3>',  $item->title, '</h3>' , PHP_EOL ;
-                        echo '<div>', ' $item->bookmark=' , $item->bookmark, ' $item->query[option]=' , $item->query['option'] , ' $item->query[view]=', $item->query['view'],' .</div>' , PHP_EOL ;
-                            
-                            
-                        // voorbeeld modules / mod_articles_latest en https://stackoverflow.com/questions/19765160/loading-an-article-into-a-components-template-in-joomla
-                        // kijk ook naar components/com_content/models/articles
-                        //                       Uit components/com_newsfeeds/newsfeeds.php
-/*                      JLoader::register('NewsfeedsHelperRoute', JPATH_COMPONENT . '/helpers/route.php');
-                        JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR . '/tables');
-                        $controller = JControllerLegacy::getInstance('Newsfeeds');
-                        $controller->execute(JFactory::getApplication()->input->get('task'));
-                        $controller->redirect(); */
-//                      einde uit newsfeeds.php 
+//                      overgenomen uit newsfeeds.php 
                         JLoader::register($wsaComponent . 'HelperRoute', $wsaJPATH_COMPONENT . '/helpers/route.php');
                         JTable::addIncludePath($wsaJPATH_COMPONENT_ADMINISTRATOR . '/tables');
+//                      einde overgenomen uit newsfeeds.php  
                         BaseDatabaseModel::addIncludePath($wsaJPATH_COMPONENT . '/models', $wsaComponent . 'Model'); // Is waarschijnlijk overbodig om com_content op te kunnen halen
                         // controller beschikbaar maken, is waarschijnlijk die van de hoofdcomponent, omdat hij maar een keer wordt geinstancieerd, maar basisfuncties zijn zo beschikbaar.
                         $controller = BaseController::getInstance($wsaComponent);
                         echo '<!-- $controller direct na get instance kijk naar waarde Input:', PHP_EOL;
                         // print_r($controller);
                         echo ' -->', PHP_EOL;
-                        
-/*                         -                        // verwijderen verkeerde controller
-                        -                        $controller = BaseController::getInstance('Newsfeeds');
-                        -
-                        -                        // welke view ?
-                        -                        $document = Factory::getDocument();
-                        -                        $viewType = $document->getType();
-                        -                        $viewName = $controller->get('input')->get('view', $controller->get('default_view'));
-                        -                        $viewLayout = $controller->get('input')->get('layout', 'default', 'string');
-                        -
-                        -                        echo ' voor aanpassingeen $viewType=' , $viewType , ' $viewName' , $viewName , ' $viewLayout' , $viewLayout , PHP_EOL;
-                        -
-                        -
-                        -                        $controller->set('basePath',  '/home/deb120151/domains/waasdorpsoekhan.nl/public_html/components/com_newsfeeds');
-                        -                        $controller->set('default_view',  'newsfeed');
-                        -                        $controller->set('name',  'newsfeeds');
-                        -                        $controller->set('model_prefix',  'NewsfeedsModel');
-                        -                        $controller->set('paths',  array('view' => '/home/deb120151/domains/waasdorpsoekhan.nl/public_html/components/com_newsfeeds/views/' ));
-                        -                        echo 'Newsfeeds $controller->getProperties(FALSE); :' . PHP_EOL;
-                        -                        // print_r($controller->getProperties(FALSE));
-                        -               echo PHP_EOL;
-                        -                         // tijdelijk aanpassen $app->input
-                        -
-                        -                        foreach ($wsaOrgMenuQueryArray as $tmpKey => $tmpVal) {
-                            -                            $app->input->set($tmpKey,NULL);
-                        
- */ 
                         // TODO ignore_request'=>true optie om State niet te vullen door populateState (in newsfeed.php) die input id gebruikt. weer verwijderd.
                         // TODO goede beschrijving van dit soort aanpassingen.
 //                        $wsaModel=BaseDatabaseModel::getInstance(ucfirst($item->query['view']), $wsaComponent . 'Model'); // , array('ignore_request'=>true));
                        $wsaModel=BaseDatabaseModel::getInstance(ucfirst($item->query['view']), $wsaComponent . 'Model' , array('ignore_request'=>true));
-                        //            $wsaModel=JModelLegacy::getInstance('Article', 'ContentModel', array('ignore_request'=>true));  // één artikel
-                        // Set application parameters in model
-                        //            $app       = JFactory::getApplication();
                         echo '<!-- $wsaModel direct na get instance :', PHP_EOL;
                         // print_r($wsaModel);
                         echo ' -->', PHP_EOL;
@@ -653,13 +612,12 @@ foreach ($list as $i => &$item) {
                             // TODO loze aanroep getState om state initieel te vullen met populateState echter deze gebruikt id uit input, daarom deze nog overschrijven met Id uit menuoptie
                             // TODO verder wordt het actieve menu gebruikt in de display functie, dus mischien zou tijdelijk het actuele menuitem actief gemaakt moeten worden
                             //$state = $wsaModel->get('State');
+                            // vervanging voor en overgenomen uit populateState van newsfeeds.php
                             $state = $wsaModel->getState();
                             $wsaModel->setState('parameters.menu', $wsaMenuParams);
                             $wsaModel->setState($item->query['view'] . '.id', (int) $item->query['id'] ); // haal id uit $item in plaats van uit $input.
-                                                      
                             $wsaModel->setState('params', $wsaComponentParams);
-                            // uit populateState van newsfeed.php
-                            $offset = $app->input->get('limitstart', 0, 'uint');
+                             $offset = $app->input->get('limitstart', 0, 'uint');
                             $wsaModel->setState('list.offset', $offset);
                             $user = Factory::getUser();
                             if ((!$user->authorise('core.edit.state', $item->query['option'])) && (!$user->authorise('core.edit', $item->query['option'])))
@@ -677,43 +635,7 @@ foreach ($list as $i => &$item) {
                             //echo '<!-- $wsaContentItem ', PHP_EOL;
                                         // print_r($wsaContentItem);
                             //echo ' -->', PHP_EOL;
-                            //echo '<h3>', $wsaContentItem->title, '</h3>' , PHP_EOL ;
-                            //echo '<div>', $wsaContentItem->name, '</div>' , PHP_EOL ;
- //                           echo '<div>', $wsaContentItem->email, '</div>' , PHP_EOL ;
- //                           echo '<div>', $wsaContentItem->alias, '</div>' , PHP_EOL ;
-
-/*                             -                        foreach ($item->query as $tmpKey => $tmpVal) {
-                                -                            $app->input->set($tmpKey,$tmpVal);
-                                -                        }
-                                -
-                                -                        echo '$app->input:' . PHP_EOL;
-                                -
-                                -                        // print_r($app->input);
-                                - //                       echo '$wsaOrgInputArray:' . PHP_EOL;
-                                - //                       // print_r($wsaOrgInputArray);
-                                - //                       echo '$wsaOrgMenuQueryArray:' . PHP_EOL;
-                                - //                       // print_r($wsaOrgMenuQueryArray );
-                                - //
-                                -                        $viewName = $controller->get('input')->get('view', $controller->get('default_view'));
-                                -                        $viewLayout = $controller->get('input')->get('layout', 'default', 'string');
-                                -                        echo ' Na aanpassingeen $viewType=' , $viewType , ' $viewName=' , $viewName , ' $viewLayout=' , $viewLayout , PHP_EOL;
-                                -
-                                -                        echo ' -->', PHP_EOL;
-                                -                         // $wsaComponent = ComponentHelper::renderComponent($item->query['option']);
-                                -                        echo '<!-- ';
-                                -                        //                                   // print_r($wsaComponent);
-                                -                        echo ' -->', PHP_EOL;
-                                -                        $wsaComponent = wsaRenderComponent ($item->query['option']);
-                                -                        echo $wsaComponent;
-                                -                        // tijdelijke aanpassing $app->input herstellen
-                                -                         foreach ($item->query  as $tmpKey => $tmpVal) {
-                                    -                            $app->input->set($tmpKey,NULL);
-                                    -                        }
-                                    -                        $app->input->set ('Itemid', $Itemid); // waarschijnlijk overbodig
-                                    -                        foreach ($wsaOrgMenuQueryArray as $tmpKey => $tmpVal) {
-                                        -                            $app->input->set($tmpKey,$tmpVal);
-                                        -                        }
- */                        
+ 
                         
                         
                             wsaDisplay( false,  array(), $controller, $item->query['view'],  $wsaComponent . 'View', $wsaJPATH_COMPONENT, 'html',  'default', $wsaModel);
