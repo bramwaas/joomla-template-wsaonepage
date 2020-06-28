@@ -504,16 +504,15 @@ foreach ($list as $i => &$item) {
  */
         echo '<section id="' , $item->bookmark  , '" class="container" >', PHP_EOL;
         echo '<div class="container"><div class="row"><div class="col-lg-8 mx-auto">', PHP_EOL;
-        echo '<p>' , $item->title , '</p>' , PHP_EOL;
-        echo '<p>' , ' $item->flink=' , $item->flink , ' $item->link=' , $item->link ,  PHP_EOL
-        , ' $item->query[option]=' , $item->query['option'] , ' $item->query[view]=' , $item->query['view'] , ' $item->query[id]=' , $item->query['id'] , PHP_EOL ;
+        echo '<!-- ' , $item->title , ' -->' , PHP_EOL;
+        echo '<!-- ' , ' $item->flink=' , $item->flink , ' $item->link=' , $item->link ,  PHP_EOL
+        , ' $item->query[option]=' , $item->query['option'] , ' $item->query[view]=' , $item->query['view'] , ' $item->query[id]=' , $item->query['id'] , ' -->', PHP_EOL ;
 // end section heade html        
 //        foreach ( $item->query as $key => $value) {             echo " {$key} => {$value} " , PHP_EOL;         }
 
             
             switch ($item->query['option'])
             {
-                case 'com_content' :
                 case 'com_tags' :    
         { 
             // voorbeeld modules / mod_articles_latest en https://stackoverflow.com/questions/19765160/loading-an-article-into-a-components-template-in-joomla
@@ -588,6 +587,7 @@ foreach ($list as $i => &$item) {
          
         }
         break;
+                case 'com_content' :
                 case 'com_newsfeeds':
                     {
                         
@@ -652,7 +652,7 @@ foreach ($list as $i => &$item) {
                     }
        
             } // end switch
-        echo '</p>' , PHP_EOL;
+//        echo '</p>' , PHP_EOL;
         echo '</div></div></div>' , PHP_EOL;
         echo '</section>', PHP_EOL;
         // tijdelijke aanpassing $app->input herstellen eerst op NULL, omdat er misschien meer tijdelijke aanpassingen zijn dan oorspronklijke.
