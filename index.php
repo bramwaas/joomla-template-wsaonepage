@@ -7,6 +7,7 @@
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
  * 10-5-2020 eerste aanpassingen richting onepage
+ * 29-6-2020 inhoud newsfeed werkt voorlopig naar tevredenheid.
  
 */
 

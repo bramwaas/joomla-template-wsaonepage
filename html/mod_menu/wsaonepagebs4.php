@@ -21,6 +21,7 @@
  * 24-6-2020 newsfeed werkt, maar populateState niet goed gebruikt.
  * 25-6-2020 populateState laten werken door juiste instelling input, hij lijkt later in actie te komen dan ik verwacht had
  * 27-6-2020 toch weer zelf vullen state en juiste params gezocht
+ * 29-6-2020 populateState nu weer gebruikt en params, params.menu overschreven, aangevuld
  */
 
 defined('_JEXEC') or die;
@@ -604,45 +605,23 @@ foreach ($list as $i => &$item) {
                         BaseDatabaseModel::addIncludePath($wsaJPATH_COMPONENT . '/models', $wsaComponent . 'Model'); // Is waarschijnlijk overbodig om com_content op te kunnen halen
                         // controller beschikbaar maken, is waarschijnlijk die van de hoofdcomponent, omdat hij maar een keer wordt geinstancieerd, maar basisfuncties zijn zo beschikbaar.
                         $controller = BaseController::getInstance($wsaComponent);
-                        echo '<!-- $controller direct na get instance kijk naar waarde Input:', PHP_EOL;
-                        // print_r($controller);
-                        echo ' -->', PHP_EOL;
-                        // TODO ignore_request'=>true optie om State niet te vullen door populateState (in newsfeed.php) die input id gebruikt. weer verwijderd.
-                        // TODO goede beschrijving van dit soort aanpassingen.
-//                        $wsaModel=BaseDatabaseModel::getInstance(ucfirst($item->query['view']), $wsaComponent . 'Model'); // , array('ignore_request'=>true));
-                       $wsaModel=BaseDatabaseModel::getInstance(ucfirst($item->query['view']), $wsaComponent . 'Model' , array('ignore_request'=>true));
+//                      // don't use $config = array('ignore_request'=>true) because we want initial to populateState by first call of getState, with some components we may pass filter or other options in the $config array.
+                        $wsaModel=BaseDatabaseModel::getInstance(ucfirst($item->query['view']), $wsaComponent . 'Model'); ;
+//                       $wsaModel=BaseDatabaseModel::getInstance(ucfirst($item->query['view']), $wsaComponent . 'Model' , array('ignore_request'=>true));
                         echo '<!-- $wsaModel direct na get instance :', PHP_EOL;
                         // print_r($wsaModel);
                         echo ' -->', PHP_EOL;
                         if ($wsaModel) {
                             // TODO loze aanroep getState om state initieel te vullen met populateState echter deze gebruikt id uit input, daarom deze nog overschrijven met Id uit menuoptie
                             // TODO verder wordt het actieve menu gebruikt in de display functie, dus mischien zou tijdelijk het actuele menuitem actief gemaakt moeten worden
-                            //$state = $wsaModel->get('State');
-                            // vervanging voor en overgenomen uit populateState van newsfeeds.php
-                            $state = $wsaModel->getState();
+                            // initial call getState to populate $state, params are from $app->getParams() ie the page components params so we have to overwrite them
+                            $state = $wsaModel->getState(); 
+                            echo '<!-- $wsaModel get instance en eerste getState :', PHP_EOL;
+                            print_r($state);
+                            echo ' -->', PHP_EOL;
                             $wsaModel->setState('parameters.menu', $wsaMenuParams);
-                            $wsaModel->setState($item->query['view'] . '.id', (int) $item->query['id'] ); // haal id uit $item in plaats van uit $input.
+//                            $wsaModel->setState($item->query['view'] . '.id', (int) $item->query['id'] ); // haal id uit $item in plaats van uit $input.
                             $wsaModel->setState('params', $wsaComponentParams);
-                             $offset = $app->input->get('limitstart', 0, 'uint');
-                            $wsaModel->setState('list.offset', $offset);
-                            $user = Factory::getUser();
-                            if ((!$user->authorise('core.edit.state', $item->query['option'])) && (!$user->authorise('core.edit', $item->query['option'])))
-                            {
-                                $wsaModel->setState('filter.published', 1);
-                                $wsaModel->setState('filter.archived', 2);
-                            }
-                            // einde uit populateState van newsfeed.php
-                            //$wsaModel->setState('load_tags', true); // not available for Article model
-                            //$wsaModel->setState('show_associations', true);
-                            //            $wsaContentItems=$wsaModel->getItems();
-                            //$wsaContentItem=$wsaModel->getItem($item->query['id']); // Indien één Artikel gekozen met Article ipv Articles // TODO overbodig dit gebeurt al in dispaly functie in newsfeed.php
-                            //            $wsaContentItem=$wsaContentItems[0];
-                            //            foreach ($wsaContentItems as &$wsaContentItem)            {}; // als er meer artikelen zijn
-                            //echo '<!-- $wsaContentItem ', PHP_EOL;
-                                        // print_r($wsaContentItem);
-                            //echo ' -->', PHP_EOL;
- 
-                        
                         
                             wsaDisplay( false,  array(), $controller, $item->query['view'],  $wsaComponent . 'View', $wsaJPATH_COMPONENT, 'html',  'default', $wsaModel);
                         }
