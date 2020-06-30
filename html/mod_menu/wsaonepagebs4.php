@@ -22,6 +22,7 @@
  * 25-6-2020 populateState laten werken door juiste instelling input, hij lijkt later in actie te komen dan ik verwacht had
  * 27-6-2020 toch weer zelf vullen state en juiste params gezocht
  * 29-6-2020 populateState nu weer gebruikt en params, params.menu overschreven, aangevuld
+ * 30-6-2020 ook actief menu aanpassen met setActive.
  */
 
 defined('_JEXEC') or die;
@@ -485,13 +486,16 @@ foreach ($list as $i => &$item) {
         $wsaJPATH_COMPONENT_ADMINISTRATOR = JPATH_ADMINISTRATOR . '/components/' . $wsaOption;
         foreach ($wsaOrgActiveMenuItem->query as $tmpKey => $tmpVal) {
             $app->input->set($tmpKey,NULL);}
-            foreach ($item->query as $tmpKey => $tmpVal) {
-                $app->input->set($tmpKey,$tmpVal);}
-                $app->input->set ('Itemid', $item->id); // set de Itemid op de Id van het huidige menu alternatief is misschien ook het alternatief met setActive
-                $wsaComponentParams = $app->getParams($item->query['option']);
-                $wsaMenuParams = $params = new Registry($item->params);
-                //    $wsaMenuParams->set('page_title', $app->getParams()->get('page_title') ); // heeft geen effect op feitelijke titel dus ergens anders aanpassen.
-                $wsaComponentParams->merge($wsaMenuParams);
+        foreach ($item->query as $tmpKey => $tmpVal) {
+            $app->input->set($tmpKey,$tmpVal);}
+        $app->input->set ('Itemid', $item->id); // set de Itemid op de Id van het huidige menu alternatief is misschien ook het alternatief met setActive
+        $wsaComponentParams = $app->getParams($item->query['option']);
+        if ($item->id > 0){
+            $app->getMenu()->setActive($item->id);
+            echo '<!-- aangepast actief menu id :', $app->getMenu()->getActive()->id ,' -->';
+        }
+        $wsaMenuParams = $params = new Registry($item->params);
+        $wsaComponentParams->merge($wsaMenuParams);
                 
         
         
@@ -659,8 +663,13 @@ foreach ($list as $i => &$item) {
 /*
  *  end list of sections.
  */
+// restore input
 $input    = clone  $wsaOrgInput;
-
+// restore active menu
+if ($wsaOrgActiveMenuItem->id > 0){
+    $app->getMenu()->setActive($wsaOrgActiveMenuItem->id);
+    echo '<!-- herstelde actief menu id :', $app->getMenu()->getActive()->id ,' -->';
+}
 echo '<!-- einde onepage sections uit menu -->'. PHP_EOL;
 
 ?>
