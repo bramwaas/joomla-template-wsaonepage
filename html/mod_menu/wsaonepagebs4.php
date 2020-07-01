@@ -23,6 +23,7 @@
  * 27-6-2020 toch weer zelf vullen state en juiste params gezocht
  * 29-6-2020 populateState nu weer gebruikt en params, params.menu overschreven, aangevuld
  * 30-6-2020 ook actief menu aanpassen met setActive.
+ * 1-7-2020 new code for one page  when #op# is in $item-note
  */
 
 defined('_JEXEC') or die;
@@ -474,7 +475,7 @@ foreach ($list as $i => &$item) {
         
 //    echo '<!-- item->type=' , $item->type , ' item->level=' , $item->level ,  ' $item->title=' , $item->title , ' $item->flink=' , $item->flink,   ' $item->bookmark=' , $item->bookmark,' -->', PHP_EOL;  
 // TODO juiste selectie voor menuitems
-    if ($item->type=='component' && $item->level==1) {
+        if (stripos($item->note, '#op#') !== false) { // new code for one page  when #op# is in $item-note
         /*
          * actions for all kind of components (option) / views (view)
          */

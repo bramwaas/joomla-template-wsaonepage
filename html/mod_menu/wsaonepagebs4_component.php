@@ -10,6 +10,7 @@
  * 1-1-2018 foutje in html na-link verbeterd door ontbrekende spatie na " in te voegen.
  * 9-2-2019 data-target toegevoegd voor openen submenu's 
  * 2020-05-25 Item->id gekwalificeerd met $moduleIdPos om hem beter uniek te maken
+ * 2020-06-30 iets andere bookmark en keuze voor one page
  */
 
 defined('_JEXEC') or die;
@@ -46,10 +47,10 @@ else {
 }
 
 $class = ($class > ' ') ? str_ireplace('class="','class="nav-link ',$class) : 'class="nav-link" ';
-// todo omzetten naar voorwaarde bij browsernav
-if ($item->type=='component' && $item->level==1) { // nieuwe code voor one page
-    $item->bookmark = ltrim(str_ireplace(array('/', '\\', '.html'), array('-', '-', ''), $item->flink), '-#') ;
-  
+// TODO omzetten naar voorwaarde bij browsernav
+if (stripos($item->note, '#op#') !== false) { // new code for one page  when #op# is in $item-note
+        $item->bookmark = ($item->flink == '/') ? 'home' : ltrim(str_ireplace(array('/', '\\', '.html'), array('-', '-', ''), $item->flink), '-#') ;
+        
     ?><a id="dropdownMenuLink-<?php echo $moduleIdPos . $item->id . '" ' . $class; ?>href="<?php echo  '#' . $item->bookmark ; ?>"  <?php echo $title; ?>><span><?php echo $linktype; ?></span></a><?php
 }
 else
