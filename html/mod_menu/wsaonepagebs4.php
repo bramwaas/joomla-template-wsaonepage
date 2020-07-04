@@ -24,7 +24,7 @@
  * 29-6-2020 populateState nu weer gebruikt en params, params.menu overschreven, aangevuld
  * 30-6-2020 ook actief menu aanpassen met setActive.
  * 1-7-2020 new code for one page  when #op# is in $item-note
- * 4-7-2020 aparte switch entry voor content en tags verwijderd en wat diisplays van params 
+ * 4-7-2020 aparte switch entry voor content en tags verwijderd en wat displays van params; tijdelijke vervanging app params door component params. 
  */
 
 defined('_JEXEC') or die;
@@ -499,6 +499,10 @@ foreach ($list as $i => &$item) {
         echo '<!-- Component params ', $item->query['option'], ' :', PHP_EOL;
                 print_r($wsaComponentParams);
         echo ' -->', PHP_EOL;
+        $tmp = $app->getParams()->flatten();
+        foreach ($tmp as $tmpKey => $tmpVal) {
+            $app->getParams()->remove($tmpKey);}
+        $app->getParams()->merge($wsaComponentParams);
         $app->getMenu()->setActive($item->id > 0 ? $item->id : $wsaOrgActiveMenuItem->id );
         $wsaMenuParams =  new Registry($item->params);
         $wsaComponentParams->merge($wsaMenuParams);
@@ -632,6 +636,11 @@ foreach ($list as $i => &$item) {
 /*
  *  end list of sections.
  */
+// restore $app->params()
+$tmp = $app->getParams()->flatten();
+foreach ($tmp as $tmpKey => $tmpVal) {
+    $app->getParams()->remove($tmpKey);}
+$app->getParams()->merge($wsaOrgAppParams);
 // restore input
 $input    = clone  $wsaOrgInput;
 // restore active menu
