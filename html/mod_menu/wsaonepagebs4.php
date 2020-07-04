@@ -24,6 +24,7 @@
  * 29-6-2020 populateState nu weer gebruikt en params, params.menu overschreven, aangevuld
  * 30-6-2020 ook actief menu aanpassen met setActive.
  * 1-7-2020 new code for one page  when #op# is in $item-note
+ * 4-7-2020 aparte switch entry voor content en tags verwijderd en wat diisplays van params 
  */
 
 defined('_JEXEC') or die;
@@ -490,19 +491,22 @@ foreach ($list as $i => &$item) {
         foreach ($item->query as $tmpKey => $tmpVal) {
             $app->input->set($tmpKey,$tmpVal);}
         $app->input->set ('Itemid', $item->id); // set de Itemid op de Id van het huidige menu alternatief is misschien ook het alternatief met setActive
+        $wsaAppParams = $app->getParams();
+        echo '<!-- Appt params : ', PHP_EOL;
+        print_r($wsaAppParams);
+        echo ' -->', PHP_EOL;
+        
         $wsaComponentParams = $app->getParams($item->query['option']);
-        if ($item->id > 0){
-            $app->getMenu()->setActive($item->id);
-            echo '<!-- aangepast actief menu id :', $app->getMenu()->getActive()->id ,' -->';
-        }
-        $wsaMenuParams = $params = new Registry($item->params);
+        echo '<!-- Component params : ', PHP_EOL;
+                print_r($wsaComponentParams);
+        echo ' -->', PHP_EOL;
+        $app->getMenu()->setActive($item->id > 0 ? $item->id : $wsaOrgActiveMenuItem->id );
+        $wsaMenuParams =  new Registry($item->params);
         $wsaComponentParams->merge($wsaMenuParams);
-                
-        
-        
-        echo '<!-- start with $item';
-        echo '$itemid=', $itemid, PHP_EOL;
-        echo 'huidige menuid $item->id=' , $item->id, PHP_EOL;
+        echo '<!-- Menu params : ', PHP_EOL;
+        print_r($wsaMenuParams);
+        echo ' -->', PHP_EOL;
+        echo '<!-- Start with menuid $item->id=' , $item->id, ' $app->getMenu()->getActive()->id :', $app->getMenu()->getActive()->id,  PHP_EOL;
         //       // print_r($item);
         echo ' -->', PHP_EOL;
 //
@@ -520,47 +524,6 @@ foreach ($list as $i => &$item) {
             
             switch ($item->query['option'])
             {
-                case 'xcom_content' :
-                case 'com_tags' :    
-        { 
-            // voorbeeld modules / mod_articles_latest en https://stackoverflow.com/questions/19765160/loading-an-article-into-a-components-template-in-joomla
-            // kijk ook naar components/com_content/models/articles
-            $wsaModel=BaseDatabaseModel::getInstance('Articles', 'ContentModel', array('ignore_request'=>true));
-//            $wsaModel=JModelLegacy::getInstance('Article', 'ContentModel', array('ignore_request'=>true));  // één artikel
-            // Set application parameters in model
-//            $app       = JFactory::getApplication();
-            $wsaappParams = $app->getParams();
-            $wsaModel->setState('params', $wsaappParams);
-            $wsaModel->setState('list.ordering', 'a.publish_up');
-            $wsaModel->setState('list.direction', 'DESC');
-            
-            if ($item->query['id'] > '0') {
-            $wsaModel->setState('filter.article_id', (int) $item->query['id'] ); // or use array of ints for multiple articles
-            }
-            else // featured
-            {
-                $wsaModel->setState('list.start', 0);
-                $wsaModel->setState('list.limit', 5);
-                //  Featured switch
-                $wsaModel->setState('filter.featured', 'only');
-            }
-            $wsaModel->setState('filter.published', 1);
-            $wsaModel->setState('load_tags', true); // not available for Article model
-            $wsaModel->setState('show_associations', true);
-            $wsaContentItems=$wsaModel->getItems(); 
-            //            $wsaContentItem=$wsaModel->getItem($item->query['id']); // Indien één Artikel gekozen met Article ipv Articles
-            $wsaContentItem=$wsaContentItems[0];
-//            foreach ($wsaContentItems as &$wsaContentItem)            {}; // als er meer artikelen zijn
-                echo '<!-- ';
-//                   // print_r($article);
-            echo ' -->', PHP_EOL;
-            echo '<h3>', $wsaContentItem->title, '</h3>' , PHP_EOL ;
-            echo '<div>', $wsaContentItem->introtext, '</div>' , PHP_EOL ;
-            echo '<div>', $wsaContentItem->fulltext, '</div>' , PHP_EOL ;
-       
-            
-        }
-        break;
                 case 'com_contact':
        
  { 
@@ -625,9 +588,14 @@ foreach ($list as $i => &$item) {
                             echo '<!-- $wsaModel get instance en eerste getState :', PHP_EOL;
                             print_r($state);
                             echo ' -->', PHP_EOL;
-                            $wsaModel->setState('parameters.menu', $wsaMenuParams);
+                            $wsaModel->setState('parameters.menu', $wsaMenuParams);  // TODO wordt in getModel in BaseController in ModelState gezet indien menu actief is (echter de vraag is of die nu wel aangeroepen wordt) kijk ook naar createModel
 //                            $wsaModel->setState($item->query['view'] . '.id', (int) $item->query['id'] ); // haal id uit $item in plaats van uit $input.
                             $wsaModel->setState('params', $wsaComponentParams);
+                        // TODO goede afhandeling featured voorlopig even extra state filter
+                            if ($item->query['view'] == 'featured' ) { 
+                                $wsaModel->setState('filter.featured', 'only');
+                            }
+                            
                         
                             wsaDisplay( false,  array(), $controller, $item->query['view'],  $wsaComponent . 'View', $wsaJPATH_COMPONENT, 'html',  'default', $wsaModel);
                         }
