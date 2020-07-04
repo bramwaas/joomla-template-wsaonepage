@@ -441,17 +441,20 @@ echo '</div><!--/div container-fluid --></' . $moduleTag . '><!--End navbar-->'.
  * so first secure the variables of the component page and restore them after processing the component list.
   */
 /* 
- * secure variables of page and page component
+ * secure variables of app page and page component
  */
+$wsaOrgAppParams = clone $app->getParams();
 $wsaOrgInput = clone $input;
 $wsaOrgActiveMenuItem     = $app->getMenu()->getActive();
 $wsaOrgDocumentViewType = $document->getType();  //= html is always ok
 echo '<!-- onepage Component Sections from menu -->'. PHP_EOL;
+echo '<!-- App params org: ', PHP_EOL;
+print_r($wsaOrgAppParams);
+echo ' -->', PHP_EOL;
 try {
-    echo '<!-- input object:' . PHP_EOL;
+//    echo '<!-- input object:' . PHP_EOL;
 //    print_r($input);
-    
-     echo ' -->', PHP_EOL;
+//    echo ' -->', PHP_EOL;
     if ($controller = BaseController::getInstance(substr($wsaOrgMenuQueryArray['option'],4)) ) 
     {
         $wsaOrgControllerVars = $controller->getProperties(FALSE);
@@ -491,13 +494,9 @@ foreach ($list as $i => &$item) {
         foreach ($item->query as $tmpKey => $tmpVal) {
             $app->input->set($tmpKey,$tmpVal);}
         $app->input->set ('Itemid', $item->id); // set de Itemid op de Id van het huidige menu alternatief is misschien ook het alternatief met setActive
-        $wsaAppParams = $app->getParams();
-        echo '<!-- Appt params : ', PHP_EOL;
-        print_r($wsaAppParams);
-        echo ' -->', PHP_EOL;
         
         $wsaComponentParams = $app->getParams($item->query['option']);
-        echo '<!-- Component params : ', PHP_EOL;
+        echo '<!-- Component params ', $item->query['option'], ' :', PHP_EOL;
                 print_r($wsaComponentParams);
         echo ' -->', PHP_EOL;
         $app->getMenu()->setActive($item->id > 0 ? $item->id : $wsaOrgActiveMenuItem->id );
@@ -536,8 +535,8 @@ foreach ($list as $i => &$item) {
             // Set application parameters in model
             //            $app       = JFactory::getApplication();
             if ($wsaModel) {
-            $wsaappParams = $app->getParams();
-            $wsaModel->setState('params', $wsaappParams);
+                $state = $wsaModel->getState();
+                $wsaModel->setState('params', $wsaOrgAppParams);
             $wsaModel->setState('contact.id', (int) $item->query['id'] ); 
             $wsaModel->setState('load_tags', true); // not available for Article model
             $wsaModel->setState('show_associations', true);
