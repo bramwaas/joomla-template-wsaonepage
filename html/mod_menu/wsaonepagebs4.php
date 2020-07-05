@@ -25,6 +25,7 @@
  * 30-6-2020 ook actief menu aanpassen met setActive.
  * 1-7-2020 new code for one page  when #op# is in $item-note
  * 4-7-2020 aparte switch entry voor content en tags verwijderd en wat displays van params; tijdelijke vervanging app params door component params. 
+ * 5-7-2020 tijdelijke vervanging app params door component params na megre met menu params. 
  */
 
 defined('_JEXEC') or die;
@@ -448,9 +449,9 @@ $wsaOrgInput = clone $input;
 $wsaOrgActiveMenuItem     = $app->getMenu()->getActive();
 $wsaOrgDocumentViewType = $document->getType();  //= html is always ok
 echo '<!-- onepage Component Sections from menu -->'. PHP_EOL;
-echo '<!-- App params org: ', PHP_EOL;
-print_r($wsaOrgAppParams);
-echo ' -->', PHP_EOL;
+//echo '<!-- App params org: ', PHP_EOL;
+//print_r($wsaOrgAppParams);
+//echo ' -->', PHP_EOL;
 try {
 //    echo '<!-- input object:' . PHP_EOL;
 //    print_r($input);
@@ -458,7 +459,7 @@ try {
     if ($controller = BaseController::getInstance(substr($wsaOrgMenuQueryArray['option'],4)) ) 
     {
         $wsaOrgControllerVars = $controller->getProperties(FALSE);
-        echo '<!-- $controller->get(name):' , $controller->get(name), ' -->';
+        echo '<!-- $controller->get(name):' , $controller->get(name), ' -->', PHP_EOL;
     }
 } catch (Exception $e) {
     echo '<!-- '. PHP_EOL;
@@ -474,14 +475,11 @@ try {
     
 foreach ($list as $i => &$item) {
     try {
-        
-    
-        
-//    echo '<!-- item->type=' , $item->type , ' item->level=' , $item->level ,  ' $item->title=' , $item->title , ' $item->flink=' , $item->flink,   ' $item->bookmark=' , $item->bookmark,' -->', PHP_EOL;  
 // TODO juiste selectie voor menuitems
         if (stripos($item->note, '#op#') !== false) { // new code for one page  when #op# is in $item-note
         /*
          * actions for all kind of components (option) / views (view)
+         * start with overwrite app values with values of this menu option.
          */
         // aangepaste versie van componentpath ed in variabelen in plaats van constantes.
         $wsaOption = preg_replace('/[^A-Z0-9_\.-]/i', '', $item->query['option']);
@@ -494,21 +492,23 @@ foreach ($list as $i => &$item) {
         foreach ($item->query as $tmpKey => $tmpVal) {
             $app->input->set($tmpKey,$tmpVal);}
         $app->input->set ('Itemid', $item->id); // set de Itemid op de Id van het huidige menu alternatief is misschien ook het alternatief met setActive
-        
+        $app->getMenu()->setActive($item->id > 0 ? $item->id : $wsaOrgActiveMenuItem->id );
+        // zoek component params        
         $wsaComponentParams = $app->getParams($item->query['option']);
-        echo '<!-- Component params ', $item->query['option'], ' :', PHP_EOL;
-                print_r($wsaComponentParams);
-        echo ' -->', PHP_EOL;
+//        echo '<!-- Component params ', $item->query['option'], ' :', PHP_EOL;
+//                print_r($wsaComponentParams);
+//        echo ' -->', PHP_EOL;
+        //      zoek menuparams en voeg ze samen met componentparams (menu overschrijft component)
+        $wsaMenuParams =  new Registry($item->params);
+//        echo '<!-- Menu params : ', PHP_EOL;
+//        print_r($wsaMenuParams);
+//        echo ' -->', PHP_EOL;
+        $wsaComponentParams->merge($wsaMenuParams);
+        // zet samengestelde component menu parameters in app params.
         $tmp = $app->getParams()->flatten();
         foreach ($tmp as $tmpKey => $tmpVal) {
             $app->getParams()->remove($tmpKey);}
         $app->getParams()->merge($wsaComponentParams);
-        $app->getMenu()->setActive($item->id > 0 ? $item->id : $wsaOrgActiveMenuItem->id );
-        $wsaMenuParams =  new Registry($item->params);
-        $wsaComponentParams->merge($wsaMenuParams);
-        echo '<!-- Menu params : ', PHP_EOL;
-        print_r($wsaMenuParams);
-        echo ' -->', PHP_EOL;
         echo '<!-- Start with menuid $item->id=' , $item->id, ' $app->getMenu()->getActive()->id :', $app->getMenu()->getActive()->id,  PHP_EOL;
         //       // print_r($item);
         echo ' -->', PHP_EOL;
@@ -527,7 +527,7 @@ foreach ($list as $i => &$item) {
             
             switch ($item->query['option'])
             {
-                case 'com_contact':
+                case 'xcom_contact':
        
  { 
             // voorbeeld modules / mod_articles_latest en https://stackoverflow.com/questions/19765160/loading-an-article-into-a-components-template-in-joomla
@@ -564,6 +564,7 @@ foreach ($list as $i => &$item) {
                 case 'com_content' :
                 case 'com_tags' :    
                 case 'com_newsfeeds':
+                case 'com_contact':
                     {
                         
 //                      overgenomen uit newsfeeds.php 
@@ -595,9 +596,9 @@ foreach ($list as $i => &$item) {
 //                            $wsaModel->setState($item->query['view'] . '.id', (int) $item->query['id'] ); // haal id uit $item in plaats van uit $input.
                             $wsaModel->setState('params', $wsaComponentParams);
                         // TODO goede afhandeling featured voorlopig even extra state filter
-                            if ($item->query['view'] == 'featured' ) { 
-                                $wsaModel->setState('filter.featured', 'only');
-                            }
+//                            if ($item->query['view'] == 'featured' ) { 
+//                                $wsaModel->setState('filter.featured', 'only'); // zit niet in origineel dus weer weg
+//                           }
                             
                         
                             wsaDisplay( false,  array(), $controller, $item->query['view'],  $wsaComponent . 'View', $wsaJPATH_COMPONENT, 'html',  'default', $wsaModel);
