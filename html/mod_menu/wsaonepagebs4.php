@@ -26,7 +26,7 @@
  * 1-7-2020 new code for one page  when #op# is in $item-note
  * 4-7-2020 aparte switch entry voor content en tags verwijderd en wat displays van params; tijdelijke vervanging app params door component params. 
  * 5-7-2020 tijdelijke vervanging app params door component params na megre met menu params. Newsfeeds newsfeed en Content featured werken 
- * 6-7-2020 algemene switch op option verwijderd alleen nog specifieke uitzonderingen 
+ * 6-7-2020 algemene switch op option verwijderd alleen nog specifieke uitzonderingen, inhoud contactformulier gevonden, vertaalbare labels nog niet vertaald. 
  */
 
 defined('_JEXEC') or die;
@@ -34,6 +34,7 @@ use Joomla\CMS\Factory;   // this is the same as use Joomla\CMS\Factory as Facto
 use Joomla\CMS\Helper\ModuleHelper;
 use Joomla\Registry\Registry; // for new Registry en params object
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;  // JModelLegacy
+use Joomla\CMS\Form; 
 use Joomla\CMS\MVC\Model\FormModel;  // JModelForm
 use Joomla\CMS\Language\Text;
 
@@ -230,7 +231,7 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 //	    if (!isset($viewtype))    $viewType = $document->getType();  // normaal html
 //	    if (!isset($viewName)) $viewName = $controller->get('input')->get('view', $controller->get('default_view')); // naam van de view bijv featured, article, newsfeed
 //	    if (!isset($viewLayout)) $viewLayout = $controller->get('input')->get('layout', 'default', 'string'); // naam van layout bv default vewijzend naar layoutbestand.
-	    echo '<!-- wsaDisplay overgeomen van BaseController.php en aangepast in wsaonepagebs4.php:' , PHP_EOL;
+	    echo '<!-- wsaDisplay overgenomen van BaseController.php en aangepast in wsaonepagebs4.php:' , PHP_EOL;
 	    echo '$urlparams:', PHP_EOL;
 	    print_r($urlparams);
 	    echo PHP_EOL, '$viewType:', PHP_EOL;
@@ -533,37 +534,34 @@ foreach ($list as $i => &$item) {
             // einde overgenomen uit content.php
             
             BaseDatabaseModel::addIncludePath($wsaJPATH_COMPONENT . '/models', $wsaComponent . 'Model'); // Is waarschijnlijk overbodig om com_content op te kunnen halen
-            // controller beschikbaar maken, is waarschijnlijk die van de hoofdcomponent, omdat hij maar een keer wordt geinstancieerd, maar basisfuncties zijn zo beschikbaar.
+            // instantiate controller,  prpbably that of page component because it will only be instanciated once, but methods are available this way.
             $controller = BaseController::getInstance($wsaComponent);
             // don't use $config = array('ignore_request'=>true) because we want initial to populateState by first call of getState, with some components we may pass filter or other options in the $config array.
-            switch ($item->query['option']) {
-                case 'com_contact':
-                    {
-                        $wsaModel = FormModel::getInstance(ucfirst($item->query['view']), $wsaComponent . 'Model');
-                    }
-                    break;
-                default:
-                    {
-                        // Instance of the Model no $config array('ignore_request'=>true) so $state is filled with populateState at first call of getState
-                        $wsaModel = BaseDatabaseModel::getInstance(ucfirst($item->query['view']), $wsaComponent . 'Model');
-                    }
-            } // end switch
+            $wsaModel = BaseDatabaseModel::getInstance(ucfirst($item->query['view']), $wsaComponent . 'Model');
             if ($wsaModel) {
                 // initial call getState to populate $state, params are from $app->getParams() ie the page components params so we have to overwrite them
                 $state = $wsaModel->getState();
-                echo '<!-- $wsaModel get instance en eerste getState :', PHP_EOL;
+                echo '<!-- $wsaModel get instance na eerste getState :', PHP_EOL;
                 print_r($state);
                 echo ' -->', PHP_EOL;
                 $wsaModel->setState('parameters.menu', $wsaMenuParams); // TODO wordt in getModel in BaseController in ModelState gezet indien menu actief is (echter de vraag is of die nu wel aangeroepen wordt) kijk ook naar createModel
                                                                         // $wsaModel->setState($item->query['view'] . '.id', (int) $item->query['id'] ); // haal id uit $item in plaats van uit $input.
                 $wsaModel->setState('params', $wsaComponentParams);
+                if ($item->query['option'] == 'com_contact') {
+                    // add formpaths relative to varible active component path
+                    Form::addFormPath($wsaJPATH_COMPONENT . '/models/forms');
+                    Form::addFieldPath($wsaJPATH_COMPONENT . '/models/fields');
+                    Form::addFormPath($wsaJPATH_COMPONENT . '/model/form');
+                    Form::addFieldPath($wsaJPATH_COMPONENT . '/model/field');
+                }
+                // TODO mabe we can use the controllers dispaly method if we have sufficient paths an properties set to values of this component/ menu-item.
                 wsaDisplay(false, array(), $controller, $item->query['view'],  $wsaComponent . 'View', $wsaJPATH_COMPONENT, 'html',  'default', $wsaModel);
                         }
                         else echo '<!-- Model for component: ' , $item->query['option'] , ' not found! -->', PHP_EOL , '<div>', 'Model voor ' , $item->query['option'] ,' niet gevonden', '</div>' , PHP_EOL ;
                         
         echo '</div></div></div>' , PHP_EOL;
         echo '</section>', PHP_EOL;
-        // tijdelijke aanpassing $app->input herstellen eerst op NULL, omdat er misschien meer tijdelijke aanpassingen zijn dan oorspronklijke.
+        // tijdelijke aanpassing $app->input herstellen 
         $input    = clone  $wsaOrgInput;
         
     } // end if
