@@ -26,7 +26,7 @@
  * 1-7-2020 new code for one page  when #op# is in $item-note
  * 4-7-2020 aparte switch entry voor content en tags verwijderd en wat displays van params; tijdelijke vervanging app params door component params. 
  * 5-7-2020 tijdelijke vervanging app params door component params na megre met menu params. Newsfeeds newsfeed en Content featured werken 
- * 6-7-2020 algemene switch op option verwijderd alleen nog specifieke uitzonderingen, inhoud contactformulier gevonden, vertaalbare labels nog niet vertaald. 
+ * 6-7-2020 algemene switch op option verwijderd alleen nog specifieke uitzonderingen, contactform ok labels correct translated. 
  */
 
 defined('_JEXEC') or die;
@@ -439,9 +439,11 @@ foreach ($list as $i => &$item) {
             JLoader::register($wsaComponent . 'HelperQuery', $wsaJPATH_COMPONENT . '/helpers/query.php');
             JLoader::register($wsaComponent . 'HelperAssociation', $wsaJPATH_COMPONENT . '/helpers/association.php');
             // einde overgenomen uit content.php
-            
-            BaseDatabaseModel::addIncludePath($wsaJPATH_COMPONENT . '/models', $wsaComponent . 'Model'); // Is waarschijnlijk overbodig om com_content op te kunnen halen
-            // instantiate controller,  prpbably that of page component because it will only be instanciated once, but methods are available this way.
+            // load default language file for this component to translate labels of form but maybe also other labes 
+            Factory::getLanguage()->load($item->query['option']);
+            // add file include path for this component.
+            BaseDatabaseModel::addIncludePath($wsaJPATH_COMPONENT . '/models', $wsaComponent . 'Model'); 
+            // instantiate controller,  propbably that of page component because it will only be instanciated once, but methods are available this way.
             $controller = BaseController::getInstance($wsaComponent);
             // don't use $config = array('ignore_request'=>true) because we want initial to populateState by first call of getState, with some components we may pass filter or other options in the $config array.
             $wsaModel = BaseDatabaseModel::getInstance(ucfirst($item->query['view']), $wsaComponent . 'Model');
@@ -460,7 +462,6 @@ foreach ($list as $i => &$item) {
                     Form::addFieldPath($wsaJPATH_COMPONENT . '/models/fields');
                     Form::addFormPath($wsaJPATH_COMPONENT . '/model/form');
                     Form::addFieldPath($wsaJPATH_COMPONENT . '/model/field');
-                    Factory::getLanguage()->load($item->query['option'], $wsaJPATH_COMPONENT_ADMINISTRATOR);
                 }
                 // TODO mabe we can use the controllers dispaly method if we have sufficient paths an properties set to values of this component/ menu-item.
                 wsaDisplay(false, array(), $controller, $item->query['view'],  $wsaComponent . 'View', $wsaJPATH_COMPONENT, 'html',  'default', $wsaModel);
