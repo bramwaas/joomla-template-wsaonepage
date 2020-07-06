@@ -460,7 +460,7 @@ foreach ($list as $i => &$item) {
                     Form::addFieldPath($wsaJPATH_COMPONENT . '/models/fields');
                     Form::addFormPath($wsaJPATH_COMPONENT . '/model/form');
                     Form::addFieldPath($wsaJPATH_COMPONENT . '/model/field');
-                    Factory::getLanguage()->load($item->query['option'], JPATH_ADMINISTRATOR);
+                    Factory::getLanguage()->load($item->query['option'], $wsaJPATH_COMPONENT_ADMINISTRATOR);
                 }
                 // TODO mabe we can use the controllers dispaly method if we have sufficient paths an properties set to values of this component/ menu-item.
                 wsaDisplay(false, array(), $controller, $item->query['view'],  $wsaComponent . 'View', $wsaJPATH_COMPONENT, 'html',  'default', $wsaModel);
