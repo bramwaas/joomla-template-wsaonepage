@@ -34,8 +34,7 @@ use Joomla\CMS\Factory;   // this is the same as use Joomla\CMS\Factory as Facto
 use Joomla\CMS\Helper\ModuleHelper;
 use Joomla\Registry\Registry; // for new Registry en params object
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;  // JModelLegacy
-use Joomla\CMS\Form; 
-use Joomla\CMS\MVC\Model\FormModel;  // JModelForm
+use Joomla\CMS\Form\Form; 
 use Joomla\CMS\Language\Text;
 
 use Joomla\CMS\Component\ComponentHelper;  //tbv algemene renderComponent
@@ -45,6 +44,7 @@ use Joomla\CMS\MVC\Controller\BaseController;
 //use Joomla\CMS\Plugin\PluginHelper;
 //use Joomla\CMS\Document\HtmlDocument;
 //use Joomla\CMS\Document\Renderer\Html\ModulesRenderer;
+//use Joomla\CMS\MVC\Model\FormModel;  // JModelForm
 
 
 //JModelLegacy::addIncludePath(JPATH_SITE . '/components/com_content/models', 'ContentModel'); // Is waarschijnlijk overbodig om com_content op te kunnen halen 
