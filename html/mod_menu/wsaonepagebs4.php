@@ -108,99 +108,6 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 		
 	}
 	
-	 function wsaRenderComponent($option, $params = array())
-	 { // tijdelijke kopie van ComponentHelper::renderComponent($item->query['option']);
-	    $app = \JFactory::getApplication();
-	    
-	    // Load template language files.
-	    $template = $app->getTemplate(true)->template;
-	    $lang = \JFactory::getLanguage();
-	    $lang->load('tpl_' . $template, JPATH_BASE, null, false, true)
-	    || $lang->load('tpl_' . $template, JPATH_THEMES . "/$template", null, false, true);
-	    
-	    if (empty($option))
-	    {
-	        throw new MissingComponentException(\Text::_('JLIB_APPLICATION_ERROR_COMPONENT_NOT_FOUND'), 404);
-	    }
-	    
-	    if (JDEBUG)
-	    {
-	        \JProfiler::getInstance('Application')->mark('beforeRenderComponent ' . $option);
-	    }
-	    
-	    // Record the scope
-	    $scope = $app->scope;
-	    
-	    // Set scope to component name
-	    $app->scope = $option;
-	    
-	    // Build the component path.
-	    $option = preg_replace('/[^A-Z0-9_\.-]/i', '', $option);
-	    $file = substr($option, 4);
-	    
-	    // Define component path.
-	    if (!defined('JPATH_COMPONENT'))
-	    {
-	        define('JPATH_COMPONENT', JPATH_BASE . '/components/' . $option);
-	    }
-	    
-	    if (!defined('JPATH_COMPONENT_SITE'))
-	    {
-	        define('JPATH_COMPONENT_SITE', JPATH_SITE . '/components/' . $option);
-	    }
-	    
-	    if (!defined('JPATH_COMPONENT_ADMINISTRATOR'))
-	    {
-	        define('JPATH_COMPONENT_ADMINISTRATOR', JPATH_ADMINISTRATOR . '/components/' . $option);
-	    }
-	    
-	    // $path = JPATH_COMPONENT . '/' . $file . '.php';
-	    $path = JPATH_BASE . '/components/' . $option . '/'  . $file . '.php';
-	    $contents = $path;
-	    
-	    // If component is disabled throw error
-	    /*
-	    if (!static::isEnabled($option) || !file_exists($path))
-	    {
-	        throw new MissingComponentException(\Text::_('JLIB_APPLICATION_ERROR_COMPONENT_NOT_FOUND'), 404);
-	    }
-	    */
-	    
-	    // Load common and local language files.
-	    $lang->load($option, JPATH_BASE, null, false, true) || $lang->load($option, JPATH_COMPONENT, null, false, true);
-	    
-	    // Handle template preview outlining.
-	    $contents = null;
-	    
-	    // Execute the component.
-	    $contents = wsaExecuteComponent($path);
-	    
-	    // Revert the scope
-	    $app->scope = $scope;
-	    
-	    if (JDEBUG)
-	    {
-	        \JProfiler::getInstance('Application')->mark('afterRenderComponent ' . $option);
-	    }
-	    
-	    return $contents;
-	}
-	/**
-	 * Execute the component.
-	 *
-	 * @param   string  $path  The component path.
-	 *
-	 * @return  string  The component output
-	 *
-	 * @since   1.7
-	 */
-	function wsaExecuteComponent($path)
-	{
-	    ob_start();
-	    require_once $path;
-	    
-	    return ob_get_clean();
-	}
 	
 	
 	//  Uitgaande van Display method BaseController.php (in plaats van $this $controller gebruikens en in plaats van gegevens uit input de gegevens uit de menu link
@@ -553,6 +460,7 @@ foreach ($list as $i => &$item) {
                     Form::addFieldPath($wsaJPATH_COMPONENT . '/models/fields');
                     Form::addFormPath($wsaJPATH_COMPONENT . '/model/form');
                     Form::addFieldPath($wsaJPATH_COMPONENT . '/model/field');
+                    Factory::getLanguage()->load($item->query['option'], JPATH_ADMINISTRATOR);
                 }
                 // TODO mabe we can use the controllers dispaly method if we have sufficient paths an properties set to values of this component/ menu-item.
                 wsaDisplay(false, array(), $controller, $item->query['view'],  $wsaComponent . 'View', $wsaJPATH_COMPONENT, 'html',  'default', $wsaModel);
