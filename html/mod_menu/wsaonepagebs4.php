@@ -15,7 +15,7 @@
  * 16-5-2020 twbs 3 verwijzingen verwijderd gebruik deze niet meer.
  * 20-5-2020 Item->id gekwalificeerd met $moduleIdPos . om hem zo uniek te maken
  * 26-5-2020 minder commentaar in html, maar wel vaker line feeds PHP_EOL
- * 28-5-2020 deze en aangeroepen programma's hernoemd naar wsaonepagebs4... om deze alleen te laten werken bij een men waain expliciet voor die layout gekozen is.
+ * 28-5-2020 deze en aangeroepen programma's hernoemd naar wsaonepagebs4... om deze alleen te laten werken bij een menu waarin expliciet voor die layout gekozen is.
  * 6-6-2020 eerste geslaagde poging om content artikelen op te halen.
  * 9-6-2020 newsfeeds op algemene manier trachten op te halen.
  * 24-6-2020 newsfeed werkt, maar populateState niet goed gebruikt.
@@ -25,7 +25,8 @@
  * 30-6-2020 ook actief menu aanpassen met setActive.
  * 1-7-2020 new code for one page  when #op# is in $item-note
  * 4-7-2020 aparte switch entry voor content en tags verwijderd en wat displays van params; tijdelijke vervanging app params door component params. 
- * 5-7-2020 tijdelijke vervanging app params door component params na megre met menu params. 
+ * 5-7-2020 tijdelijke vervanging app params door component params na megre met menu params. Newsfeeds newsfeed en Content featured werken 
+ * 6-7-2020 algemene switch op option verwijderd alleen nog specifieke uitzonderingen 
  */
 
 defined('_JEXEC') or die;
@@ -519,104 +520,47 @@ foreach ($list as $i => &$item) {
         echo '<section id="' , $item->bookmark  , '" class="container" >', PHP_EOL;
         echo '<div class="container"><div class="row"><div class="col-lg-8 mx-auto">', PHP_EOL;
         echo '<!-- ' , $item->title , ' -->' , PHP_EOL;
-        echo '<!-- ' , ' $item->flink=' , $item->flink , ' $item->link=' , $item->link ,  PHP_EOL
-        , ' $item->query[option]=' , $item->query['option'] , ' $item->query[view]=' , $item->query['view'] , ' $item->query[id]=' , $item->query['id'] , ' -->', PHP_EOL ;
-// end section heade html        
-//        foreach ( $item->query as $key => $value) {             echo " {$key} => {$value} " , PHP_EOL;         }
-
+        echo '<!-- ' , ' $item->flink=' , $item->flink, ' $item->link=', $item->link, PHP_EOL, ' $item->query[option]=', $item->query['option'], ' $item->query[view]=', $item->query['view'], ' $item->query[id]=', $item->query['id'], ' -->', PHP_EOL;
+            // end section header html
+            // foreach ( $item->query as $key => $value) { echo " {$key} => {$value} " , PHP_EOL; }
+            // overgenomen uit newsfeeds.php
+            JLoader::register($wsaComponent . 'HelperRoute', $wsaJPATH_COMPONENT . '/helpers/route.php');
+            JTable::addIncludePath($wsaJPATH_COMPONENT_ADMINISTRATOR . '/tables');
+            // einde overgenomen uit newsfeeds.php
+            // uit content.php
+            JLoader::register($wsaComponent . 'HelperQuery', $wsaJPATH_COMPONENT . '/helpers/query.php');
+            JLoader::register($wsaComponent . 'HelperAssociation', $wsaJPATH_COMPONENT . '/helpers/association.php');
+            // einde overgenomen uit content.php
             
-            switch ($item->query['option'])
-            {
-                case 'xcom_contact':
-       
- { 
-            // voorbeeld modules / mod_articles_latest en https://stackoverflow.com/questions/19765160/loading-an-article-into-a-components-template-in-joomla
-            // kijk ook naar components/com_content/models/articles
- JModelLegacy::addIncludePath(JPATH_SITE . '/components/com_contact/models', 'ContactModel'); // Is waarschijnlijk overbodig om com_content op te kunnen halen
-     
-             $wsaModel=FormModel::getInstance('Contact', 'ContactModel', array('ignore_request'=>true));
-            //            $wsaModel=JModelLegacy::getInstance('Article', 'ContentModel', array('ignore_request'=>true));  // één artikel
-            // Set application parameters in model
-            //            $app       = JFactory::getApplication();
-            if ($wsaModel) {
-                $state = $wsaModel->getState();
-                $wsaModel->setState('params', $wsaOrgAppParams);
-            $wsaModel->setState('contact.id', (int) $item->query['id'] ); 
-            $wsaModel->setState('load_tags', true); // not available for Article model
-            $wsaModel->setState('show_associations', true);
-//            $wsaContentItems=$wsaModel->getItems();
-            $wsaContentItem=$wsaModel->getItem($item->query['id']); // Indien één Artikel gekozen met Article ipv Articles
-//            $wsaContentItem=$wsaContentItems[0];
-            //            foreach ($wsaContentItems as &$wsaContentItem)            {}; // als er meer artikelen zijn
-            echo '<!-- ';
-            //                   // print_r($wsaContentItem);
-            echo ' -->', PHP_EOL;
-            echo '<h3>', $wsaContentItem->title, '</h3>' , PHP_EOL ;
-            echo '<div>', $wsaContentItem->name, '</div>' , PHP_EOL ;
-            echo '<div>', $wsaContentItem->email, '</div>' , PHP_EOL ;
-            echo '<div>', $wsaContentItem->alias, '</div>' , PHP_EOL ;
-            }
-            else echo '<div>', 'Model voor Contact niet gevonden', '</div>' , PHP_EOL ;
-            
-         
-        }
-        break;
-                case 'com_content' :
-                case 'com_tags' :    
-                case 'com_newsfeeds':
+            BaseDatabaseModel::addIncludePath($wsaJPATH_COMPONENT . '/models', $wsaComponent . 'Model'); // Is waarschijnlijk overbodig om com_content op te kunnen halen
+            // controller beschikbaar maken, is waarschijnlijk die van de hoofdcomponent, omdat hij maar een keer wordt geinstancieerd, maar basisfuncties zijn zo beschikbaar.
+            $controller = BaseController::getInstance($wsaComponent);
+            // don't use $config = array('ignore_request'=>true) because we want initial to populateState by first call of getState, with some components we may pass filter or other options in the $config array.
+            switch ($item->query['option']) {
                 case 'com_contact':
                     {
-                        
-//                      overgenomen uit newsfeeds.php 
-                        JLoader::register($wsaComponent . 'HelperRoute', $wsaJPATH_COMPONENT . '/helpers/route.php');
-                        JTable::addIncludePath($wsaJPATH_COMPONENT_ADMINISTRATOR . '/tables');
-//                      einde overgenomen uit newsfeeds.php 
-//                      uit content.php
-                        JLoader::register($wsaComponent . 'HelperQuery', $wsaJPATH_COMPONENT . '/helpers/query.php');
-                        JLoader::register($wsaComponent . 'HelperAssociation', $wsaJPATH_COMPONENT . '/helpers/association.php');
-//                      einde overgenomen uit content.php 
-                        BaseDatabaseModel::addIncludePath($wsaJPATH_COMPONENT . '/models', $wsaComponent . 'Model'); // Is waarschijnlijk overbodig om com_content op te kunnen halen
-                        // controller beschikbaar maken, is waarschijnlijk die van de hoofdcomponent, omdat hij maar een keer wordt geinstancieerd, maar basisfuncties zijn zo beschikbaar.
-                        $controller = BaseController::getInstance($wsaComponent);
-//                      // don't use $config = array('ignore_request'=>true) because we want initial to populateState by first call of getState, with some components we may pass filter or other options in the $config array.
-                        $wsaModel=BaseDatabaseModel::getInstance(ucfirst($item->query['view']), $wsaComponent . 'Model'); ;
-//                       $wsaModel=BaseDatabaseModel::getInstance(ucfirst($item->query['view']), $wsaComponent . 'Model' , array('ignore_request'=>true));
-                        echo '<!-- $wsaModel direct na get instance :', PHP_EOL;
-                        // print_r($wsaModel);
-                        echo ' -->', PHP_EOL;
-                        if ($wsaModel) {
-                            // TODO loze aanroep getState om state initieel te vullen met populateState echter deze gebruikt id uit input, daarom deze nog overschrijven met Id uit menuoptie
-                            // TODO verder wordt het actieve menu gebruikt in de display functie, dus mischien zou tijdelijk het actuele menuitem actief gemaakt moeten worden
-                            // initial call getState to populate $state, params are from $app->getParams() ie the page components params so we have to overwrite them
-                            $state = $wsaModel->getState(); 
-                            echo '<!-- $wsaModel get instance en eerste getState :', PHP_EOL;
-                            print_r($state);
-                            echo ' -->', PHP_EOL;
-                            $wsaModel->setState('parameters.menu', $wsaMenuParams);  // TODO wordt in getModel in BaseController in ModelState gezet indien menu actief is (echter de vraag is of die nu wel aangeroepen wordt) kijk ook naar createModel
-//                            $wsaModel->setState($item->query['view'] . '.id', (int) $item->query['id'] ); // haal id uit $item in plaats van uit $input.
-                            $wsaModel->setState('params', $wsaComponentParams);
-                        // TODO goede afhandeling featured voorlopig even extra state filter
-//                            if ($item->query['view'] == 'featured' ) { 
-//                                $wsaModel->setState('filter.featured', 'only'); // zit niet in origineel dus weer weg
-//                           }
-                            
-                        
-                            wsaDisplay( false,  array(), $controller, $item->query['view'],  $wsaComponent . 'View', $wsaJPATH_COMPONENT, 'html',  'default', $wsaModel);
+                        $wsaModel = FormModel::getInstance(ucfirst($item->query['view']), $wsaComponent . 'Model');
+                    }
+                    break;
+                default:
+                    {
+                        // Instance of the Model no $config array('ignore_request'=>true) so $state is filled with populateState at first call of getState
+                        $wsaModel = BaseDatabaseModel::getInstance(ucfirst($item->query['view']), $wsaComponent . 'Model');
+                    }
+            } // end switch
+            if ($wsaModel) {
+                // initial call getState to populate $state, params are from $app->getParams() ie the page components params so we have to overwrite them
+                $state = $wsaModel->getState();
+                echo '<!-- $wsaModel get instance en eerste getState :', PHP_EOL;
+                print_r($state);
+                echo ' -->', PHP_EOL;
+                $wsaModel->setState('parameters.menu', $wsaMenuParams); // TODO wordt in getModel in BaseController in ModelState gezet indien menu actief is (echter de vraag is of die nu wel aangeroepen wordt) kijk ook naar createModel
+                                                                        // $wsaModel->setState($item->query['view'] . '.id', (int) $item->query['id'] ); // haal id uit $item in plaats van uit $input.
+                $wsaModel->setState('params', $wsaComponentParams);
+                wsaDisplay(false, array(), $controller, $item->query['view'],  $wsaComponent . 'View', $wsaJPATH_COMPONENT, 'html',  'default', $wsaModel);
                         }
                         else echo '<!-- Model for component: ' , $item->query['option'] , ' not found! -->', PHP_EOL , '<div>', 'Model voor ' , $item->query['option'] ,' niet gevonden', '</div>' , PHP_EOL ;
                         
-                        }
-       break;             
-                default:
-                    {  
-                        echo '<h3>',  $item->title, '</h3>' , PHP_EOL ;
-                        echo '<div>', ' $item->bookmark=' , $item->bookmark, ' $item->query[option]=' , $item->query['option'] ,' nog onbekend option type, component inhoud niet verwerkt.</div>' , PHP_EOL ;
-                        echo '<!-- Unknown component: ' , $item->query['option'] , ' content not processed! -->', PHP_EOL;
-                        Factory::getApplication()->enqueueMessage(Text::_('Unknown component: ' . $item->query['option'] . ' content not processed!'), 'warning');
-                    }
-       
-            } // end switch
-//        echo '</p>' , PHP_EOL;
         echo '</div></div></div>' , PHP_EOL;
         echo '</section>', PHP_EOL;
         // tijdelijke aanpassing $app->input herstellen eerst op NULL, omdat er misschien meer tijdelijke aanpassingen zijn dan oorspronklijke.
