@@ -400,7 +400,6 @@ foreach ($list as $i => &$item) {
             $app->input->set($tmpKey,NULL);}
         foreach ($item->query as $tmpKey => $tmpVal) {
             $app->input->set($tmpKey,$tmpVal);}
-        $app->input->set ('Itemid', $item->id); // set de Itemid op de Id van het huidige menu alternatief is misschien ook het alternatief met setActive
         $app->getMenu()->setActive($item->id > 0 ? $item->id : $wsaOrgActiveMenuItem->id );
         // zoek component params        
         $wsaComponentParams = $app->getParams($item->query['option']);
@@ -470,9 +469,12 @@ foreach ($list as $i => &$item) {
                         
         echo '</div></div></div>' , PHP_EOL;
         echo '</section>', PHP_EOL;
-        // tijdelijke aanpassing $app->input herstellen 
-        $input    = clone  $wsaOrgInput;
-        
+        // restore input
+        foreach (($item->query as $tmpKey => $tmpVal) {
+            $app->input->set($tmpKey,NULL);}
+        foreach $wsaOrgActiveMenuItem->query as $tmpKey => $tmpVal) {
+            $app->input->set($tmpKey,$tmpVal);}
+                
     } // end if
     
 } catch (Exception $e) {
@@ -493,8 +495,7 @@ $tmp = $app->getParams()->flatten();
 foreach ($tmp as $tmpKey => $tmpVal) {
     $app->getParams()->remove($tmpKey);}
 $app->getParams()->merge($wsaOrgAppParams);
-// restore input
-$input    = clone  $wsaOrgInput;
+
 // restore active menu
 if ($wsaOrgActiveMenuItem->id > 0){
     $app->getMenu()->setActive($wsaOrgActiveMenuItem->id);
