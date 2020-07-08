@@ -470,9 +470,9 @@ foreach ($list as $i => &$item) {
         echo '</div></div></div>' , PHP_EOL;
         echo '</section>', PHP_EOL;
         // restore input
-        foreach (($item->query as $tmpKey => $tmpVal) {
+        foreach ($item->query as $tmpKey => $tmpVal) {
             $app->input->set($tmpKey,NULL);}
-        foreach $wsaOrgActiveMenuItem->query as $tmpKey => $tmpVal) {
+        foreach ($wsaOrgActiveMenuItem->query as $tmpKey => $tmpVal) {
             $app->input->set($tmpKey,$tmpVal);}
                 
     } // end if
