@@ -462,6 +462,12 @@ foreach ($list as $i => &$item) {
                     Form::addFormPath($wsaJPATH_COMPONENT . '/model/form');
                     Form::addFieldPath($wsaJPATH_COMPONENT . '/model/field');
                 }
+                // get the view before display to overwrite the layout value of the previous iteration
+                // extra om foute instellingen te overschrijven.
+                $controller->set('paths',  array('view' => $wsaJPATH_COMPONENT . '/views/' )); // TODO controleren of nodig en dan ook terugdraaien
+                $view = $controller->getView($item->query['view'], 'html', $wsaComponent . 'View', array('base_path' => $wsaJPATH_COMPONENT, 'layout' => 'default'));
+                $view->setLayout(($item->query['layout'] > ' ') ? $item->query['layout'] : 'default');
+                
                 // TODO mabe we can use the controllers dispaly method if we have sufficient paths an properties set to values of this component/ menu-item.
                 wsaDisplay(false, array(), $controller, $item->query['view'],  $wsaComponent . 'View', $wsaJPATH_COMPONENT, 'html',  'default', $wsaModel);
                         }
