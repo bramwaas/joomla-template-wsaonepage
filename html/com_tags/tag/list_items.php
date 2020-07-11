@@ -89,7 +89,7 @@ JFactory::getDocument()->addScriptDeclaration("
 						<td <?php if ($this->params->get('show_headings')) echo "headers=\"categorylist_header_title\""; ?> class="list-title">
 						<!-- 
 						<?php 
-						echo '$item->link:', $item->link, '; Uri:' PHP_EOL;
+						echo '$item->link:', $item->link, '; Uri:', PHP_EOL;
 						print_r(new \JUri($item->link));
 						echo PHP_EOL, 'root:', JUri::root(); 
 						
