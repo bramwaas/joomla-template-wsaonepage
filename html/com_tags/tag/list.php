@@ -15,7 +15,7 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 $n = count($this->items);
 
 ?>
-<!-- tag/tmpl/list.php -->
+<!--override tag/tmpl/list.php -->
 <div class="tag-category<?php echo $this->pageclass_sfx; ?>">
 	<?php if ($this->params->get('show_page_heading')) : ?>
 		<h1>

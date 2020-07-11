@@ -45,6 +45,7 @@ Factory::getDocument()->addScriptDeclaration("
 ");
 
 ?>
+<!-- override tag/tmpl/default_items.php -->
 <form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm" class="form-inline">
 	<?php if ($this->params->get('show_headings') || $this->params->get('filter_field') || $this->params->get('show_pagination_limit')) : ?>
 		<fieldset class="filters btn-toolbar">
