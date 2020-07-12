@@ -457,9 +457,10 @@ foreach ($list as $i => &$item) {
                     Form::addFormPath($wsaJPATH_COMPONENT . '/model/form');
                     Form::addFieldPath($wsaJPATH_COMPONENT . '/model/field');
                 }
-                // get the view before display to overwrite the layout value of the previous iteration
                 // extra om foute instellingen te overschrijven.
-                $controller->set('paths',  array('view' => $wsaJPATH_COMPONENT . '/views/' )); // TODO controleren of nodig en dan ook terugdraaien
+                $controller->set('basePath', $wsaJPATH_COMPONENT); 
+                $controller->set('paths',  array('view' => $wsaJPATH_COMPONENT . '/views/' )); 
+                // get the view before display to overwrite the layout value of the previous iteration
                 $view = $controller->getView($item->query['view'], 'html', $wsaComponent . 'View', array('base_path' => $wsaJPATH_COMPONENT, 'layout' => 'default'));
                 $view->setLayout(($item->query['layout'] > ' ') ? $item->query['layout'] : 'default');
                 
@@ -494,7 +495,9 @@ $tmp = $app->getParams()->flatten();
 foreach ($tmp as $tmpKey => $tmpVal) {
     $app->getParams()->remove($tmpKey);}
 $app->getParams()->merge($wsaOrgAppParams);
-
+// restor controller vars
+$controller->set('basePath', $wsaOrgControllerVars['basePath']);
+$controller->set('paths', $wsaOrgControllerVars['paths']);
 // restore active menu
 if ($wsaOrgActiveMenuItem->id > 0){
     $app->getMenu()->setActive($wsaOrgActiveMenuItem->id);
