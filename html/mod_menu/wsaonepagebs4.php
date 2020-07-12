@@ -359,7 +359,7 @@ $wsaOrgAppParams = clone $app->getParams();
 $wsaOrgInput = clone $input;
 $wsaOrgActiveMenuItem     = $app->getMenu()->getActive();
 $wsaOrgDocumentViewType = $document->getType();  //= html is always ok
-$wsaSiteRouter = SiteRouter->getInstance();
+$wsaSiteRouter = SiteRouter::getInstance();
 $wsaOrgRouterVars = $wsaSiteRouter->getVars();
 
 echo '<!-- onepage Component Sections from menu -->'. PHP_EOL;
