@@ -27,6 +27,7 @@
  * 4-7-2020 aparte switch entry voor content en tags verwijderd en wat displays van params; tijdelijke vervanging app params door component params. 
  * 5-7-2020 tijdelijke vervanging app params door component params na megre met menu params. Newsfeeds newsfeed en Content featured werken 
  * 6-7-2020 algemene switch op option verwijderd alleen nog specifieke uitzonderingen, contactform ok labels correct translated. 
+ * 12-7-2020 Ook initialisatie van SiteRouter per menu item, om verkeerde paden te corrigeren
  */
 
 defined('_JEXEC') or die;
@@ -36,6 +37,7 @@ use Joomla\Registry\Registry; // for new Registry en params object
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;  // JModelLegacy
 use Joomla\CMS\Form\Form; 
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\SiteRouter;
 
 use Joomla\CMS\Component\ComponentHelper;  //tbv algemene renderComponent
 use Joomla\CMS\MVC\Controller\BaseController; 
@@ -357,18 +359,17 @@ $wsaOrgAppParams = clone $app->getParams();
 $wsaOrgInput = clone $input;
 $wsaOrgActiveMenuItem     = $app->getMenu()->getActive();
 $wsaOrgDocumentViewType = $document->getType();  //= html is always ok
+$wsaSiteRouter = SiteRouter->getInstance();
+$wsaOrgRouterVars = $wsaSiteRouter->getVars();
+
 echo '<!-- onepage Component Sections from menu -->'. PHP_EOL;
-//echo '<!-- App params org: ', PHP_EOL;
-//print_r($wsaOrgAppParams);
-//echo ' -->', PHP_EOL;
+echo '<!-- $wsaSiteRouter org: ', PHP_EOL;
+print_r($wsaSiteRouter);
+echo ' -->', PHP_EOL;
 try {
-//    echo '<!-- input object:' . PHP_EOL;
-//    print_r($input);
-//    echo ' -->', PHP_EOL;
-    if ($controller = BaseController::getInstance(substr($wsaOrgMenuQueryArray['option'],4)) ) 
+   if ($controller = BaseController::getInstance(substr($wsaOrgMenuQueryArray['option'],4)) ) 
     {
         $wsaOrgControllerVars = $controller->getProperties(FALSE);
-        echo '<!-- $controller->get(name):' , $controller->get(name), ' -->', PHP_EOL;
     }
 } catch (Exception $e) {
     echo '<!-- '. PHP_EOL;
@@ -401,16 +402,12 @@ foreach ($list as $i => &$item) {
         foreach ($item->query as $tmpKey => $tmpVal) {
             $app->input->set($tmpKey,$tmpVal);}
         $app->getMenu()->setActive($item->id > 0 ? $item->id : $wsaOrgActiveMenuItem->id );
+        // set Router vars to values of this menuitem
+        $wsaSiteRouter->setVars('Itemid', $item->id);
         // zoek component params        
         $wsaComponentParams = $app->getParams($item->query['option']);
-//        echo '<!-- Component params ', $item->query['option'], ' :', PHP_EOL;
-//                print_r($wsaComponentParams);
-//        echo ' -->', PHP_EOL;
         //      zoek menuparams en voeg ze samen met componentparams (menu overschrijft component)
         $wsaMenuParams =  new Registry($item->params);
-//        echo '<!-- Menu params : ', PHP_EOL;
-//        print_r($wsaMenuParams);
-//        echo ' -->', PHP_EOL;
         $wsaComponentParams->merge($wsaMenuParams);
         // zet samengestelde component menu parameters in app params.
         $tmp = $app->getParams()->flatten();
@@ -449,9 +446,6 @@ foreach ($list as $i => &$item) {
             if ($wsaModel) {
                 // initial call getState to populate $state, params are from $app->getParams() ie the page components params so we have to overwrite them
                 $state = $wsaModel->getState();
-                echo '<!-- $wsaModel get instance na eerste getState :', PHP_EOL;
-                print_r($state);
-                echo ' -->', PHP_EOL;
                 $wsaModel->setState('parameters.menu', $wsaMenuParams); // TODO wordt in getModel in BaseController in ModelState gezet indien menu actief is (echter de vraag is of die nu wel aangeroepen wordt) kijk ook naar createModel
                                                                         // $wsaModel->setState($item->query['view'] . '.id', (int) $item->query['id'] ); // haal id uit $item in plaats van uit $input.
                 $wsaModel->setState('params', $wsaComponentParams);
@@ -489,8 +483,6 @@ foreach ($list as $i => &$item) {
         echo ' -->', PHP_EOL;
         Factory::getApplication()->enqueueMessage(Text::_('Caught exception: ' .  $e->getMessage()), 'warning');
         
-        
-        
 }
 }  // end foreach
 /*
@@ -507,6 +499,8 @@ if ($wsaOrgActiveMenuItem->id > 0){
     $app->getMenu()->setActive($wsaOrgActiveMenuItem->id);
     echo '<!-- herstelde actief menu id :', $app->getMenu()->getActive()->id ,' -->';
 }
+// restore Router vars
+$wsaSiteRouter->setVars($wsaOrgRouterVars);
 echo '<!-- einde onepage sections uit menu -->'. PHP_EOL;
 
 ?>
