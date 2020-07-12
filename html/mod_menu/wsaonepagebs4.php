@@ -27,7 +27,7 @@
  * 4-7-2020 aparte switch entry voor content en tags verwijderd en wat displays van params; tijdelijke vervanging app params door component params. 
  * 5-7-2020 tijdelijke vervanging app params door component params na megre met menu params. Newsfeeds newsfeed en Content featured werken 
  * 6-7-2020 algemene switch op option verwijderd alleen nog specifieke uitzonderingen, contactform ok labels correct translated. 
- * 12-7-2020 Ook initialisatie van SiteRouter per menu item, om verkeerde paden te corrigeren
+ * 12-7-2020 Ook initialisatie van SiteRouter per menu item, om verkeerde paden te corrigeren, ook extra override en default template path toegevoergd en display uit component gebruikt 
  */
 
 defined('_JEXEC') or die;
@@ -466,8 +466,8 @@ foreach ($list as $i => &$item) {
                 $view->addTemplatePath(array($wsaJPATH_COMPONENT . '/views/' . $item->query['view'] . '/tmpl/' ,
                     JPATH_THEMES . '/' . $app->getTemplate() . '/html/' . $wsaOption . '/' . $item->query['view']));
                 // TODO mabe we can use the controllers dispaly method if we have sufficient paths an properties set to values of this component/ menu-item.
-//                $controller->display();
-                wsaDisplay(false, array(), $controller, $item->query['view'],  $wsaComponent . 'View', $wsaJPATH_COMPONENT, 'html',  'default', $wsaModel);
+                $controller->display();
+//                wsaDisplay(false, array(), $controller, $item->query['view'],  $wsaComponent . 'View', $wsaJPATH_COMPONENT, 'html',  'default', $wsaModel);
                         }
                         else echo '<!-- Model for component: ' , $item->query['option'] , ' not found! -->', PHP_EOL , '<div>', 'Model voor ' , $item->query['option'] ,' niet gevonden', '</div>' , PHP_EOL ;
                         
