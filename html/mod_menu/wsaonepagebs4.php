@@ -37,7 +37,7 @@ use Joomla\Registry\Registry; // for new Registry en params object
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;  // JModelLegacy
 use Joomla\CMS\Form\Form; 
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Router\SiteRouter;
+//use Joomla\CMS\Router\SiteRouter;
 
 use Joomla\CMS\Component\ComponentHelper;  //tbv algemene renderComponent
 use Joomla\CMS\MVC\Controller\BaseController; 
@@ -364,9 +364,9 @@ $wsaSiteRouter = $app->getRouter('site');
 $wsaOrgRouterVars = $wsaSiteRouter->getVars();
 
 echo '<!-- onepage Component Sections from menu -->'. PHP_EOL;
-echo '<!-- $wsaSiteRouter org: ', PHP_EOL;
-print_r($wsaOrgRouterVars);
-echo ' -->', PHP_EOL;
+//echo '<!-- $wsaSiteRouter org: ', PHP_EOL;
+//print_r($wsaOrgRouterVars);
+//echo ' -->', PHP_EOL;
 try {
    if ($controller = BaseController::getInstance(substr($wsaOrgMenuQueryArray['option'],4)) ) 
     {
@@ -404,7 +404,7 @@ foreach ($list as $i => &$item) {
             $app->input->set($tmpKey,$tmpVal);}
         $app->getMenu()->setActive($item->id > 0 ? $item->id : $wsaOrgActiveMenuItem->id );
         // set Router vars to values of this menuitem
-        $wsaSiteRouter->setVars('Itemid', $item->id);
+        $wsaSiteRouter->setVars(array('Itemid'=> $item->id, 'option'=> $item->query['option']));
         // zoek component params        
         $wsaComponentParams = $app->getParams($item->query['option']);
         //      zoek menuparams en voeg ze samen met componentparams (menu overschrijft component)
