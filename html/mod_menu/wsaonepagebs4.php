@@ -365,7 +365,7 @@ $wsaOrgRouterVars = $wsaSiteRouter->getVars();
 
 echo '<!-- onepage Component Sections from menu -->'. PHP_EOL;
 echo '<!-- $wsaSiteRouter org: ', PHP_EOL;
-print_r($wsaSiteRouter);
+print_r($wsaOrgRouterVars);
 echo ' -->', PHP_EOL;
 try {
    if ($controller = BaseController::getInstance(substr($wsaOrgMenuQueryArray['option'],4)) ) 
