@@ -28,6 +28,7 @@
  * 5-7-2020 tijdelijke vervanging app params door component params na megre met menu params. Newsfeeds newsfeed en Content featured werken 
  * 6-7-2020 algemene switch op option verwijderd alleen nog specifieke uitzonderingen, contactform ok labels correct translated. 
  * 12-7-2020 Ook initialisatie van SiteRouter per menu item, om verkeerde paden te corrigeren, ook extra override en default template path toegevoergd en display uit component gebruikt 
+ * 13-7-2020 Nog enkele properties van BaseController aangepast, nu wertk display in BaseComponent ook echt
  */
 
 defined('_JEXEC') or die;
@@ -359,7 +360,6 @@ $wsaOrgAppParams = clone $app->getParams();
 $wsaOrgInput = clone $input;
 $wsaOrgActiveMenuItem     = $app->getMenu()->getActive();
 $wsaOrgDocumentViewType = $document->getType();  //= html is always ok
-//$wsaSiteRouter = SiteRouter::getInstance('site');
 $wsaSiteRouter = $app->getRouter('site');
 $wsaOrgRouterVars = $wsaSiteRouter->getVars();
 
@@ -443,6 +443,8 @@ foreach ($list as $i => &$item) {
             // instantiate controller,  propbably that of page component because it will only be instanciated once, but methods are available this way.
             $controller = BaseController::getInstance($wsaComponent);
             // don't use $config = array('ignore_request'=>true) because we want initial to populateState by first call of getState, with some components we may pass filter or other options in the $config array.
+            // TODO waarschijnlijk overbodig geworden controleren of state en params goed gevuld zijn
+            /*
             $wsaModel = BaseDatabaseModel::getInstance(ucfirst($item->query['view']), $wsaComponent . 'Model');
             if ($wsaModel) {
                 // initial call getState to populate $state, params are from $app->getParams() ie the page components params so we have to overwrite them
@@ -450,7 +452,11 @@ foreach ($list as $i => &$item) {
                 $wsaModel->setState('parameters.menu', $wsaMenuParams); // TODO wordt in getModel in BaseController in ModelState gezet indien menu actief is (echter de vraag is of die nu wel aangeroepen wordt) kijk ook naar createModel
                                                                         // $wsaModel->setState($item->query['view'] . '.id', (int) $item->query['id'] ); // haal id uit $item in plaats van uit $input.
                 $wsaModel->setState('params', $wsaComponentParams);
-                if ($item->query['option'] == 'com_contact') {
+            }
+            else echo '<!-- Model for component: ' , $item->query['option'] , ' not found! -->', PHP_EOL , '<div>', 'Model voor ' , $item->query['option'] ,' niet gevonden', '</div>' , PHP_EOL ;
+            */
+            //
+            if ($item->query['option'] == 'com_contact') {
                     // add formpaths relative to varible active component path
                     Form::addFormPath($wsaJPATH_COMPONENT . '/models/forms');
                     Form::addFieldPath($wsaJPATH_COMPONENT . '/models/fields');
@@ -460,6 +466,8 @@ foreach ($list as $i => &$item) {
                 // extra om foute instellingen te overschrijven.
                 $controller->set('basePath', $wsaJPATH_COMPONENT); 
                 $controller->set('paths',  array('view' => $wsaJPATH_COMPONENT . '/views/' )); 
+                $controller->set('name', $wsaComponent);
+                $controller->set('model_prefix', $wsaComponent . 'Model');
                 // get the view before display to overwrite the layout value of the previous iteration and the override paths for the lay-out file
                 $view = $controller->getView($item->query['view'], 'html', $wsaComponent . 'View', array('base_path' => $wsaJPATH_COMPONENT, 'layout' => 'default'));
                 $view->setLayout(($item->query['layout'] > ' ') ? $item->query['layout'] : 'default');
@@ -468,8 +476,6 @@ foreach ($list as $i => &$item) {
                 // TODO mabe we can use the controllers dispaly method if we have sufficient paths an properties set to values of this component/ menu-item.
                 $controller->display();
 //                wsaDisplay(false, array(), $controller, $item->query['view'],  $wsaComponent . 'View', $wsaJPATH_COMPONENT, 'html',  'default', $wsaModel);
-                        }
-                        else echo '<!-- Model for component: ' , $item->query['option'] , ' not found! -->', PHP_EOL , '<div>', 'Model voor ' , $item->query['option'] ,' niet gevonden', '</div>' , PHP_EOL ;
                         
         echo '</div></div></div>' , PHP_EOL;
         echo '</section>', PHP_EOL;
@@ -500,6 +506,8 @@ $app->getParams()->merge($wsaOrgAppParams);
 // restor controller vars
 $controller->set('basePath', $wsaOrgControllerVars['basePath']);
 $controller->set('paths', $wsaOrgControllerVars['paths']);
+$controller->set('name', $wsaOrgControllerVars['name']);
+$controller->set('model_prefix', $wsaOrgControllerVars['model_prefix']);
 // restore active menu
 if ($wsaOrgActiveMenuItem->id > 0){
     $app->getMenu()->setActive($wsaOrgActiveMenuItem->id);
