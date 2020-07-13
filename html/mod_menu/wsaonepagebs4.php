@@ -368,15 +368,10 @@ echo '<!-- onepage Component Sections from menu -->'. PHP_EOL;
 //print_r($wsaOrgRouterVars);
 //echo ' -->', PHP_EOL;
 try {
-   if ($controller = BaseController::getInstance(substr($wsaOrgMenuQueryArray['option'],4)) ) 
+    if ($controller = BaseController::getInstance(substr($wsaOrgActiveMenuItem->query['option'],4)) ) 
     {
         $wsaOrgControllerVars = $controller->getProperties(FALSE);
-    }
-} catch (Exception $e) {
-    echo '<!-- '. PHP_EOL;
-    echo 'Caught exception: ',  $e->getMessage(), PHP_EOL;
-    echo ' -->', PHP_EOL;
-}
+
 // [Itemid] => 299
 // [option] => com_content
 // [view] => article
@@ -515,6 +510,19 @@ if ($wsaOrgActiveMenuItem->id > 0){
 }
 // restore Router vars
 $wsaSiteRouter->setVars($wsaOrgRouterVars);
+
+    } else {
+        echo '<!-- '. PHP_EOL;
+        echo 'Controller not instanciated:', substr($wsaOrgActiveMenuItem->query['option'],4) , PHP_EOL;
+        echo ' -->', PHP_EOL;
+    }
+    
+} catch (Exception $e) {
+    echo '<!-- '. PHP_EOL;
+    echo 'Caught exception: ',  $e->getMessage(), PHP_EOL;
+    echo ' -->', PHP_EOL;
+}
+
 echo '<!-- einde onepage sections uit menu -->'. PHP_EOL;
 
 ?>

@@ -8,6 +8,7 @@
  * other free or open source software licenses.
  * 10-5-2020 eerste aanpassingen richting onepage
  * 29-6-2020 inhoud newsfeed werkt voorlopig naar tevredenheid.
+ * 13-7-2020 all component types content, tags, newsfeeds, and contac work, introduces module position-9 behind content and display=menu or content
  
 */
 
@@ -223,7 +224,7 @@ class="site-grid site <?php echo $option
 			<div class="header-inner container-content<?php echo $hi_mods; ?>">
 				<?php if ($this->countModules('position-0')): ?>
 				<div class="pos0 row">
-					<jdoc:include type="modules" name="position-0" style="wsaOnepage" />
+					<jdoc:include type="modules" name="position-0" style="wsaOnepage" display="menu" />
 					<div class="clearfix"></div>
 				</div><!--End Pos0-->
 				<?php endif; ?>
@@ -262,56 +263,8 @@ class="site-grid site <?php echo $option
 			</div><!--End Header-Inner-->
 		</div><!--End Header-->
 
-<?php  /*
-<!--  tijdelijk hard coded nav -->
 
 
-  <!-- Navigation -->
-  <div class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav"  role="navigation">
-    <div class="container">
-      <a class="navbar-brand brand js-scroll-trigger" href="#wrapper"><span>Start Bootstrap</span></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-pos1" aria-controls="navbar-pos1" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbar-pos1">
-        <ul id="main_menu_1" class="mod-menu nav navbar-nav ml-auto"><!-- geen mr-auto menu nav-tabs -->
-          <li class="nav-item">
-            <a id="dropdownMenuLink-about" class="nav-link js-scroll-trigger" href="#about"><span>About</span></a>
-          </li>
-          <li class="nav-item">
-            <a id="dropdownMenuLink-services" class="nav-link js-scroll-trigger" href="#services"><span>Services</span></a>
-          </li>
-          <li class="nav-item">
-            <a id="dropdownMenuLink-103" class="nav-link js-scroll-trigger" href="#contact"><span>Contact</span></a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-		
-		
-<!--  einde tijdelijk hard coded nav -->
-
-*/ ?>
-
-<!--  main content menusturing door DIVs met ID -->
-	<section id="about">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 mx-auto">
-          <h2>About this page</h2>
-          <p class="lead">This is a great place to talk about your webpage. This template is purposefully unstyled so you can use it as a boilerplate or starting point for you own landing page designs! This template features:</p>
-          <ul>
-            <li>Clickable nav links that smooth scroll to page sections</li>
-            <li>Responsive behavior when clicking nav links perfect for a one page website</li>
-            <li>Bootstrap's scrollspy feature which highlights which section of the page you're on in the navbar</li>
-            <li>Minimal custom CSS so you are free to explore your own unique design options</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-  
 		<!-- Begin Container content-->
 <section id="services" class="xxxbg-light">
 
@@ -340,6 +293,12 @@ class="site-grid site <?php echo $option
 					<?php endif; ?>
 					<jdoc:include type="message" />
 					<jdoc:include type="component" />
+				<?php if ($this->countModules('position-9')): ?>
+				<div class="pos9 row">
+					<jdoc:include type="modules" name="position-9" style="wsaOnepage" display="content" />
+					<div class="clearfix"></div>
+				</div><!--End Pos9-->
+				<?php endif; ?>
 				</div><!--Content -->
 				<?php if ($this->countModules('position-7')) : ?>
 				<div id="sidebarright" class="pos7 <?php echo $spans;?>">
