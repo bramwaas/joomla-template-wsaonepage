@@ -29,6 +29,7 @@
  * 6-7-2020 algemene switch op option verwijderd alleen nog specifieke uitzonderingen, contactform ok labels correct translated. 
  * 12-7-2020 Ook initialisatie van SiteRouter per menu item, om verkeerde paden te corrigeren, ook extra override en default template path toegevoergd en display uit component gebruikt 
  * 13-7-2020 Nog enkele properties van BaseController aangepast, nu wertk display in BaseComponent ook echt
+ * 15-7-200 eigen display functie uit code verwijderd. addModelpath via controller.
  */
 
 defined('_JEXEC') or die;
@@ -38,16 +39,10 @@ use Joomla\Registry\Registry; // for new Registry en params object
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;  // JModelLegacy
 use Joomla\CMS\Form\Form; 
 use Joomla\CMS\Language\Text;
-//use Joomla\CMS\Router\SiteRouter;
 
 use Joomla\CMS\Component\ComponentHelper;  //tbv algemene renderComponent
 use Joomla\CMS\MVC\Controller\BaseController; 
 
-//use Joomla\CMS\HTML\HTMLHelper;
-//use Joomla\CMS\Plugin\PluginHelper;
-//use Joomla\CMS\Document\HtmlDocument;
-//use Joomla\CMS\Document\Renderer\Html\ModulesRenderer;
-//use Joomla\CMS\MVC\Model\FormModel;  // JModelForm
 
 
 //JModelLegacy::addIncludePath(JPATH_SITE . '/components/com_content/models', 'ContentModel'); // Is waarschijnlijk overbodig om com_content op te kunnen halen 
@@ -110,115 +105,7 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 		return $modules[$position];
 		
 	}
-	
-	
-	
-	//  Uitgaande van Display method BaseController.php (in plaats van $this $controller gebruikens en in plaats van gegevens uit input de gegevens uit de menu link
-	/**
-	 * Typical view method for MVC based architecture
-	 *
-	 * This function is provide as a default implementation, in most cases
-	 * you will need to override it in your own controllers.
-	 *
-	 * @param   boolean  $cachable   If true, the view output will be cached
-	 * @param   array    $urlparams  An array of safe URL parameters and their variable types, for valid values see {@link \JFilterInput::clean()}.
-     * extra params, in stead of using values from input object, or other objects
-	 * @param   object   $controller Instance of BaseController object
-	 * @param   string   $viewName   Name of the view to create to display the component data
-	 * @param   string   $prefix     Prefix of the name of the view to create to display the component data
-	 * @param   string   $basePath   Path to the component used as basepath for the view
-	 * @param   string   $viewType   Type of view, default 'html' 
-	 * @param   string   $viewLayout Layout of the output, name of the layout file, default 'default'
-	 * 
-	 * 	 *
-	 * @return  \JControllerLegacy  A \JControllerLegacy object to support chaining.
-	 *
-	 * @since   3.0
-	 */
-	function wsaDisplay($cachable = false, $urlparams = array(), $controller, $viewName , $prefix = '', $basePath, $viewType = 'html', $viewLayout = 'default', $model = null)
-	{
-	    $document = \JFactory::getDocument();
-//	    if (!isset($viewtype))    $viewType = $document->getType();  // normaal html
-//	    if (!isset($viewName)) $viewName = $controller->get('input')->get('view', $controller->get('default_view')); // naam van de view bijv featured, article, newsfeed
-//	    if (!isset($viewLayout)) $viewLayout = $controller->get('input')->get('layout', 'default', 'string'); // naam van layout bv default vewijzend naar layoutbestand.
-	    echo '<!-- wsaDisplay overgenomen van BaseController.php en aangepast in wsaonepagebs4.php:' , PHP_EOL;
-	    echo '$urlparams:', PHP_EOL;
-	    print_r($urlparams);
-	    echo PHP_EOL, '$viewType:', PHP_EOL;
-	    print_r($viewType);
-	    echo PHP_EOL, '$viewName:', PHP_EOL;
-	    print_r($viewName);
-	    echo PHP_EOL, '$viewLayout:', PHP_EOL;
-	    print_r($viewLayout);
-	    echo '-->', PHP_EOL;
-	    // extra om foute instellingen te overschrijven.
-	    $controller->set('paths',  array('view' => $basePath . '/views/' )); // TODO controleren of nodig en dan ook terugdraaien
-	                          
-	    // einde extra
-	    $view = $controller->getView($viewName, $viewType, $prefix, array('base_path' => $basePath, 'layout' => $viewLayout));
-	    
-	    // tijdelijk extra $model via parameters
-	    if (isset($model)) {
-	        // Push the model into the view (as default)
-	        $view->setModel($model, true);
-	    }
-	    // einde extra
-	    // Get/Create the model
-	    else if ($model = $controller->getModel($viewName))
-	    {
-	        // Push the model into the view (as default)
-	        $view->setModel($model, true);
-	    }
-	    
-	    $view->document = $document;
-	    
-	    // Display the view
-	    if ($cachable && $viewType !== 'feed' && \JFactory::getConfig()->get('caching') >= 1)
-	    {
-	        $option = $controller->input->get('option');
-	        
-	        if (is_array($urlparams))
-	        {
-	            $app = \JFactory::getApplication();
-	            
-	            if (!empty($app->registeredurlparams))
-	            {
-	                $registeredurlparams = $app->registeredurlparams;
-	            }
-	            else
-	            {
-	                $registeredurlparams = new \stdClass;
-	            }
-	            
-	            foreach ($urlparams as $key => $value)
-	            {
-	                // Add your safe URL parameters with variable type as value {@see \JFilterInput::clean()}.
-	                $registeredurlparams->$key = $value;
-	            }
-	            
-	            $app->registeredurlparams = $registeredurlparams;
-	        }
-	        
-	        try
-	        {
-	            /** @var \JCacheControllerView $cache */
-	            $cache = \JFactory::getCache($option, 'view');
-	            $cache->get($view, 'display');
-	        }
-	        catch (\JCacheException $exception)
-	        {
-	            $view->display();
-	        }
-	    }
-	    else
-	    {
-	        $view->display();
-	    }
-	    
-	    return $controller;
-	}
-	//  Uitgaande van Display method BaseController.php
-	
+
 	
 ?>
 
@@ -345,113 +232,97 @@ echo '</div><!--/div container-fluid --></' . $moduleTag . '><!--End navbar-->'.
 ?>
 
 
-<?php 
-/* 
+<?php
+
+
+/*
  * List of sections with a component for each menu-item on this page.
- * 
+ *
  * By default, joomla only has one component per page, so a component often stores and uses general variables.
- * We sometimes have to override those in the list of menu components, 
+ * We sometimes have to override those in the list of menu components,
  * so first secure the variables of the component page and restore them after processing the component list.
-  */
-/* 
- * secure variables of app page and page component
  */
+echo '<!-- onepage Component Sections from menu -->' . PHP_EOL;
+/*
+  * secure variables of app page and page component
+  */
 $wsaOrgAppParams = clone $app->getParams();
 $wsaOrgInput = clone $input;
-$wsaOrgActiveMenuItem     = $app->getMenu()->getActive();
-$wsaOrgDocumentViewType = $document->getType();  //= html is always ok
+$wsaOrgActiveMenuItem = $app->getMenu()->getActive();
+$wsaOrgDocumentViewType = $document->getType(); // = html is always ok
 $wsaSiteRouter = $app->getRouter('site');
 $wsaOrgRouterVars = $wsaSiteRouter->getVars();
 
-echo '<!-- onepage Component Sections from menu -->'. PHP_EOL;
-//echo '<!-- $wsaSiteRouter org: ', PHP_EOL;
-//print_r($wsaOrgRouterVars);
-//echo ' -->', PHP_EOL;
-try {
-    if ($controller = BaseController::getInstance(substr($wsaOrgActiveMenuItem->query['option'],4)) ) 
-    {
-        $wsaOrgControllerVars = $controller->getProperties(FALSE);
-
-// [Itemid] => 299
-// [option] => com_content
-// [view] => article
-// [id] => 143
-
-
+if ($controller = BaseController::getInstance(substr($wsaOrgActiveMenuItem->query['option'], 4))) {
+    $wsaOrgControllerVars = $controller->getProperties(FALSE);
+    // [Itemid] => 299
+    // [option] => com_content
+    // [view] => article
+    // [id] => 143
     
-foreach ($list as $i => &$item) {
-    try {
-// TODO juiste selectie voor menuitems
-        if (stripos($item->note, '#op#') !== false) { // new code for one page  when #op# is in $item-note
-        /*
-         * actions for all kind of components (option) / views (view)
-         * start with overwrite app values with values of this menu option.
-         */
-        // aangepaste versie van componentpath ed in variabelen in plaats van constantes.
-        $wsaOption = preg_replace('/[^A-Z0-9_\.-]/i', '', $item->query['option']);
-        $wsaComponent = ucfirst(substr($wsaOption, 4));
-        $wsaJPATH_COMPONENT = JPATH_BASE . '/components/' . $wsaOption;
-        $wsaJPATH_COMPONENT_SITE = JPATH_SITE . '/components/' . $wsaOption;
-        $wsaJPATH_COMPONENT_ADMINISTRATOR = JPATH_ADMINISTRATOR . '/components/' . $wsaOption;
-        foreach ($wsaOrgActiveMenuItem->query as $tmpKey => $tmpVal) {
-            $app->input->set($tmpKey,NULL);}
-        foreach ($item->query as $tmpKey => $tmpVal) {
-            $app->input->set($tmpKey,$tmpVal);}
-        $app->getMenu()->setActive($item->id > 0 ? $item->id : $wsaOrgActiveMenuItem->id );
-        // set Router vars to values of this menuitem
-        $wsaSiteRouter->setVars(array('Itemid'=> $item->id, 'option'=> $item->query['option']));
-        // zoek component params        
-        $wsaComponentParams = $app->getParams($item->query['option']);
-        //      zoek menuparams en voeg ze samen met componentparams (menu overschrijft component)
-        $wsaMenuParams =  new Registry($item->params);
-        $wsaComponentParams->merge($wsaMenuParams);
-        // zet samengestelde component menu parameters in app params.
-        $tmp = $app->getParams()->flatten();
-        foreach ($tmp as $tmpKey => $tmpVal) {
-            $app->getParams()->remove($tmpKey);}
-        $app->getParams()->merge($wsaComponentParams);
-        echo '<!-- Start with menuid $item->id=' , $item->id, ' $app->getMenu()->getActive()->id :', $app->getMenu()->getActive()->id,  PHP_EOL;
-        //       // print_r($item);
-        echo ' -->', PHP_EOL;
-//
-/*
- *  section header html for each item
- */
-        echo '<section id="' , $item->bookmark  , '" class="container" >', PHP_EOL;
-        echo '<div class="container"><div class="row"><div class="col-lg-8 mx-auto">', PHP_EOL;
-        echo '<!-- ' , $item->title , ' -->' , PHP_EOL;
-        echo '<!-- ' , ' $item->flink=' , $item->flink, ' $item->link=', $item->link, PHP_EOL, ' $item->query[option]=', $item->query['option'], ' $item->query[view]=', $item->query['view'], ' $item->query[id]=', $item->query['id'], ' -->', PHP_EOL;
-            // end section header html
-            // foreach ( $item->query as $key => $value) { echo " {$key} => {$value} " , PHP_EOL; }
-            // overgenomen uit newsfeeds.php
-            JLoader::register($wsaComponent . 'HelperRoute', $wsaJPATH_COMPONENT . '/helpers/route.php');
-            JTable::addIncludePath($wsaJPATH_COMPONENT_ADMINISTRATOR . '/tables');
-            // einde overgenomen uit newsfeeds.php
-            // uit content.php
-            JLoader::register($wsaComponent . 'HelperQuery', $wsaJPATH_COMPONENT . '/helpers/query.php');
-            JLoader::register($wsaComponent . 'HelperAssociation', $wsaJPATH_COMPONENT . '/helpers/association.php');
-            // einde overgenomen uit content.php
-            // load default language file for this component to translate labels of form but maybe also other labes 
-            Factory::getLanguage()->load($item->query['option']);
-            // add file include path for this component.
-            BaseDatabaseModel::addIncludePath($wsaJPATH_COMPONENT . '/models', $wsaComponent . 'Model'); 
-            // instantiate controller,  propbably that of page component because it will only be instanciated once, but methods are available this way.
-            $controller = BaseController::getInstance($wsaComponent);
-            // don't use $config = array('ignore_request'=>true) because we want initial to populateState by first call of getState, with some components we may pass filter or other options in the $config array.
-            // TODO waarschijnlijk overbodig geworden controleren of state en params goed gevuld zijn
-            /*
-            $wsaModel = BaseDatabaseModel::getInstance(ucfirst($item->query['view']), $wsaComponent . 'Model');
-            if ($wsaModel) {
-                // initial call getState to populate $state, params are from $app->getParams() ie the page components params so we have to overwrite them
-                $state = $wsaModel->getState();
-                $wsaModel->setState('parameters.menu', $wsaMenuParams); // TODO wordt in getModel in BaseController in ModelState gezet indien menu actief is (echter de vraag is of die nu wel aangeroepen wordt) kijk ook naar createModel
-                                                                        // $wsaModel->setState($item->query['view'] . '.id', (int) $item->query['id'] ); // haal id uit $item in plaats van uit $input.
-                $wsaModel->setState('params', $wsaComponentParams);
-            }
-            else echo '<!-- Model for component: ' , $item->query['option'] , ' not found! -->', PHP_EOL , '<div>', 'Model voor ' , $item->query['option'] ,' niet gevonden', '</div>' , PHP_EOL ;
-            */
-            //
-            if ($item->query['option'] == 'com_contact') {
+    foreach ($list as $i => &$item) {
+        try {
+            // TODO juiste selectie voor menuitems
+            if (stripos($item->note, '#op#') !== false) { // new code for one page when #op# is in $item-note
+                /*
+                 * actions for all kind of components (option) / views (view)
+                 * start with overwrite app values with values of this menu option.
+                 */
+                // aangepaste versie van componentpath ed in variabelen in plaats van constantes.
+                $wsaOption = preg_replace('/[^A-Z0-9_\.-]/i', '', $item->query['option']);
+                $wsaComponent = ucfirst(substr($wsaOption, 4));
+                $wsaJPATH_COMPONENT = JPATH_BASE . '/components/' . $wsaOption;
+                $wsaJPATH_COMPONENT_SITE = JPATH_SITE . '/components/' . $wsaOption;
+                $wsaJPATH_COMPONENT_ADMINISTRATOR = JPATH_ADMINISTRATOR . '/components/' . $wsaOption;
+                foreach ($wsaOrgActiveMenuItem->query as $tmpKey => $tmpVal) {
+                    $app->input->set($tmpKey, NULL);
+                }
+                foreach ($item->query as $tmpKey => $tmpVal) {
+                    $app->input->set($tmpKey, $tmpVal);
+                }
+                $app->getMenu()->setActive($item->id > 0 ? $item->id : $wsaOrgActiveMenuItem->id);
+                // set Router vars to values of this menuitem
+                $wsaSiteRouter->setVars(array(
+                    'Itemid' => $item->id,
+                    'option' => $item->query['option']
+                ));
+                // zoek component params
+                $wsaComponentParams = $app->getParams($item->query['option']);
+                // zoek menuparams en voeg ze samen met componentparams (menu overschrijft component)
+                $wsaMenuParams = new Registry($item->params);
+                $wsaComponentParams->merge($wsaMenuParams);
+                // zet samengestelde component menu parameters in app params.
+                $tmp = $app->getParams()->flatten();
+                foreach ($tmp as $tmpKey => $tmpVal) {
+                    $app->getParams()->remove($tmpKey);
+                }
+                $app->getParams()->merge($wsaComponentParams);
+                echo '<!-- Start with menuid $item->id=', $item->id, ' $app->getMenu()->getActive()->id :', $app->getMenu()->getActive()->id, PHP_EOL;
+                // // print_r($item);
+                echo ' -->', PHP_EOL;
+                //
+                /*
+                 * section header html for each item
+                 */
+                echo '<section id="', $item->bookmark, '" class="container" >', PHP_EOL;
+                echo '<div class="container"><div class="row"><div class="col-lg-8 mx-auto">', PHP_EOL;
+                // end section header html
+                // overgenomen uit newsfeeds.php
+                JLoader::register($wsaComponent . 'HelperRoute', $wsaJPATH_COMPONENT . '/helpers/route.php');
+                JTable::addIncludePath($wsaJPATH_COMPONENT_ADMINISTRATOR . '/tables');
+                // einde overgenomen uit newsfeeds.php
+                // uit content.php
+                JLoader::register($wsaComponent . 'HelperQuery', $wsaJPATH_COMPONENT . '/helpers/query.php');
+                JLoader::register($wsaComponent . 'HelperAssociation', $wsaJPATH_COMPONENT . '/helpers/association.php');
+                // einde overgenomen uit content.php
+                // load default language file for this component to translate labels of form but maybe also other labes
+                Factory::getLanguage()->load($item->query['option']);
+                // add file include path for this component.
+//                BaseDatabaseModel::addIncludePath($wsaJPATH_COMPONENT . '/models', $wsaComponent . 'Model'); // TODO
+                // instantiate controller, propbably that of page component because it will only be instanciated once, but methods are available this way.
+                $controller = BaseController::getInstance($wsaComponent);
+                //
+                if ($item->query['option'] == 'com_contact') {
                     // add formpaths relative to varible active component path
                     Form::addFormPath($wsaJPATH_COMPONENT . '/models/forms');
                     Form::addFieldPath($wsaJPATH_COMPONENT . '/models/fields');
@@ -459,70 +330,72 @@ foreach ($list as $i => &$item) {
                     Form::addFieldPath($wsaJPATH_COMPONENT . '/model/field');
                 }
                 // extra om foute instellingen te overschrijven.
-                $controller->set('basePath', $wsaJPATH_COMPONENT); 
-                $controller->set('paths',  array('view' => $wsaJPATH_COMPONENT . '/views/' )); 
                 $controller->set('name', $wsaComponent);
+                $controller->set('basePath', $wsaJPATH_COMPONENT);
+                $controller->set('paths', array(
+                    'view' => $wsaJPATH_COMPONENT . '/views/'
+                ));
                 $controller->set('model_prefix', $wsaComponent . 'Model');
+                $controller->addModelPath($wsaJPATH_COMPONENT . '/models', $wsaComponent . 'Model');
                 // get the view before display to overwrite the layout value of the previous iteration and the override paths for the lay-out file
-                $view = $controller->getView($item->query['view'], 'html', $wsaComponent . 'View', array('base_path' => $wsaJPATH_COMPONENT, 'layout' => 'default'));
+                $view = $controller->getView($item->query['view'], 'html', $wsaComponent . 'View', array(
+                    'base_path' => $wsaJPATH_COMPONENT,
+                    'layout' => 'default'
+                ));
                 $view->setLayout(($item->query['layout'] > ' ') ? $item->query['layout'] : 'default');
-                $view->addTemplatePath(array($wsaJPATH_COMPONENT . '/views/' . $item->query['view'] . '/tmpl/' ,
-                    JPATH_THEMES . '/' . $app->getTemplate() . '/html/' . $wsaOption . '/' . $item->query['view']));
+                $view->addTemplatePath(array(
+                    $wsaJPATH_COMPONENT . '/views/' . $item->query['view'] . '/tmpl/',
+                    JPATH_THEMES . '/' . $app->getTemplate() . '/html/' . $wsaOption . '/' . $item->query['view']
+                ));
                 // TODO mabe we can use the controllers dispaly method if we have sufficient paths an properties set to values of this component/ menu-item.
                 $controller->display();
-//                wsaDisplay(false, array(), $controller, $item->query['view'],  $wsaComponent . 'View', $wsaJPATH_COMPONENT, 'html',  'default', $wsaModel);
-                        
-        echo '</div></div></div>' , PHP_EOL;
-        echo '</section>', PHP_EOL;
-        // restore input
-        foreach ($item->query as $tmpKey => $tmpVal) {
-            $app->input->set($tmpKey,NULL);}
-        foreach ($wsaOrgActiveMenuItem->query as $tmpKey => $tmpVal) {
-            $app->input->set($tmpKey,$tmpVal);}
-                
-    } // end if
-    
-} catch (Exception $e) {
-        echo '<!-- '. PHP_EOL;
-        echo 'Caught exception: ',  $e->getMessage(), PHP_EOL;
-        echo ' -->', PHP_EOL;
-        Factory::getApplication()->enqueueMessage(Text::_('Caught exception: ' .  $e->getMessage()), 'warning');
-        
-}
-}  // end foreach
 /*
- *  end list of sections.
+ * closing html (section) for this menuitem
  */
-// restore $app->params()
-$tmp = $app->getParams()->flatten();
-foreach ($tmp as $tmpKey => $tmpVal) {
-    $app->getParams()->remove($tmpKey);}
-$app->getParams()->merge($wsaOrgAppParams);
-// restor controller vars
-$controller->set('basePath', $wsaOrgControllerVars['basePath']);
-$controller->set('paths', $wsaOrgControllerVars['paths']);
-$controller->set('name', $wsaOrgControllerVars['name']);
-$controller->set('model_prefix', $wsaOrgControllerVars['model_prefix']);
-// restore active menu
-if ($wsaOrgActiveMenuItem->id > 0){
-    $app->getMenu()->setActive($wsaOrgActiveMenuItem->id);
-    echo '<!-- herstelde actief menu id :', $app->getMenu()->getActive()->id ,' -->';
-}
-// restore Router vars
-$wsaSiteRouter->setVars($wsaOrgRouterVars);
-
-    } else {
-        echo '<!-- '. PHP_EOL;
-        echo 'Controller not instanciated:', substr($wsaOrgActiveMenuItem->query['option'],4) , PHP_EOL;
-        echo ' -->', PHP_EOL;
+                echo '</div></div></div>', PHP_EOL;
+                echo '</section>', PHP_EOL;
+                // end closing html
+                // restore input
+                foreach ($item->query as $tmpKey => $tmpVal) {
+                    $app->input->set($tmpKey, NULL);
+                }
+                foreach ($wsaOrgActiveMenuItem->query as $tmpKey => $tmpVal) {
+                    $app->input->set($tmpKey, $tmpVal);
+                }
+            } // end if
+        } catch (Exception $e) {
+            echo '<!-- ' . PHP_EOL;
+            echo 'Caught exception: ', $e->getMessage(), PHP_EOL;
+            echo ' -->', PHP_EOL;
+            Factory::getApplication()->enqueueMessage(Text::_('Caught exception: ' . $e->getMessage()), 'warning');
+        }
+    } // end foreach
+    /*
+     * end list of sections.
+     */
+    // restore $app->params()
+    $tmp = $app->getParams()->flatten();
+    foreach ($tmp as $tmpKey => $tmpVal) {
+        $app->getParams()->remove($tmpKey);
     }
-    
-} catch (Exception $e) {
-    echo '<!-- '. PHP_EOL;
-    echo 'Caught exception: ',  $e->getMessage(), PHP_EOL;
+    $app->getParams()->merge($wsaOrgAppParams);
+    // restor controller vars
+    $controller->set('basePath', $wsaOrgControllerVars['basePath']);
+    $controller->set('paths', $wsaOrgControllerVars['paths']);
+    $controller->set('name', $wsaOrgControllerVars['name']);
+    $controller->set('model_prefix', $wsaOrgControllerVars['model_prefix']);
+    // restore active menu
+    if ($wsaOrgActiveMenuItem->id > 0) {
+        $app->getMenu()->setActive($wsaOrgActiveMenuItem->id);
+        echo '<!-- herstelde actief menu id :', $app->getMenu()->getActive()->id, ' -->';
+    }
+    // restore Router vars
+    $wsaSiteRouter->setVars($wsaOrgRouterVars);
+} else {
+    echo '<!-- ' . PHP_EOL;
+    echo 'Controller not instanciated:', substr($wsaOrgActiveMenuItem->query['option'], 4), PHP_EOL;
     echo ' -->', PHP_EOL;
 }
-
-echo '<!-- einde onepage sections uit menu -->'. PHP_EOL;
+echo '<!-- einde onepage sections uit menu -->' . PHP_EOL;
 
 ?>
