@@ -29,7 +29,8 @@
  * 6-7-2020 algemene switch op option verwijderd alleen nog specifieke uitzonderingen, contactform ok labels correct translated. 
  * 12-7-2020 Ook initialisatie van SiteRouter per menu item, om verkeerde paden te corrigeren, ook extra override en default template path toegevoergd en display uit component gebruikt 
  * 13-7-2020 Nog enkele properties van BaseController aangepast, nu wertk display in BaseComponent ook echt
- * 15-7-200 eigen display functie uit code verwijderd. addModelpath via controller.
+ * 15-7-2020 eigen display functie uit code verwijderd. addModelpath via controller.
+ * 18-7-2020 added override wrapper view onepage, to put the sections of onepage in that view 
  */
 
 defined('_JEXEC') or die;
