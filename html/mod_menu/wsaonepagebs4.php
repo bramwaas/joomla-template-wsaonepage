@@ -39,7 +39,6 @@ use Joomla\CMS\Factory;   // this is the same as use Joomla\CMS\Factory as Facto
 use Joomla\CMS\Helper\ModuleHelper;
 use Joomla\Registry\Registry; // for new Registry en params object
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;  // JModelLegacy
-use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Form\Form; 
 use Joomla\CMS\Language\Text;
 
