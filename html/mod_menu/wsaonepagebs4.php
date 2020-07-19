@@ -31,6 +31,7 @@
  * 13-7-2020 Nog enkele properties van BaseController aangepast, nu wertk display in BaseComponent ook echt
  * 15-7-2020 eigen display functie uit code verwijderd. addModelpath via controller.
  * 18-7-2020 added override wrapper view onepage, to put the sections of onepage in that view 
+ * 19-7-2020 did not work correctly with wrapper only with com_content so overrides wrapper removed
  */
 
 defined('_JEXEC') or die;
@@ -38,6 +39,7 @@ use Joomla\CMS\Factory;   // this is the same as use Joomla\CMS\Factory as Facto
 use Joomla\CMS\Helper\ModuleHelper;
 use Joomla\Registry\Registry; // for new Registry en params object
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;  // JModelLegacy
+use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Form\Form; 
 use Joomla\CMS\Language\Text;
 
@@ -350,6 +352,7 @@ if ($controller = BaseController::getInstance(substr($wsaOrgActiveMenuItem->quer
                 ));
                 // TODO mabe we can use the controllers dispaly method if we have sufficient paths an properties set to values of this component/ menu-item.
                 $controller->display();
+                
 /*
  * closing html (section) for this menuitem
  */
