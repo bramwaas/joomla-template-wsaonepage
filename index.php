@@ -9,7 +9,7 @@
  * 10-5-2020 eerste aanpassingen richting onepage
  * 29-6-2020 inhoud newsfeed werkt voorlopig naar tevredenheid.
  * 13-7-2020 all component types content, tags, newsfeeds, and contac work, introduces module position-9 behind content and display=menu or content
- 
+ * 10-8-2020 removed example sections to work with com_wsaonepage for a bs4 onepagemenu with bookmarks to the componenent content of menuitems with #op# in note
 */
 
 // copied from cassiopeia
@@ -266,7 +266,6 @@ class="site-grid site <?php echo $option
 
 
 		<!-- Begin Container content-->
-<section id="services" class="xxxbg-light">
 
 		<div class="container-content<?php echo $cnt_mods; ?>">
 		    	<?php if ($this->countModules('position-1')): ?>
@@ -295,7 +294,7 @@ class="site-grid site <?php echo $option
 					<jdoc:include type="component" />
 				<?php if ($this->countModules('position-9')): ?>
 				<div class="pos9 row">
-					<jdoc:include type="modules" name="position-9" style="wsaOnepage" display="content" />
+					<jdoc:include type="modules" name="position-9" style="wsaOnepage"  />
 					<div class="clearfix"></div>
 				</div><!--End Pos9-->
 				<?php endif; ?>
@@ -309,18 +308,7 @@ class="site-grid site <?php echo $option
          
           </div><!--End Container Content-->
           
-          </section>
           
-      <section id="contact">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 mx-auto">
-          <h2>Contact us</h2>
-          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero odio fugiat voluptatem dolor, provident officiis, id iusto! Obcaecati incidunt, qui nihil beatae magnam et repudiandae ipsa exercitationem, in, quo totam.</p>
-        </div>
-      </div>
-    </div>
-  </section>    
           
     <!--  einde main content menusturing door DIVs met ID -->
           
