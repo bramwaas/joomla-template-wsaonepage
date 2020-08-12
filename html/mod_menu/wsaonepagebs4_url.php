@@ -49,7 +49,7 @@ if (stripos($item->note, '#op#') !== false) { // new code for one page  when #op
     
     ?><a id="dropdownMenuLink-<?php echo $moduleIdPos . $item->id . '" ' . $class; ?>href="<?php echo  '#' . $item->bookmark ; ?>"  <?php echo $title; ?>><span><?php echo $linktype; ?></span></a><?php
 }
-
+else
 switch ($item->browserNav) :
 	default:
 	case 0:
