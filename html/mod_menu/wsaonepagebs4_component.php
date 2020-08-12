@@ -11,7 +11,7 @@
  * 9-2-2019 data-target toegevoegd voor openen submenu's 
  * 2020-05-25 Item->id gekwalificeerd met $moduleIdPos om hem beter uniek te maken
  * 2020-06-30 iets andere bookmark en keuze voor one page
- * 2020-08-10 changed bookmark from route in accordance with component wsaonepage default
+ * 2020-08-12 changed bookmark from route in accordance with component wsaonepage default only if not set by component
  */
 
 defined('_JEXEC') or die;
@@ -49,11 +49,10 @@ else {
 
 $class = ($class > ' ') ? str_ireplace('class="','class="nav-link ',$class) : 'class="nav-link" ';
 // TODO omzetten naar voorwaarde bij browsernav
-if (stripos($item->note, '#op#') !== false) { // new code for one page  when #op# is in $item-note
+if (isset($item->bookmark) || stripos($item->note, '#op#') !== false) { // new code for one page  when #op# is in $item-note
 //        $item->bookmark = ($item->flink == '/') ? 'home' : ltrim(str_ireplace(array('/', '\\', '.html'), array('-', '-', ''), $item->flink), '-#') ;
-        //              create bookmark from route in accordance with component wsaonepage default
-        $item->bookmark = ($item->route == '/') ? 'home' : ltrim(str_ireplace(array('/', '\\', '.html'), array('-', '-', ''), $item->route), '-#') ;
-        
+    //              create bookmark from route in accordance with component wsaonepage default, only if not set by component already.
+    if (!isset($item->bookmark)) {$item->bookmark = ($item->route == '/') ? 'home' : ltrim(str_ireplace(array('/', '\\', '.html'), array('-', '-', ''), $item->route), '-#') ;}
     ?><a id="dropdownMenuLink-<?php echo $moduleIdPos . $item->id . '" ' . $class; ?>href="<?php echo  '#' . $item->bookmark ; ?>"  <?php echo $title; ?>><span><?php echo $linktype; ?></span></a><?php
 }
 else

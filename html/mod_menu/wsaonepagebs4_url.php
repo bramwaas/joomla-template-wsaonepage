@@ -42,10 +42,10 @@ else {
 
 $flink = $item->flink;
 $flink = OutputFilter::ampReplace(htmlspecialchars($flink));
-if (stripos($item->note, '#op#') !== false) { // new code for one page  when #op# is in $item-note
+if (isset($item->bookmark) || stripos($item->note, '#op#') !== false) { // new code for one page  when #op# is in $item-note
     //        $item->bookmark = ($item->flink == '/') ? 'home' : ltrim(str_ireplace(array('/', '\\', '.html'), array('-', '-', ''), $item->flink), '-#') ;
-    //              create bookmark from route in accordance with component wsaonepage default
-    $item->bookmark = ($item->route == '/') ? 'home' : ltrim(str_ireplace(array('/', '\\', '.html'), array('-', '-', ''), $item->route), '-#') ;
+    //              create bookmark from route in accordance with component wsaonepage default, only if not set by component already.
+    if (!isset($item->bookmark)) {$item->bookmark = ($item->route == '/') ? 'home' : ltrim(str_ireplace(array('/', '\\', '.html'), array('-', '-', ''), $item->route), '-#') ;}
     
     ?><a id="dropdownMenuLink-<?php echo $moduleIdPos . $item->id . '" ' . $class; ?>href="<?php echo  '#' . $item->bookmark ; ?>"  <?php echo $title; ?>><span><?php echo $linktype; ?></span></a><?php
 }
