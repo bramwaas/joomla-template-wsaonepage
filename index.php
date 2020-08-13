@@ -184,14 +184,11 @@ $cnt_mods = ($this->countModules('position-1')? ' cntpos1': '')
 <![endif]-->
 </head>
 <body id="<?php echo ($itemid ? 'itemid-' . $itemid : ''); ?>"
+data-spy="scroll" data-target=".navbar" data-offset="50"
 <?php // added from cassiopeia ?>
-class="site-grid site <?php echo $option
-	. ' view-' . $view
-	. ($layout ? ' layout-' . $layout : ' no-layout')
-	. ($task ? ' task-' . $task : ' no-task')
-	. ($itemid ? ' itemid-' . $itemid : '')
-	. ' ' . $pageclass;
+class="site-grid site <?php echo $pageclass;
 	echo ($this->direction == 'rtl' ? ' rtl' : '');
+	
 ?>"
 
 >
