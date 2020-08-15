@@ -145,15 +145,15 @@ if ($this->countModules('position-7') && $this->countModules('position-8'))
 	$spanc = "span6  col-md-6" ;
 	$spans = "span3  col-md-3";
 }
-elseif (!$this->countModules('position-7') || !$this->countModules('position-8'))
+elseif (!$this->countModules('position-7') && !$this->countModules('position-8'))
     
 {
-	$spanc = "span8  col-md-8";
-	$spans = "span4  col-md-4";
+    $spanc = "span12  col-12";
 }
 else
 {
-	$spanc = "span12  col-12";
+    $spanc = "span8  col-md-8";
+    $spans = "span4  col-md-4";
 }
 $hi_mods = ($this->countModules('position-0')? ' hipos0': '')
 . ($this->countModules('icons')? ' hiicons': '')
@@ -289,12 +289,6 @@ class="site-grid site <?php echo $pageclass;
 					<?php endif; ?>
 					<jdoc:include type="message" />
 					<jdoc:include type="component" />
-				<?php if ($this->countModules('position-9')): ?>
-				<div class="pos9 row">
-					<jdoc:include type="modules" name="position-9" style="wsaOnepage"  />
-					<div class="clearfix"></div>
-				</div><!--End Pos9-->
-				<?php endif; ?>
 				</div><!--Content -->
 				<?php if ($this->countModules('position-7')) : ?>
 				<div id="sidebarright" class="pos7 <?php echo $spans;?>">
