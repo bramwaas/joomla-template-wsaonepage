@@ -19,6 +19,7 @@
 //  iconssm geen absolute positie meer als margin-top 0 is, om overlap met menu te voorkomen. 
 // 20190306 display flex voor headerleft.
 // 20200513 voor template wsa-onepage scrolling-nav.css ingevoegd.
+// 20200815 in rss images display inlineblock in stead of float added navbar-placeholder to hold space for absolute positioned navbar.
 / * ===========================
 	alle schermbreedtes
 	Write your general styles eerst voor alle schermbreedtes, 
@@ -45,6 +46,10 @@
 /*  margin-top:$bg1Top; ivm fout in safari */
   padding-top:$bg1Top;
 /*  z-index: $bg1Z-index; */
+}
+#navbar-placeholder 
+{width: 100%;
+height: 50px;
 }
 @if $twbs_version == 4 {
 #headerleft {
@@ -305,7 +310,7 @@ width: auto;
 
 	 li
 		{
-		float: left;
+		display: inline-block;
 		height: 320px; /* vaste hoogte (en breedte) voor mooier ordenen */
 		width: 250px;
 		overflow: hidden;

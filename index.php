@@ -31,7 +31,7 @@ $task     = $app->input->getCmd('task', '');
 $itemid   = $app->input->getCmd('Itemid', '');
 $sitename = $app->get('sitename');
 $menu     = $app->getMenu()->getActive();
-$pageclass = $menu->params->get('pageclass_sfx');
+$pageclass = (isset($menu)) ? $menu->params->get('pageclass_sfx') : '';
 
 // end copied from cassiopeia
 
