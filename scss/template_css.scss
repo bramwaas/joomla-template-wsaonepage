@@ -50,6 +50,7 @@
 #navbar-placeholder 
 {width: 100%;
 height: $navbar-height;
+border-radius: $wrapperBorderRadius;
 }
 @if $twbs_version == 4 {
 #headerleft {
