@@ -113,6 +113,7 @@ body>div.container {
 .section.component { /* section for each menu-item on this page */
 width: 100%;
 padding: 0;
+padding-top: $navbar-height;
 border-radius: $wrapperBorderRadius;
 }
 .blog,
