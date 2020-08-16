@@ -115,7 +115,9 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 <?php 
 // div met role = "navigation" in plaats van nav gebruikt oa IE8 nav nog niet kent, maar kan via moduleTag aangepast worden
 $tMenuType = 'fixed-top';  // todo tijdelijk hard-coded
-echo '<!-- Begin Navbar--><' . $moduleTag . ' class="' . $module->position . ' navbar ' . $wsaNavbarExpand .  ' ' . $tMenuType . '" role="navigation">'. PHP_EOL;
+echo '<!-- Begin Navbar-->';
+if ($tMenuType == 'fixed-top') {echo '<div id="navbar-placeholder" class="collapse navbar-collapse">&nbsp;</div>' . PHP_EOL;}
+echo '<' . $moduleTag . ' class="' . $module->position . ' navbar ' . $wsaNavbarExpand .  ' ' . $tMenuType . '" role="navigation">'. PHP_EOL;
 // echo '<div class="container-fluid">' . PHP_EOL;
 if ($tBrandImage > " ") {
     echo '<a class="navbar-brand" href="#"><img src="' . $tBrandImage .'" alt="Brand image ' . $sitename . '" /></a>'. PHP_EOL;
@@ -130,9 +132,8 @@ if ($tDisplaySitename == "1") {
 }
 echo '<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-' . $moduleIdPos . '" aria-controls="navbar-' . $moduleIdPos . '" aria-expanded="false" aria-label="Toggle navigation">' . PHP_EOL
 . '<span class="navbar-toggler-icon"></span>' . PHP_EOL
-. '</button>' . PHP_EOL;
-if ($tMenuType == 'fixed-top') {echo '<div id="navbar-placeholder" class="collapse navbar-collapse">&nbsp;</div>' . PHP_EOL;}
-echo '<div id="navbar-' . $moduleIdPos . '" class="collapse navbar-collapse">' . PHP_EOL;
+. '</button>' . PHP_EOL
+. '<div id="navbar-' . $moduleIdPos . '" class="collapse navbar-collapse">' . PHP_EOL;
 ?>
 <!-- oude module aangevuld met bS4 attributen -->
 <ul <?php echo $id; ?> class="navbar-nav mr-auto mod-menu nav menu<?php echo $class_sfx;?>">
