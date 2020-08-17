@@ -19,6 +19,7 @@
 //  iconssm geen absolute positie meer als margin-top 0 is, om overlap met menu te voorkomen. 
 // 20190306 display flex voor headerleft.
 // 20200513 voor template wsa-onepage scrolling-nav.css ingevoegd.
+// 20200815 in rss images display inlineblock in stead of float added navbar-placeholder to hold space for absolute positioned navbar.
 / * ===========================
 	alle schermbreedtes
 	Write your general styles eerst voor alle schermbreedtes, 
@@ -45,6 +46,11 @@
 /*  margin-top:$bg1Top; ivm fout in safari */
   padding-top:$bg1Top;
 /*  z-index: $bg1Z-index; */
+}
+#navbar-placeholder 
+{width: 100%;
+height: $navbar-height;
+border-radius: $wrapperBorderRadius;
 }
 @if $twbs_version == 4 {
 #headerleft {
@@ -104,7 +110,11 @@ body>div.container {
 /* voor achtergrondafbeeldingen van #wrapper geen extra margin ed toevoegen, anders klopt lay-out niet meer */
    position: relative;
 }
-
+.section.component { /* section for each menu-item on this page */
+width: 100%;
+padding: 0;
+border-radius: $wrapperBorderRadius;
+}
 .blog,
 .blog-featured,
 .contentpane,
@@ -305,7 +315,7 @@ width: auto;
 
 	 li
 		{
-		float: left;
+		display: inline-block;
 		height: 320px; /* vaste hoogte (en breedte) voor mooier ordenen */
 		width: 250px;
 		overflow: hidden;
@@ -478,19 +488,6 @@ h6 {
 [class*="special"] .module-content ul.unstyled {
 	margin: 0 0 10px 0;
 }
-/*!
- * Start Bootstrap - Scrolling Nav (https://startbootstrap.com/template-overviews/scrolling-nav)
- * Copyright 2013-2019 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-scrolling-nav/blob/master/LICENSE)
- */
-header {
-  padding: 156px 0 100px;
-}
-
-section {
-  padding: 150px 0;
-}
-/* einde Start Bootstrap - Scrolling Nav
 
 
 /* ===========================
@@ -531,6 +528,12 @@ section {
 	.img-fluid-w50
 { 
   max-width:50%;
+}
+.navbar-expand-sm
+{
+	.section.component { /* section for each menu-item on this page */
+		padding-top: $navbar-height;
+	}
 }
 .tag-category ul 
 {
@@ -603,7 +606,12 @@ section {
 margin-top: -40px;
 }	
 }
-
+.navbar-expand-md
+{
+	.section.component { /* section for each menu-item on this page */
+		padding-top: $navbar-height;
+	}
+}
 	
 }/* einde up(md) */
 
@@ -646,7 +654,12 @@ margin-top: -40px;
 margin-top: -40px;
 }	
 }
-
+.navbar-expand-lg
+{
+	.section.component { /* section for each menu-item on this page */
+		padding-top: $navbar-height;
+	}
+}
 } /* einde up(lg) */
 
 @include media-breakpoint-up(xl) { // min 1200 px
@@ -666,7 +679,12 @@ margin-top: -40px;
 margin-top: -40px;
 }	
 }
-
+.navbar-expand-xl
+{
+	.section.component { /* section for each menu-item on this page */
+		padding-top: $navbar-height;
+	}
+}
 }
 /* einde up(xl) */
 // @include media-breakpoint-up(xxl) { bs4 custom > xl (1200 px) bv 1440 

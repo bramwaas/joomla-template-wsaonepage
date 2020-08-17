@@ -9,7 +9,7 @@
  * 10-5-2020 eerste aanpassingen richting onepage
  * 29-6-2020 inhoud newsfeed werkt voorlopig naar tevredenheid.
  * 13-7-2020 all component types content, tags, newsfeeds, and contac work, introduces module position-9 behind content and display=menu or content
- 
+ * 10-8-2020 removed example sections to work with com_wsaonepage for a bs4 onepagemenu with bookmarks to the componenent content of menuitems with #op# in note
 */
 
 // copied from cassiopeia
@@ -31,7 +31,7 @@ $task     = $app->input->getCmd('task', '');
 $itemid   = $app->input->getCmd('Itemid', '');
 $sitename = $app->get('sitename');
 $menu     = $app->getMenu()->getActive();
-$pageclass = $menu->params->get('pageclass_sfx');
+$pageclass = (isset($menu)) ? $menu->params->get('pageclass_sfx') : '';
 
 // end copied from cassiopeia
 
@@ -145,15 +145,15 @@ if ($this->countModules('position-7') && $this->countModules('position-8'))
 	$spanc = "span6  col-md-6" ;
 	$spans = "span3  col-md-3";
 }
-elseif (!$this->countModules('position-7') || !$this->countModules('position-8'))
+elseif (!$this->countModules('position-7') && !$this->countModules('position-8'))
     
 {
-	$spanc = "span8  col-md-8";
-	$spans = "span4  col-md-4";
+    $spanc = "span12  col-12";
 }
 else
 {
-	$spanc = "span12  col-12";
+    $spanc = "span8  col-md-8";
+    $spans = "span4  col-md-4";
 }
 $hi_mods = ($this->countModules('position-0')? ' hipos0': '')
 . ($this->countModules('icons')? ' hiicons': '')
@@ -184,14 +184,11 @@ $cnt_mods = ($this->countModules('position-1')? ' cntpos1': '')
 <![endif]-->
 </head>
 <body id="<?php echo ($itemid ? 'itemid-' . $itemid : ''); ?>"
+data-spy="scroll" data-target=".navbar" data-offset="50"
 <?php // added from cassiopeia ?>
-class="site-grid site <?php echo $option
-	. ' view-' . $view
-	. ($layout ? ' layout-' . $layout : ' no-layout')
-	. ($task ? ' task-' . $task : ' no-task')
-	. ($itemid ? ' itemid-' . $itemid : '')
-	. ' ' . $pageclass;
+class="site-grid site <?php echo $pageclass;
 	echo ($this->direction == 'rtl' ? ' rtl' : '');
+	
 ?>"
 
 >
@@ -266,13 +263,12 @@ class="site-grid site <?php echo $option
 
 
 		<!-- Begin Container content-->
-<section id="services" class="xxxbg-light">
 
 		<div class="container-content<?php echo $cnt_mods; ?>">
 		    	<?php if ($this->countModules('position-1')): ?>
 	            	    <jdoc:include type="modules" name="position-1" style="none" />
 		    	<?php endif; ?>
-			<div class="row">
+			<div class="row <?php  echo $wsaNavbarExpand;   ?>">
 				<?php if ($this->countModules('position-8')): ?>
 				<div id="sidebarleft" class="pos8 <?php echo $spans;?>">
 					<jdoc:include type="modules" name="position-8" style="well" /><!--End Position-8-->
@@ -293,12 +289,6 @@ class="site-grid site <?php echo $option
 					<?php endif; ?>
 					<jdoc:include type="message" />
 					<jdoc:include type="component" />
-				<?php if ($this->countModules('position-9')): ?>
-				<div class="pos9 row">
-					<jdoc:include type="modules" name="position-9" style="wsaOnepage" display="content" />
-					<div class="clearfix"></div>
-				</div><!--End Pos9-->
-				<?php endif; ?>
 				</div><!--Content -->
 				<?php if ($this->countModules('position-7')) : ?>
 				<div id="sidebarright" class="pos7 <?php echo $spans;?>">
@@ -309,18 +299,7 @@ class="site-grid site <?php echo $option
          
           </div><!--End Container Content-->
           
-          </section>
           
-      <section id="contact">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 mx-auto">
-          <h2>Contact us</h2>
-          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero odio fugiat voluptatem dolor, provident officiis, id iusto! Obcaecati incidunt, qui nihil beatae magnam et repudiandae ipsa exercitationem, in, quo totam.</p>
-        </div>
-      </div>
-    </div>
-  </section>    
           
     <!--  einde main content menusturing door DIVs met ID -->
           
