@@ -268,7 +268,7 @@ class="site-grid site <?php echo $pageclass;
 		    	<?php if ($this->countModules('position-1')): ?>
 	            	    <jdoc:include type="modules" name="position-1" style="none" />
 		    	<?php endif; ?>
-			<div class="row">
+			<div class="row <?php  echo $wsaNavbarExpand;   ?>">
 				<?php if ($this->countModules('position-8')): ?>
 				<div id="sidebarleft" class="pos8 <?php echo $spans;?>">
 					<jdoc:include type="modules" name="position-8" style="well" /><!--End Position-8-->
