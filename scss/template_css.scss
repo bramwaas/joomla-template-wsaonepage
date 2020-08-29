@@ -21,6 +21,7 @@
 // 20200513 voor template wsa-onepage scrolling-nav.css ingevoegd.
 // 20200815 in rss images display inlineblock in stead of float added navbar-placeholder to hold space for absolute positioned navbar.
 // 20200822 removed references to $twbs_version == 3 (and also 4) because we only use bootstrap 4 
+// 20200829 scrolling-nav.css weer verwijderd
 / * ===========================
 	alle schermbreedtes
 	Write your general styles eerst voor alle schermbreedtes, 
@@ -87,9 +88,9 @@ body>div.container {
    position: relative;
 }
 .section.component { /* section for each menu-item on this page */
-width: 100%;
-padding: 0;
-border-radius: $wrapperBorderRadius;
+// width: 100%; overbodig wordt al gerealiseerd door row
+ padding-top: 0;
+//border-radius: $wrapperBorderRadius;
 }
 .blog,
 .blog-featured,

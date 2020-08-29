@@ -100,7 +100,6 @@ if ($include_twbs_css == "1") {
 
 // template stijl en scrolling nav van startbootstrap
 $this->addStyleSheet('templates/' . $this->template . '/css/' . $wsaCssFilename , array('version'=>$wsaTime), array('id'=>'template.css'));
-$this->addStyleSheet('templates/' . $this->template . '/css/' . 'scrolling-nav.css' , array('version'=>$wsaTime), array('id'=>'scrolling-nav.css'));
 // Add JavaScript 
 
 //HTMLHelper::_('jquery.framework');  // to be sure that jquery is loaded before dependent javascripts
