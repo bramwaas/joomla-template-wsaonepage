@@ -117,7 +117,7 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 $tMenuType = 'fixed-top';  // todo tijdelijk hard-coded
 echo '<!-- Begin Navbar-->';
 if ($tMenuType == 'fixed-top') {echo '<div id="navbar-placeholder" class="navbar ' . $wsaNavbarExpand .'">&nbsp;</div>' . PHP_EOL;
-$class_sfx .= ' ' . $w0container;
+$tMenuType .= ' ' . $w0container;
 }
 echo '<' . $moduleTag . ' class="' . $module->position . ' navbar ' . $wsaNavbarExpand .  ' ' . $tMenuType . '" role="navigation">'. PHP_EOL;
 // echo '<div class="container-fluid">' . PHP_EOL;
