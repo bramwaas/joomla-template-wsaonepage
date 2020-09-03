@@ -215,7 +215,8 @@ order: -1;
     overflow-y: visible;
 	display:block;  // bs 4 voorlopig
 }
-.navbar-toggle .icon-bar {
+.navbar-toggler-icon
+ { // was .navbar-toggle .icon-bar
 	color : $gray !default;
     background-color: $navbar-default-toggle-icon-bar-bg;
 }
