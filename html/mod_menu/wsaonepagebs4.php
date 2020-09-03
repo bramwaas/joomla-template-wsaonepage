@@ -57,7 +57,7 @@ if ($tagId = $params->get('tag_id', ''))
 {
 	$id = ' id="' . $tagId . '"';
 }
-
+$w0container = 'container';
 // Note. It is important to remove spaces between elements.
 $app = Factory::getApplication();
 $document = Factory::getDocument();
@@ -116,7 +116,9 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 // div met role = "navigation" in plaats van nav gebruikt oa IE8 nav nog niet kent, maar kan via moduleTag aangepast worden
 $tMenuType = 'fixed-top';  // todo tijdelijk hard-coded
 echo '<!-- Begin Navbar-->';
-if ($tMenuType == 'fixed-top') {echo '<div id="navbar-placeholder" class="navbar ' . $wsaNavbarExpand .'">&nbsp;</div>' . PHP_EOL;}
+if ($tMenuType == 'fixed-top') {echo '<div id="navbar-placeholder" class="navbar ' . $wsaNavbarExpand .'">&nbsp;</div>' . PHP_EOL;
+$class_sfx .= ' ' . $w0container;
+}
 echo '<' . $moduleTag . ' class="' . $module->position . ' navbar ' . $wsaNavbarExpand .  ' ' . $tMenuType . '" role="navigation">'. PHP_EOL;
 // echo '<div class="container-fluid">' . PHP_EOL;
 if ($tBrandImage > " ") {

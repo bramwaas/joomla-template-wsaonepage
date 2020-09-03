@@ -216,6 +216,7 @@ order: -1;
 	display:block;  // bs 4 voorlopig
 }
 .navbar-toggle .icon-bar {
+	color : $gray !default;
     background-color: $navbar-default-toggle-icon-bar-bg;
 }
 /* transparent navbar */

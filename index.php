@@ -139,21 +139,20 @@ type: \'image\'
 , closeMarkup : \'<button title="%title%" type="button" class="mfp-close">&nbsp;</button>\'
 });})');  
 // Adjusting content width
+$w0container = 'container';
 if ($this->countModules('position-7') && $this->countModules('position-8'))
 {
-	$spanc = "span6  col-md-6" ;
-	$spans = "span3  col-md-3";
+	$spanc = "col-12 col-md-6" ;
 }
 elseif (!$this->countModules('position-7') && !$this->countModules('position-8'))
     
 {
-    $spanc = "span12  col-12";
+    $spanc = "col-12";
 }
 else
 {
-    $spanc = "span8  col-md-8";
-    $spans = "span4  col-md-4";
-}
+    $spanc = "col-12 col-md-8";
+ }
 $hi_mods = ($this->countModules('position-0')? ' hipos0': '')
 . ($this->countModules('icons')? ' hiicons': '')
 . ($this->countModules('headerleft')? ' hihl': '')
@@ -193,7 +192,7 @@ class="site-grid site <?php echo $pageclass;
 >
 
 <!-- Begin Container-->
-	<div id="wrapper" class="container">
+	<div id="wrapper" class="<?php echo $w0container; ?>">
 <?php if ($bg1Image > " " )
 { echo "\n" . '<img id="img_bg1Image" src="' . $bg1Image . '" alt="Background image content"';
 	if ($bg1ImageW > 0 ) {echo "\n\t" . 'width="' . $bg1ImageW .'"';}
@@ -269,7 +268,7 @@ class="site-grid site <?php echo $pageclass;
 		    	<?php endif; ?>
 			<div class="row <?php  echo $wsaNavbarExpand;   ?>">
 				<?php if ($this->countModules('position-8')): ?>
-				<div id="sidebarleft" class="pos8 <?php echo $spans;?>">
+				<div id="sidebarleft" class="pos8 col-12 col-md">
 					<jdoc:include type="modules" name="position-8" style="well" /><!--End Position-8-->
 				</div><!--End Sidebar Left-->
 				<?php endif; ?>
@@ -290,7 +289,7 @@ class="site-grid site <?php echo $pageclass;
 					<jdoc:include type="component" />
 				</div><!--Content -->
 				<?php if ($this->countModules('position-7')) : ?>
-				<div id="sidebarright" class="pos7 <?php echo $spans;?>">
+				<div id="sidebarright" class="pos7 col-12 col-md">
 					<jdoc:include type="modules" name="position-7" style="well" /><!--End Position-7-->
 				</div><!--End Sidebar Right-->
 				<?php endif; ?>
