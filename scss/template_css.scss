@@ -215,10 +215,15 @@ order: -1;
     overflow-y: visible;
 	display:block;  // bs 4 voorlopig
 }
+.navbar-toggler {
+    color: rgba(0,0,0,.5);
+    border-color: rgba(0,0,0,.1);
+}
 .navbar-toggler-icon
- { // was .navbar-toggle .icon-bar
-	color : $gray !default;
-    background-color: $navbar-default-toggle-icon-bar-bg;
+ { 
+ // was .navbar-toggle .icon-bar
+//	color : $gray !default;
+//    background-color: $navbar-default-toggle-icon-bar-bg;
 }
 /* transparent navbar */
 .navbar.navbar-default.transparent,
