@@ -13,7 +13,7 @@
  
 defined('_JEXEC') or die('caught by _JEXEC');
 use ScssPhp\ScssPhp\Compiler;
-use ScssPhp\ScssPhp\Server;
+use ScssPhp\Server\Server;
 
 use Joomla\CMS\Factory;   
 use Joomla\CMS\Uri\Uri;
