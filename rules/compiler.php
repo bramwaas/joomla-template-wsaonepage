@@ -12,8 +12,8 @@
 	*/
  
 defined('_JEXEC') or die('caught by _JEXEC');
-use Leafo\ScssPhp\Compiler;
-use Leafo\ScssPhp\Server;
+use ScssPhp\ScssPhp\Compiler;
+use ScssPhp\ScssPhp\Server;
 
 use Joomla\CMS\Factory;   
 use Joomla\CMS\Uri\Uri;
@@ -72,9 +72,9 @@ if  (htmlspecialchars($value) == '1')
 
 { /* creeren en compileren */
 
-// scss compiler van leafo http://leafo.github.io/scssphp/
-require_once "leafo/scss.inc.php";
-require_once "leafo/src/Server.php";
+// scss compiler van ScssPhp https://scssphp.github.io/scssphp/ ( was leafo http://leafo.github.io/scssphp/ )
+require_once "scssphp/scss.inc.php";
+require_once "scssphp/src/Server.php";
 
 
 $scss = new Compiler();
