@@ -81,11 +81,11 @@ $scss = new Compiler();
 
 if ( htmlspecialchars($params->compress) == "1")
 {
-$scss->setFormatter('Leafo\ScssPhp\Formatter\Crunched');
+$scss->setFormatter('ScssPhp\ScssPhp\Formatter\Crunched');
 }
 else
 {  // voor debug netter formatteren en commentaren behouden. 
- $scss->setFormatter('Leafo\ScssPhp\Formatter\Expanded');
+ $scss->setFormatter('ScssPhp\ScssPhp\Formatter\Expanded');
 // $scss->setLineNumberStyle(Compiler::LINE_COMMENTS);
 $scss->setSourceMap(Compiler::SOURCE_MAP_INLINE);
 }
