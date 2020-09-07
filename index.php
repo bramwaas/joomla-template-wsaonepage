@@ -93,14 +93,13 @@ $this->addStyleSheet('https://fonts.googleapis.com/css?family=Open+Sans+Condense
 // alleen nog twbs 4
 if ($include_twbs_css == "1") {
     
-	$this->addStyleSheet('https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css', array('version'=>'4.5.0'), 
-	    array('id'=>'bootstrap.min.css', 'integrity' => 'sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk', 'crossorigin' => 'anonymous'));
+	$this->addStyleSheet('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css', array('version'=>'4.5.2'), 
+	    array('id'=>'bootstrap.min.css', 'integrity' => 'sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z', 'crossorigin' => 'anonymous'));
 	}
 	
 
 // template stijl en scrolling nav van startbootstrap
 $this->addStyleSheet('templates/' . $this->template . '/css/' . $wsaCssFilename , array('version'=>$wsaTime), array('id'=>'template.css'));
-$this->addStyleSheet('templates/' . $this->template . '/css/' . 'scrolling-nav.css' , array('version'=>$wsaTime), array('id'=>'scrolling-nav.css'));
 // Add JavaScript 
 
 //HTMLHelper::_('jquery.framework');  // to be sure that jquery is loaded before dependent javascripts
@@ -111,10 +110,10 @@ if ($include_twbs_js == "1") {
 //        array('id'=>'jquery.js', 'integrity' => 'sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj', 'crossorigin' => 'anonymous'));
     $this->addScript('https://code.jquery.com/jquery-3.5.1.min.js', array('version'=>'3.5.1'),
         array('id'=>'jquery.js', 'integrity' => 'sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=', 'crossorigin' => 'anonymous'));
-    $this->addScript('https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js', array('version'=>'1.16.0'),
-        array('id'=>'popper.js', 'integrity' => 'sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo', 'crossorigin' => 'anonymous'));
-    $this->addScript('https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js', array('version'=>'4.5.0'),
-        array('id'=>'bootstrap.min.js', 'integrity' => 'sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI', 'crossorigin' => 'anonymous'));
+    $this->addScript('https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js', array('version'=>'1.16.1'),
+        array('id'=>'popper.js', 'integrity' => 'sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN', 'crossorigin' => 'anonymous'));
+    $this->addScript('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js', array('version'=>'4.5.2'),
+        array('id'=>'bootstrap.min.js', 'integrity' => 'sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV', 'crossorigin' => 'anonymous'));
 }
 
 $this->addScript($this->baseurl . '/templates/' . $this->template . '/js/magnificpopup/MagnificPopupV1-1-0.js', array('version'=>'1-1-0'), array('id'=>'MagnificPopupV1-1-0.js', 'defer'=>'defer'));
@@ -140,21 +139,20 @@ type: \'image\'
 , closeMarkup : \'<button title="%title%" type="button" class="mfp-close">&nbsp;</button>\'
 });})');  
 // Adjusting content width
+$w0container = 'container';
 if ($this->countModules('position-7') && $this->countModules('position-8'))
 {
-	$spanc = "span6  col-md-6" ;
-	$spans = "span3  col-md-3";
+	$spanc = "col-12 col-md-6" ;
 }
 elseif (!$this->countModules('position-7') && !$this->countModules('position-8'))
     
 {
-    $spanc = "span12  col-12";
+    $spanc = "col-12";
 }
 else
 {
-    $spanc = "span8  col-md-8";
-    $spans = "span4  col-md-4";
-}
+    $spanc = "col-12 col-md-8";
+ }
 $hi_mods = ($this->countModules('position-0')? ' hipos0': '')
 . ($this->countModules('icons')? ' hiicons': '')
 . ($this->countModules('headerleft')? ' hihl': '')
@@ -194,7 +192,7 @@ class="site-grid site <?php echo $pageclass;
 >
 
 <!-- Begin Container-->
-	<div id="wrapper" class="container">
+	<div id="wrapper" class="<?php echo $w0container; ?>">
 <?php if ($bg1Image > " " )
 { echo "\n" . '<img id="img_bg1Image" src="' . $bg1Image . '" alt="Background image content"';
 	if ($bg1ImageW > 0 ) {echo "\n\t" . 'width="' . $bg1ImageW .'"';}
@@ -270,7 +268,7 @@ class="site-grid site <?php echo $pageclass;
 		    	<?php endif; ?>
 			<div class="row <?php  echo $wsaNavbarExpand;   ?>">
 				<?php if ($this->countModules('position-8')): ?>
-				<div id="sidebarleft" class="pos8 <?php echo $spans;?>">
+				<div id="sidebarleft" class="pos8 col-12 col-md">
 					<jdoc:include type="modules" name="position-8" style="well" /><!--End Position-8-->
 				</div><!--End Sidebar Left-->
 				<?php endif; ?>
@@ -291,7 +289,7 @@ class="site-grid site <?php echo $pageclass;
 					<jdoc:include type="component" />
 				</div><!--Content -->
 				<?php if ($this->countModules('position-7')) : ?>
-				<div id="sidebarright" class="pos7 <?php echo $spans;?>">
+				<div id="sidebarright" class="pos7 col-12 col-md">
 					<jdoc:include type="modules" name="position-7" style="well" /><!--End Position-7-->
 				</div><!--End Sidebar Right-->
 				<?php endif; ?>

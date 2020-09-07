@@ -20,6 +20,8 @@
 // 20190306 display flex voor headerleft.
 // 20200513 voor template wsa-onepage scrolling-nav.css ingevoegd.
 // 20200815 in rss images display inlineblock in stead of float added navbar-placeholder to hold space for absolute positioned navbar.
+// 20200822 removed references to $twbs_version == 3 (and also 4) because we only use bootstrap 4 
+// 20200829 scrolling-nav.css weer verwijderd
 / * ===========================
 	alle schermbreedtes
 	Write your general styles eerst voor alle schermbreedtes, 
@@ -52,45 +54,20 @@
 height: $navbar-height;
 border-radius: $wrapperBorderRadius;
 }
-@if $twbs_version == 4 {
+// @if $twbs_version == 4 { } // einde bs4 @else { // bs3 {}
 #headerleft {
   position: relative;
   float:left;
   width:$asHeadLeftWidth;
-  // height: 0px;
-  margin-top: $hlMarginTop;
+   margin-top: $hlMarginTop;
   margin-left:$hlMarginLeft;
   margin-bottom: $hlMarginBottom; 	
   padding-top:0;
   padding-bottom: 0; // $hlHeight;
       div.inner {
 	position: relative;
-	//top: 0;
-	//left: 0;
 	width: 100%;
-	//height: 100%;
 	}
-}
-} // einde bs4
-@else { // bs3
-#headerleft {
-  position: relative;
-  float:left;
-  width:$asHeadLeftWidth;
-  height: 0px;
-  margin-top: $hlMarginTop;
-  margin-left:$hlMarginLeft;
-  margin-bottom: $hlMarginBottom; 	
-  padding-top:0;
-  padding-bottom: $hlHeight;
-      div.inner {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	}
-}
 }
 #navbar-right-mod
 {
@@ -111,9 +88,7 @@ body>div.container {
    position: relative;
 }
 .section.component { /* section for each menu-item on this page */
-width: 100%;
-padding: 0;
-border-radius: $wrapperBorderRadius;
+ padding-top: 0;
 }
 .blog,
 .blog-featured,
@@ -240,8 +215,16 @@ order: -1;
     overflow-y: visible;
 	display:block;  // bs 4 voorlopig
 }
-.navbar-toggle .icon-bar {
-    background-color: $navbar-default-toggle-icon-bar-bg;
+.navbar-toggler {
+    color: rgba(0,0,0,.5);
+    border-color: rgba(0,0,0,.1);
+}
+.navbar-toggler-icon
+ { 
+ // was .navbar-toggle .icon-bar
+//	color : $gray !default;
+//    background-color: $navbar-default-toggle-icon-bar-bg;
+ background-image: $navbar-light-toggler-icon-bg;
 }
 /* transparent navbar */
 .navbar.navbar-default.transparent,
@@ -497,7 +480,6 @@ h6 {
 
 
 }/* einde (max-width: $screen-xs-max) */
-@if $twbs_version == 4 {
 @include media-breakpoint-up(sm)
 {  // min 576
 .blog {
@@ -514,7 +496,7 @@ h6 {
 .blog.lead-cols-2 {
 	.items-leading 	 > div { 
 		width: $wsa02Col;
-		margin-right: $wsaInnerMargin; 
+//		margin-right: $wsaInnerMargin; 
 		margin-left: auto;
 
 	}
@@ -573,7 +555,7 @@ h6 {
 .blog.lead-cols-3 {
 	.items-leading 	 > div { 
 		width:  $wsa03Col;
-		margin-right: $wsaInnerMargin; 
+//		margin-right: $wsaInnerMargin; 
 		margin-left: auto;
 		
 	}
@@ -692,175 +674,4 @@ margin-top: -40px;
 // @include media-breakpoint-up(xxxl) { bs4 custom > xxl bv 1600
 //}
 
-} // einde bs4
-@else { // bs3
-@media (min-width: $screen-xs-min) 
-// bs 3
-{ 
 
-.blog {
-	.span6, .span4,	.span3, .span2, .span1,
-	&.cols-2 .cat-list-row0, &.cols-3 .cat-list-row0, &.cols-4 .cat-list-row0, &.cols-5 .cat-list-row0, &.cols-6 .cat-list-row0,
-	&.cols-2 .cat-list-row1, &.cols-3 .cat-list-row1, &.cols-4 .cat-list-row1, &.cols-5 .cat-list-row1, &.cols-6 .cat-list-row1
-	{ 
-		width: $wsa02Col ;
-		margin-right: $wsaInnerMargin;
-		margin-left: auto;
-	}
-}
-	
-.blog.lead-cols-2 {
-	.items-leading 	 > div { 
-		width: $wsa02Col;
-		margin-right: $wsaInnerMargin; 
-		margin-left: auto;
-
-	}
-	
-}
-
-.img-fluid-w33
-{ 
- max-width:33%;
-}
-	.img-fluid-w50
-{ 
-  max-width:50%;
-}
-.tag-category ul 
-{
-	li
-	{
-   	max-width: $tagListItemWidth;
-   	width: auto;
-	}
-  &.category.list-striped li 
-	{
-	max-width: $tagListItemWidth;
-   	width: auto;
-	}	
-	
-}
-/* einde (min-width: $screen-xs-min) */}
-
-// @include media-breakpoint-up(md) { bs4
-@media (min-width: $screen-sm-min){
-#navbar-right-mod {
-    float: right;
-    margin-right: -15px;
-}
-.blog {
-
-	.span4,
-	&.cols-3 .cat-list-row0,
-	&.cols-3 .cat-list-row1  { 
-			width:  $wsa03Col;
-	}
-	.span3, .span2, .span1,
-	&.cols-4 .cat-list-row0, &.cols-5 .cat-list-row0, &.cols-6 .cat-list-row0,
-	&.cols-4 .cat-list-row1, &.cols-5 .cat-list-row1, &.cols-6 .cat-list-row1 { 
-			width:  $wsa04Col;
-	}
-	
-}
-.blog.lead-cols-3 {
-	.items-leading 	 > div { 
-		width:  $wsa03Col;
-		margin-right: $wsaInnerMargin; 
-		margin-left: auto;
-		
-	}
-	
-}
-
-
-	
-	.form-horizontal .control-group {
-		.control-label {
-		text-align: left;
-		//@include make-xs-column(2);
-		}
-		.controls {
-		//@include make-xs-column(10);
-		}
-	}
-.iconssm.navbar-expand-sm
-{    /* icons social media boven logo absolute vanaf 'navbar-expand-..' */
-  position: absolute;
-  top: $iconsPosTop;    
-  left: $iconsPosLeft;
-  width: $iconsWidth; 
-  max-width: 100%;
-}
-	
-}/* einde (min-width: $screen-sm-min) */
-
-// @include media-breakpoint-up(lg) { bs4
-@media (min-width: $screen-md-min )  { /* desktop (width >= 992px) */
-
-.blog {
-	.cols-5 .span2,
-	&.cols-5 .cat-list-row0,
-	&.cols-5 .cat-list-row1 { 
-			width: $wsa05Col ;
-		}
-	
-	.span2,
-	&.cols-6 .cat-list-row0,
-	&.cols-6 .cat-list-row1 { 
-			width: $wsa06Col ;
-		}
-	.cols-8 .span1	{ 
-			width: $wsa08Col ;
-		}
-	 .span1	{ 
-			width: $wsa12Col ;
-		}
-	
-
-	
-}
-.iconssm.navbar-expand-md
-{    /* icons social media boven logo absolute vanaf 'navbar-expand-..' */
-  position: absolute;
-  top: $iconsPosTop;    
-  left: $iconsPosLeft;
-  width: $iconsWidth; 
-  max-width: 100%;
-}
-
-}
-/* einde @media  $screen-md-min */
-
-// @include media-breakpoint-up(xl) { bs4 1200 px
-@media (min-width: $screen-lg-min )  { /* desktop (width >= 1200px) */
-
-.iconssm.navbar-expand-lg
-{    /* icons social media boven logo absolute vanaf 'navbar-expand-..' */
-  position: absolute;
-  top: $iconsPosTop;    
-  left: $iconsPosLeft;
-  width: $iconsWidth; 
-  max-width: 100%;
-}
-
-}
-/* einde @media  $screen-lg-min */
-@media (min-width: $screen-xl-min )  { /* desktop (width >= 992px) */
-
-.iconssm.navbar-expand-xl
-{    /* icons social media boven logo absolute vanaf 'navbar-expand-..' */
-  position: absolute;
-  top: $iconsPosTop;    
-  left: $iconsPosLeft;
-  width: $iconsWidth; 
-  max-width: 100%;
-}
-
-}
-/* einde @media  $screen-xl-min */
-// @include media-breakpoint-up(xxl) { bs4 custom > xl (1200 px) bv 1440 
-//}
-// @include media-breakpoint-up(xxxl) { bs4 custom > xxl bv 1600
-//}
-} // einde bs3
