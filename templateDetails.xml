@@ -290,12 +290,12 @@
 					<option value="navbar-light bg-transparent">Transparent</option>
 					<option value="navbar-dark bg-dark">Inverse</option>
 					<option value="navbar-dark bg-transparent">Inverse Transparent</option>
-  					<option value="navbar-light bg-light navbar-fixed-top">Default fixed top</option>
-  					<option value="navbar-light bg-light navbar-fixed-bottom">Default fixed bottom</option>
-  					<option value="navbar-light bg-light navbar-static-top">Default static top</option>
-  					<option value="navbar-dark bg-dark navbar-fixed-top">Inverse fixed top</option>
-  					<option value="navbar-dark bg-dark navbar-fixed-bottom">Inverse fixed bottom</option>
-  					<option value="navbar-dark bg-dark navbar-static-top">Inverse static top</option>
+  					<option value="navbar-light bg-light fixed-top">Default fixed top</option>
+  					<option value="navbar-light bg-light fixed-bottom">Default fixed bottom</option>
+  					<option value="navbar-light bg-light static-top">Default static top</option>
+  					<option value="navbar-dark bg-dark fixed-top">Inverse fixed top</option>
+  					<option value="navbar-dark bg-dark fixed-bottom">Inverse fixed bottom</option>
+  					<option value="navbar-dark bg-dark static-top">Inverse static top</option>
                 
 				</field>
 				<field name="displaySitename" type="list" default="1" label="WSA_DISPLAYSITENAME_LABEL" description="WSA_DISPLAYSITENAME_DESCRIPTION">
