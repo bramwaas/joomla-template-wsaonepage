@@ -13,7 +13,40 @@
 /* ======================
 	GENERAL STYLES
 	===================== */
-/* dropdown-submenu werkt standaard niet meer in bootstrap 3 */
+/* from twbs _dropdown.scss but colors dark with dark background navbar from _navbar.scss .navbar-dark .navbar-nav .nav-link and bg-dark */
+// The dropdown menu
+.navbar-dark {
+.dropdown-menu {
+      color: $navbar-dark-color;
+
+      @include hover-focus() {
+        color: $navbar-dark-hover-color;
+      }
+
+      &.disabled {
+        color: $navbar-dark-disabled-color;
+      }
+    }
+
+    .show > .nav-link,
+    .active > .nav-link,
+    .nav-link.show,
+    .nav-link.active {
+      color: $navbar-dark-active-color;
+    }
+
+  border: $dropdown-border-width solid $navbar-dark-color;
+}
+}
+
+@each $color, $value in $theme-colors {
+   .bg-#{$color} .dropdown-menu {background-color: #{$value};}
+}
+
+/* end from twbs _dropdown.scss but dark with dark backgroud navbar */
+ 	
+	
+/* dropdown-submenu doesn't work default since bootstrap 3 */
 .dropdown-submenu {
     position:relative;
 

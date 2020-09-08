@@ -114,7 +114,6 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 
 <?php 
 // div met role = "navigation" in plaats van nav gebruikt oa IE8 nav nog niet kent, maar kan via moduleTag aangepast worden
-$tMenuType = 'fixed-top';  // todo tijdelijk hard-coded
 echo '<!-- Begin Navbar-->';
 if ($tMenuType == 'fixed-top') {echo '<div id="navbar-placeholder" class="navbar ' . $wsaNavbarExpand .'">&nbsp;</div>' . PHP_EOL;
 $tMenuType .= ' ' . $w0container;
