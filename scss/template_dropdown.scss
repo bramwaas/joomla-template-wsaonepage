@@ -17,26 +17,24 @@
 // The dropdown menu
 .navbar-dark {
 .dropdown-menu {
-   .nav-link {
+  .nav-link {
       color: $navbar-dark-color;
 
-      @include hover-focus() {
+      &:hover,
+      &:focus {
         color: $navbar-dark-hover-color;
       }
 
       &.disabled {
         color: $navbar-dark-disabled-color;
       }
-	  border: $dropdown-border-width solid $navbar-dark-color;
     }
 
     .show > .nav-link,
-    .active > .nav-link,
-    .nav-link.show,
     .nav-link.active {
       color: $navbar-dark-active-color;
     }
-
+    border: $dropdown-border-width solid $navbar-dark-color;
 }
 }
 
