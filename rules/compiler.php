@@ -127,7 +127,6 @@ $footerWidth    = htmlspecialchars($params->footericonsWidth);
 $footerPosLeft  = htmlspecialchars($params->footerPosLeft);
 $footerPosBottom	= htmlspecialchars($params->footerPosBottom);
 
-$menuType 		= htmlspecialchars($params->menuType); 
 $menuColor 		= htmlspecialchars($params->menuColor);
 $menuActiveColor 	= htmlspecialchars($params->menuActiveColor);
 $menuDisabledColor 	= htmlspecialchars($params->menuDisabledColor);
@@ -181,16 +180,6 @@ $wsaBreakpointxxxl = htmlspecialchars($params->wsaBreakpointxxxl);
 $wsaContainerxxxl = htmlspecialchars($params->wsaContainerxxxl);
 if (! $wsaContainerxxxl) {$wsaContainerxxxl = $wsaBreakpointxxxl; }
   
-if (strpos($menuType, 'navbar-dark') !== false)
-{$navbartheme = 'navbar-dark';}
-else
-{$navbartheme = 'navbar-light';}
-if (strpos($menuType, 'bg-dark') !== false)
-{$navbarbg = 'bg-dark';}
-else
-{$navbarbg = 'bg-light';}
-
-
 
 
 $bg0Color    	= htmlspecialchars($params->bg0Color); // name or hex
@@ -284,9 +273,6 @@ if ($iconsMobileWidth > ' '  ) 	fwrite($tv_file, '$iconsMobileWidth:  '  . $icon
 if ($wsaNavbarRightWidth > ' '  ) 	fwrite($tv_file, '$wsaNavbarRightWidth:        '  . $wsaNavbarRightWidth .  "px;\n");
 
 
-fwrite($tv_file, '$menuType:            ' . $menuType . ";\n");
-fwrite($tv_file, '$navbar-theme:        ' . $navbartheme . ";\n");
-fwrite($tv_file, '$navbar-bg:           ' . $navbarbg . ";\n");
 
 if ($menuColor > ' '  ) { 	fwrite($tv_file, '$menuColor:           '  . $menuColor .  ";\n");
 			  	fwrite($tv_file, '$graynavbarlighter:    lighten($menuColor,30%)' .  ";\n");
@@ -491,14 +477,6 @@ fwrite($st_file, "#wrapper, \nbody>div.container {\n");
 if ($bg1Color > " " ) fwrite($st_file, "background-color:  $bg1Color;\n");
 fwrite($st_file, "}\n");
 
-if (strpos($menuType,'transparent') !== false) // != is onvoldoende omdat pos vanaf 0 telt.
-{
-fwrite($st_file, "\n.navbar,\n.navbar-inner,\n.nav-tabs,\n.breadcrumb\n{\n");
-fwrite($st_file, "background-color: transparent;\n");
-fwrite($st_file, "background-image: none;\n");	
-fwrite($st_file, "border-style: none;\n");
-fwrite($st_file, "}\n");
-}
 if ($wsaCustomSCSS > ' ') fwrite($st_file, '@import "'.JPATH_ROOT.'/images/scss/'.$wsaCustomSCSS.'";'. "\n");
 
 
