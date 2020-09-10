@@ -5,6 +5,7 @@
  *
  * @copyright Copyright (C) 2016 - 2017 Bram Waasdorp. All rights reserved.
  * @license GNU General Public License version 2 or later; see LICENSE.txt
+ * 10-9-2020
  */
 /* regel voor validatie type compiler, bedoeld om samenstellen en compileren Less bestanden uit te voeren vlak voor
    de save  
@@ -130,7 +131,7 @@ $menuType 		= htmlspecialchars($params->menuType);
 $menuColor 		= htmlspecialchars($params->menuColor);
 $menuActiveColor 	= htmlspecialchars($params->menuActiveColor);
 $menuDisabledColor 	= htmlspecialchars($params->menuDisabledColor);
-$menuBgColor 		= htmlspecialchars($params->menuBgColor);
+$wsaCustombgcolor 		= htmlspecialchars($params->$wsaCustombgcolor);
 $menuActiveBgColor 	= htmlspecialchars($params->menuActiveBgColor);
 
 $iconsMobileLeft = '';
@@ -310,12 +311,14 @@ if ($menuActiveColor > ' '  ) { fwrite($tv_file, '$menuActiveColor:     '  . $me
 if ($menuDisabledColor > ' '  ) { fwrite($tv_file, '$menuDisabledColor: '  . $menuDisabledColor .  ";\n");
 			  	fwrite($tv_file, '$navbar-default-link-disabled-color: $menuDisabledColor' .  ";\n");
 };
-if ($menuBgColor > ' '  ) { 	fwrite($tv_file, '$menuBgColor:         '  . $menuBgColor .  ";\n");
+if ($wsaCustombgcolor > ' '  ) { 	fwrite($tv_file, '$menuBgColor:         '  . $menuBgColor .  ";\n");
 			  	fwrite($tv_file, '$navbar-default-bg:    $menuBgColor' .  ";\n");
 			  	fwrite($tv_file, '$dropdown-bg:    $menuBgColor' .  ";\n");
 			  	fwrite($tv_file, '$dropdown-border: rgba($navbar-default-bg, .5)' .  ";\n");
 			  	fwrite($tv_file, '$navbar-default-toggle-border-color: rgba($navbar-default-bg, .5)' .  ";\n");
 };
+fwrite($tv_file, '$wsaCustombgcolor:       '  . (($wsaCustombgcolor > ' '  ) ? $wsaCustombgcolor : 'transparent') .  ";\n");
+
 if ($menuActiveBgColor > ' '  ) { fwrite($tv_file, '$menuActiveBgColor: '  . $menuActiveBgColor .  ";\n");
 			  	fwrite($tv_file, '$graynavbarbg:         $menuActiveBgColor' .  ";\n");
 			  	fwrite($tv_file, '$navbar-default-link-active-bg: $menuActiveBgColor' .  ";\n");

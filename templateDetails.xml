@@ -174,7 +174,7 @@
 				</field>
 
 				<field name="explanation3"  type="spacer" hr="false"
-					label="WSA_WIDTH_TRANSITIONS_LABEL;"
+					label="WSA_WIDTH_TRANSITIONS_LABEL"
 					 />
 				<field name="wsaNavbarWidthTransition" type="radio" class="switcher btn-group" default="container" label="WSA_NAVBAR_LABEL" description="WSA_NAVBARWIDTHTR_DESC" >
 					<option value="container">WSA_STEPS</option>
@@ -184,6 +184,10 @@
 					<option value="container">WSA_STEPS</option>
 					<option value="container-fluid">WSA_FLUID</option>
 				</field>
+				<field name="wsaCustombgcolor"  type="color" default=""
+					label="Cust background color:"
+					description="Custom (menu) background color. Default transparent"
+					 />
 					 
 				<field name="fgColor"  type="color" default=""
 					label="Foreground color:"
@@ -283,40 +287,16 @@
 					label="Menu text size:"
 					description="Menu text font size (pixels)."
 					 />
-				<field name="menuDisplay" type="list" default=""
-					label="Horizontal menu"	
- 				    description="Underline menu text."
-				>
-					<option value="">Default</option>
-					<option value="inline">Horizontal</option>
-					<option value="inline-block center">Horizontal centered</option>
-					<option value="inline-block left">Horizontal left</option>
-					<option value="inline-block right">Horizontal right</option>
-					<option value="block">Vertical (down)</option>
-				</field>
-				<field name="menuType" type="list" default=""
-					label="Type menu"	
- 				    description="Type backround inverse etc. of menu"
-				>
-					<option value="navbar-light bg-light">Default</option>
-					<option value="navbar-light bg-transparent">Transparent</option>
-					<option value="navbar-dark bg-dark">Inverse</option>
-					<option value="navbar-dark bg-transparent">Inverse Transparent</option>
-  					<option value="navbar-light bg-light fixed-top">Default fixed top</option>
-  					<option value="navbar-light bg-light fixed-bottom">Default fixed bottom</option>
-  					<option value="navbar-light bg-light static-top">Default static top</option>
-  					<option value="navbar-dark bg-dark fixed-top">Inverse fixed top</option>
-  					<option value="navbar-dark bg-dark fixed-bottom">Inverse fixed bottom</option>
-  					<option value="navbar-dark bg-dark static-top">Inverse static top</option>
-                
-				</field>
 				<field name="wsaNavbarbg" type="list" default="bg-light"
 					label="WSA_NAVBARBG_LABEL"	
  				    description="WSA_NAVBARBG_DESC"
 				>
+					<option value="bg-primary">WSA_PRIMARY</option>
+					<option value="bg-secundary">WSA_SECUNDARY</option>
 					<option value="bg-light">WSA_LIGHT</option>
 					<option value="bg-transparent">WSA_TRANSPARENT</option>
 					<option value="bg-dark">WSA_DARK</option>
+					<option value="bg-custom">WSA_CUSTOM</option>
 				</field>
 				<field name="wsaNavbarfg" type="list" default="navbar-light"
 					label="WSA_NAVBARFG_LABEL"	
@@ -349,10 +329,6 @@
 				<field name="menuDisabledColor"  type="color" default=""
 					label="Menudisabled color:"
 					description="If not empty overwrite color of disabled menu text. Default empty  "
-					 />
-				<field name="menuBgColor"  type="color" default=""
-					label="Menubackground color:"
-					description="If not empty overwrite color of menu background. Default empty  "
 					 />
 				<field name="wsaNavbarRightWidth"  class="validate-numeric" type="text" default="340"
 					label="WSA_NAVBARRIGHT_LABEL"

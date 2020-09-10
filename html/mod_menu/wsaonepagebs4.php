@@ -66,11 +66,19 @@ $itemid   = $app->input->getCmd('Itemid', '');
 $input = $app->input;
 $tDisplaySitename = htmlspecialchars($app->getTemplate(true)->params->get('displaySitename')); // 1 yes 2 no
 $tBrandImage = htmlspecialchars($app->getTemplate(true)->params->get('brandImage'));
-$tMenuType = htmlspecialchars($app->getTemplate(true)->params->get('menuType'));
-$twbs_version = htmlspecialchars($app->getTemplate(true)->params->get('twbs_version', '4')); // bootstrap version 3 of (default) 4 
+$twbs_version = '4';
 
 $wsaNavbarExpand = htmlspecialchars($app->getTemplate(true)->params->get('wsaNavbarExpand', 'navbar-expand-md'));
 $wsaNavtext = ($app->getTemplate(true)->params->get('wsaNavtext'));
+$wsaNavbarWidthTransition = htmlspecialchars($app->getTemplate(true)->params->get('wsaNavbarWidthTransition', 'container'));
+
+$wsaNavbarpos = htmlspecialchars($app->getTemplate(true)->params->get('wsaNavbarpos', ''));
+$wsaNavbarbg = htmlspecialchars($app->getTemplate(true)->params->get('wsaNavbarbg', 'bg-custom'));
+$wsaNavbarfg = htmlspecialchars($app->getTemplate(true)->params->get('wsaNavbarfg', 'navbar-light'));
+
+$wsaNavbarbg = htmlspecialchars($app->getTemplate(true)->params->get('wsaNavbarbg', 'bg-custom'));
+$wsaNavbarWidthTransition = htmlspecialchars($app->getTemplate(true)->params->get('wsaNavbarWidthTransition', 'container'));
+
 
 $moduleTag     = $params->get('module_tag', 'div');
 $headerTag     = htmlspecialchars($params->get('header_tag', 'h4'));
@@ -115,11 +123,10 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 <?php 
 // div met role = "navigation" in plaats van nav gebruikt oa IE8 nav nog niet kent, maar kan via moduleTag aangepast worden
 echo '<!-- Begin Navbar-->';
-if ($tMenuType == 'fixed-top') {echo '<div id="navbar-placeholder" class="navbar ' . $wsaNavbarExpand .'">&nbsp;</div>' . PHP_EOL;
-$tMenuType .= ' ' . $w0container;
+if ($wsaNavbarpos == 'fixed-top') {echo '<div id="navbar-placeholder" class="navbar ' . $wsaNavbarExpand .'">&nbsp;</div>' . PHP_EOL;
 }
-echo '<' . $moduleTag . ' class="' . $module->position . ' navbar ' . $wsaNavbarExpand .  ' ' . $tMenuType . '" role="navigation">'. PHP_EOL;
-// echo '<div class="container-fluid">' . PHP_EOL;
+echo '<' . $moduleTag . ' class="' . $module->position . ' navbar ' . $wsaNavbarpos . ' ' . $wsaNavbarExpand . ' ' . $wsaNavbarbg . ' ' . $wsaNavbarfg . ' ' . $wsaNavbarWidthTransition . '" role="navigation">'. PHP_EOL;
+
 if ($tBrandImage > " ") {
     echo '<a class="navbar-brand" href="#"><img src="' . $tBrandImage .'" alt="Brand image ' . $sitename . '" /></a>'. PHP_EOL;
 }

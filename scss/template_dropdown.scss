@@ -9,6 +9,7 @@
 11-2-2019 brandwith relatief tov lg
 15-5-2020 onepage template TWBS 3 verwijderd.
 7-9-2020 removed bs4 navbar-dark and dropdown-menu because it is old, had an error and it is always present in the standard bootstrap because we don't use bs 3 any more.
+10-9-2020 bg-custom toegevoegd
 -----------------------------------------*/
 /* ======================
 	GENERAL STYLES
@@ -37,6 +38,7 @@
     border: $dropdown-border-width solid $navbar-dark-color;
 }
 }
+.bg-custom {background-color: $wsaCustombgcolor;}
 
 @each $color, $value in $theme-colors {
    .bg-#{$color} .dropdown-menu {background-color: #{$value};}
