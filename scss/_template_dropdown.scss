@@ -39,10 +39,9 @@
 }
 }
 .bg-custom {background-color: $wsaCustomColor;}
-/* TODO geeft nog compilatie fout dus anders oplossen 
-@if variable-exists($wsaCustomColor0) { .bg-custom0 {background-color: $wsaCustomColor0;}}
-@if variable-exists($wsaCustomColor1) { .bg-custom1 {background-color: $wsaCustomColor1;}}
-*/
+@if variable-exists(wsaCustomColor0) { .bg-custom0 {background-color: $wsaCustomColor0;}}
+@if variable-exists(wsaCustomColor1) { .bg-custom1 {background-color: $wsaCustomColor1;}}
+
 
 @each $color, $value in $theme-colors {
    .bg-#{$color} .dropdown-menu {background-color: #{$value};}
