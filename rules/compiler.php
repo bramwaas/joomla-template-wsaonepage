@@ -297,13 +297,13 @@ if ($menuActiveColor > ' '  ) { fwrite($tv_file, '$menuActiveColor:     '  . $me
 if ($menuDisabledColor > ' '  ) { fwrite($tv_file, '$menuDisabledColor: '  . $menuDisabledColor .  ";\n");
 			  	fwrite($tv_file, '$navbar-default-link-disabled-color: $menuDisabledColor' .  ";\n");
 };
-if ($wsaCustomColor > ' '  ) { 	fwrite($tv_file, '$menuBgColor:         '  . $menuBgColor .  ";\n");
-			  	fwrite($tv_file, '$navbar-default-bg:    $menuBgColor' .  ";\n");
-			  	fwrite($tv_file, '$dropdown-bg:    $menuBgColor' .  ";\n");
+fwrite($tv_file, '$wsaCustomColor:       '  . (($wsaCustomColor > ' '  ) ? $wsaCustomColor : 'transparent') .  ";\n");
+if ($wsaCustomColor > ' '  ) { 	
+			  	fwrite($tv_file, '$navbar-default-bg:    $wsaCustomColor' .  ";\n");
+			  	fwrite($tv_file, '$dropdown-bg:    $wsaCustomColor' .  ";\n");
 			  	fwrite($tv_file, '$dropdown-border: rgba($navbar-default-bg, .5)' .  ";\n");
 			  	fwrite($tv_file, '$navbar-default-toggle-border-color: rgba($navbar-default-bg, .5)' .  ";\n");
 };
-fwrite($tv_file, '$wsaCustomColor:       '  . (($wsaCustomColor > ' '  ) ? $wsaCustomColor : 'transparent') .  ";\n");
 
 if ($menuActiveBgColor > ' '  ) { fwrite($tv_file, '$menuActiveBgColor: '  . $menuActiveBgColor .  ";\n");
 			  	fwrite($tv_file, '$graynavbarbg:         $menuActiveBgColor' .  ";\n");
@@ -339,24 +339,10 @@ fwrite($st_file, "// style" . $templatestyleid .  ".scss \n");
 fwrite($st_file, "// generated " . date("c")  . "\n//\n");
 fwrite($st_file, "// css        " . $wsaCssFilename  . "\n//\n");
 
-//fwrite($st_file, '// compiler param  $value ' . $value  . "\n//\n");
-//fwrite($st_file, '// compiler param  $group ' . $group  . "\n//\n");
-//fwrite($st_file, '// compiler param  $input ' . $input  . "\n//\n");
-//fwrite($st_file, '// compiler param  $input->get(home) ' . $input->get('home') . "\n//\n");
-//fwrite($st_file, '// compiler param  $input->get(id) ' . $input->get('id') . "\n//\n");
-//fwrite($st_file, '/*' . "\n//\n");
-//fwrite($st_file, '// compiler param  print_r($input) ' . print_r($input->get('params'),true)  . "\n//\n");
-//fwrite($st_file, '*/' . "\n//\n");
 
 // standaard bootstrap variables mixins etc.
 fwrite($st_file, "//\n// standard bootstrap includes v" . $twbs_version . "\n//\n");
-if($twbs_version == '3') {
-fwrite($st_file, '@import "variables.scss";' . "\n");
-fwrite($st_file, '@import "mixins/reset-filter.scss";' . "\n"); 
-fwrite($st_file, '@import "mixins/vendor-prefixes.scss";' . "\n"); 
-fwrite($st_file, '@import "mixins/gradients.scss";' . "\n");  
-fwrite($st_file, '@import "mixins/grid.scss";' . "\n");  
-} else { /* twbs version 4 */
+if($twbs_version == '4') { /* twbs version 4 */
 fwrite($st_file, '@import "variables.scss";' . " // nog even uit 3\n");  // nog even uit 3
 fwrite($st_file, '@import "mixins/reset-filter.scss";' . " // nog even uit 3\n"); // nog even uit 3
 fwrite($st_file, '@import "mixins/gradients.scss";' . " // nog even uit 3\n");    // nog even uit 3
