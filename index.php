@@ -43,7 +43,7 @@ $templatestyleid =  $template->id;
 $displaySitename = htmlspecialchars($templateparams->get('displaySitename')); // 1 yes 2 no 
 
 
-$bg0Color    	= htmlspecialchars($this->params->get('bg0Color'));
+$wsaCustomColor0    	= htmlspecialchars($this->params->get('wsaCustomColor0'));
 
 $bg1Image    	= htmlspecialchars($this->params->get('bg1Image'));
 $bg1Image_lg    	= htmlspecialchars($this->params->get('bg1Image_lg'));
@@ -54,7 +54,7 @@ $bg1Breakpoint_sm    	= htmlspecialchars($this->params->get('bg1Breakpoint_sm'))
 $bg1Width    	= htmlspecialchars($this->params->get('bg1Width'));
 $bg1Top      	= htmlspecialchars($this->params->get('bg1Top'));
 $bg1Left      	= htmlspecialchars($this->params->get('bg1Left'));
-$bg1Color    	= htmlspecialchars($this->params->get('bg1Color'));
+$wsaCustomColor1    	= htmlspecialchars($this->params->get('wsaCustomColor1'));
 $bg1ImageW    	= htmlspecialchars($this->params->get('bg1ImageW'));
 $bg1ImageH    	= htmlspecialchars($this->params->get('bg1ImageH'));
 $bg1Image_lgW  	= htmlspecialchars($this->params->get('bg1Image_lgW'));

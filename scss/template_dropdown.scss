@@ -1,4 +1,4 @@
-/* template_dropdown.scss */
+/* _template_dropdown.scss */
 /* ------------------------------------
   CSS uit template_css.less gehaald om dropdown-menu in joomla goed te laten werken in bootstrap 3
   oa extra CSS voor dropdown-submenu, dat in B2 bestand bestond, maar in B3 vervallen is
@@ -38,7 +38,9 @@
     border: $dropdown-border-width solid $navbar-dark-color;
 }
 }
-.bg-custom {background-color: $wsaCustombgcolor;}
+.bg-custom {background-color: $wsaCustomColor;}
+@if variable-exists($wsaCustomColor0) { .bg-custom0 {background-color: $wsaCustomColor0;}}
+@if variable-exists($wsaCustomColor1) { .bg-custom1 {background-color: $wsaCustomColor1;}}
 
 @each $color, $value in $theme-colors {
    .bg-#{$color} .dropdown-menu {background-color: #{$value};}

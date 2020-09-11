@@ -9,7 +9,7 @@
   </compatibility>
 	<name>wsa_onepage</name>
 	<version>1.2.0</version>
-	<creationDate>7-9-2020</creationDate>
+	<creationDate>11-9-2020</creationDate>
 	<author>AHC Waasdorp</author>
 	<authorEmail>info@waasdorpsoekhan.nl</authorEmail>
 	<authorUrl>http://www.waasdorpsoekhan.nl</authorUrl>
@@ -72,7 +72,7 @@
 			<fieldset name="Background">
 				<field name="explanation0"  type="spacer" hr="false"
 					 />
-				<field name="bg0Color"  type="color" default=""
+				<field name="wsaCustomColor0"  type="color" default=""
 					label="BGCOLOR_LABEL"
 					description="Background color name or #RGB, #000000 = black, #FF0000 = red, #00FF00 = green, #0000FF = blue, #FFFFFF = white, default #080810  "
 					 />
@@ -127,7 +127,7 @@
 					label="BGLEFT_LABEL"
 					description="Background image margin left"
 					 />					 
-				<field name="bg1Color"  type="color" default=""
+				<field name="wsaCustomColor1"  type="color" default=""
 					label="BGCOLOR_LABEL"
 					description="Background color name or #RGB, #000000 = black, #FF0000 = red, #00FF00 = green, #0000FF = blue, #FFFFFF = white, default #080810  "
 					 />
@@ -184,7 +184,7 @@
 					<option value="container">WSA_STEPS</option>
 					<option value="container-fluid">WSA_FLUID</option>
 				</field>
-				<field name="wsaCustombgcolor"  type="color" default=""
+				<field name="wsaCustomColor"  type="color" default=""
 					label="Cust background color:"
 					description="Custom (menu) background color. Default transparent"
 					 />
@@ -305,7 +305,7 @@
 					<option value="navbar-light">WSA_LIGHT</option>
 					<option value="navbar-dark">WSA_DARK</option>
 				</field>
-				<field name="wsaNavbarpos" type="list" default="fixed-top"
+				<field name="wsaNavbarpos" type="list" 
 					label="WSA_NAVBARPOS_LABEL"	
  				    description="WSA_NAVBARPOS_DESC"
 				>

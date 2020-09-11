@@ -130,7 +130,7 @@ $footerPosBottom	= htmlspecialchars($params->footerPosBottom);
 $menuColor 		= htmlspecialchars($params->menuColor);
 $menuActiveColor 	= htmlspecialchars($params->menuActiveColor);
 $menuDisabledColor 	= htmlspecialchars($params->menuDisabledColor);
-$wsaCustombgcolor 		= htmlspecialchars($params->$wsaCustombgcolor);
+$wsaCustomColor 		= htmlspecialchars($params->wsaCustomColor);
 $menuActiveBgColor 	= htmlspecialchars($params->menuActiveBgColor);
 
 $iconsMobileLeft = '';
@@ -182,7 +182,7 @@ if (! $wsaContainerxxxl) {$wsaContainerxxxl = $wsaBreakpointxxxl; }
   
 
 
-$bg0Color    	= htmlspecialchars($params->bg0Color); // name or hex
+$wsaCustomColor0    	= htmlspecialchars($params->wsaCustomColor0); // name or hex
 
 $bg1Image    	= htmlspecialchars($params->bg1Image); 
 //if ($bg1Image > ' ' and strtolower(substr ( $bg1Image , 0 , 7 )) == 'images/' )  {$bg1Image = '/' . $bg1Image;};
@@ -200,7 +200,7 @@ $bg1Width    	= htmlspecialchars($params->bg1Width); // number
 $bg1Pos    		= htmlspecialchars($params->bg1Pos); //  % or px 
 $bg1Top      	= htmlspecialchars($params->bg1Top); // number
 $bg1Left      	= htmlspecialchars($params->bg1Left); // number
-$bg1Color    	= htmlspecialchars($params->bg1Color); // name or hex
+$wsaCustomColor1    	= htmlspecialchars($params->wsaCustomColor1); // name or hex
 $bg1Dim         = 'px';
 $bg1DimPos      = 'px';
 if ($bg1Pos ==  '%')  {$bg1Dim = '%'; $bg1DimPos = '%';};
@@ -244,7 +244,7 @@ if ($brandSize > ' '  ) fwrite($tv_file, '$brandSize:         ' . $brandSize . "
 if ($brandWidth > ' ' ) fwrite($tv_file, '$brandWidth:        ' . $brandWidth . ";\n");
 
 
-if ($bg0Color > ' ' ) fwrite($tv_file, '$bg0Color:          ' . $bg0Color . ";\n");
+if ($wsaCustomColor0 > ' ' ) fwrite($tv_file, '$wsaCustomColor0:          ' . $wsaCustomColor0 . ";\n");
 
 if ($bg1Image > ' ' ) fwrite($tv_file, '$bg1Image:          ' . $bg1Image .  ";\n");
 if ($bg1Image_lg > ' ' ) fwrite($tv_file, '$bg1Image_lg:       ' . $bg1Image_lg .  ";\n");
@@ -253,7 +253,7 @@ if ($bg1Width > ' ' ) fwrite($tv_file, '$bg1Width:          ' . $bg1Width . ";\n
 if ($bg1Pos > ' '   ) fwrite($tv_file, '$bg1Pos:            ' . $bg1Pos . ";\n");
 if ($bg1Top > ' '  )  fwrite($tv_file, '$bg1Top:            ' . $bg1Top . ";\n");
 if ($bg1Left > ' '  ) fwrite($tv_file, '$bg1Left:           ' . $bg1Left . ";\n");
-if ($bg1Color > ' ' ) fwrite($tv_file, '$bg1Color:          ' . $bg1Color . ";\n");
+if ($wsaCustomColor1 > ' ' ) fwrite($tv_file, '$wsaCustomColor1:          ' . $wsaCustomColor1 . ";\n");
 if ($bg1Breakpoint_lg > ' '  ) fwrite($tv_file, '$bg1Breakpoint_lg:          '  . $bg1Breakpoint_lg .  "px;\n");
 if ($bg1Breakpoint_sm > ' '  ) fwrite($tv_file, '$bg1Breakpoint_sm:          '  . $bg1Breakpoint_sm .  "px;\n");
 
@@ -297,13 +297,13 @@ if ($menuActiveColor > ' '  ) { fwrite($tv_file, '$menuActiveColor:     '  . $me
 if ($menuDisabledColor > ' '  ) { fwrite($tv_file, '$menuDisabledColor: '  . $menuDisabledColor .  ";\n");
 			  	fwrite($tv_file, '$navbar-default-link-disabled-color: $menuDisabledColor' .  ";\n");
 };
-if ($wsaCustombgcolor > ' '  ) { 	fwrite($tv_file, '$menuBgColor:         '  . $menuBgColor .  ";\n");
+if ($wsaCustomColor > ' '  ) { 	fwrite($tv_file, '$menuBgColor:         '  . $menuBgColor .  ";\n");
 			  	fwrite($tv_file, '$navbar-default-bg:    $menuBgColor' .  ";\n");
 			  	fwrite($tv_file, '$dropdown-bg:    $menuBgColor' .  ";\n");
 			  	fwrite($tv_file, '$dropdown-border: rgba($navbar-default-bg, .5)' .  ";\n");
 			  	fwrite($tv_file, '$navbar-default-toggle-border-color: rgba($navbar-default-bg, .5)' .  ";\n");
 };
-fwrite($tv_file, '$wsaCustombgcolor:       '  . (($wsaCustombgcolor > ' '  ) ? $wsaCustombgcolor : 'transparent') .  ";\n");
+fwrite($tv_file, '$wsaCustomColor:       '  . (($wsaCustomColor > ' '  ) ? $wsaCustomColor : 'transparent') .  ";\n");
 
 if ($menuActiveBgColor > ' '  ) { fwrite($tv_file, '$menuActiveBgColor: '  . $menuActiveBgColor .  ";\n");
 			  	fwrite($tv_file, '$graynavbarbg:         $menuActiveBgColor' .  ";\n");
@@ -470,11 +470,11 @@ fwrite($st_file, '@import "template_css.scss";' . "\n");
 
 fwrite($st_file, "body {\n");
 if ($fgColor > " "  ) fwrite($st_file, "color:  $fgColor ;\n");
-if ($bg0Color > " " ) fwrite($st_file, "background-color:  $bg0Color;\n");
+if ($wsaCustomColor0 > " " ) fwrite($st_file, "background-color:  $wsaCustomColor0;\n");
 fwrite($st_file, "}\n");
 
 fwrite($st_file, "#wrapper, \nbody>div.container {\n");
-if ($bg1Color > " " ) fwrite($st_file, "background-color:  $bg1Color;\n");
+if ($wsaCustomColor1 > " " ) fwrite($st_file, "background-color:  $wsaCustomColor1;\n");
 fwrite($st_file, "}\n");
 
 if ($wsaCustomSCSS > ' ') fwrite($st_file, '@import "'.JPATH_ROOT.'/images/scss/'.$wsaCustomSCSS.'";'. "\n");
