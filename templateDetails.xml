@@ -72,10 +72,42 @@
 			<fieldset name="Background">
 				<field name="explanation0"  type="spacer" hr="false"
 					 />
+				<field name="wsaNavbarbg" type="list" default="bg-light"
+					label="WSA_NAVBARBG_LABEL"	
+ 				    description="WSA_NAVBARBG_DESC"
+				>
+					<option value="bg-primary">WSA_PRIMARY</option>
+					<option value="bg-secundary">WSA_SECUNDARY</option>
+					<option value="bg-light">WSA_LIGHT</option>
+					<option value="bg-transparent">WSA_TRANSPARENT</option>
+					<option value="bg-dark">WSA_DARK</option>
+					<option value="bg-custom">WSA_CUSTOM</option>
+					<option value="bg-custom0">WSA_CUSTOM0</option>
+					<option value="bg-custom1">WSA_CUSTOM1</option>
+				</field>
+				<field name="wsaCustomColor"  type="color" default=""
+					label="BGCOLOR_LABEL"
+					description="Custom (navbar) background color. Default transparent"
+					 />
 				<field name="wsaCustomColor0"  type="color" default=""
 					label="BGCOLOR_LABEL"
-					description="Background color name or #RGB, #000000 = black, #FF0000 = red, #00FF00 = green, #0000FF = blue, #FFFFFF = white, default #080810  "
+					description="Custom (browser) Background color 0. default none"
 					 />
+				<field name="wsaCustomColor1"  type="color" default=""
+					label="BGCOLOR_LABEL"
+					description="Custom (content) Background color 1. default none"
+					 />
+				<field name="explanation3"  type="spacer" hr="false"
+					label="WSA_WIDTH_TRANSITIONS_LABEL"
+					 />
+				<field name="wsaNavbarWidthTransition" type="radio" class="switcher btn-group" default="container" label="WSA_NAVBAR_LABEL" description="WSA_NAVBARWIDTHTR_DESC" >
+					<option value="container">WSA_STEPS</option>
+					<option value="container-fluid">WSA_FLUID</option>
+				</field>
+				<field name="wsaContentWidthTransition" type="radio" class="switcher btn-group" default="container" label="WSA_CONTENT_LABEL" description="WSA_CONTENTWIDTHTR_DESC" >
+					<option value="container">WSA_STEPS</option>
+					<option value="container-fluid">WSA_FLUID</option>
+				</field>
 				<field name="explanation1"  type="spacer" hr="false"
 					 />
 				<field name="bg1Image" type="media" default="" 
@@ -127,10 +159,6 @@
 					label="BGLEFT_LABEL"
 					description="Background image margin left"
 					 />					 
-				<field name="wsaCustomColor1"  type="color" default=""
-					label="BGCOLOR_LABEL"
-					description="Background color name or #RGB, #000000 = black, #FF0000 = red, #00FF00 = green, #0000FF = blue, #FFFFFF = white, default #080810  "
-					 />
 			</fieldset>
 			<fieldset name="Advanced">
 				<field name="explanation2"  type="spacer" hr="false"
@@ -173,21 +201,6 @@
 					<option value="navbar-expand-xxxl">WSA_NAVBAREXPAND_XXXL</option>
 				</field>
 
-				<field name="explanation3"  type="spacer" hr="false"
-					label="WSA_WIDTH_TRANSITIONS_LABEL"
-					 />
-				<field name="wsaNavbarWidthTransition" type="radio" class="switcher btn-group" default="container" label="WSA_NAVBAR_LABEL" description="WSA_NAVBARWIDTHTR_DESC" >
-					<option value="container">WSA_STEPS</option>
-					<option value="container-fluid">WSA_FLUID</option>
-				</field>
-				<field name="wsaContentWidthTransition" type="radio" class="switcher btn-group" default="container" label="WSA_CONTENT_LABEL" description="WSA_CONTENTWIDTHTR_DESC" >
-					<option value="container">WSA_STEPS</option>
-					<option value="container-fluid">WSA_FLUID</option>
-				</field>
-				<field name="wsaCustomColor"  type="color" default=""
-					label="Cust background color:"
-					description="Custom (menu) background color. Default transparent"
-					 />
 					 
 				<field name="fgColor"  type="color" default=""
 					label="Foreground color:"
@@ -287,19 +300,6 @@
 					label="Menu text size:"
 					description="Menu text font size (pixels)."
 					 />
-				<field name="wsaNavbarbg" type="list" default="bg-light"
-					label="WSA_NAVBARBG_LABEL"	
- 				    description="WSA_NAVBARBG_DESC"
-				>
-					<option value="bg-primary">WSA_PRIMARY</option>
-					<option value="bg-secundary">WSA_SECUNDARY</option>
-					<option value="bg-light">WSA_LIGHT</option>
-					<option value="bg-transparent">WSA_TRANSPARENT</option>
-					<option value="bg-dark">WSA_DARK</option>
-					<option value="bg-custom">WSA_CUSTOM</option>
-					<option value="bg-custom0">WSA_CUSTOM0</option>
-					<option value="bg-custom1">WSA_CUSTOM1</option>
-				</field>
 				<field name="wsaNavbarfg" type="list" default="navbar-light"
 					label="WSA_NAVBARFG_LABEL"	
  				    description="WSA_NAVBARFG_DESC"
