@@ -8,7 +8,7 @@
     </include>
   </compatibility>
 	<name>wsa_onepage</name>
-	<version>1.2.0</version>
+	<version>1.2.1</version>
 	<creationDate>11-9-2020</creationDate>
 	<author>AHC Waasdorp</author>
 	<authorEmail>info@waasdorpsoekhan.nl</authorEmail>
@@ -297,6 +297,8 @@
 					<option value="bg-transparent">WSA_TRANSPARENT</option>
 					<option value="bg-dark">WSA_DARK</option>
 					<option value="bg-custom">WSA_CUSTOM</option>
+					<option value="bg-custom0">WSA_CUSTOM0</option>
+					<option value="bg-custom1">WSA_CUSTOM1</option>
 				</field>
 				<field name="wsaNavbarfg" type="list" default="navbar-light"
 					label="WSA_NAVBARFG_LABEL"	
