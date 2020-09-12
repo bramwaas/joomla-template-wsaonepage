@@ -56,7 +56,7 @@ $wsaVideoHeight:           80%;  // iets hoger dan 4x3 100 * 3 / 4% ;  100 * 9 /
 $wsaVideoHeightExtra:      25px;
 $wsaVideoItemWidth:        100%;
 $wsaVideoAutoItemWidth:   1170px; //TODO map.get($container-max-widths, "xl"); // ipv bs3 $container-lg
-//.test {width: map.get($container-max-widths, "xl");}
+
 @each $breakpoint, $bw in $container-max-widths {
 .test-#{$breakpoint} {width: $bw;}
 }
