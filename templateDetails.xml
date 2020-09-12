@@ -9,7 +9,7 @@
   </compatibility>
 	<name>wsa_onepage</name>
 	<version>1.2.1</version>
-	<creationDate>11-9-2020</creationDate>
+	<creationDate>12-9-2020</creationDate>
 	<author>AHC Waasdorp</author>
 	<authorEmail>info@waasdorpsoekhan.nl</authorEmail>
 	<authorUrl>http://www.waasdorpsoekhan.nl</authorUrl>
@@ -211,7 +211,7 @@
 				</field>
 
 					 
-				<field name="fgColor"  type="color" default=""
+				<field name="wsaForegroundColor"  type="color" default=""
 					label="Foreground color:"
 					description="If not empty overwrite color of most texts .  Color name or #RGB, #000000 = black, #FF0000 = red, #00FF00 = green, #0000FF = blue, #FFFFFF = white, default empty"
 					 />

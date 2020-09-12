@@ -147,7 +147,7 @@ $iconsMobileLeft = $hlWidth;
 $iconsMobileWidth =  100 - $hlWidth; 
 }
 
-$fgColor    	= htmlspecialchars($params->fgColor);
+$wsaForegroundColor    	= htmlspecialchars($params->wsaForegroundColor);
 
 $brandImage    	= htmlspecialchars($params->brandImage); // url
 $brandSize    	= htmlspecialchars($params->brandSize); // auto  <width> % or px 
@@ -238,7 +238,7 @@ if ($twbs_version > ' '  ) 	fwrite($tv_file, '$twbs_version:              "'  . 
 
 if ($gplusProfile > ' '  ) 	fwrite($tv_file, '$gplusProfile:              "'  . $gplusProfile .  "\";\n");
 
-if ($fgColor > ' '  ) fwrite($tv_file, '$fgColor:          '  . $fgColor .  ";\n");
+if ($wsaForegroundColor > ' '  ) fwrite($tv_file, '$wsaForegroundColor:          '  . $wsaForegroundColor .  ";\n");
 
 if ($brandImage > ' ' ) fwrite($tv_file, '$brandImage:        ' . $brandImage .  ";\n");
 if ($brandSize > ' '  ) fwrite($tv_file, '$brandSize:         ' . $brandSize . ";\n");
@@ -355,9 +355,9 @@ fwrite($st_file, "// css        " . $wsaCssFilename  . "\n//\n");
 // standaard bootstrap variables mixins etc.
 fwrite($st_file, "//\n// standard bootstrap includes v" . $twbs_version . "\n//\n");
 if($twbs_version == '4') { /* twbs version 4 */
-fwrite($st_file, '@import "variables.scss";' . " // nog even uit 3\n");  // nog even uit 3
-fwrite($st_file, '@import "mixins/reset-filter.scss";' . " // nog even uit 3\n"); // nog even uit 3
-fwrite($st_file, '@import "mixins/gradients.scss";' . " // nog even uit 3\n");    // nog even uit 3
+//fwrite($st_file, '@import "variables.scss";' . " // nog even uit 3\n");  // nog even uit 3
+//fwrite($st_file, '@import "mixins/reset-filter.scss";' . " // nog even uit 3\n"); // nog even uit 3
+//fwrite($st_file, '@import "mixins/gradients.scss";' . " // nog even uit 3\n");    // nog even uit 3
 
 // Custom.scss
 // Option B: Include parts of Bootstrap
@@ -468,15 +468,6 @@ fwrite($st_file, '@import "magnificpopup.scss";' . "\n");
 fwrite($st_file, '@import "template_dropdown.scss";' . "\n");
 fwrite($st_file, '@import "template_css.scss";' . "\n");
 
-// TODO anders oplossen body bgcolor en fg color
-fwrite($st_file, "body {\n");
-if ($fgColor > " "  ) fwrite($st_file, "color:  $fgColor ;\n");
-if ($wsaCustomColor0 > " " ) fwrite($st_file, "background-color:  $wsaCustomColor0;\n");
-fwrite($st_file, "}\n");
-
-fwrite($st_file, "#wrapper, \nbody>div.container {\n");
-if ($wsaCustomColor1 > " " ) fwrite($st_file, "background-color:  $wsaCustomColor1;\n");
-fwrite($st_file, "}\n");
 
 if ($wsaCustomSCSS > ' ') fwrite($st_file, '@import "'.JPATH_ROOT.'/images/scss/'.$wsaCustomSCSS.'";'. "\n");
 
