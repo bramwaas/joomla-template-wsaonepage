@@ -442,7 +442,7 @@ fwrite($st_file,
 fwrite($st_file, '@import "node_modules/bootstrap/scss/grid";' . "\n");
 }
 
-fwrite($st_file, '@import "node_modules/bootstrap/scss/mixins";' . "\n");
+fwrite($st_file, '@import "node_modules/bootstrap/scss/container";' . "\n");
 // standaard bootstrap variables mixins etc. einde
 //fwrite($st_file, '@import "system.scss";' . "\n");
 //fwrite($st_file, '@import "general.scss";' . "\n");
