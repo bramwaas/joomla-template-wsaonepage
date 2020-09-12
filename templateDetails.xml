@@ -85,6 +85,15 @@
 					<option value="bg-custom0">WSA_CUSTOM0</option>
 					<option value="bg-custom1">WSA_CUSTOM1</option>
 				</field>
+				<field name="wsaBreadcrumbbg" type="list" default=""
+					label="WSA_BREADCRUMB_LABEL"	
+ 				    description="WSA_BREADCRUMB_DESC"
+				>
+					<option value="default">WSA_DEFAULT</option>
+					<option value="bg-custom">WSA_CUSTOM</option>
+					<option value="bg-custom0">WSA_CUSTOM0</option>
+					<option value="bg-custom1">WSA_CUSTOM1</option>
+				</field>
 				<field name="wsaCustomColor"  type="color" default=""
 					label="BGCOLOR_LABEL"
 					description="Custom (navbar) background color. Default transparent"

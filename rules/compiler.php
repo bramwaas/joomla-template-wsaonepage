@@ -130,7 +130,8 @@ $footerPosBottom	= htmlspecialchars($params->footerPosBottom);
 $menuColor 		= htmlspecialchars($params->menuColor);
 $menuActiveColor 	= htmlspecialchars($params->menuActiveColor);
 $menuDisabledColor 	= htmlspecialchars($params->menuDisabledColor);
-$wsaCustomColor 		= htmlspecialchars($params->wsaCustomColor);
+$wsaCustomColor 		= htmlspecialchars($params->wsaCustomColor); 
+$wsaBreadcrumbbg 		= htmlspecialchars($params->wsaBreadcrumbbg);
 $menuActiveBgColor 	= htmlspecialchars($params->menuActiveBgColor);
 
 $iconsMobileLeft = '';
@@ -304,7 +305,18 @@ if ($wsaCustomColor > ' '  ) {
 			  	fwrite($tv_file, '$dropdown-border: rgba($navbar-default-bg, .5)' .  ";\n");
 			  	fwrite($tv_file, '$navbar-default-toggle-border-color: rgba($navbar-default-bg, .5)' .  ";\n");
 };
+switch ($wsaBreadcrumbbg) {
+    case "bg-custom" : if ($wsaCustomColor > ' '  ) {fwrite($tv_file, '$breadcrumb-bg:    $wsaCustomColor' .  ";\n");};
+        break;
+    case "bg-custom0" : if ($wsaCustomColor0 > ' '  ) {fwrite($tv_file, '$breadcrumb-bg:    $wsaCustomColor0' .  ";\n");};
+        break;
+    case "bg-custom1" : if ($wsaCustomColor1 > ' '  ) {fwrite($tv_file, '$breadcrumb-bg:    $wsaCustomColor1' .  ";\n");};
+        break;
+// default:
+}
 
+
+    
 if ($menuActiveBgColor > ' '  ) { fwrite($tv_file, '$menuActiveBgColor: '  . $menuActiveBgColor .  ";\n");
 			  	fwrite($tv_file, '$graynavbarbg:         $menuActiveBgColor' .  ";\n");
 			  	fwrite($tv_file, '$navbar-default-link-active-bg: $menuActiveBgColor' .  ";\n");
@@ -450,10 +462,13 @@ if ($background > ' '  )
 	fwrite($st_file, '@import "'  . $background .  "\";\n");
 }
 fwrite($st_file, '@import "style' . $templatestyleid . '.var.scss";' . "\n");
+// modules where customized variables are used.
+fwrite($st_file, '@import "node_modules/bootstrap/scss/breadcumb";' . "\n");
 fwrite($st_file, '@import "magnificpopup.scss";' . "\n");
 fwrite($st_file, '@import "template_dropdown.scss";' . "\n");
 fwrite($st_file, '@import "template_css.scss";' . "\n");
 
+// TODO anders oplossen body bgcolor en fg color
 fwrite($st_file, "body {\n");
 if ($fgColor > " "  ) fwrite($st_file, "color:  $fgColor ;\n");
 if ($wsaCustomColor0 > " " ) fwrite($st_file, "background-color:  $wsaCustomColor0;\n");
