@@ -354,7 +354,7 @@ fwrite($st_file, "// css        " . $wsaCssFilename  . "\n//\n");
 
 // standaard bootstrap variables mixins etc.
 fwrite($st_file, "//\n// standard bootstrap includes v" . $twbs_version . "\n//\n");
-if($twbs_version == '4') { /* twbs version 4 */
+if($twbs_version == '4') { /* twbs version 4 */} /* einde twbs version 4 */
 //fwrite($st_file, '@import "variables.scss";' . " // nog even uit 3\n");  // nog even uit 3
 //fwrite($st_file, '@import "mixins/reset-filter.scss";' . " // nog even uit 3\n"); // nog even uit 3
 //fwrite($st_file, '@import "mixins/gradients.scss";' . " // nog even uit 3\n");    // nog even uit 3
@@ -441,8 +441,8 @@ fwrite($st_file,
 //fwrite($st_file, '@import "node_modules/bootstrap/scss/code";' . "\n");
 fwrite($st_file, '@import "node_modules/bootstrap/scss/grid";' . "\n");
 }
-} /* einde twbs version 4 */
 
+fwrite($st_file, '@import "node_modules/bootstrap/scss/mixins";' . "\n");
 // standaard bootstrap variables mixins etc. einde
 //fwrite($st_file, '@import "system.scss";' . "\n");
 //fwrite($st_file, '@import "general.scss";' . "\n");
