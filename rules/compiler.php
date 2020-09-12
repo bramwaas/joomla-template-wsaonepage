@@ -463,7 +463,7 @@ if ($background > ' '  )
 }
 fwrite($st_file, '@import "style' . $templatestyleid . '.var.scss";' . "\n");
 // modules where customized variables are used.
-fwrite($st_file, '@import "node_modules/bootstrap/scss/breadcumb";' . "\n");
+fwrite($st_file, '@import "node_modules/bootstrap/scss/breadcrumb";' . "\n");
 fwrite($st_file, '@import "magnificpopup.scss";' . "\n");
 fwrite($st_file, '@import "template_dropdown.scss";' . "\n");
 fwrite($st_file, '@import "template_css.scss";' . "\n");
