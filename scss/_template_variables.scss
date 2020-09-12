@@ -55,8 +55,8 @@ $wsaNavbarRightWidth: auto;
 $wsaVideoHeight:           80%;  // iets hoger dan 4x3 100 * 3 / 4% ;  100 * 9 / 16%; // 56.25%
 $wsaVideoHeightExtra:      25px;
 $wsaVideoItemWidth:        100%;
-$wsaVideoAutoItemWidth:   map.get($container-max-widths, "xl"); // ipv bs3 $container-lg
-.test {width: $wsaVideoAutoItemWidth;}
+$wsaVideoAutoItemWidth:   1170px; //TODO map.get($container-max-widths, "xl"); // ipv bs3 $container-lg
+.test {width: map.get($container-max-widths, "xl");}
 
 $asModLangFloat:          right;
 $bg0Z-index:		  auto;
