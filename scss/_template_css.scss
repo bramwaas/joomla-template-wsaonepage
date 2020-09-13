@@ -483,7 +483,7 @@ h6 {
 /* ===========================
 	einde alle schermbreedtes
 	========================== */
-@media (max-width: $screen-xs-max) { // max 767 
+@include media-breakpoint-down(xs) { // max 767 
 
 
 }/* einde (max-width: $screen-xs-max) */
