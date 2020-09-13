@@ -195,16 +195,7 @@ I only made one small addition to the standard HTML â€“ I added a container
   }
  
 /* Submenu's onder elkaar plaatsen (tbv mobiele apparaten)*/
-.dropdown,
-.dropdown-submenu {
-      display: block;
-      position: static;
-      float: none;
-   }
-.dropdown-menu {
-      position: static;
-      float: none;
-   }
+
 .open .nav-child.dropdown-menu {
       display: block;
       background-color: transparent;
