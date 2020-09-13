@@ -142,7 +142,7 @@ When scaled down to less than 768px, the menu collapses and works just like the 
 I only made one small addition to the standard HTML â€“ I added a container div around the menu with a class called â€œsidebar-navâ€�.
 (In joomla kan je deze wellicht als menu-class, of module-class meegeven)
 */
-@media (min-width: $screen-sm-min) {
+@include media-breakpoint-up(sm) {//TODO may one size bigger
   .sidebar-nav .navbar .navbar-collapse {
     padding: 0;
     max-height: none;
@@ -164,7 +164,7 @@ I only made one small addition to the standard HTML â€“ I added a container
 }
 /* einde make sidebar nav vertical */ 
 
-@media (min-width: $screen-sm-min) { /* Activates hovering the main items to show the sub items */
+ @include media-breakpoint-up(sm) { /* Activates hovering the main items to show the sub items */ //TODO may one size bigger
        .nav-pills > li > a,
        .dropdown-menu {
           margin: 0;
@@ -186,7 +186,7 @@ I only made one small addition to the standard HTML â€“ I added a container
        }
 }
 
-@media (max-width: $screen-xs-max) {/* minimale breedte voor horizontaal tabs menu */
+ @include media-breakpoint-down(xs) {/* minimale breedte voor horizontaal tabs menu */
 .nav-tabs > li {
     float: none;
   }
@@ -244,7 +244,8 @@ I only made one small addition to the standard HTML â€“ I added a container
 
 }
 
-@if $twbs_version == 4 {
+@if $twbs_version == 4 {} // end twbs 4
+
 @include media-breakpoint-up(sm)
 {  // min 576
 #img_brandImage
@@ -266,23 +267,6 @@ width: $brandWidth * 720 / 960; // md cont = 720
 width: $brandWidth ; // lg 100%
 }
 }/* einde up(lg) */
-} // end twbs 4
-@else { // bs3
-// @include media-breakpoint-up(md) { bs4
-@media (min-width: $screen-sm-min){
-#img_brandImage
-{ 
-width: $brandWidth * 720 / 960; // md cont = 720
-}
-}
-// @include media-breakpoint-up(lg) { bs4
-@media (min-width: $screen-md-min )  { /* desktop (width >= 992px) */
-#img_brandImage
-{ 
-width: $brandWidth ; // lg 100%
-}
-}
 
-} // end twbs 3
 
 
