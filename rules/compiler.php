@@ -6,6 +6,7 @@
  * @copyright Copyright (C) 2016 - 2017 Bram Waasdorp. All rights reserved.
  * @license GNU General Public License version 2 or later; see LICENSE.txt
  * 10-9-2020
+ * 14-9-2020 removed most references to TWBS 3 SASS files and the files itself.
  */
 /* regel voor validatie type compiler, bedoeld om samenstellen en compileren Less bestanden uit te voeren vlak voor
    de save  
@@ -61,11 +62,8 @@ class WsaFormRuleCompiler extends FormRule
 //$templatestyleid =  Uri::getInstance ()->getVar('id');
  $app = Factory::getApplication();
  $currentpath = realpath(__DIR__ ) ;
-//$home = Factory::getApplication()->input->get('jform', '', 'array')['home'];
-//$params = Factory::getApplication()->input->get('jform', '', 'array')['params'];
 $templatestyleid = $input->get('id');
 $home = $input->get('home');
-//$params = json_decode(json_encode ($input->get('params')),true); // stdobject omzetten naar assoc array
 $params = $input->get('params'); // stdobject params are properties.
 
 
@@ -274,7 +272,7 @@ if ($iconsMobileWidth > ' '  ) 	fwrite($tv_file, '$iconsMobileWidth:  '  . $icon
 if ($wsaNavbarRightWidth > ' '  ) 	fwrite($tv_file, '$wsaNavbarRightWidth:        '  . $wsaNavbarRightWidth .  "px;\n");
 
 
-
+// TODO adjust to TWBS4 colornames or remove
 if ($menuColor > ' '  ) { 	fwrite($tv_file, '$menuColor:           '  . $menuColor .  ";\n");
 			  	fwrite($tv_file, '$graynavbarlighter:    lighten($menuColor,30%)' .  ";\n");
 			  	fwrite($tv_file, '$graynavbardarker:     $menuColor' .  ";\n");
@@ -355,9 +353,6 @@ fwrite($st_file, "// css        " . $wsaCssFilename  . "\n//\n");
 // standaard bootstrap variables mixins etc.
 fwrite($st_file, "//\n// standard bootstrap includes v" . $twbs_version . "\n//\n");
 if($twbs_version == '4') { /* twbs version 4 */} /* einde twbs version 4 */
-//fwrite($st_file, '@import "variables.scss";' . " // nog even uit 3\n");  // nog even uit 3
-//fwrite($st_file, '@import "mixins/reset-filter.scss";' . " // nog even uit 3\n"); // nog even uit 3
-//fwrite($st_file, '@import "mixins/gradients.scss";' . " // nog even uit 3\n");    // nog even uit 3
 
 // Custom.scss
 // Option B: Include parts of Bootstrap

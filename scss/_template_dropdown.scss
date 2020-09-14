@@ -1,15 +1,12 @@
 /* _template_dropdown.scss */
 /* ------------------------------------
-  CSS uit template_css.less gehaald om dropdown-menu in joomla goed te laten werken in bootstrap 3
-  oa extra CSS voor dropdown-submenu, dat in B2 bestand bestond, maar in B3 vervallen is
-01-5-2016
-23-5-2016
-9-6-2016
-10-2-2019 bs 4 ipv alleen navbar-defualt (bs3) zelfdekleueren voo
-11-2-2019 brandwith relatief tov lg
-15-5-2020 onepage template TWBS 3 verwijderd.
-7-9-2020 removed bs4 navbar-dark and dropdown-menu because it is old, had an error and it is always present in the standard bootstrap because we don't use bs 3 any more.
-10-9-2020 bg-custom toegevoegd
+  CSS from TWBS2 template_css.less to let work dropdown-menu in Jooomla with TWBS 3
+  in particular extra CSS for dropdown-submenu, that existed in TWB2, but not in TWBS3
+10-2-2019 code for twbs 4 and TWB3 keep using navbar-default (bs3) 
+11-2-2019 brandwith relative  to lg
+15-5-2020 onepage template TWBS 3 removed.
+7-9-2020 removed TWBS4 navbar-default navbar-dark and dropdown-menu because it is old, had an error and it is always present in the standard bootstrap because we don't use bs 3 any more.
+10-9-2020 bg-custom added
 -----------------------------------------*/
 /* ======================
 	GENERAL STYLES
@@ -46,6 +43,11 @@
 @each $color, $value in $theme-colors {
    .bg-#{$color} .dropdown-menu {background-color: #{$value};}
 }
+//@each $breakpoint, $bw in $container-max-widths {
+//.test-#{$breakpoint} {width: $bw;}
+//}
+//.test2{width: map.get($container-max-widths, "xl");}
+//.test3{width: map.get($container-max-widths, "xl");}
 
 /* end from twbs _dropdown.scss but dark with dark backgroud navbar */
  	
