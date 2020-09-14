@@ -193,7 +193,8 @@ order: -1;
   padding-bottom: $wsaVideoHeight;
   padding-top: $wsaVideoHeightExtra;
   max-width: $wsaVideoItemWidth;
-  width: $wsaVideoAutoItemWidth;
+  width: 30px + map-get($container-max-widths, "xxl");   
+  
   height:0;
   object, embed, iframe {
     position:absolute;
