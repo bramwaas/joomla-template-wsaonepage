@@ -43,11 +43,6 @@
 @each $color, $value in $theme-colors {
    .bg-#{$color} .dropdown-menu {background-color: #{$value};}
 }
-//@each $breakpoint, $bw in $container-max-widths {
-//.test-#{$breakpoint} {width: $bw;}
-//}
-//.test2{width: map.get($container-max-widths, "xl");}
-//.test3{width: map.get($container-max-widths, "xl");}
 
 /* end from twbs _dropdown.scss but dark with dark backgroud navbar */
  	
