@@ -10,6 +10,7 @@
  * 29-6-2020 inhoud newsfeed werkt voorlopig naar tevredenheid.
  * 13-7-2020 all component types content, tags, newsfeeds, and contac work, introduces module position-9 behind content and display=menu or content
  * 10-8-2020 removed example sections to work with com_wsaonepage for a bs4 onepagemenu with bookmarks to the componenent content of menuitems with #op# in note
+ * 10-9-2020 new method for template params for navbar and backgroud
 */
 
 // copied from cassiopeia
@@ -42,7 +43,7 @@ $templatestyleid =  $template->id;
 $displaySitename = htmlspecialchars($templateparams->get('displaySitename')); // 1 yes 2 no 
 
 
-$bg0Color    	= htmlspecialchars($this->params->get('bg0Color'));
+$wsaCustomColor0    	= htmlspecialchars($this->params->get('wsaCustomColor0'));
 
 $bg1Image    	= htmlspecialchars($this->params->get('bg1Image'));
 $bg1Image_lg    	= htmlspecialchars($this->params->get('bg1Image_lg'));
@@ -53,7 +54,7 @@ $bg1Breakpoint_sm    	= htmlspecialchars($this->params->get('bg1Breakpoint_sm'))
 $bg1Width    	= htmlspecialchars($this->params->get('bg1Width'));
 $bg1Top      	= htmlspecialchars($this->params->get('bg1Top'));
 $bg1Left      	= htmlspecialchars($this->params->get('bg1Left'));
-$bg1Color    	= htmlspecialchars($this->params->get('bg1Color'));
+$wsaCustomColor1    	= htmlspecialchars($this->params->get('wsaCustomColor1'));
 $bg1ImageW    	= htmlspecialchars($this->params->get('bg1ImageW'));
 $bg1ImageH    	= htmlspecialchars($this->params->get('bg1ImageH'));
 $bg1Image_lgW  	= htmlspecialchars($this->params->get('bg1Image_lgW'));
@@ -68,12 +69,13 @@ if (path_parts['extension'] <> 'css'){$wsaCssFilename = $wsaCssFilename . '.css'
 else
 { $wsaCssFilename = 'template.min.' . $templatestyleid . '.css';}
 
-$twbs_version 		= htmlspecialchars($this->params->get('twbs_version', '4'));
+$twbs_version 		= '4';
 $include_twbs_css	= htmlspecialchars($this->params->get('include_twbs_css', '1'));
 $include_twbs_js	= htmlspecialchars($this->params->get('include_twbs_js','1'));
 $wsaTime            = htmlspecialchars($this->params->get('wsaTime',''));
 $wsaTime 			= strtr($wsaTime, array(' '=> 't', ':' => '' ));
 $wsaNavbarExpand = htmlspecialchars($this->params->get('wsaNavbarExpand', 'navbar-expand-md'));
+$wsaContentWidthTransition = htmlspecialchars($this->params->get('wsaContentWidthTransition', 'container'));
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->language; ?>" lang="<?php echo $this->language; ?>" dir="<?php echo $this->direction; ?>" prefix="og: http://ogp.me/ns#  fb: http://www.facebook.com/2008/fbml" >
@@ -192,7 +194,7 @@ class="site-grid site <?php echo $pageclass;
 >
 
 <!-- Begin Container-->
-	<div id="wrapper" class="<?php echo $w0container; ?>">
+	<div id="wrapper" class="<?php echo $wsaContentWidthTransition; ?>">
 <?php if ($bg1Image > " " )
 { echo "\n" . '<img id="img_bg1Image" src="' . $bg1Image . '" alt="Background image content"';
 	if ($bg1ImageW > 0 ) {echo "\n\t" . 'width="' . $bg1ImageW .'"';}

@@ -22,6 +22,7 @@
 // 20200815 in rss images display inlineblock in stead of float added navbar-placeholder to hold space for absolute positioned navbar.
 // 20200822 removed references to $twbs_version == 3 (and also 4) because we only use bootstrap 4 
 // 20200829 scrolling-nav.css weer verwijderd
+// 20200912 colors body here from compiler
 / * ===========================
 	alle schermbreedtes
 	Write your general styles eerst voor alle schermbreedtes, 
@@ -81,12 +82,16 @@ body>div.container {
 	position: relative;
 	overflow-x: hidden;
     border-radius: $wrapperBorderRadius;
+@if variable-exists(wsaCustomColor1) {   background-color:  $wsaCustomColor1;}
 }
 #wrapper1
 {
 /* voor achtergrondafbeeldingen van #wrapper geen extra margin ed toevoegen, anders klopt lay-out niet meer */
    position: relative;
 }
+
+
+
 .section.component { /* section for each menu-item on this page */
  padding-top: 0;
 }
@@ -188,7 +193,8 @@ order: -1;
   padding-bottom: $wsaVideoHeight;
   padding-top: $wsaVideoHeightExtra;
   max-width: $wsaVideoItemWidth;
-  width: $wsaVideoAutoItemWidth;
+  width: 30px + map-get($container-max-widths, "xxl");   
+  
   height:0;
   object, embed, iframe {
     position:absolute;
@@ -378,6 +384,8 @@ body {
 	padding-top: 10px;
 	padding-bottom: 40px;
 	overflow: auto;
+@if variable-exists(wsaForegroundColor) {   color:  $wsaForegroundColor;}
+@if variable-exists(wsaCustomColor0)    {   background-color:  $wsaCustomColor0;}
 }
 
 /* aanpassingen rij in tag-lijst en tag overzicht, tag-list ongedaan maken voor pagination */
@@ -476,7 +484,7 @@ h6 {
 /* ===========================
 	einde alle schermbreedtes
 	========================== */
-@media (max-width: $screen-xs-max) { // max 767 
+@include media-breakpoint-down(xs) { // max 767 
 
 
 }/* einde (max-width: $screen-xs-max) */

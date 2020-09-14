@@ -1,19 +1,53 @@
-/* template_dropdown.scss */
+/* _template_dropdown.scss */
 /* ------------------------------------
-  CSS uit template_css.less gehaald om dropdown-menu in joomla goed te laten werken in bootstrap 3
-  oa extra CSS voor dropdown-submenu, dat in B2 bestand bestond, maar in B3 vervallen is
-01-5-2016
-23-5-2016
-9-6-2016
-10-2-2019 bs 4 ipv alleen navbar-defualt (bs3) zelfdekleueren voo
-11-2-2019 brandwith relatief tov lg
-15-5-2020 onepage template TWBS 3 verwijderd.
-7-9-2020 removed bs4 navbar-dark and dropdown-menu because it is old, had an error and it is always present in the standard bootstrap because we don't use bs 3 any more.
+  CSS from TWBS2 template_css.less to let work dropdown-menu in Jooomla with TWBS 3
+  in particular extra CSS for dropdown-submenu, that existed in TWB2, but not in TWBS3
+10-2-2019 code for twbs 4 and TWB3 keep using navbar-default (bs3) 
+11-2-2019 brandwith relative  to lg
+15-5-2020 onepage template TWBS 3 removed.
+7-9-2020 removed TWBS4 navbar-default navbar-dark and dropdown-menu because it is old, had an error and it is always present in the standard bootstrap because we don't use bs 3 any more.
+10-9-2020 bg-custom added
 -----------------------------------------*/
 /* ======================
 	GENERAL STYLES
 	===================== */
-/* dropdown-submenu werkt standaard niet meer in bootstrap 3 */
+/* from twbs _dropdown.scss but colors dark with dark background navbar from _navbar.scss .navbar-dark .navbar-nav .nav-link and bg-dark */
+// The dropdown menu
+.navbar-dark {
+.dropdown-menu {
+  .nav-link {
+      color: $navbar-dark-color;
+
+      &:hover,
+      &:focus {
+        color: $navbar-dark-hover-color;
+      }
+
+      &.disabled {
+        color: $navbar-dark-disabled-color;
+      }
+    }
+
+    .show > .nav-link,
+    .nav-link.active {
+      color: $navbar-dark-active-color;
+    }
+    border: $dropdown-border-width solid $navbar-dark-color;
+}
+}
+.bg-custom {background-color: $wsaCustomColor;}
+@if variable-exists(wsaCustomColor0) { .bg-custom0 {background-color: $wsaCustomColor0;}}
+@if variable-exists(wsaCustomColor1) { .bg-custom1 {background-color: $wsaCustomColor1;}}
+
+
+@each $color, $value in $theme-colors {
+   .bg-#{$color} .dropdown-menu {background-color: #{$value};}
+}
+
+/* end from twbs _dropdown.scss but dark with dark backgroud navbar */
+ 	
+	
+/* dropdown-submenu doesn't work default since bootstrap 3 */
 .dropdown-submenu {
     position:relative;
 
@@ -46,7 +80,7 @@
    }
 
    &:hover>a:after {
-    border-left-color:$navbar-default-link-active-color;
+    border-left-color:$navbar-light-active-color; 
    }
 
    &.pull-left { 
@@ -63,6 +97,12 @@
    
 /* dropdown-submenu einde */
 }
+.navbar-dark {
+.dropdown-submenu :hover>a:after {
+    border-left-color:$navbar-dark-active-color; 
+   }
+}
+
 
 
 
@@ -86,104 +126,6 @@ color: #333;
 
 
 
-// uit nav.less
-.nav {  // dit zou mogelijk ook voor  .navbar-dark .navbar-nav .nav-link.active moeten gelden
-  > li {
-    > a {
-      &:hover,
-      &:focus {
-        text-decoration: none;
-        background-color: $nav-link-hover-bg;
-      }
-    }
-    // Disabled state sets text to gray and nukes hover/tab effects
-    &.disabled > a {
-      color: $nav-disabled-link-color;
-      &:hover,
-      &:focus {
-        color: $nav-disabled-link-hover-color;
-        text-decoration: none;
-        background-color: transparent;
-        cursor: $cursor-disabled;
-      }
-    }
-  }
-
-  // Open dropdowns
-  .open > a {
-    &,
-    &:hover,
-    &:focus {
-      background-color: $nav-link-hover-bg;
-      border-color: $link-color;
-    }
-  }
- } 
-// Tabs
-// -------------------------
-
-// Give the tabs something to sit on
-.nav-tabs {
-  border-bottom: 1px solid $nav-tabs-border-color;
-  > li {
-    float: left;
-    // Make the list-items overlay the bottom border
-    margin-bottom: -1px;
-
-    // Actual tabs (as links)
-    > a {
-      margin-right: 2px;
-      line-height: $line-height-base;
-      border: 1px solid transparent;
-      border-radius: $border-radius-base $border-radius-base 0 0;
-      &:hover {
-        border-color: $nav-tabs-link-hover-border-color $nav-tabs-link-hover-border-color $nav-tabs-border-color;
-      }
-    }
-
-    // Active state, and its :hover to override normal :hover
-    &.active > a {
-      &,
-      &:hover,
-      &:focus {
-        color: $nav-tabs-active-link-hover-color;
-        background-color: $nav-tabs-active-link-hover-bg;
-        border: 1px solid $nav-tabs-active-link-hover-border-color;
-        border-bottom-color: transparent;
-        cursor: default;
-      }
-    }
-  }
-
-}
-
-
-// Pills
-// -------------------------
-.nav-pills {
-  > li {
-    float: left;
-
-    // Links rendered as pills
-    > a {
-      border-radius: $nav-pills-border-radius;
-    }
-    + li {
-      margin-left: 2px;
-    }
-
-    // Active state
-    &.active > a {
-      &,
-      &:hover,
-      &:focus {
-        color: $nav-pills-active-link-hover-color;
-        background-color: $nav-pills-active-link-hover-bg;
-      }
-    }
-  }
-}
-// uit nav.less einde 
 /* ===================================================================================
 	BOOTSTRAP MEDIA QUERIES OVERRIDES
 	NOTE: The order of the media queries is important when styles overwrite each other
@@ -197,7 +139,7 @@ When scaled down to less than 768px, the menu collapses and works just like the 
 I only made one small addition to the standard HTML â€“ I added a container div around the menu with a class called â€œsidebar-navâ€�.
 (In joomla kan je deze wellicht als menu-class, of module-class meegeven)
 */
-@media (min-width: $screen-sm-min) {
+@include media-breakpoint-up(sm) {//TODO may one size bigger
   .sidebar-nav .navbar .navbar-collapse {
     padding: 0;
     max-height: none;
@@ -219,7 +161,7 @@ I only made one small addition to the standard HTML â€“ I added a container
 }
 /* einde make sidebar nav vertical */ 
 
-@media (min-width: $screen-sm-min) { /* Activates hovering the main items to show the sub items */
+ @include media-breakpoint-up(sm) { /* Activates hovering the main items to show the sub items */ //TODO may one size bigger
        .nav-pills > li > a,
        .dropdown-menu {
           margin: 0;
@@ -241,7 +183,7 @@ I only made one small addition to the standard HTML â€“ I added a container
        }
 }
 
-@media (max-width: $screen-xs-max) {/* minimale breedte voor horizontaal tabs menu */
+ @include media-breakpoint-down(xs) {/* minimale breedte voor horizontaal tabs menu */
 .nav-tabs > li {
     float: none;
   }
@@ -250,16 +192,7 @@ I only made one small addition to the standard HTML â€“ I added a container
   }
  
 /* Submenu's onder elkaar plaatsen (tbv mobiele apparaten)*/
-.dropdown,
-.dropdown-submenu {
-      display: block;
-      position: static;
-      float: none;
-   }
-.dropdown-menu {
-      position: static;
-      float: none;
-   }
+
 .open .nav-child.dropdown-menu {
       display: block;
       background-color: transparent;
@@ -299,7 +232,8 @@ I only made one small addition to the standard HTML â€“ I added a container
 
 }
 
-@if $twbs_version == 4 {
+@if $twbs_version == 4 {} // end twbs 4
+
 @include media-breakpoint-up(sm)
 {  // min 576
 #img_brandImage
@@ -321,23 +255,6 @@ width: $brandWidth * 720 / 960; // md cont = 720
 width: $brandWidth ; // lg 100%
 }
 }/* einde up(lg) */
-} // end twbs 4
-@else { // bs3
-// @include media-breakpoint-up(md) { bs4
-@media (min-width: $screen-sm-min){
-#img_brandImage
-{ 
-width: $brandWidth * 720 / 960; // md cont = 720
-}
-}
-// @include media-breakpoint-up(lg) { bs4
-@media (min-width: $screen-md-min )  { /* desktop (width >= 992px) */
-#img_brandImage
-{ 
-width: $brandWidth ; // lg 100%
-}
-}
 
-} // end twbs 3
 
 

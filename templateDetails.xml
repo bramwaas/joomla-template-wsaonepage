@@ -8,8 +8,8 @@
     </include>
   </compatibility>
 	<name>wsa_onepage</name>
-	<version>1.2.0</version>
-	<creationDate>7-9-2020</creationDate>
+	<version>1.2.2</version>
+	<creationDate>14-9-2020</creationDate>
 	<author>AHC Waasdorp</author>
 	<authorEmail>info@waasdorpsoekhan.nl</authorEmail>
 	<authorUrl>http://www.waasdorpsoekhan.nl</authorUrl>
@@ -72,10 +72,51 @@
 			<fieldset name="Background">
 				<field name="explanation0"  type="spacer" hr="false"
 					 />
-				<field name="bg0Color"  type="color" default=""
+				<field name="wsaNavbarbg" type="list" default="bg-light"
+					label="WSA_NAVBARBG_LABEL"	
+ 				    description="WSA_NAVBARBG_DESC"
+				>
+					<option value="bg-primary">WSA_PRIMARY</option>
+					<option value="bg-secundary">WSA_SECUNDARY</option>
+					<option value="bg-light">WSA_LIGHT</option>
+					<option value="bg-transparent">WSA_TRANSPARENT</option>
+					<option value="bg-dark">WSA_DARK</option>
+					<option value="bg-custom">WSA_CUSTOM</option>
+					<option value="bg-custom0">WSA_CUSTOM0</option>
+					<option value="bg-custom1">WSA_CUSTOM1</option>
+				</field>
+				<field name="wsaBreadcrumbbg" type="list" default=""
+					label="WSA_BREADCRUMB_LABEL"	
+ 				    description="WSA_BREADCRUMB_DESC"
+				>
+					<option value="default">WSA_DEFAULT</option>
+					<option value="bg-custom">WSA_CUSTOM</option>
+					<option value="bg-custom0">WSA_CUSTOM0</option>
+					<option value="bg-custom1">WSA_CUSTOM1</option>
+				</field>
+				<field name="wsaCustomColor"  type="color" default=""
 					label="BGCOLOR_LABEL"
-					description="Background color name or #RGB, #000000 = black, #FF0000 = red, #00FF00 = green, #0000FF = blue, #FFFFFF = white, default #080810  "
+					description="Custom (navbar) background color. Default transparent"
 					 />
+				<field name="wsaCustomColor0"  type="color" default=""
+					label="BGCOLOR_LABEL"
+					description="Custom (browser) Background color 0. default none"
+					 />
+				<field name="wsaCustomColor1"  type="color" default=""
+					label="BGCOLOR_LABEL"
+					description="Custom (content) Background color 1. default none"
+					 />
+				<field name="explanation3"  type="spacer" hr="false"
+					label="WSA_WIDTH_TRANSITIONS_LABEL"
+					 />
+				<field name="wsaNavbarWidthTransition" type="radio" class="switcher btn-group" default="container" label="WSA_NAVBAR_LABEL" description="WSA_NAVBARWIDTHTR_DESC" >
+					<option value="container">WSA_STEPS</option>
+					<option value="container-fluid">WSA_FLUID</option>
+				</field>
+				<field name="wsaContentWidthTransition" type="radio" class="switcher btn-group" default="container" label="WSA_CONTENT_LABEL" description="WSA_CONTENTWIDTHTR_DESC" >
+					<option value="container">WSA_STEPS</option>
+					<option value="container-fluid">WSA_FLUID</option>
+				</field>
 				<field name="explanation1"  type="spacer" hr="false"
 					 />
 				<field name="bg1Image" type="media" default="" 
@@ -127,13 +168,9 @@
 					label="BGLEFT_LABEL"
 					description="Background image margin left"
 					 />					 
-				<field name="bg1Color"  type="color" default=""
-					label="BGCOLOR_LABEL"
-					description="Background color name or #RGB, #000000 = black, #FF0000 = red, #00FF00 = green, #0000FF = blue, #FFFFFF = white, default #080810  "
-					 />
 			</fieldset>
 			<fieldset name="Advanced">
-				<field name="explanation3"  type="spacer" hr="false"
+				<field name="explanation2"  type="spacer" hr="false"
 					label="Other lay-out variables. &lt;br /&gt;"
 					 />
 				<field name="wsaBreakpointes"  class="validate-numeric" type="text" default=""
@@ -172,8 +209,9 @@
 					<option value="navbar-expand-xxl">WSA_NAVBAREXPAND_XXL</option>
 					<option value="navbar-expand-xxxl">WSA_NAVBAREXPAND_XXXL</option>
 				</field>
+
 					 
-				<field name="fgColor"  type="color" default=""
+				<field name="wsaForegroundColor"  type="color" default=""
 					label="Foreground color:"
 					description="If not empty overwrite color of most texts .  Color name or #RGB, #000000 = black, #FF0000 = red, #00FF00 = green, #0000FF = blue, #FFFFFF = white, default empty"
 					 />
@@ -271,32 +309,21 @@
 					label="Menu text size:"
 					description="Menu text font size (pixels)."
 					 />
-				<field name="menuDisplay" type="list" default=""
-					label="Horizontal menu"	
- 				    description="Underline menu text."
+				<field name="wsaNavbarfg" type="list" default="navbar-light"
+					label="WSA_NAVBARFG_LABEL"	
+ 				    description="WSA_NAVBARFG_DESC"
 				>
-					<option value="">Default</option>
-					<option value="inline">Horizontal</option>
-					<option value="inline-block center">Horizontal centered</option>
-					<option value="inline-block left">Horizontal left</option>
-					<option value="inline-block right">Horizontal right</option>
-					<option value="block">Vertical (down)</option>
+					<option value="navbar-light">WSA_LIGHT</option>
+					<option value="navbar-dark">WSA_DARK</option>
 				</field>
-				<field name="menuType" type="list" default=""
-					label="Type menu"	
- 				    description="Type backround inverse etc. of menu"
+				<field name="wsaNavbarpos" type="list" 
+					label="WSA_NAVBARPOS_LABEL"	
+ 				    description="WSA_NAVBARPOS_DESC"
 				>
-					<option value="navbar-light bg-light">Default</option>
-					<option value="navbar-light bg-transparent">Transparent</option>
-					<option value="navbar-dark bg-dark">Inverse</option>
-					<option value="navbar-dark bg-transparent">Inverse Transparent</option>
-  					<option value="navbar-light bg-light navbar-fixed-top">Default fixed top</option>
-  					<option value="navbar-light bg-light navbar-fixed-bottom">Default fixed bottom</option>
-  					<option value="navbar-light bg-light navbar-static-top">Default static top</option>
-  					<option value="navbar-dark bg-dark navbar-fixed-top">Inverse fixed top</option>
-  					<option value="navbar-dark bg-dark navbar-fixed-bottom">Inverse fixed bottom</option>
-  					<option value="navbar-dark bg-dark navbar-static-top">Inverse static top</option>
-                
+					<option value="">WSA_DEFAULT</option>
+					<option value="fixed-top">WSA_FIXEDTOP</option>
+					<option value="fixed-bottom">WSA_FIXEDBOTTOM</option>
+					<option value="static-top">WSA_STATICTOP</option>
 				</field>
 				<field name="displaySitename" type="list" default="1" label="WSA_DISPLAYSITENAME_LABEL" description="WSA_DISPLAYSITENAME_DESCRIPTION">
 					<option value="1">JYES</option>
@@ -313,10 +340,6 @@
 				<field name="menuDisabledColor"  type="color" default=""
 					label="Menudisabled color:"
 					description="If not empty overwrite color of disabled menu text. Default empty  "
-					 />
-				<field name="menuBgColor"  type="color" default=""
-					label="Menubackground color:"
-					description="If not empty overwrite color of menu background. Default empty  "
 					 />
 				<field name="wsaNavbarRightWidth"  class="validate-numeric" type="text" default="340"
 					label="WSA_NAVBARRIGHT_LABEL"
