@@ -22,8 +22,7 @@ use Joomla\CMS\Uri\Uri;
 /** @var Joomla\CMS\Document\HtmlDocument $this */
 
 $app = Factory::getApplication();
-$wa  = $this->getWebAssetManager();
-// end copied from cassiopeia
+//$wa  = $this->getWebAssetManager();
 
 $app  = Factory::getApplication();
 $lang = Factory::getLanguage();
@@ -34,9 +33,10 @@ $view     = $app->input->getCmd('view', '');
 $layout   = $app->input->getCmd('layout', '');
 $task     = $app->input->getCmd('task', '');
 $itemid   = $app->input->getCmd('Itemid', '');
-$sitename = $app->get('sitename');
+$sitename = htmlspecialchars($app->get('sitename'), ENT_QUOTES, 'UTF-8');
 $menu     = $app->getMenu()->getActive();
-$pageclass = (isset($menu)) ? $menu->params->get('pageclass_sfx') : '';
+$pageclass = $menu !== null ? $menu->getParams()->get('pageclass_sfx', '') : '';
+
 
 // end copied from cassiopeia
 
