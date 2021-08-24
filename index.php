@@ -12,14 +12,18 @@
  * 10-8-2020 removed example sections to work with com_wsaonepage for a bs4 onepagemenu with bookmarks to the componenent content of menuitems with #op# in note
  * 10-9-2020 new method for template params for navbar and backgroud
 */
-
+\defined('_JEXEC') or die;
 // copied from cassiopeia
-use Joomla\CMS\Factory;   // this is the same as use Joomla\CMS\Factory as Factory
-//use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Language\Text;   // voor vertalingen???
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Uri\Uri;
+
+/** @var Joomla\CMS\Document\HtmlDocument $this */
+
+$app = Factory::getApplication();
+$wa  = $this->getWebAssetManager();
 // end copied from cassiopeia
-/** @var JDocumentHtml $this */
 
 $app  = Factory::getApplication();
 $lang = Factory::getLanguage();
