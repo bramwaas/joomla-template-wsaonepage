@@ -392,8 +392,7 @@
 			 	<field name="wsaCustomSCSS" type="filelist" directory="images" hide_default="true"
                    	label="WSA_CUSTOMCSS_LABEL" 
                    	description="WSA_CUSTOMCSS_DESCRIPTION"
-                   	filter="*css"  
-                   	fileFilter="*css" 
+
                    	/>
 				<field name="wsaCssFilename"  type="text" default=""
 					label="WSA_CSS_FILENAME_LABEL"
