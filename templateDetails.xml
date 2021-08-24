@@ -389,9 +389,11 @@
   					<option value="1">JYES</option>
   					<option value="0">JNO</option>
 				</field>
-			 	<field name="wsaCustomSCSS" type="filelist" directory="images/scss" hide_default="true"
+			 	<field name="wsaCustomSCSS" type="filelist" directory="images" hide_default="true"
                    	label="WSA_CUSTOMCSS_LABEL" 
                    	description="WSA_CUSTOMCSS_DESCRIPTION"
+                   	filter="*css"  
+                   	fileFilter="*css" 
                    	/>
 				<field name="wsaCssFilename"  type="text" default=""
 					label="WSA_CSS_FILENAME_LABEL"
