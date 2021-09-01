@@ -33,6 +33,7 @@
  * 18-7-2020 added override wrapper view onepage, to put the sections of onepage in that view 
  * 19-7-2020 did not work correctly with wrapper only with com_content so overrides wrapper removed
  * 10-8-2020 list of components moved to com_wsaonepage where it belongs and removed from this module.
+ * 1-9-2021 J4 Item->getParams() replacing ->params
  */
 
 defined('_JEXEC') or die;
@@ -153,7 +154,7 @@ echo '<button class="navbar-toggler" type="button" data-toggle="collapse" data-t
 	{
 	    $class .= ' default';
 	}
-	if ($item->id == $active_id  || ($item->type === 'alias' && $item->params->get('aliasoptions') == $active_id))
+	if ($item->id == $active_id  || ($item->type === 'alias' && $item->getParams()->get('aliasoptions') == $active_id))
 	{
 		$class .= ' current';
 	}
@@ -164,7 +165,7 @@ echo '<button class="navbar-toggler" type="button" data-toggle="collapse" data-t
 	}
 	elseif ($item->type === 'alias')
 	{
-		$aliasToId = $item->params->get('aliasoptions');
+	    $aliasToId = $item->getParams()->get('aliasoptions');
 
 		if (count($path) > 0 && $aliasToId == $path[count($path) - 1])
 		{
