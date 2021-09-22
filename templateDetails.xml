@@ -3,18 +3,31 @@
 <extension version="3.8" type="template" client="site" method="upgrade">
   <compatibility>
     <include>
-      <versions from="3.9.18" to="3.99.99" />
+      <versions from="3.9.18" to="4.0.99" />
       <!--  versions from="4.0.0" to="4.99.99" / -->
     </include>
   </compatibility>
 	<name>wsa_onepage</name>
-	<version>1.2.2</version>
-	<creationDate>14-9-2020</creationDate>
+	<version>1.2.4</version>
+	<creationDate>24-8-2021</creationDate>
 	<author>AHC Waasdorp</author>
 	<authorEmail>info@waasdorpsoekhan.nl</authorEmail>
 	<authorUrl>http://www.waasdorpsoekhan.nl</authorUrl>
 	<copyright>AHC Waasdorp, Amsterdam 2020 - 2020</copyright>
 	<description>TPL_WSA_ONEPAGE_DESCRIPTION</description>
+	    <!-- This is the PHP namespace under which the extension's
+    code is organised. It should follow this format:
+    
+    Vendor\Component\ComponentName
+
+    "Vendor" can be your company or your own name
+    
+    The "ComponentName" section MUST match the name used 
+    everywhere else for your component. Whatever the name of 
+    this XML file is, the namespace must match (ignoring CamelCase). 
+    -->
+    <namespace path="src/">WaasdorpSoekhan\Template\Wsaonepage</namespace>
+	
 	<files>
 		<filename>component.php</filename>
 		<filename>favicon_as_2015.ico</filename>
@@ -376,9 +389,10 @@
   					<option value="1">JYES</option>
   					<option value="0">JNO</option>
 				</field>
-			 	<field name="wsaCustomSCSS" type="filelist" directory="images/scss" hide_default="true"
+			 	<field name="wsaCustomSCSS" type="filelist" directory="images" hide_default="true"
                    	label="WSA_CUSTOMCSS_LABEL" 
                    	description="WSA_CUSTOMCSS_DESCRIPTION"
+
                    	/>
 				<field name="wsaCssFilename"  type="text" default=""
 					label="WSA_CSS_FILENAME_LABEL"

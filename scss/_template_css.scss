@@ -23,6 +23,7 @@
 // 20200822 removed references to $twbs_version == 3 (and also 4) because we only use bootstrap 4 
 // 20200829 scrolling-nav.css weer verwijderd
 // 20200912 colors body here from compiler
+// 20201201 #navbar-placeholder display: none. Because the extra height must be added to all sections with section.component not only to the first. But can be used if we think the other way again.
 / * ===========================
 	alle schermbreedtes
 	Write your general styles eerst voor alle schermbreedtes, 
@@ -54,6 +55,7 @@
 {width: 100%;
 height: $navbar-height;
 border-radius: $wrapperBorderRadius;
+display: none; 
 }
 // @if $twbs_version == 4 { } // einde bs4 @else { // bs3 {}
 #headerleft {

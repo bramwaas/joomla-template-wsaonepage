@@ -12,14 +12,17 @@
  * 10-8-2020 removed example sections to work with com_wsaonepage for a bs4 onepagemenu with bookmarks to the componenent content of menuitems with #op# in note
  * 10-9-2020 new method for template params for navbar and backgroud
 */
-
+\defined('_JEXEC') or die;
 // copied from cassiopeia
-use Joomla\CMS\Factory;   // this is the same as use Joomla\CMS\Factory as Factory
-//use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Language\Text;   // voor vertalingen???
-// end copied from cassiopeia
-/** @var JDocumentHtml $this */
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Uri\Uri;
+
+/** @var Joomla\CMS\Document\HtmlDocument $this */
+
+$app = Factory::getApplication();
+//$wa  = $this->getWebAssetManager();
 
 $app  = Factory::getApplication();
 $lang = Factory::getLanguage();
@@ -30,9 +33,10 @@ $view     = $app->input->getCmd('view', '');
 $layout   = $app->input->getCmd('layout', '');
 $task     = $app->input->getCmd('task', '');
 $itemid   = $app->input->getCmd('Itemid', '');
-$sitename = $app->get('sitename');
+$sitename = htmlspecialchars($app->get('sitename'), ENT_QUOTES, 'UTF-8');
 $menu     = $app->getMenu()->getActive();
-$pageclass = (isset($menu)) ? $menu->params->get('pageclass_sfx') : '';
+$pageclass = $menu !== null ? $menu->getParams()->get('pageclass_sfx', '') : '';
+
 
 // end copied from cassiopeia
 
