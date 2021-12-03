@@ -11,6 +11,7 @@
  * 13-7-2020 all component types content, tags, newsfeeds, and contac work, introduces module position-9 behind content and display=menu or content
  * 10-8-2020 removed example sections to work with com_wsaonepage for a bs4 onepagemenu with bookmarks to the componenent content of menuitems with #op# in note
  * 10-9-2020 new method for template params for navbar and backgroud
+ * 3-12-2021 removed caption.js (not avail in J4) and some earlier deactivated code
 */
 \defined('_JEXEC') or die;
 // copied from cassiopeia
@@ -112,8 +113,6 @@ $this->addStyleSheet('templates/' . $this->template . '/css/' . $wsaCssFilename 
 
 // alleen nog twbs 4
 if ($include_twbs_js == "1") {
-//    $this->addScript('https://code.jquery.com/jquery-3.5.1.slim.min.js', array('version'=>'3.5.1'),
-//        array('id'=>'jquery.js', 'integrity' => 'sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj', 'crossorigin' => 'anonymous'));
     $this->addScript('https://code.jquery.com/jquery-3.5.1.min.js', array('version'=>'3.5.1'),
         array('id'=>'jquery.js', 'integrity' => 'sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=', 'crossorigin' => 'anonymous'));
     $this->addScript('https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js', array('version'=>'1.16.1'),
@@ -123,16 +122,9 @@ if ($include_twbs_js == "1") {
 }
 
 $this->addScript($this->baseurl . '/templates/' . $this->template . '/js/magnificpopup/MagnificPopupV1-1-0.js', array('version'=>'1-1-0'), array('id'=>'MagnificPopupV1-1-0.js', 'defer'=>'defer'));
-$this->addScript($this->baseurl  . '/media/system/js/caption.js' , array('version'=>'auto'), array('id'=>'caption.js', 'defer'=>'defer')); // defer caption.js. 
 
-// van startbootstrap: <!-- Bootstrap core JavaScript -->
-//$this->addScript($this->baseurl . '/templates/' . $this->template . '/vendor/jquery/jquery.min.js', array('version'=>'xxx'), array('id'=>'jquery.min.js', 'defer'=>'defer'));
-//$this->addScript($this->baseurl . '/templates/' . $this->template . '/vendor/bootstrap/js/bootstrap.bundle.min.js', array('version'=>'4.3.1'), array('id'=>'bootstrap.bundle.min.js', 'defer'=>'defer'));
 // <!-- Plugin JavaScript -->
 $this->addScript($this->baseurl . '/templates/' . $this->template . '/vendor/jquery-easing/jquery.easing.min.js', array('version'=>'xxx'), array('id'=>'jquery.easing.min.js', 'defer'=>'defer'));
-// van template, samengevoegd met scrolling nav van startbootstrap	
-// evt ipv ease ui
-// <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"     integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="     crossorigin="anonymous"></script>
 
 
 $this->addScript($this->baseurl . '/templates/' . $this->template . '/js/scrolling-nav.js', array('version'=>'auto'), array('id'=>'scrolling-nav.js', 'defer'=>'defer'));
