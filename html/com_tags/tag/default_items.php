@@ -20,7 +20,7 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;  
 use Joomla\CMS\Router\Route;
-
+use Joomla\Component\Tags\Site\Helper\RouteHelper;
 
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 
@@ -93,7 +93,7 @@ Factory::getDocument()->addScriptDeclaration("
 						</h3>
 					<?php else : ?>
 						<h3 itemprop="name">
-							<a href="<?php echo Route::_(TagsHelperRoute::getItemRoute($item->content_item_id, $item->core_alias, $item->core_catid, $item->core_language, $item->type_alias, $item->router)); ?>" itemprop="url">
+							<a href="<?php echo Route::_(RouteHelper::getItemRoute($item->content_item_id, $item->core_alias, $item->core_catid, $item->core_language, $item->type_alias, $item->router)); ?>" itemprop="url">
 								<?php echo $this->escape($item->core_title); ?>
 							</a>
 						</h3>
@@ -103,7 +103,7 @@ Factory::getDocument()->addScriptDeclaration("
 				<?php echo $item->event->afterDisplayTitle; ?>
 				<?php $images = json_decode($item->core_images); ?>
 				<?php if ($this->params->get('tag_list_show_item_image', 1) == 1 && !empty($images->image_intro)) : ?>
-					<a href="<?php echo Route::_(TagsHelperRoute::getItemRoute($item->content_item_id, $item->core_alias, $item->core_catid, $item->core_language, $item->type_alias, $item->router)); ?>" itemprop="url">
+					<a href="<?php echo Route::_(RouteHelper::getItemRoute($item->content_item_id, $item->core_alias, $item->core_catid, $item->core_language, $item->type_alias, $item->router)); ?>" itemprop="url">
 						<img src="<?php echo htmlspecialchars($images->image_intro); ?>" alt="<?php echo htmlspecialchars($images->image_intro_alt); ?>" itemprop="image" />
 					</a>
 				<?php endif; ?>
@@ -122,7 +122,7 @@ Factory::getDocument()->addScriptDeclaration("
 			or (isset($this->item[0]->readmore) and $this->item[0]->readmore)
                               )  :
                   ?>
-            <p class="readmore"><a class="btn" href="<?php echo Route::_(TagsHelperRoute::getItemRoute($item->content_item_id, $item->core_alias, $item->core_catid, $item->core_language, $item->type_alias, $item->router)); ?>">
+            <p class="readmore"><a class="btn" href="<?php echo Route::_(RouteHelper::getItemRoute($item->content_item_id, $item->core_alias, $item->core_catid, $item->core_language, $item->type_alias, $item->router)); ?>">
 		<?php 
                         if (json_decode($item->core_params)->alternative_readmore > "") :
                                	echo  Text::_(json_decode($item->core_params)->alternative_readmore); 
