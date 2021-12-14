@@ -24,7 +24,8 @@
 // 20200829 scrolling-nav.css weer verwijderd
 // 20200912 colors body here from compiler
 // 20201201 #navbar-placeholder display: none. Because the extra height must be added to all sections with section.component not only to the first. But can be used if we think the other way again.
-/ * ===========================
+// 20211214 .visually-hidden. activated this is perhaps default in bs5 but we don't use that alle the times.'
+/* ===========================
 	alle schermbreedtes
 	Write your general styles eerst voor alle schermbreedtes, 
 	daarna uitzonderingen voor steeds bredere schermen (mobile first)
@@ -246,7 +247,7 @@ order: -1;
 		background-image: -webkit-linear-gradient(270deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
 		background-image: linear-gradient(180deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
 }	
-
+.visually-hidden {display:none;} // header language selector possibly joomla 4 from bs5
 /* einde tijdelijk toegvoegd voor bs 3 */
 
 /* aanpassingen voor newsfeeds uit oudere templates van mij */
