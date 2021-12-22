@@ -34,16 +34,15 @@
  * 19-7-2020 did not work correctly with wrapper only with com_content so overrides wrapper removed
  * 10-8-2020 list of components moved to com_wsaonepage where it belongs and removed from this module.
  * 1-9-2021 J4 Item->getParams() replacing ->params
+ * 3-12-2021 removed use ... Registry that is not existent anymore and also not used in this block.
  */
 
 defined('_JEXEC') or die;
 use Joomla\CMS\Factory;   // this is the same as use Joomla\CMS\Factory as Factory
 use Joomla\CMS\Helper\ModuleHelper;
-use Joomla\Registry\Registry; // for new Registry en params object
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;  // JModelLegacy
 use Joomla\CMS\Form\Form; 
 use Joomla\CMS\Language\Text;
-
 use Joomla\CMS\Component\ComponentHelper;  //tbv algemene renderComponent
 use Joomla\CMS\MVC\Controller\BaseController; 
 

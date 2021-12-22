@@ -8,12 +8,12 @@
     </include>
   </compatibility>
 	<name>wsa_onepage</name>
-	<version>1.2.4</version>
-	<creationDate>24-8-2021</creationDate>
+	<version>1.2.6</version>
+	<creationDate>3-12-2021</creationDate>
 	<author>AHC Waasdorp</author>
 	<authorEmail>info@waasdorpsoekhan.nl</authorEmail>
 	<authorUrl>http://www.waasdorpsoekhan.nl</authorUrl>
-	<copyright>AHC Waasdorp, Amsterdam 2020 - 2020</copyright>
+	<copyright>AHC Waasdorp, Amsterdam 2020 - 2021</copyright>
 	<description>TPL_WSA_ONEPAGE_DESCRIPTION</description>
 	    <!-- This is the PHP namespace under which the extension's
     code is organised. It should follow this format:
@@ -424,7 +424,7 @@
 		</fields>
 	</config>
     <updateservers>
-	<server type="extension" priority="1" name="One page scrolling Template"><![CDATA[https://www.waasdorpsoekhan.nl/update/wsaonepage/wsaonepage.xml]]></server>
+	<server type="extension" priority="1" name="One page scrolling Template"><![CDATA[https://www.waasdorpsoekhan.nl/update/wsaonepage/tpl_wsaonepage-update.xml]]></server>
     </updateservers>
 
 </extension>
