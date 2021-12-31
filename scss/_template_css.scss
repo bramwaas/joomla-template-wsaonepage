@@ -53,6 +53,7 @@
 height: $navbar-height;
 border-radius: $wrapperBorderRadius;
 display: none; 
+}
 @if $twbs_version == 5 {
 #headerleft {
   position: relative;
@@ -904,4 +905,3 @@ margin-top: -40px;
 // @include media-breakpoint-up(xxxl) { bs4 custom > xxl bv 1600
 //}
 } // einde bs3
-}
