@@ -19,14 +19,13 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Version;
 
 /** @var Joomla\CMS\Document\HtmlDocument $this */
-
-$app = Factory::getApplication();
-//$wa  = $this->getWebAssetManager();
-
+$joomlaverge4 = (new Version)->isCompatible('4.0.0');
 $app  = Factory::getApplication();
 $lang = Factory::getLanguage();
+if ($joomlaverge4) {$wa  = $this->getWebAssetManager();}
 
 // Detecting Active Variables
 $option   = $app->input->getCmd('option', '');
@@ -74,7 +73,7 @@ if (path_parts['extension'] <> 'css'){$wsaCssFilename = $wsaCssFilename . '.css'
 else
 { $wsaCssFilename = 'template.min.' . $templatestyleid . '.css';}
 
-$twbs_version 		= '4';
+$twbs_version 		= htmlspecialchars($this->params->get('twbs_version', '4'));
 $include_twbs_css	= htmlspecialchars($this->params->get('include_twbs_css', '1'));
 $include_twbs_js	= htmlspecialchars($this->params->get('include_twbs_js','1'));
 $wsaTime            = htmlspecialchars($this->params->get('wsaTime',''));
@@ -87,23 +86,72 @@ $wsaContentWidthTransition = htmlspecialchars($this->params->get('wsaContentWidt
 <head>
 <jdoc:include type="head" />
 <?php
-echo '<!-- base is ' . $this->getBase() .' $templatestyleid ='.$templatestyleid .'  -->';
-
+echo '<!-- base is ' . $this->getBase() .' $templatestyleid ='.$templatestyleid .'  Jversie  >=  4: ' . $joomlaverge4 , '. -->  ';
 
 // Add extra metadata
 $this->setMetaData( 'X-UA-Compatible', 'IE=edge', true ); // http-equiv = true 
-$this->setMetaData( 'viewport', 'width=device-width, initial-scale=1.0, shrink-to-fit=no' );
+$this->setMetaData( 'viewport', 'width=device-width, initial-scale=1.0' );
+if ($joomlaverge4) { // Joomla 4 stylesheets and javascript via webassets
+// Enable assets
+$wa->usePreset('template.wsa_bootstrap')
+   ->addInlineScript('jQuery(document).ready(function() {
+  jQuery(\'a[rel*="lightbox"], a[data-wsmodal]\').magnificPopup({
+type: \'image\'
+, closeMarkup : \'<button title="%title%" type="button" class="mfp-close">&nbsp;</button>\'
+});})',
+['position' => 'after'],
+[],
+['magnificpopup']
+);
+// overrides defaults from joomla.asset.json for lower BS versions and styleid specific template style
+// register overrides for older BS versions
+switch ($twbs_version) {
+//   case "5" : {
+//       $wa->registerStyle('bootstrap.css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css', ['version'=>'5.1.3'], ['integrity' => 'sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3', 'crossorigin' => 'anonymous'],[])
+//       ->registerScript('bootstrap.js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js', ['version'=>'5.1.3'], ['integrity' => 'sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p', 'crossorigin' => 'anonymous', 'defer' => TRUE],[])
+//       ;
+//   }
+//   break;
+   case "4" :  {
+       $wa->registerStyle('bootstrap.css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css', ['version'=>'4.3.1'], ['integrity' => 'sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T', 'crossorigin' => 'anonymous'],[])
+       ->registerScript('popper.js', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js', ['version'=>'1.14.7'], ['integrity' => 'sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1', 'crossorigin' => 'anonymous', 'defer' => TRUE],[])
+       ->registerScript('bootstrap.js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js', ['version'=>'4.3.1'], ['integrity' => 'sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM', 'crossorigin' => 'anonymous', 'defer' => TRUE],['popper.js'])
+       ;
+   }
+   break;
+   case "3" : {
+       $wa->registerStyle('bootstrap.css', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', ['version'=>'3.3.7'], ['integrity' => 'sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u', 'crossorigin' => 'anonymous'],[])
+       ->registerAndUseStyle('bootstrap.theme.css', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css', ['version'=>'3.3.7'], ['integrity' => 'sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp', 'crossorigin' => 'anonymous'],['bootstrap.css'])
+       ->registerScript('bootstrap.js', 'jui/bootstrap.min.js', ['version'=>'3.3.7'], ['defer' => TRUE],['jquery'])
+       ;
+   }
+}
+ 
+$wa->registerStyle('template.wsa_bootstrap', $wsaCssFilename, ['version' => $wsaTime], [],['bootstrap.theme.css']);
+// overrides end
+} // end Joomla 4 up
+else { // Joomla lower then 4
 // stylesheets
 $this->addStyleSheet('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:700' , array('version'=>'auto'), array('id'=>'googleapis-fonts.css'));
 // bootstrap stylesheets van cdn
-
-// alleen nog twbs 4
-if ($include_twbs_css == "1") {
-    
-	$this->addStyleSheet('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css', array('version'=>'4.5.2'), 
-	    array('id'=>'bootstrap.min.css', 'integrity' => 'sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z', 'crossorigin' => 'anonymous'));
-	}
-	
+switch ($twbs_version) { 
+case "5" :  {
+    $attribs = array('id'=>'bootstrap.min.css', 'integrity' => 'sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3', 'crossorigin' => 'anonymous');
+    $this->addStyleSheet('https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css', array('version'=>'5.1.3'),  $attribs);
+    }
+break;
+case "4" :  {
+    $attribs = array('id'=>'bootstrap.min.css', 'integrity' => 'sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T', 'crossorigin' => 'anonymous');
+    $this->addStyleSheet('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css', array('version'=>'4.3.1'),  $attribs);
+    }
+break;
+case "3" : {
+$attribs = array('id'=>'bootstrap.min.css', 'integrity' => 'sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u', 'crossorigin' => 'anonymous');
+$this->addStyleSheet('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', array('version'=>'3.3.7'),  $attribs);
+$attribs = array('id'=>'bootstrap-theme.min.css', 'integrity' => 'sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp', 'crossorigin' => 'anonymous');
+$this->addStyleSheet('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css' , array('version'=>'3.3.7'), $attribs);
+    }
+}
 
 // template stijl en scrolling nav van startbootstrap
 $this->addStyleSheet('templates/' . $this->template . '/css/' . $wsaCssFilename , array('version'=>$wsaTime), array('id'=>'template.css'));
@@ -111,14 +159,23 @@ $this->addStyleSheet('templates/' . $this->template . '/css/' . $wsaCssFilename 
 
 //HTMLHelper::_('jquery.framework');  // to be sure that jquery is loaded before dependent javascripts
 
-// alleen nog twbs 4
-if ($include_twbs_js == "1") {
-    $this->addScript('https://code.jquery.com/jquery-3.5.1.min.js', array('version'=>'3.5.1'),
-        array('id'=>'jquery.js', 'integrity' => 'sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=', 'crossorigin' => 'anonymous'));
-    $this->addScript('https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js', array('version'=>'1.16.1'),
-        array('id'=>'popper.js', 'integrity' => 'sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN', 'crossorigin' => 'anonymous'));
-    $this->addScript('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js', array('version'=>'4.5.2'),
-        array('id'=>'bootstrap.min.js', 'integrity' => 'sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV', 'crossorigin' => 'anonymous'));
+switch ($twbs_version) {
+case "5" :  {
+    $this->addScript('https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js', array('version'=>'5.1.3'),
+    array('id'=>'bootstrap.min.js', 'integrity' => 'sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p',   'crossorigin' => 'anonymous'));
+    }
+break;
+case "4" : {
+    $this->addScript('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js', array('version'=>'1.14.7'),
+    array('id'=>'popper.js', 'integrity' => 'sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1',   'crossorigin' => 'anonymous'));
+    $this->addScript('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js', array('version'=>'4.3.1'),
+    array('id'=>'bootstrap.min.js', 'integrity' => 'sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM',   'crossorigin' => 'anonymous'));
+    }
+break;
+case "3" :{
+    $this->addScript('templates/' . $this->template . '/js/jui/bootstrap.min.js', array('version'=>'3.3.7'), 
+	array('id'=>'bootstrap.min.js', 'defer'=>'defer'));
+    }
 }
 
 $this->addScript($this->baseurl . '/templates/' . $this->template . '/js/magnificpopup/MagnificPopupV1-1-0.js', array('version'=>'1-1-0'), array('id'=>'MagnificPopupV1-1-0.js', 'defer'=>'defer'));
@@ -136,21 +193,24 @@ $this->addScriptDeclaration('jQuery(document).ready(function() {
 type: \'image\'
 , closeMarkup : \'<button title="%title%" type="button" class="mfp-close">&nbsp;</button>\'
 });})');  
+} // end Joomla lower than 4
 // Adjusting content width
 $w0container = 'container';
 if ($this->countModules('position-7') && $this->countModules('position-8'))
 {
-	$spanc = "col-12 col-md-6" ;
+	$spanc = "span6 col-12 col-md-6" ;
+	$spans = "span3  col-md-3";
 }
 elseif (!$this->countModules('position-7') && !$this->countModules('position-8'))
     
 {
-    $spanc = "col-12";
+    $spanc = "span12  col-12";
 }
 else
 {
-    $spanc = "col-12 col-md-8";
- }
+    $spanc = "span8 col-12 col-md-8";
+	$spans = "span4  col-md-4";
+}
 $hi_mods = ($this->countModules('position-0')? ' hipos0': '')
 . ($this->countModules('icons')? ' hiicons': '')
 . ($this->countModules('headerleft')? ' hihl': '')
@@ -266,7 +326,7 @@ class="site-grid site <?php echo $pageclass;
 		    	<?php endif; ?>
 			<div class="row <?php  echo $wsaNavbarExpand;   ?>">
 				<?php if ($this->countModules('position-8')): ?>
-				<div id="sidebarleft" class="pos8 col-12 col-md">
+				<div id="sidebarleft" class="pos8 <?php echo $spans;?>">
 					<jdoc:include type="modules" name="position-8" style="well" /><!--End Position-8-->
 				</div><!--End Sidebar Left-->
 				<?php endif; ?>
@@ -287,7 +347,7 @@ class="site-grid site <?php echo $pageclass;
 					<jdoc:include type="component" />
 				</div><!--Content -->
 				<?php if ($this->countModules('position-7')) : ?>
-				<div id="sidebarright" class="pos7 col-12 col-md">
+				<div id="sidebarright" class="pos7 <?php echo $spans;?>">
 					<jdoc:include type="modules" name="position-7" style="well" /><!--End Position-7-->
 				</div><!--End Sidebar Right-->
 				<?php endif; ?>

@@ -8,10 +8,296 @@
 7-9-2020 removed TWBS4 navbar-default navbar-dark and dropdown-menu because it is old, had an error and it is always present in the standard bootstrap because we don't use bs 3 any more.
 10-9-2020 bg-custom added
 30-11-2020 some inactive code removed.
+31-12-2021 restored references to BS3 and 4
 -----------------------------------------*/
+#img_brandImage
+{ 
+width: $brandWidth * 300 / 960; // < es = 375
+}
+
+// Alternate navbars uit navbar.less
+// --------------------------------------------------
+
+
+@if $twbs_version == 3
+{
+// Default navbar 
+.navbar-default {
+  background-color: $navbar-default-bg;
+  border-color: $navbar-default-border;
+
+  .navbar-brand {
+    color: $navbar-default-brand-color;
+    &:hover,
+    &:focus {
+      color: $navbar-default-brand-hover-color;
+      background-color: $navbar-default-brand-hover-bg;
+    }
+  }
+
+  .navbar-text {
+    color: $navbar-default-color;
+  }
+
+  .navbar-nav {
+    > li > a {
+      color: $navbar-default-link-color;
+
+      &:hover,
+      &:focus {
+        color: $navbar-default-link-hover-color;
+        background-color: $navbar-default-link-hover-bg;
+      }
+    }
+    > .active > a {
+      &,
+      &:hover,
+      &:focus {
+        color: $navbar-default-link-active-color;
+        background-color: $navbar-default-link-active-bg;
+      }
+    }
+    > .disabled > a {
+      &,
+      &:hover,
+      &:focus {
+        color: $navbar-default-link-disabled-color;
+        background-color: $navbar-default-link-disabled-bg;
+      }
+    }
+  }
+
+  .navbar-toggle {
+    border-color: $navbar-default-toggle-border-color;
+    .icon-bar {
+      background-color: $navbar-default-link-color;
+    }
+    &:hover,
+    &:focus {
+      background-color: $navbar-default-toggle-hover-bg;
+    }
+    .icon-bar {
+      background-color: $navbar-default-toggle-icon-bar-bg;
+    }
+  }
+
+  .navbar-collapse,
+  .navbar-form {
+    border-color: $navbar-default-border;
+  }
+
+  // Dropdown menu items
+  .navbar-nav {
+    // Remove background color from open dropdown
+    > .open > a {
+      &,
+      &:hover,
+      &:focus {
+        background-color: $navbar-default-link-active-bg;
+        color: $navbar-default-link-active-color;
+      }
+    }
+
+    @media (max-width: $grid-float-breakpoint-max) {
+      // Dropdowns get custom display when collapsed
+      .open .dropdown-menu {
+        > li > a {
+          color: $navbar-default-link-color;
+          &:hover,
+          &:focus {
+            color: $navbar-default-link-hover-color;
+            background-color: $navbar-default-link-hover-bg;
+          }
+        }
+        > .active > a {
+          &,
+          &:hover,
+          &:focus {
+            color: $navbar-default-link-active-color;
+            background-color: $navbar-default-link-active-bg;
+          }
+        }
+        > .disabled > a {
+          &,
+          &:hover,
+          &:focus {
+            color: $navbar-default-link-disabled-color;
+            background-color: $navbar-default-link-disabled-bg;
+          }
+        }
+      }
+    }
+  }
+
+
+  // Links in navbars
+  //
+  // Add a class to ensure links outside the navbar nav are colored correctly.
+
+  .navbar-link {
+    color: $navbar-default-link-color;
+    &:hover {
+      color: $navbar-default-link-hover-color;
+    }
+  }
+
+  .btn-link {
+    color: $navbar-default-link-color;
+    &:hover,
+    &:focus {
+      color: $navbar-default-link-hover-color;
+    }
+    &[disabled],
+    fieldset[disabled] & {
+      &:hover,
+      &:focus {
+        color: $navbar-default-link-disabled-color;
+      }
+    }
+  }
+
+  @include gradient-vertical($start-color: lighten($navbar-default-bg, 10%), $end-color: $navbar-default-bg);
+  @include reset-filter(); /* Remove gradient in IE<10 to fix bug where dropdowns don't get triggered  */
+  border-radius: $navbar-border-radius;
+  $shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 1px 5px rgba(0,0,0,.075);
+  @include box-shadow($shadow);  
+
+  .navbar-nav > .open > a,
+  .navbar-nav > .active > a {
+  @include gradient-vertical($start-color: darken($navbar-default-link-active-bg, 5%), $end-color: darken($navbar-default-link-active-bg, 2%));
+    @include box-shadow(inset 0 3px 9px rgba(0,0,0,.075)); 
+  }
+
+}
+// einde .twbs 3 navbar-default 
+
+}
+@else if 1 == 1 /* $navbar-theme == navbar-dark */
+{/* bs4 navbar-dark */
+.navbar-dark {
+  .navbar-brand {
+    color: $navbar-default-brand-color;
+
+    @include hover-focus {
+      color: $navbar-default-brand-hover-color;
+    }
+  }
+
+  .navbar-nav {
+    .nav-link {
+      color: $navbar-default-color;
+
+      @include hover-focus {
+        color: $navbar-default-link-hover-color;
+      }
+
+      &.disabled {
+        color: $navbar-default-link-disabled-color;
+      }
+    }
+
+    .show > .nav-link,
+    .active > .nav-link,
+    .nav-link.show,
+    .nav-link.active {
+      color: $navbar-default-link-active-color;
+    }
+  }
+
+  .navbar-toggler {
+    color: $navbar-default-link-color;
+    border-color: $navbar-default-toggle-border-color;
+  }
+
+  .navbar-toggler-icon {
+    background-image: $navbar-dark-toggler-icon-bg;
+  }
+
+  .navbar-text {
+    color: $navbar-default-color;
+    a {
+      color: $navbar-default-link-active-color;
+
+      @include hover-focus {
+        color: $navbar-default-link-active-color;
+      }
+    }
+  }
+}
+
+// einde bs4 navbar-dark
+}
+@else 
+{// bs4 navbar-light
+// einde bs4 navbar-light
+} 
+
+.navbar-brand,
+.navbar-nav > li > a {
+  text-shadow: 0 1px 0 rgba(255,255,255,.25);
+} 
+
+
+
+
 /* ======================
 	GENERAL STYLES
 	===================== */
+.dropdown-menu {
+  background-color: $dropdown-bg;
+  border: 1px solid $dropdown-fallback-border; // IE8 fallback
+  border: 1px solid $dropdown-border;
+
+  > .nav-item > .nav-link {
+    clear: both;
+    color: $graynavbardarker;
+    display: block;
+    font-weight: normal;
+    line-height: 1.1rem;
+    padding: 0.15rem 1rem;
+    white-space: nowrap;
+  }
+
+  > .active > a,
+  > .active > a:hover,
+  > .active > a:focus  {
+	background-color: $graynavbarbg;
+	background-image: none;
+    	background-repeat: repeat-x;
+    	color: $graynavbarfg;
+    	outline: 0 none;
+    	text-decoration: none;
+  }
+}
+
+.dropdown-menu > li > a:hover, 
+.dropdown-menu > li > a:focus, 
+.dropdown-submenu:hover > a, 
+.dropdown-submenu:focus  > a 
+	{
+	background-color: $graynavbarbg;
+	background-image: none;
+	background-repeat: repeat-x;
+    	color: $graynavbarfg;
+	text-decoration: none;
+}
+
+
+.nav-collapse .nav > li > a,
+.nav-collapse .dropdown-menu a {
+    border-radius: 3px;
+    color: $graynavbarlighter;
+    font-weight: bold;
+    padding: 9px 15px;
+
+   &:hover,
+   &:focus {      
+	background-color: $graynavbarbg; 
+   }
+}
+
+
+/* einde gekopieerd uit fire bug to override bootstrap.min.css */
 /* from twbs _dropdown.scss but colors dark with dark background navbar from _navbar.scss .navbar-dark .navbar-nav .nav-link and bg-dark */
 // The dropdown menu
 .navbar-dark {
@@ -102,8 +388,124 @@
 .dropdown-submenu :hover>a:after {
     border-left-color:$navbar-dark-active-color; 
    }
+// uit hover.scss bs4
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus {
+color: #333;
 }
 
+// uit nav.scss bs4
+.nav-tabs .nav-link:focus,
+.nav-tabs .nav-link:hover {
+    border-color: #e9ecef #e9ecef #dee2e6;
+}
+
+.nav-tabs .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+}
+}
+
+
+// uit nav.less
+.nav {
+  > li {
+    > a {
+      &:hover,
+      &:focus {
+        text-decoration: none;
+        background-color: $nav-link-hover-bg;
+      }
+    }
+    // Disabled state sets text to gray and nukes hover/tab effects
+    &.disabled > a {
+      color: $nav-disabled-link-color;
+      &:hover,
+      &:focus {
+        color: $nav-disabled-link-hover-color;
+        text-decoration: none;
+        background-color: transparent;
+        cursor: $cursor-disabled;
+      }
+    }
+  }
+
+  // Open dropdowns
+  .open > a {
+    &,
+    &:hover,
+    &:focus {
+      background-color: $nav-link-hover-bg;
+      border-color: $link-color;
+    }
+  }
+ } 
+// Tabs
+// -------------------------
+
+// Give the tabs something to sit on
+.nav-tabs {
+  border-bottom: 1px solid $nav-tabs-border-color;
+  > li {
+    float: left;
+    // Make the list-items overlay the bottom border
+    margin-bottom: -1px;
+
+    // Actual tabs (as links)
+    > a {
+      margin-right: 2px;
+      line-height: $line-height-base;
+      border: 1px solid transparent;
+      border-radius: $border-radius-base $border-radius-base 0 0;
+      &:hover {
+        border-color: $nav-tabs-link-hover-border-color $nav-tabs-link-hover-border-color $nav-tabs-border-color;
+      }
+    }
+
+    // Active state, and its :hover to override normal :hover
+    &.active > a {
+      &,
+      &:hover,
+      &:focus {
+        color: $nav-tabs-active-link-hover-color;
+        background-color: $nav-tabs-active-link-hover-bg;
+        border: 1px solid $nav-tabs-active-link-hover-border-color;
+        border-bottom-color: transparent;
+        cursor: default;
+      }
+    }
+  }
+
+}
+
+
+// Pills
+// -------------------------
+.nav-pills {
+  > li {
+    float: left;
+
+    // Links rendered as pills
+    > a {
+      border-radius: $nav-pills-border-radius;
+    }
+    + li {
+      margin-left: 2px;
+    }
+
+    // Active state
+    &.active > a {
+      &,
+      &:hover,
+      &:focus {
+        color: $nav-pills-active-link-hover-color;
+        background-color: $nav-pills-active-link-hover-bg;
+      }
+    }
+  }
+}
+// uit nav.less einde 
 /* ===================================================================================
 	BOOTSTRAP MEDIA QUERIES OVERRIDES
 	NOTE: The order of the media queries is important when styles overwrite each other
@@ -170,7 +572,16 @@ I only made one small addition to the standard HTML â€“ I added a container
   }
  
 /* Submenu's onder elkaar plaatsen (tbv mobiele apparaten)*/
-
+.dropdown,
+.dropdown-submenu {
+      display: block;
+      position: static;
+      float: none;
+   }
+.dropdown-menu {
+      position: static;
+      float: none;
+   }
 .open .nav-child.dropdown-menu {
       display: block;
       background-color: transparent;
@@ -210,8 +621,7 @@ I only made one small addition to the standard HTML â€“ I added a container
 
 }
 
-@if $twbs_version == 4 {} // end twbs 4
-
+@if $twbs_version == 4 {
 @include media-breakpoint-up(sm)
 {  // min 576
 #img_brandImage
@@ -233,6 +643,21 @@ width: $brandWidth * 720 / 960; // md cont = 720
 width: $brandWidth ; // lg 100%
 }
 }/* einde up(lg) */
+} // end twbs 4
+@else { // bs3
+@media (min-width: $screen-sm-min){
+#img_brandImage
+{ 
+width: $brandWidth * 720 / 960; // md cont = 720
+}
+}
+@media (min-width: $screen-md-min )  { /* desktop (width >= 992px) */
+#img_brandImage
+{ 
+width: $brandWidth ; // lg 100%
+}
+}
 
+} // end twbs 3
 
 

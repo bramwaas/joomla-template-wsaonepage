@@ -12,6 +12,7 @@
  * 2020-05-25 Item->id gekwalificeerd met $moduleIdPos om hem beter uniek te maken
  * 2020-06-30 iets andere bookmark en keuze voor one page
  * 2020-08-12 changed bookmark from route in accordance with component wsaonepage default only if not set by component
+ * 25-12-2021 eerste aanpassingen BS5 (data- => data-bs- )
  */
 
 defined('_JEXEC') or die;
@@ -22,25 +23,25 @@ $title = $item->anchor_title ? 'title="'.$item->anchor_title.'" ' : '';
 
 if ($item->menu_image)
 {
-	$item->params->get('menu_text', 1) ?
-	$linktype = '<img src="'.$item->menu_image.'" alt="'.$item->title.'" /><div class="image-title">'.$item->title.'</div> ' :
-	$linktype = '<img src="'.$item->menu_image.'" alt="'.$item->title.'" />';
-	
-	if ($item->deeper) {
-		$class = 'class="'.$item->anchor_css.' dropdown-toggle" data-toggle="dropdown" ';
-		$item->flink = '#';
-	}
+    $item->getParams()->get('menu_text', 1) ?
+    $linktype = '<img src="'.$item->menu_image.'" alt="'.$item->title.'" /><div class="image-title">'.$item->title.'</div> ' :
+    $linktype = '<img src="'.$item->menu_image.'" alt="'.$item->title.'" />';
+    
+    if ($item->deeper) {
+        $class = 'class="'.$item->anchor_css.' dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" ';
+        $item->flink = '#';
+    }
 }
 
 elseif ($item->deeper) {
-	$linktype = $item->title. '<b class="caret"></b>' ;
-	if ($item->level < 2) {
-		$class = 'class="'.$item->anchor_css.' dropdown-toggle" data-toggle="dropdown" ';
-		$item->flink = '#data-item-' . $moduleIdPos . $item->id;
-	}
-	else { // level >= 2
-		$linktype = $item->title;  // origineel alleen deze
-	}
+    $linktype = $item->title. '<b class="caret"></b>' ;
+    if ($item->level < 2) {
+        $class = 'class="'.$item->anchor_css.' dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" ';
+        $item->flink = '#data-item-' . $moduleIdPos . $item->id ;
+    }
+    else { // level >= 2
+        $linktype = $item->title;  // origineel alleen deze
+    }
 }
 
 else {

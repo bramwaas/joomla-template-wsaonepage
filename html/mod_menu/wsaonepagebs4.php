@@ -2,7 +2,7 @@
 /**
  * @package     	Joomla.Site
  * @subpackage  	mod_menu override
- * @copyright   	Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
+ * @copyright   	Copyright (C) 2005 - 2022 Open Source Matters, Inc. All rights reserved.
  * @license     	GNU General Public License version 2 or later; see LICENSE.txt
  * Modifications	Joomla CSS
  * 24-4-2016 ook begin en eind van navbar naar deze module-override gehaald (uit module position-1), zodat deze overal in index.php geplaatst kan worden
@@ -35,9 +35,10 @@
  * 10-8-2020 list of components moved to com_wsaonepage where it belongs and removed from this module.
  * 1-9-2021 J4 Item->getParams() replacing ->params
  * 3-12-2021 removed use ... Registry that is not existent anymore and also not used in this block.
+ * 16-5-2020 twbs 3 verwijzingen hersteld
  */
 
-defined('_JEXEC') or die;
+\defined('_JEXEC') or die;
 use Joomla\CMS\Factory;   // this is the same as use Joomla\CMS\Factory as Factory
 use Joomla\CMS\Helper\ModuleHelper;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;  // JModelLegacy
@@ -66,7 +67,11 @@ $itemid   = $app->input->getCmd('Itemid', '');
 $input = $app->input;
 $tDisplaySitename = htmlspecialchars($app->getTemplate(true)->params->get('displaySitename')); // 1 yes 2 no
 $tBrandImage = htmlspecialchars($app->getTemplate(true)->params->get('brandImage'));
-$twbs_version = '4';
+$menuType = htmlspecialchars($app->getTemplate(true)->params->get('menuType'));
+$twbs_version = htmlspecialchars($app->getTemplate(true)->params->get('twbs_version', '4')); // bootstrap version 3, 5 or (default) 4 
+if ($twbs_version == 3) {
+	$menuType = str_replace(array("light", "dark", "bg-"), array("default", "inverse", ""), $menuType);	
+}
 
 $wsaNavbarExpand = htmlspecialchars($app->getTemplate(true)->params->get('wsaNavbarExpand', 'navbar-expand-md'));
 $wsaNavtext = ($app->getTemplate(true)->params->get('wsaNavtext'));
@@ -138,12 +143,25 @@ if(  $document->countModules('navbar-brand')){
 if ($tDisplaySitename == "1") {
     echo '<a class="navbar-brand" href="#">' . $sitename . '</a>'. PHP_EOL;
 }
+echo '<!-- $twbs_version=' . $twbs_version . ". -->\n";
+if ($twbs_version == '3') {
+echo '<div class="navbar-header">
+	<button type="button"  class="navbar-toggle" data-toggle="collapse" data-target="#navbar-<?php echo $moduleIdPos; ?>"  aria-controls="navbar-<?php echo $moduleIdPos; ?>" aria-expanded="false">
+	<span class="sr-only">Toggle navigation</span>
+ 	<span class="icon-bar"></span>
+	<span class="icon-bar"></span>
+	<span class="icon-bar"></span>
+	</button>'; 
+} else { // $twbs_version == '4' or '5'
 echo '<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-' . $moduleIdPos . '" aria-controls="navbar-' . $moduleIdPos . '" aria-expanded="false" aria-label="Toggle navigation">' . PHP_EOL
 . '<span class="navbar-toggler-icon"></span>' . PHP_EOL
-. '</button>' . PHP_EOL
-. '<div id="navbar-' . $moduleIdPos . '" class="collapse navbar-collapse">' . PHP_EOL;
-?>
+. '</button>' . PHP_EOL; }
+if ($twbs_version == '3') { echo '</div> <!-- navbar-header -->';}
+
+echo '<div id="navbar-' . $moduleIdPos . '" class="collapse navbar-collapse">' . PHP_EOL;
+ ?>
 <!-- oude module aangevuld met bS4 attributen -->
+
 <ul <?php echo $id; ?> class="navbar-nav mr-auto mod-menu nav menu<?php echo $class_sfx;?>">
 <?php foreach ($list as $i => &$item) 
 {
