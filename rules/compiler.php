@@ -23,7 +23,6 @@ use Joomla\CMS\Uri\Uri;
 //use Joomla\CMS\Language\Text;   // voor vertalingen???
 use Joomla\CMS\Form\FormRule;
 use Joomla\CMS\Form\Form;
-use Joomla\Registry\Registry;
 
 
  
@@ -47,7 +46,7 @@ class WsaFormRuleCompiler extends FormRule
      * @param   string             $group    The field name group control value. This acts as as an array container for the field.
      *                                       For example if the field has name="foo" and the group value is set to "bar" then the
      *                                       full field name would end up being "bar[foo]".
-     * @param   Registry           $input    An optional Registry object with the entire data set to validate against the entire form.
+     * @param   mixed              $input    An optional "Registry" object with the entire data set to validate against the entire form.
      * @param   Form               $form     The form object for which the field is being tested.
      *
      * @return  boolean  True if the value is valid, false otherwise.
@@ -55,7 +54,7 @@ class WsaFormRuleCompiler extends FormRule
      * @since   1.7.0
      * @throws  \UnexpectedValueException if rule is invalid.
      */
-    public function test(\SimpleXMLElement $element, $value, $group = null, Registry $input = null, Form $form = null)
+    public function test(\SimpleXMLElement $element, $value, $group = null,  $input = null, Form $form = null)
     
     {
 
@@ -352,7 +351,18 @@ fwrite($st_file, "// css        " . $wsaCssFilename  . "\n//\n");
 
 // standaard bootstrap variables mixins etc.
 fwrite($st_file, "//\n// standard bootstrap includes v" . $twbs_version . "\n//\n");
-if($twbs_version == '4') { /* twbs version 4 */} /* einde twbs version 4 */
+if($twbs_version == '3') {
+    fwrite($st_file, '@import "variables.scss";' . "\n");
+    fwrite($st_file, '@import "mixins/reset-filter.scss";' . "\n");
+    fwrite($st_file, '@import "mixins/vendor-prefixes.scss";' . "\n");
+    fwrite($st_file, '@import "mixins/gradients.scss";' . "\n");
+    fwrite($st_file, '@import "mixins/grid.scss";' . "\n");
+} else 
+{  /* twbs version 4 or 5 */
+    fwrite($st_file, '@import "variables.scss";' . " // nog even uit 3\n");  // nog even uit 3
+    fwrite($st_file, '@import "mixins/reset-filter.scss";' . " // nog even uit 3\n"); // nog even uit 3
+    fwrite($st_file, '@import "mixins/gradients.scss";' . " // nog even uit 3\n");    // nog even uit 3
+    
 
 // Custom.scss
 // Option B: Include parts of Bootstrap
@@ -436,7 +446,7 @@ fwrite($st_file,
 //fwrite($st_file, '@import "node_modules/bootstrap/scss/code";' . "\n");
 fwrite($st_file, '@import "node_modules/bootstrap/scss/grid";' . "\n");
 }
-
+}
 // standaard bootstrap variables mixins etc. einde
 //fwrite($st_file, '@import "system.scss";' . "\n");
 //fwrite($st_file, '@import "general.scss";' . "\n");
