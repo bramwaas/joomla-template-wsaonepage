@@ -522,6 +522,7 @@ When scaled down to less than 768px, the menu collapses and works just like the 
 I only made one small addition to the standard HTML â€“ I added a container div around the menu with a class called â€œsidebar-navâ€�.
 (In joomla kan je deze wellicht als menu-class, of module-class meegeven)
 */
+@if $twbs_version == 4 {
 @include media-breakpoint-up(sm) {//TODO may one size bigger
   .sidebar-nav .navbar .navbar-collapse {
     padding: 0;
@@ -624,7 +625,7 @@ I only made one small addition to the standard HTML â€“ I added a container
 
 }
 
-@if $twbs_version == 4 {
+
 @include media-breakpoint-up(sm)
 {  // min 576
 #img_brandImage
