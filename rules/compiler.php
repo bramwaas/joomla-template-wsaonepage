@@ -356,6 +356,7 @@ fwrite($st_file, "// css        " . $wsaCssFilename  . "\n//\n");
 fwrite($st_file, "//\n// standard bootstrap includes v" . $twbs_version . "\n//\n");
 if($twbs_version == '3') {
     fwrite($st_file, '@import "variables.scss";' . "\n");
+    fwrite($st_file, '@import "node_modules/bootstrap/scss/variables";' . "\n");
     fwrite($st_file, '@import "mixins/reset-filter.scss";' . "\n");
     fwrite($st_file, '@import "mixins/vendor-prefixes.scss";' . "\n");
     fwrite($st_file, '@import "mixins/gradients.scss";' . "\n");
