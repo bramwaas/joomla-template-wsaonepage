@@ -356,16 +356,17 @@ fwrite($st_file, "// css        " . $wsaCssFilename  . "\n//\n");
 fwrite($st_file, "//\n// standard bootstrap includes v" . $twbs_version . "\n//\n");
 if($twbs_version == '3') {
     fwrite($st_file, '@import "variables.scss";' . "\n");
-    fwrite($st_file, '@import "node_modules/bootstrap/scss/variables";' . "\n");
     fwrite($st_file, '@import "mixins/reset-filter.scss";' . "\n");
     fwrite($st_file, '@import "mixins/vendor-prefixes.scss";' . "\n");
     fwrite($st_file, '@import "mixins/gradients.scss";' . "\n");
+    fwrite($st_file, '@import "node_modules/bootstrap/scss/functions";' . "\n"); // uit BS4
+    fwrite($st_file, '@import "node_modules/bootstrap/scss/variables";' . "\n"); // uit BS4
     fwrite($st_file, '@import "mixins/grid.scss";' . "\n");
 } else 
 {  /* twbs version 4 or 5 */
-    fwrite($st_file, '@import "variables.scss";' . " // nog even uit 3\n");  // nog even uit 3
-    fwrite($st_file, '@import "mixins/reset-filter.scss";' . " // nog even uit 3\n"); // nog even uit 3
-    fwrite($st_file, '@import "mixins/gradients.scss";' . " // nog even uit 3\n");    // nog even uit 3
+    fwrite($st_file, '@import "variables.scss";' . " // nog even uit 3\n");  // nog even uit BS3
+    fwrite($st_file, '@import "mixins/reset-filter.scss";' . " // nog even uit 3\n"); // nog even uit BS3
+    fwrite($st_file, '@import "mixins/gradients.scss";' . " // nog even uit 3\n");    // nog even uit BS3
     
 
 // Custom.scss
