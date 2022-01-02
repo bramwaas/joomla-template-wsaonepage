@@ -534,11 +534,12 @@ h6 {
 /* ===========================
 	einde alle schermbreedtes
 	========================== */
+@if $twbs_version == 4 {
 @include media-breakpoint-down(xs) { // max 767 
 
 
 }/* einde (max-width: $screen-xs-max) */
-@if $twbs_version == 4 {
+
 @include media-breakpoint-up(sm)
 {  // min 576
 .blog {
