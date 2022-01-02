@@ -3,22 +3,25 @@
  * @package Joomla.Site
  * @subpackage Templates.dna
  *
- * @copyright Copyright (C) 2016 - 2017 Bram Waasdorp. All rights reserved.
+ * @copyright Copyright (C) 2016 - 2022 Bram Waasdorp. All rights reserved.
  * @license GNU General Public License version 2 or later; see LICENSE.txt
  * 10-9-2020
  * 14-9-2020 removed most references to TWBS 3 SASS files and the files itself.
+ * 31-12-2021 restored most references to TWBS 3 SASS files and the files itself.
+ * 2-1-2022 node ... containers verplaatst en daarna verwijderd omdat deze niet compatible is met BS3.
+ *   most warnings of undefined variables resolved by commenting those statements.
  */
 /* regel voor validatie type compiler, bedoeld om samenstellen en compileren Less bestanden uit te voeren vlak voor
    de save  
 
 	*/
  
-defined('_JEXEC') or die('caught by _JEXEC');
+\defined('_JEXEC') or die('caught by _JEXEC');
 use ScssPhp\ScssPhp\Compiler;
 use ScssPhp\Server\Server;
 
 use Joomla\CMS\Factory;   
-use Joomla\CMS\Uri\Uri;
+//use Joomla\CMS\Uri\Uri;
 //use Joomla\CMS\HTML\HTMLHelper;
 //use Joomla\CMS\Language\Text;   // voor vertalingen???
 use Joomla\CMS\Form\FormRule;
@@ -57,7 +60,7 @@ class WsaFormRuleCompiler extends FormRule
     public function test(\SimpleXMLElement $element, $value, $group = null,  $input = null, Form $form = null)
     
     {
-
+        //$joomlaverge4 = (new Version)->isCompatible('4.0.0');
 //$templatestyleid =  Uri::getInstance ()->getVar('id');
  $app = Factory::getApplication();
  $currentpath = realpath(__DIR__ ) ;
@@ -102,12 +105,12 @@ $twbs_version   = htmlspecialchars($params->twbs_version);
 
 
 $itemVideoHeight= htmlspecialchars($params->itemVideoHeight);
-$itemLeadHeight = htmlspecialchars($params->itemLeadHeight);
-$itemLeadWidth  = htmlspecialchars($params->itemLeadWidth);
-$itemLeadMargin = htmlspecialchars($params->itemLeadMargin);
-$itemHeight    	= htmlspecialchars($params->itemHeight);
-$itemWidth    	= htmlspecialchars($params->itemWidth);
-$itemMargin    	= htmlspecialchars($params->itemMargin);
+//$itemLeadHeight = htmlspecialchars($params->itemLeadHeight);
+//$itemLeadWidth  = htmlspecialchars($params->itemLeadWidth);
+//$itemLeadMargin = htmlspecialchars($params->itemLeadMargin);
+//$itemHeight    	= htmlspecialchars($params->itemHeight);
+//$itemWidth    	= htmlspecialchars($params->itemWidth);
+//$itemMargin    	= htmlspecialchars($params->itemMargin);
 
 $hlMarginTop    = htmlspecialchars($params->hlMarginTop);
 $hlMarginLeft   = htmlspecialchars($params->hlMarginLeft);
@@ -134,9 +137,9 @@ $menuActiveBgColor 	= htmlspecialchars($params->menuActiveBgColor);
 $iconsMobileLeft = '';
 $iconsMobileWidth =  ''; 
 
-$contentPosLeft	= htmlspecialchars($params->contentPosLeft);
-$contentPosRight	= htmlspecialchars($params->contentPosRight);
-$contentPosTop  = htmlspecialchars($params->contentPosTop);
+//$contentPosLeft	= htmlspecialchars($params->contentPosLeft);
+//$contentPosRight	= htmlspecialchars($params->contentPosRight);
+//$contentPosTop  = htmlspecialchars($params->contentPosTop);
 $marginLeftRight	= htmlspecialchars($params->marginLeftRight);
 
 if ( $hlWidth > " " and $hlWidth < 40) {
@@ -324,8 +327,8 @@ if ($menuActiveBgColor > ' '  ) { fwrite($tv_file, '$menuActiveBgColor: '  . $me
 };
 
 /* overgenomen uit asha-s werkt mogelijk (nog) niet */
-if ($showTitle > ' '  ) 	fwrite($tv_file, '$showTitle:         '  . $showTitle .  ";\n");
-if ($tagItemTitleDisplay > ' '  ) fwrite($tv_file, '$tagItemTitleDisplay: '  . $tagItemTitleDisplay .  ";\n");
+//if ($showTitle > ' '  ) 	fwrite($tv_file, '$showTitle:         '  . $showTitle .  ";\n");
+//if ($tagItemTitleDisplay > ' '  ) fwrite($tv_file, '$tagItemTitleDisplay: '  . $tagItemTitleDisplay .  ";\n");
 if ($marginLeftRight > ' '  ) 	{
 				fwrite($tv_file, '$asMarginStd:       '  . $marginLeftRight .  "%;\n");
 				fwrite($tv_file, '$marginArea:        '  . ($marginLeftRight / 2) .  "%;\n");
@@ -445,11 +448,12 @@ fwrite($st_file,
 //fwrite($st_file, '@import "node_modules/bootstrap/scss/images";' . "\n");
 //fwrite($st_file, '@import "node_modules/bootstrap/scss/code";' . "\n");
 fwrite($st_file, '@import "node_modules/bootstrap/scss/grid";' . "\n");
+//fwrite($st_file, '@import "node_modules/bootstrap/scss/containers";' . "\n");
+//fwrite($st_file, '@import "node_modules/bootstrap/scss/breadcrumb";' . "\n");
+
 }
 }
 // standaard bootstrap variables mixins etc. einde
-//fwrite($st_file, '@import "system.scss";' . "\n");
-//fwrite($st_file, '@import "general.scss";' . "\n");
 fwrite($st_file, "//\n// other variables\n//\n");
 fwrite($st_file, '@import "magnificpopup.variables.scss";' . "\n");
 fwrite($st_file, '@import "template_variables.scss";' . "\n");
@@ -457,18 +461,16 @@ fwrite($st_file, '@import "template_variables.scss";' . "\n");
 //fwrite($st_file, '@import "joomla_update_icons.scss";' . "\n");
 fwrite($st_file, "//\n// css\n//\n");
 
-if ($background > ' '  )
-{ 	$pos1 = stripos($background, ".css");
-	if ($pos1 > 0)
-	{
-    $background = substr_replace($background, '.scss', $pos1, 4) ;
-	}
-	fwrite($st_file, '@import "'  . $background .  "\";\n");
-}
+//if ($background > ' '  )
+//{ 	$pos1 = stripos($background, ".css");
+//	if ($pos1 > 0)
+//	{
+//    $background = substr_replace($background, '.scss', $pos1, 4) ;
+//	}
+//	fwrite($st_file, '@import "'  . $background .  "\";\n");
+//}
 fwrite($st_file, '@import "style' . $templatestyleid . '.var.scss";' . "\n");
 // modules where customized variables are used.
-fwrite($st_file, '@import "node_modules/bootstrap/scss/containers";' . "\n");
-fwrite($st_file, '@import "node_modules/bootstrap/scss/breadcrumb";' . "\n");
 fwrite($st_file, '@import "magnificpopup.scss";' . "\n");
 fwrite($st_file, '@import "template_dropdown.scss";' . "\n");
 fwrite($st_file, '@import "template_css.scss";' . "\n");
