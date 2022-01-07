@@ -19,10 +19,11 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
-use Joomla\CMS\Version;
+//use Joomla\CMS\Version;
 
 /** @var Joomla\CMS\Document\HtmlDocument $this */
-$joomlaverge4 = (new Version)->isCompatible('4.0.0');
+
+$joomlaverge4 = (version_compare(JVERSION, '4.0', '>='));
 $app  = Factory::getApplication();
 $lang = Factory::getLanguage();
 if ($joomlaverge4) {$wa  = $this->getWebAssetManager();}
