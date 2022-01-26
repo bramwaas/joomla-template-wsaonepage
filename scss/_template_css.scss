@@ -461,23 +461,6 @@ div div.pagination ul li /* element  rij in tag-lijst en tag overzicht, tag-list
    margin-bottom: 0px; //$marginArea;
 }
 /* einde aanpassing alleen voor pagination */
-div.mod-languages {
-	a {
-		padding: 0;
-	}
-	ul {
-		li {
-    		margin-left: 5px;
-    		margin-right: 5px;
-		}
-		li.lang-active {
-    		background-color:transparent;
-		}
-	}
-}
-
-
-
 
 h1, h2, h3, h4, h5, h6 {
 	font-family: 'Open Sans Condensed',sans-serif;
