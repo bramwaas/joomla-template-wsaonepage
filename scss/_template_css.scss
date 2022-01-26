@@ -28,6 +28,7 @@
 // 20211230 padding .span12 extra voor BS3 in BS4/5 wordt col12 gebruikt en staan deze paddings al voor alle col-deimensies.
 //            padding header-inner .navbar alleen nog 0 voor BS3
 // 20211231 restored references to $twbs_version == 3 (and also 4) and added $twbs_version == 5 
+// 20220126 class iconssm added to mod-languages to override module template.css.
 
 /* ===========================
 	alle schermbreedtes
@@ -108,6 +109,7 @@ display: none;
 }
 .header-inner .navbar
  {padding:0;}
+
 .span12
 { //padding span12 extra voor BS3 in BS4/5 wordt col12 gebruikt en staan deze paddings al voor alle col-deimensies.
 padding-right: 15px;
@@ -210,8 +212,21 @@ flex-direction: $wsaIconsFlex;
 width: 100%;
 -ms-flex-order: -1;
 order: -1;
+	div.mod-languages {
+		a {
+			padding: 0;
+		}
+		ul {
+			li {
+	    		margin-left: 5px;
+	    		margin-right: 5px;
+			}
+			li.lang-active {
+	    		background-color:transparent;
+			}
+		}
+	}
 }
-
 
 
 .img-fluid,
@@ -221,8 +236,19 @@ order: -1;
  max-width: 100%;
  height: auto;
 }
-
 .items-leading  div .videoWrapper,
+.list-striped, .row-striped {
+    border-top: none;
+}
+.list-striped li, .list-striped dd, .row-striped .row, .row-striped .row-fluid {
+    border-bottom: none;
+    padding: 0;
+}
+
+.mod-languages {
+    float: $asModLangFloat;
+}
+
 .videoWrapper {
   position:relative;
   padding-bottom: $wsaVideoHeight;
@@ -240,17 +266,6 @@ order: -1;
   }
 }
 
-.list-striped, .row-striped {
-    border-top: none;
-}
-.list-striped li, .list-striped dd, .row-striped .row, .row-striped .row-fluid {
-    border-bottom: none;
-    padding: 0;
-}
-
-.mod-languages {
-    float: $asModLangFloat;
-}
 /* tijdelijk toegvoegd voor bs 3 en bs4  */
 .navbar-collapse.in {
     overflow-y: visible;
