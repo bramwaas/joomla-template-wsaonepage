@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE install PUBLIC "-//Joomla! 2.5//DTD template 1.0//EN" "https://www.joomla.org/xml/dtd/2.5/template-install.dtd">
-<extension version="3.8" type="template" client="site" method="upgrade">
+<extension version="3.9" type="template" client="site" method="upgrade">
   <compatibility>
     <include>
       <versions from="3.9.18" to="4.0.99" />
-      <!--  versions from="4.0.0" to="4.99.99" / -->
     </include>
   </compatibility>
 	<name>wsa_onepage</name>
-	<version>1.2.8</version>
-	<creationDate>3-12-2021</creationDate>
+	<version>1.2.9</version>
+	<creationDate>28=1-2022</creationDate>
 	<author>AHC Waasdorp</author>
 	<authorEmail>info@waasdorpsoekhan.nl</authorEmail>
 	<authorUrl>http://www.waasdorpsoekhan.nl</authorUrl>
@@ -17,11 +15,8 @@
 	<description>TPL_WSA_ONEPAGE_DESCRIPTION</description>
 	    <!-- This is the PHP namespace under which the extension's
     code is organised. It should follow this format:
-    
     Vendor\Component\ComponentName
-
     "Vendor" can be your company or your own name
-    
     The "ComponentName" section MUST match the name used 
     everywhere else for your component. Whatever the name of 
     this XML file is, the namespace must match (ignoring CamelCase). 
@@ -47,6 +42,7 @@
 		<folder>language</folder>
 		<folder>rules</folder>
 		<folder>scss</folder>
+		<folder>src</folder>
 		<folder>vendor</folder>
 	</files>
 
@@ -376,6 +372,9 @@
 					 />
 			</fieldset>
 			<fieldset name="Developer" addfieldpath="/templates/wsa_onepage/fields" addrulepath="/templates/wsa_onepage/rules">
+			 <!--  
+			 addruleprefix="WaasdorpSoekhan\Template\Wsaonepage\Administrator\Rule"
+			 addfieldprefix="WaasdorpSoekhan\Template\Wsaonepage\Administrator\Field"-->
 				<field name="compile" type="radio"
 					class="btn-group btn-group-yesno"
  					label="COMPILE_LABEL" default="1"
