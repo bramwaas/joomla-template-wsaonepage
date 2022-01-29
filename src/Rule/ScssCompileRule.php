@@ -30,7 +30,7 @@ use Joomla\CMS\Form\Form;
 
 
  
-class WsaFormRuleCompiler extends FormRule
+class ScssCompileRule extends FormRule
 /* voorbeeld eenvoudigste validatie dmv regexp
  uitgebreider gaat met functie test die ik hier wel ga gebruiken.
 {
