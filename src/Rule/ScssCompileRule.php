@@ -499,14 +499,14 @@ if ($home == 1 )
 
 /* einde les files compileren naar .css */
 /* "Compileren LESS geslaagd." "COM_TEMPLATES_COMPILE_SUCCESS" */
-$app->enqueueMessage("Compile SCSS succes.", 'message');
+$app->enqueueMessage("Compile SCSS succes..", 'message');
 
 
 /* end try */
 }
 catch (\Exception $e)
 {
- $app->enqueueMessage($e->getMessage(), 'error');
+ $app->enqueueMessage('Scss compile failed ' . $e->getMessage(), 'error');
  return false;
 }
 
