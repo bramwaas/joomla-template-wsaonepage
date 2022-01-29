@@ -371,9 +371,9 @@
 					description="If not empty overwrite color of active menu background. Default empty  "
 					 />
 			</fieldset>
-			<fieldset name="Developer" addfieldpath="/templates/wsa_onepage/fields" addrulepath="/templates/wsa_onepage/rules"
+			<fieldset name="Developer"  addrulepath="/templates/wsa_onepage/rules">
 			  
-			 addruleprefix="WaasdorpSoekhan\Template\Wsaonepage\Rule">
+			 <!-- addruleprefix="WaasdorpSoekhan\Template\Wsaonepage\Rule"> werkt nog niet -->
 			 <!--  addfieldprefix="WaasdorpSoekhan\Template\Wsaonepage\Administrator\Field"-->
 				<field name="compile" type="radio"
 					class="btn-group btn-group-yesno"
