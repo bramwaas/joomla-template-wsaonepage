@@ -3,27 +3,29 @@
  * @package Joomla.Site
  * @subpackage Templates.dna
  *
- * @copyright Copyright (C) 2016 - 2017 Bram Waasdorp. All rights reserved.
+ * @copyright Copyright (C) 2016 - 2022 Bram Waasdorp. All rights reserved.
  * @license GNU General Public License version 2 or later; see LICENSE.txt
  * 10-9-2020
  * 14-9-2020 removed most references to TWBS 3 SASS files and the files itself.
+ * 31-12-2021 restored most references to TWBS 3 SASS files and the files itself.
+ * 2-1-2022 node ... containers verplaatst en daarna verwijderd omdat deze niet compatible is met BS3.
+ *   most warnings of undefined variables resolved by commenting those statements.
  */
 /* regel voor validatie type compiler, bedoeld om samenstellen en compileren Less bestanden uit te voeren vlak voor
    de save  
 
 	*/
  
-defined('_JEXEC') or die('caught by _JEXEC');
+\defined('_JEXEC') or die('caught by _JEXEC');
 use ScssPhp\ScssPhp\Compiler;
 use ScssPhp\Server\Server;
 
 use Joomla\CMS\Factory;   
-use Joomla\CMS\Uri\Uri;
+//use Joomla\CMS\Uri\Uri;
 //use Joomla\CMS\HTML\HTMLHelper;
 //use Joomla\CMS\Language\Text;   // voor vertalingen???
 use Joomla\CMS\Form\FormRule;
 use Joomla\CMS\Form\Form;
-use Joomla\Registry\Registry;
 
 
  
@@ -47,7 +49,7 @@ class WsaFormRuleCompiler extends FormRule
      * @param   string             $group    The field name group control value. This acts as as an array container for the field.
      *                                       For example if the field has name="foo" and the group value is set to "bar" then the
      *                                       full field name would end up being "bar[foo]".
-     * @param   Registry           $input    An optional Registry object with the entire data set to validate against the entire form.
+     * @param   mixed              $input    An optional "Registry" object with the entire data set to validate against the entire form.
      * @param   Form               $form     The form object for which the field is being tested.
      *
      * @return  boolean  True if the value is valid, false otherwise.
@@ -55,10 +57,10 @@ class WsaFormRuleCompiler extends FormRule
      * @since   1.7.0
      * @throws  \UnexpectedValueException if rule is invalid.
      */
-    public function test(\SimpleXMLElement $element, $value, $group = null, Registry $input = null, Form $form = null)
+    public function test(\SimpleXMLElement $element, $value, $group = null,  $input = null, Form $form = null)
     
     {
-
+        //$joomlaverge4 = (new Version)->isCompatible('4.0.0');
 //$templatestyleid =  Uri::getInstance ()->getVar('id');
  $app = Factory::getApplication();
  $currentpath = realpath(__DIR__ ) ;
@@ -103,12 +105,12 @@ $twbs_version   = htmlspecialchars($params->twbs_version);
 
 
 $itemVideoHeight= htmlspecialchars($params->itemVideoHeight);
-$itemLeadHeight = htmlspecialchars($params->itemLeadHeight);
-$itemLeadWidth  = htmlspecialchars($params->itemLeadWidth);
-$itemLeadMargin = htmlspecialchars($params->itemLeadMargin);
-$itemHeight    	= htmlspecialchars($params->itemHeight);
-$itemWidth    	= htmlspecialchars($params->itemWidth);
-$itemMargin    	= htmlspecialchars($params->itemMargin);
+//$itemLeadHeight = htmlspecialchars($params->itemLeadHeight);
+//$itemLeadWidth  = htmlspecialchars($params->itemLeadWidth);
+//$itemLeadMargin = htmlspecialchars($params->itemLeadMargin);
+//$itemHeight    	= htmlspecialchars($params->itemHeight);
+//$itemWidth    	= htmlspecialchars($params->itemWidth);
+//$itemMargin    	= htmlspecialchars($params->itemMargin);
 
 $hlMarginTop    = htmlspecialchars($params->hlMarginTop);
 $hlMarginLeft   = htmlspecialchars($params->hlMarginLeft);
@@ -135,9 +137,9 @@ $menuActiveBgColor 	= htmlspecialchars($params->menuActiveBgColor);
 $iconsMobileLeft = '';
 $iconsMobileWidth =  ''; 
 
-$contentPosLeft	= htmlspecialchars($params->contentPosLeft);
-$contentPosRight	= htmlspecialchars($params->contentPosRight);
-$contentPosTop  = htmlspecialchars($params->contentPosTop);
+//$contentPosLeft	= htmlspecialchars($params->contentPosLeft);
+//$contentPosRight	= htmlspecialchars($params->contentPosRight);
+//$contentPosTop  = htmlspecialchars($params->contentPosTop);
 $marginLeftRight	= htmlspecialchars($params->marginLeftRight);
 
 if ( $hlWidth > " " and $hlWidth < 40) {
@@ -325,8 +327,8 @@ if ($menuActiveBgColor > ' '  ) { fwrite($tv_file, '$menuActiveBgColor: '  . $me
 };
 
 /* overgenomen uit asha-s werkt mogelijk (nog) niet */
-if ($showTitle > ' '  ) 	fwrite($tv_file, '$showTitle:         '  . $showTitle .  ";\n");
-if ($tagItemTitleDisplay > ' '  ) fwrite($tv_file, '$tagItemTitleDisplay: '  . $tagItemTitleDisplay .  ";\n");
+//if ($showTitle > ' '  ) 	fwrite($tv_file, '$showTitle:         '  . $showTitle .  ";\n");
+//if ($tagItemTitleDisplay > ' '  ) fwrite($tv_file, '$tagItemTitleDisplay: '  . $tagItemTitleDisplay .  ";\n");
 if ($marginLeftRight > ' '  ) 	{
 				fwrite($tv_file, '$asMarginStd:       '  . $marginLeftRight .  "%;\n");
 				fwrite($tv_file, '$marginArea:        '  . ($marginLeftRight / 2) .  "%;\n");
@@ -352,7 +354,20 @@ fwrite($st_file, "// css        " . $wsaCssFilename  . "\n//\n");
 
 // standaard bootstrap variables mixins etc.
 fwrite($st_file, "//\n// standard bootstrap includes v" . $twbs_version . "\n//\n");
-if($twbs_version == '4') { /* twbs version 4 */} /* einde twbs version 4 */
+if($twbs_version == '3') {
+    fwrite($st_file, '@import "variables.scss";' . "\n");
+    fwrite($st_file, '@import "mixins/reset-filter.scss";' . "\n");
+    fwrite($st_file, '@import "mixins/vendor-prefixes.scss";' . "\n");
+    fwrite($st_file, '@import "mixins/gradients.scss";' . "\n");
+    fwrite($st_file, '@import "node_modules/bootstrap/scss/functions";' . "\n"); // uit BS4
+    fwrite($st_file, '@import "node_modules/bootstrap/scss/variables";' . "\n"); // uit BS4
+    fwrite($st_file, '@import "mixins/grid.scss";' . "\n");
+} else 
+{  /* twbs version 4 or 5 */
+    fwrite($st_file, '@import "variables.scss";' . " // nog even uit 3\n");  // nog even uit BS3
+    fwrite($st_file, '@import "mixins/reset-filter.scss";' . " // nog even uit 3\n"); // nog even uit BS3
+    fwrite($st_file, '@import "mixins/gradients.scss";' . " // nog even uit 3\n");    // nog even uit BS3
+    
 
 // Custom.scss
 // Option B: Include parts of Bootstrap
@@ -435,11 +450,12 @@ fwrite($st_file,
 //fwrite($st_file, '@import "node_modules/bootstrap/scss/images";' . "\n");
 //fwrite($st_file, '@import "node_modules/bootstrap/scss/code";' . "\n");
 fwrite($st_file, '@import "node_modules/bootstrap/scss/grid";' . "\n");
-}
+//fwrite($st_file, '@import "node_modules/bootstrap/scss/containers";' . "\n");
+//fwrite($st_file, '@import "node_modules/bootstrap/scss/breadcrumb";' . "\n");
 
+}
+}
 // standaard bootstrap variables mixins etc. einde
-//fwrite($st_file, '@import "system.scss";' . "\n");
-//fwrite($st_file, '@import "general.scss";' . "\n");
 fwrite($st_file, "//\n// other variables\n//\n");
 fwrite($st_file, '@import "magnificpopup.variables.scss";' . "\n");
 fwrite($st_file, '@import "template_variables.scss";' . "\n");
@@ -447,18 +463,16 @@ fwrite($st_file, '@import "template_variables.scss";' . "\n");
 //fwrite($st_file, '@import "joomla_update_icons.scss";' . "\n");
 fwrite($st_file, "//\n// css\n//\n");
 
-if ($background > ' '  )
-{ 	$pos1 = stripos($background, ".css");
-	if ($pos1 > 0)
-	{
-    $background = substr_replace($background, '.scss', $pos1, 4) ;
-	}
-	fwrite($st_file, '@import "'  . $background .  "\";\n");
-}
+//if ($background > ' '  )
+//{ 	$pos1 = stripos($background, ".css");
+//	if ($pos1 > 0)
+//	{
+//    $background = substr_replace($background, '.scss', $pos1, 4) ;
+//	}
+//	fwrite($st_file, '@import "'  . $background .  "\";\n");
+//}
 fwrite($st_file, '@import "style' . $templatestyleid . '.var.scss";' . "\n");
 // modules where customized variables are used.
-fwrite($st_file, '@import "node_modules/bootstrap/scss/containers";' . "\n");
-fwrite($st_file, '@import "node_modules/bootstrap/scss/breadcrumb";' . "\n");
 fwrite($st_file, '@import "magnificpopup.scss";' . "\n");
 fwrite($st_file, '@import "template_dropdown.scss";' . "\n");
 fwrite($st_file, '@import "template_css.scss";' . "\n");
