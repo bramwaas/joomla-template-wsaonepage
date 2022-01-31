@@ -10,6 +10,7 @@
  * 31-12-2021 restored most references to TWBS 3 SASS files and the files itself.
  * 2-1-2022 node ... containers verplaatst en daarna verwijderd omdat deze niet compatible is met BS3.
  *   most warnings of undefined variables resolved by commenting those statements.
+ * 30-1-2022 //TODO namespace will work net earlier than Joomla v4.2 and maybe Administrator and Site must be distinguised.  
  */
 /* regel voor validatie type compiler, bedoeld om samenstellen en compileren Less bestanden uit te voeren vlak voor
    de save  

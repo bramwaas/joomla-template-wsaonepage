@@ -7,7 +7,7 @@
   </compatibility>
 	<name>wsa_onepage</name>
 	<version>1.2.9</version>
-	<creationDate>28=1-2022</creationDate>
+	<creationDate>31-1-2022</creationDate>
 	<author>AHC Waasdorp</author>
 	<authorEmail>info@waasdorpsoekhan.nl</authorEmail>
 	<authorUrl>http://www.waasdorpsoekhan.nl</authorUrl>
@@ -20,9 +20,9 @@
     The "ComponentName" section MUST match the name used 
     everywhere else for your component. Whatever the name of 
     this XML file is, the namespace must match (ignoring CamelCase). 
+//TODO namespace for templates works only after joomla 4.1 maybe 4.2    
     -->
     <namespace path="src/">WaasdorpSoekhan\Template\Wsaonepage</namespace>
-	
 	<files>
 		<filename>component.php</filename>
 		<filename>favicon_as_2015.ico</filename>

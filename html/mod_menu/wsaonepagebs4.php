@@ -35,7 +35,8 @@
  * 10-8-2020 list of components moved to com_wsaonepage where it belongs and removed from this module.
  * 1-9-2021 J4 Item->getParams() replacing ->params
  * 3-12-2021 removed use ... Registry that is not existent anymore and also not used in this block.
- * 16-5-2020 twbs 3 verwijzingen hersteld
+ * 16-12-2021 twbs 3 verwijzingen hersteld
+ * 31-1-2022 referentie naar 'wsaonepagebs4_'.$item->type verbeterd, zodat deze ook bij gebruik in ander template werkt.
  */
 
 \defined('_JEXEC') or die;
@@ -219,18 +220,18 @@ echo '<div id="navbar-' . $moduleIdPos . '" class="collapse navbar-collapse">' .
 
 	// Render the menu item.
 	switch ($item->type) :
-		case 'separator':
-		case 'component':
-		case 'heading':
-		case 'url':
-		    require ModuleHelper::getLayoutPath('mod_menu', 'wsaonepagebs4_'.$item->type);
-			break;
-
-		default:
-		    require ModuleHelper::getLayoutPath('mod_menu', 'wsaonepagebs4_url');
-			break;
-	endswitch;
-
+    case 'separator':
+    case 'component':
+    case 'heading':
+    case 'url':
+        require (__DIR__ .  '/wsaonepagebs4_'.$item->type . '.php');
+        break;
+        
+    default:
+        require (__DIR__ .  '/wsaonepagebs4_url.php');
+        break;
+        endswitch;
+        
 	// The next item is deeper.
 	// TODO controleren of hier ID ook uniek gemaakt kan worden
 	if ($item->deeper){
