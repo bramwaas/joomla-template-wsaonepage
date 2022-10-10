@@ -5,7 +5,7 @@
       <versions from="3.9.18" to="4.0.99" />
     </include>
   </compatibility>
-	<name>tpl_wsaonepage</name>
+	<name>wsa_onepage</name>
 	<version>1.2.10</version>
 	<creationDate>10-10-2022</creationDate>
 	<author>AHC Waasdorp</author>
