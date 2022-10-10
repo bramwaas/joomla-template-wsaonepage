@@ -5,9 +5,9 @@
       <versions from="3.9.18" to="4.0.99" />
     </include>
   </compatibility>
-	<name>wsa_onepage</name>
-	<version>1.2.9</version>
-	<creationDate>31-1-2022</creationDate>
+	<name>tpl_wsaonepage</name>
+	<version>1.2.10</version>
+	<creationDate>10-10-2022</creationDate>
 	<author>AHC Waasdorp</author>
 	<authorEmail>info@waasdorpsoekhan.nl</authorEmail>
 	<authorUrl>http://www.waasdorpsoekhan.nl</authorUrl>
