@@ -3,13 +3,14 @@
  * @package Joomla.Site
  * @subpackage Templates.dna
  *
- * @copyright Copyright (C) 2016 - 2022 Bram Waasdorp. All rights reserved.
+ * @copyright Copyright (C) 2016 - 2024 Bram Waasdorp. All rights reserved.
  * @license GNU General Public License version 2 or later; see LICENSE.txt
  * 10-9-2020
  * 14-9-2020 removed most references to TWBS 3 SASS files and the files itself.
  * 31-12-2021 restored most references to TWBS 3 SASS files and the files itself.
  * 2-1-2022 node ... containers verplaatst en daarna verwijderd omdat deze niet compatible is met BS3.
  *   most warnings of undefined variables resolved by commenting those statements.
+ * 2023-12-07 resolved Unknown constant path_parts (is var $path_parts).
  */
 /* regel voor validatie type compiler, bedoeld om samenstellen en compileren Less bestanden uit te voeren vlak voor
    de save  
@@ -167,7 +168,7 @@ if ($wsaCustomSCSS > ' ' and strtolower(substr ( $wsaCustomSCSS , 0 , 7 )) == 'i
 $wsaCssFilename = strtolower(htmlspecialchars($params->wsaCssFilename));
  if ($wsaCssFilename > " ")
  {$path_parts = pathinfo($wsaCssFilename);
- if (path_parts['extension'] <> 'css'){$wsaCssFilename = $wsaCssFilename . '.css';};
+ if ($path_parts['extension'] <> 'css'){$wsaCssFilename = $wsaCssFilename . '.css';};
  }
  else
  { $wsaCssFilename = 'template.min.' . $templatestyleid . '.css';}

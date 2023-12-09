@@ -2,16 +2,16 @@
 <extension version="3.9" type="template" client="site" method="upgrade">
   <compatibility>
     <include>
-      <versions from="3.9.18" to="4.0.99" />
+      <versions from="3.9.18" to="5.0.99" />
     </include>
   </compatibility>
 	<name>wsa_onepage</name>
-	<version>1.2.10</version>
-	<creationDate>10-10-2022</creationDate>
+	<version>1.2.11</version>
+	<creationDate>9-12-2023</creationDate>
 	<author>AHC Waasdorp</author>
 	<authorEmail>info@waasdorpsoekhan.nl</authorEmail>
 	<authorUrl>http://www.waasdorpsoekhan.nl</authorUrl>
-	<copyright>AHC Waasdorp, Amsterdam 2020 - 2022</copyright>
+	<copyright>AHC Waasdorp, Amsterdam 2020 - 2024</copyright>
 	<description>TPL_WSA_ONEPAGE_DESCRIPTION</description>
 	    <!-- This is the PHP namespace under which the extension's
     code is organised. It should follow this format:
