@@ -2,7 +2,7 @@
 <extension version="3.9" type="template" client="site" method="upgrade">
   <compatibility>
     <include>
-      <versions from="3.9.18" to="5.0.99" />
+      <versions from="3.9.18" to="5.99.99" />
     </include>
   </compatibility>
 	<name>wsa_onepage</name>
