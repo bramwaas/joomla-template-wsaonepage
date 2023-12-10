@@ -25,7 +25,7 @@ use Joomla\CMS\Uri\Uri;
 
 $joomlaverge4 = (version_compare(JVERSION, '4.0', '>='));
 $app  = Factory::getApplication();
-$lang = Factory::getLanguage();
+$lang = $app->getLanguage();
 if ($joomlaverge4) {$wa  = $this->getWebAssetManager();}
 
 // Detecting Active Variables
@@ -45,28 +45,26 @@ $pageclass = $menu !== null ? $menu->getParams()->get('pageclass_sfx', '') : '';
 $template = $app->getTemplate(true);
 $templateparams  = $template->params;
 $templatestyleid =  $template->id;  
-$displaySitename = htmlspecialchars($templateparams->get('displaySitename')); // 1 yes 2 no 
+$displaySitename = htmlspecialchars($templateparams->get('displaySitename', '1')); // 1 yes 2 no 
+$wsaCustomColor0 = htmlspecialchars($this->params->get('wsaCustomColor0', ''));
+
+$bg1Image    	= htmlspecialchars($this->params->get('bg1Image', ''));
+$bg1Image_lg    	= htmlspecialchars($this->params->get('bg1Image_lg', '' ));
+$bg1Breakpoint_lg    	= htmlspecialchars($this->params->get('bg1Breakpoint_lg', 0));
+$bg1Image_sm    	= htmlspecialchars($this->params->get('bg1Image_sm', ''));
+$bg1Breakpoint_sm    	= htmlspecialchars($this->params->get('bg1Breakpoint_sm', 0));
+
+$bg1Width    	= htmlspecialchars($this->params->get('bg1Width', ''));
+$bg1Top      	= htmlspecialchars($this->params->get('bg1Top', ''));
+$bg1Left      	= htmlspecialchars($this->params->get('bg1Left', ''));
+$wsaCustomColor1    	= htmlspecialchars($this->params->get('wsaCustomColor1', ''));
+$bg1ImageW    	= htmlspecialchars($this->params->get('bg1ImageW', ''));
+$bg1ImageH    	= htmlspecialchars($this->params->get('bg1ImageH', ''));
+$bg1Image_lgW  	= htmlspecialchars($this->params->get('bg1Image_lgW', ''));
+$bg1Image_smW  	= htmlspecialchars($this->params->get('bg1Image_smW', ''));
 
 
-$wsaCustomColor0    	= htmlspecialchars($this->params->get('wsaCustomColor0'));
-
-$bg1Image    	= htmlspecialchars($this->params->get('bg1Image'));
-$bg1Image_lg    	= htmlspecialchars($this->params->get('bg1Image_lg'));
-$bg1Breakpoint_lg    	= htmlspecialchars($this->params->get('bg1Breakpoint_lg'));
-$bg1Image_sm    	= htmlspecialchars($this->params->get('bg1Image_sm'));
-$bg1Breakpoint_sm    	= htmlspecialchars($this->params->get('bg1Breakpoint_sm'));
-
-$bg1Width    	= htmlspecialchars($this->params->get('bg1Width'));
-$bg1Top      	= htmlspecialchars($this->params->get('bg1Top'));
-$bg1Left      	= htmlspecialchars($this->params->get('bg1Left'));
-$wsaCustomColor1    	= htmlspecialchars($this->params->get('wsaCustomColor1'));
-$bg1ImageW    	= htmlspecialchars($this->params->get('bg1ImageW'));
-$bg1ImageH    	= htmlspecialchars($this->params->get('bg1ImageH'));
-$bg1Image_lgW  	= htmlspecialchars($this->params->get('bg1Image_lgW'));
-$bg1Image_smW  	= htmlspecialchars($this->params->get('bg1Image_smW'));
-
-
-$wsaCssFilename = strtolower(htmlspecialchars($this->params->get('wsaCssFilename')));
+$wsaCssFilename = strtolower(htmlspecialchars($this->params->get('wsaCssFilename', '')));
 if ($wsaCssFilename > " ")
 {$path_parts = pathinfo($wsaCssFilename);
 if (path_parts['extension'] <> 'css'){$wsaCssFilename = $wsaCssFilename . '.css';};

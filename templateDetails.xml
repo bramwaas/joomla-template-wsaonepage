@@ -2,12 +2,12 @@
 <extension version="3.9" type="template" client="site" method="upgrade">
   <compatibility>
     <include>
-      <versions from="3.9.18" to="5.0.99" />
+      <versions from="3.9.18" to="5.99.99" />
     </include>
   </compatibility>
 	<name>wsa_onepage</name>
 	<version>1.2.11</version>
-	<creationDate>9-12-2023</creationDate>
+	<creationDate>10-12-2023</creationDate>
 	<author>AHC Waasdorp</author>
 	<authorEmail>info@waasdorpsoekhan.nl</authorEmail>
 	<authorUrl>http://www.waasdorpsoekhan.nl</authorUrl>
