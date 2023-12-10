@@ -66,9 +66,9 @@ $document = Factory::getDocument();
 $sitename = $app->get('sitename');
 $itemid   = $app->input->getCmd('Itemid', '');
 $input = $app->input;
-$tDisplaySitename = htmlspecialchars($app->getTemplate(true)->params->get('displaySitename')); // 1 yes 2 no
-$tBrandImage = htmlspecialchars($app->getTemplate(true)->params->get('brandImage'));
-$menuType = htmlspecialchars($app->getTemplate(true)->params->get('menuType'));
+$tDisplaySitename = htmlspecialchars($app->getTemplate(true)->params->get('displaySitename', 1)); // 1 yes 2 no
+$tBrandImage = htmlspecialchars($app->getTemplate(true)->params->get('brandImage',''));
+$menuType = htmlspecialchars($app->getTemplate(true)->params->get('menuType', ''));
 $twbs_version = htmlspecialchars($app->getTemplate(true)->params->get('twbs_version', '4')); // bootstrap version 3, 5 or (default) 4 
 if ($twbs_version == 3) {
 	$menuType = str_replace(array("light", "dark", "bg-"), array("default", "inverse", ""), $menuType);	
