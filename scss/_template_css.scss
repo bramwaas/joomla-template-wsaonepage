@@ -29,6 +29,11 @@
 //            padding header-inner .navbar alleen nog 0 voor BS3
 // 20211231 restored references to $twbs_version == 3 (and also 4) and added $twbs_version == 5 
 // 20220126 class iconssm added to mod-languages to override module template.css.
+//  20240930 Redesigned block for RSS (Flickr) fotos newsfeed component, because J4, J5 module class is not a suffix after the component class,
+//     but an extra class in the page header,  ul may be used in stead of ol and Pias is stopped. So .newsfeed_rssfoto is approximately 
+//     replaced by by ._rssfoto .newsfeed. At the same time make more use of scss possibillities use css attribute match selectors and
+//     remove unnecessary selectors.
+
 
 /* ===========================
 	alle schermbreedtes
@@ -296,110 +301,83 @@ order: -1;
 }	
 /* einde tijdelijk toegvoegd voor bs 3 */
 
-/* aanpassingen voor newsfeeds uit oudere templates van mij */
-/* rss fotos van flickr en picasa met suffix _rssfoto */
-/* rss fotos van flickr en picasa met suffix _rssfoto */
+/* adaptations for newsfeeds */
+/* rss fotos of flickr suffix _rssfoto */
+/* rss fotos of flickr  met suffix _rssfoto */
 /* rss flickr images (ul li p a img) */
-/* rss picasa images (ul li a img) */
-.newsfeed_rssfoto,
-.newsfeed_rssfoto01,
-.newsfeed_rsspicasa,
-div[class^="newsfeed"]
-{
-margin: 0;
-padding: 0;
-width: auto;
-
- h2
-	{
+[class*="rssfoto"] .newsfeed {
 	margin: 0;
-	font-weight: bold;
-	font-family: Helvetica,Arial,sans-serif;
-	font-size: 1.5em;
-	padding-left: 0px;
-	margin-bottom: 10px;
-	text-align: left;
-	}
+	padding: 0;
+	width: auto;
 
-  h3
-	{
-	font-size: 1.3em;
-	line-height: 1.3em;
-	padding-left: 0px;
-	margin-bottom: 0px;
-	text-align: left;
-	}
+	h2
+		{
+		margin: 0;
+		font-weight: bold;
+		font-family: Helvetica,Arial,sans-serif;
+		font-size: 1.5em;
+		padding-left: 0px;
+		margin-bottom: 10px;
+		text-align: left;
+		}
 
-  ol
-	{
-	padding:0;
+	h3
+		{
+		font-size: 1.3em;
+		line-height: 1.3em;
+		padding-left: 0px;
+		margin-bottom: 0px;
+		text-align: left;
+		}
 
-	 li
+	ol, ul
+		{
+		padding:0;
+		}
+	li
 		{
 		list-style-type: none;
 		margin-left: 0;
 		margin-right: 10px;
 		margin-bottom: 10px;
-		}
-	}	
-
-/* einde div[class^="newsfeed"] */}
-.newsfeed_rssfoto,
-.newsfeed_rssfoto01,
-.newsfeed_rsspicasa
-{
- ol
-	{
-
-	 li
-		{
 		display: inline-block;
 		height: 320px; /* vaste hoogte (en breedte) voor mooier ordenen */
 		width: 250px;
 		overflow: hidden;
+		
+		a img
+			{
+			background-color: rgba(255,255,255,0.75);
+			padding:4px;
+			border: 1px solid lightgray; 
+		    border-radius: 5px;
+		    box-shadow:	0 0 8px 4px lightgray;
+		    margin: 5px;
+			}
+
+			div.feed-item-description p:first-child
+			{ /* make unwanted image header text from newsfeed invisible  */
+			font-size: 4%;
+			color: transparent;
+			    a
+				{
+				font-size: 2500%;
+				color: $link-color;
+				}
+			}
+		
 		}
-	}	
-/* einde newsfeed_rssfoto */ }
+	
+} /* end rssfoto newsfeed  */
+/* exceptions for rssfoto01 */
+[class*="rssfoto01"] div.newsfeed li{
+	background-color: lightgray;
 
-.newsfeed_rssfoto ol li a img,
-.newsfeed_rsspicasa ol li a img
-{
-background-color: #6F571B;
-padding:2px;
-border: 3px solid black; /*ridge */
-}
-/* ongewenste tekst van newsfeed onzichtbaar maken j3 zodat override niet nodig is */
-.newsfeed_rssfoto ol li div.feed-item-description p:first-child,
-.newsfeed_rssfoto01 ol li div.feed-item-description p:first-child
-{
-font-size: 4%;
-//opacity: 0.1;
-color: transparent;
-    a
-	{
-	font-size: 2500%;
-	//opacity: 1.0;
-	color: $link-color;
-	}
-}
-.newsfeed_rssfoto01 ol li
-{
-background-color: #ccc;
-}
-.newsfeed_rssfoto01 ol li a img
-{
-padding:5px;
-}
-.newsfeed_rsspicasa ol li
-{
-height: 210px; /* picasa foto's zijn kleiner en vierkant */
-background-color: #ccc;
-}
-
-.tag-category fieldset
-{ /* tot joomla het zoekveld goed verbergt */
-display: $tagItemSearchDisplay; 
-}
+	a img
+		{
+		padding:5px;
+		}
+} /* end exceptions for rssfoto01 */
 
 .tag-category ul 
 { /* tag-list inline maken in plaats van opsomming */
