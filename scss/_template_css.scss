@@ -349,10 +349,10 @@ order: -1;
 			{
 			background-color: rgba(255,255,255,0.75);
 			padding:4px;
-			border: 1px solid lightgray; 
-		    border-radius: 5px;
-		    box-shadow:	0 0 8px 4px lightgray;
-		    margin: 5px;
+			border: 1px solid rgba(0,0,0,0.3); 
+			border-radius: 5px;
+			box-shadow:	0 0 8px 4px rgba(0,0,0,0.2);
+			margin: 5px;
 			}
 
 			div.feed-item-description p:first-child
