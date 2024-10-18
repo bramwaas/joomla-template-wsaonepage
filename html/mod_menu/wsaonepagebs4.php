@@ -2,7 +2,7 @@
 /**
  * @package     	Joomla.Site
  * @subpackage  	mod_menu override
- * @copyright   	Copyright (C) 2005 - 2022 Open Source Matters, Inc. All rights reserved.
+ * @copyright   	Copyright (C) 2005 - 2024 Open Source Matters, Inc. All rights reserved.
  * @license     	GNU General Public License version 2 or later; see LICENSE.txt
  * Modifications	Joomla CSS
  * 24-4-2016 ook begin en eind van navbar naar deze module-override gehaald (uit module position-1), zodat deze overal in index.php geplaatst kan worden
@@ -37,6 +37,7 @@
  * 3-12-2021 removed use ... Registry that is not existent anymore and also not used in this block.
  * 16-12-2021 twbs 3 verwijzingen hersteld
  * 31-1-2022 referentie naar 'wsaonepagebs4_'.$item->type verbeterd, zodat deze ook bij gebruik in ander template werkt.
+ * 2024-10-18 some small adjustments for Bootstrap 5 (data-bs-... added to data-...) as a result of testing wsabootstrap template.
  */
 
 \defined('_JEXEC') or die;
@@ -127,8 +128,8 @@ $moduleIdPos          = 'M' . $module->id . $module->position;
 ?>
 
 <?php 
-// div met role = "navigation" in plaats van nav gebruikt oa IE8 nav nog niet kent, maar kan via moduleTag aangepast worden
-echo '<!-- Begin Navbar-->';
+echo '<!-- Begin Navbar-->' . PHP_EOL;
+echo '<!-- wsaonepagebs4 $twbs_version=' . $twbs_version . ". -->\n";
 if ($wsaNavbarpos == 'fixed-top') {echo '<div id="navbar-placeholder" class="navbar ' . $wsaNavbarExpand .'">&nbsp;</div>' . PHP_EOL;
 }
 echo '<' . $moduleTag . ' class="' . $module->position . ' navbar ' . $wsaNavbarpos . ' ' . $wsaNavbarExpand . ' ' . $wsaNavbarbg . ' ' . $wsaNavbarfg . ' ' . $wsaNavbarWidthTransition . '" role="navigation">'. PHP_EOL;
@@ -144,7 +145,6 @@ if(  $document->countModules('navbar-brand')){
 if ($tDisplaySitename == "1") {
     echo '<a class="navbar-brand" href="#">' . $sitename . '</a>'. PHP_EOL;
 }
-echo '<!-- $twbs_version=' . $twbs_version . ". -->\n";
 if ($twbs_version == '3') {
 echo '<div class="navbar-header">
 	<button type="button"  class="navbar-toggle" data-toggle="collapse" data-target="#navbar-<?php echo $moduleIdPos; ?>"  aria-controls="navbar-<?php echo $moduleIdPos; ?>" aria-expanded="false">
@@ -154,7 +154,7 @@ echo '<div class="navbar-header">
 	<span class="icon-bar"></span>
 	</button>'; 
 } else { // $twbs_version == '4' or '5'
-echo '<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-' . $moduleIdPos . '" aria-controls="navbar-' . $moduleIdPos . '" aria-expanded="false" aria-label="Toggle navigation">' . PHP_EOL
+    echo '<button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar-' . $moduleIdPos . '" data-bs-target="#navbar-' . $moduleIdPos . '" aria-controls="#navbar-' . $moduleIdPos . '" aria-expanded="false" aria-label="Toggle navigation">' . PHP_EOL
 . '<span class="navbar-toggler-icon"></span>' . PHP_EOL
 . '</button>' . PHP_EOL; }
 if ($twbs_version == '3') { echo '</div> <!-- navbar-header -->';}
