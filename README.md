@@ -1,7 +1,11 @@
 # joomla-template-wsaonepage
 simple one page bootstrap joomla template
 with special menu lay-out to support onepage component
-menusitems with #op# in note are displayed as bookmarks to sections in the onepagecomponent with the same menu.
+
+# stop working on it, remove juli 2025
+too much different from standard Joomla thus too many parts need to be copied to other places. Hard to keep working correct.
+
+menuitems with #op# in note are displayed as bookmarks to sections in the onepagecomponent with the same menu.
 ## Copyright and License
 
 This project is licensed under the [GNU GPL], version 3 or later.
